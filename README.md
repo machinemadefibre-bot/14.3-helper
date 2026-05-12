@@ -1,147 +1,135 @@
 # 14.3 Helper
 
-[![Version](https://img.shields.io/badge/version-0.2.26-blue.svg)](#release)
+**简体中文** | [English](README.en.md)
+
+[![Version](https://img.shields.io/badge/version-0.2.26-blue.svg)](#发布)
 [![World of Warships](https://img.shields.io/badge/World%20of%20Warships-battle%20UI-informational.svg)](https://worldofwarships.com/)
 [![Aslain custom mod](https://img.shields.io/badge/Aslain-custom%20mod-orange.svg)](https://aslain.com/)
-[![License](https://img.shields.io/badge/license-TBD-lightgrey.svg)](#license)
+[![License](https://img.shields.io/badge/license-TBD-lightgrey.svg)](#许可证)
 
-**14.3 Helper** is an Aslain-compatible World of Warships battle UI mod that
-shows whether your currently selected shell can defeat the locked target's key
-external armor areas.
+**14.3 Helper** 是一个兼容 Aslain 的《战舰世界》战斗 UI 插件。它会在你锁定敌舰后，根据当前选择的 AP / HE / SAP，显示目标关键外部装甲区域是否能被当前炮弹击穿或碾压。
 
-It is built for a narrow job: reduce armor-threshold memorization during battle
-without adding aim prediction, hidden information, automation, or process
-injection.
+这个插件只做一件事：减少战斗中记忆装甲阈值的负担。它不提供提前量计算、瞄准点预测、隐藏信息读取、自动化操作或外部注入。
 
-> 中文说明：这是一个战斗 UI 小插件。锁定敌舰后，根据你当前选择的
-> AP / HE / SAP，显示目标的 `艏艉`、`甲板`、`侧板`、`装甲延伸`
-> 是否能被击穿或碾压。
+## 功能
 
-## Features
+- 只有在存在有效锁定 / aim-assist 目标时显示。
+- 使用鱼雷等非主炮武器状态时隐藏。
+- AP 使用游戏内碾压规则：`口径 / 14.3 >= 装甲厚度`。
+- HE 和 SAP 使用穿深规则，对同一组装甲区域进行判断。
+- 战斗中只显示紧凑符号：
+  - `√` 表示可以。
+  - `×` 表示不可以。
+  - `△` 表示部分区域可以、部分区域不可以。
+  - `?` 表示缺少可靠数据。
+- 战斗面板显示四行：
+  - `艏艉`：船头 / 船尾外板。
+  - `甲板`：露天甲板 / 主要水平甲板。
+  - `侧板`：主装甲带上方的上侧板。
+  - `装甲延伸`：船头装甲延伸 / 破冰带类装甲。
+- 面板可拖动，并可通过 PnFMods / TTaro 模组配置 UI 调整透明度。
 
-- Shows only when there is a valid locked / aim-assist target.
-- Hides for torpedoes and other non-main-gun weapon states.
-- Supports AP overmatch using the in-game `caliber / 14.3 >= armor` rule.
-- Supports HE and SAP penetration checks against the same armor groups.
-- Uses compact symbols instead of long combat text:
-  - `√` means pass.
-  - `×` means fail.
-  - `△` means mixed / partial.
-  - `?` means missing data.
-- Rows shown in battle:
-  - `艏艉`: bow and stern plating.
-  - `甲板`: exposed deck / main weather deck.
-  - `侧板`: upper side plating above the main belt.
-  - `装甲延伸`: bow armor extension / icebreaker-style belt.
-- Draggable overlay with adjustable opacity through the PnFMods / TTaro mod
-  configuration UI.
+## 合规边界
 
-## Safety Scope
+本项目按《战舰世界》官方模组政策的方向设计：
 
-This project follows the spirit of the official World of Warships mod policy:
+- 使用常规客户端模组结构：`res_mods`、`PnFMods` 和 Unbound UI。
+- 只读取客户端 ModAPI / DataHub 路径暴露的玩家当前战斗状态。
+- 使用从本地游戏客户端生成的版本化装甲参考数据库。
+- 不计算提前量、瞄准点、弹道飞行预测或目标运动解。
+- 不读取未点亮船只、隐藏位置或服务器端才有的信息。
+- 不修改游戏二进制文件，不注入 DLL，不修改原始游戏文件。
 
-- Uses the normal client mod structure: `res_mods`, `PnFMods`, and Unbound UI.
-- Reads only the player's current battle state exposed through the client mod
-  API / DataHub path.
-- Uses a local, versioned armor reference database generated from the installed
-  game client.
-- Does not calculate lead, aim points, shell travel prediction, or target
-  movement solutions.
-- Does not read hidden ships, unrevealed positions, or server-only information.
-- Does not patch game binaries, inject DLLs, or modify original game files.
-
-Relevant policy references:
+相关政策：
 
 - [Wargaming World of Warships Mod Policy](https://wargaming.net/support/en/products/wows/article/10720/)
 - [Wargaming Prohibited Software Policy](https://wargaming.net/support/en/products/wows/article/10721/)
 
-This mod is not affiliated with, endorsed by, or approved by Wargaming.
+本项目与 Wargaming 无从属、认可或官方合作关系。
 
-## Install
+## 安装
 
 ### Aslain Custom Mods
 
-Recommended for testing and distribution.
+推荐用这个方式测试和分发。
 
-1. Download the release zip, for example `14.3-Helper_Aslain_v0.2.26.zip`.
-2. Do not extract it.
-3. Put the zip in:
+1. 下载发布 zip，例如 `14.3-Helper_Aslain_v0.2.26.zip`。
+2. 不要解压。
+3. 把 zip 放到：
 
 ```text
 World of Warships\Aslain_Modpack\Custom_mods\
 ```
 
-4. Run the Aslain installer again.
-5. Launch the game and enter battle.
+4. 重新运行 Aslain 安装器。
+5. 启动游戏并进入战斗。
 
-### Manual Install
+### 手动安装
 
-Use this only if you are not installing through Aslain.
+只有不使用 Aslain 时才建议手动安装。
 
-1. Extract the zip into the active game build directory:
+1. 把 zip 解压到当前游戏版本目录：
 
 ```text
 World of Warships\bin\<current_build>\
 ```
 
-2. After extraction, these paths should exist:
+2. 解压后应存在这些路径：
 
 ```text
 World of Warships\bin\<current_build>\res_mods\gui\unbound2\PnFMods\APOvermatchAssistant.unbound
 World of Warships\bin\<current_build>\res_mods\PnFMods\APOvermatchAssistant\Main.py
 ```
 
-## Usage
+## 使用方式
 
-1. Enter a battle.
-2. Select AP, HE, or SAP main guns.
-3. Lock or aim-assist an enemy ship.
-4. Read the four compact armor rows near the crosshair.
+1. 进入战斗。
+2. 选择 AP、HE 或 SAP 主炮弹药。
+3. 锁定或瞄准辅助锁定一艘敌舰。
+4. 在准星附近读取四行结果。
 
-The panel is intentionally quiet. It does not show the target name, detailed
-armor values, your penetration number, or long explanatory text during battle.
+面板会刻意保持简洁。它不会在战斗中显示目标名称、详细装甲数值、你的穿深数值或长文本说明。
 
-## Build
+## 构建
 
-Requirements:
+需求：
 
 - Windows PowerShell
-- Node.js for the fast database and Unbound generators
-- `wowsunpack` only when extracting fresh client data
+- Node.js，用于快速数据库生成和 Unbound 数据生成
+- `wowsunpack`，仅在需要重新提取客户端数据时使用
 
-Run the rule tests and build the Aslain zip:
+运行规则测试并构建 Aslain zip：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\test-rule.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-The package is written to:
+构建产物写入：
 
 ```text
 dist\APOvermatchAssistant_Aslain.zip
 ```
 
-## Local Install For Development
+## 本地开发安装
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\install-local.ps1 `
   -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
 ```
 
-## Armor Data Updates
+## 装甲数据更新
 
-The armor database is designed to be regenerated after each game update. Raw
-client extraction can be memory-heavy, so extraction is opt-in.
+装甲数据库设计成可以在每次游戏更新后重新生成。原始客户端提取可能比较占内存，所以提取步骤默认不会自动运行。
 
-Generate a diff report only:
+只生成差异报告：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
   -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
 ```
 
-Generate the report and apply the updated database:
+生成报告并应用更新后的数据库：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
@@ -149,7 +137,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 
   -Apply
 ```
 
-Extract fresh `GameParams` only when the cache for the current build is missing:
+只有当前版本缺少缓存 `GameParams` 时，才显式提取新数据：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
@@ -158,15 +146,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 
   -Apply
 ```
 
-Generated diff reports are written under:
+差异报告写入：
 
 ```text
 build\armor-update\
 ```
 
-Large extracted client caches are intentionally ignored by git.
+大型客户端提取缓存会被 git 忽略，不应提交到仓库。
 
-## Project Layout
+## 项目结构
 
 ```text
 src/res_mods/PnFMods/APOvermatchAssistant/Main.py
@@ -181,50 +169,44 @@ tools/generate-armor-db-fast.mjs
 tools/normalize-deck-values.mjs
 ```
 
-The internal module name is still `APOvermatchAssistant` for compatibility with
-the existing PnFMods structure. The public project name is `14.3 Helper`.
+内部模块名仍为 `APOvermatchAssistant`，用于兼容现有 PnFMods 结构。公开项目名为 `14.3 Helper`。
 
-## Reporting Bad Data
+## 反馈错误数据
 
-Please include these details when reporting an armor or shell mismatch:
+反馈装甲或弹药判断错误时，请尽量提供：
 
-- Game version / build.
-- Your ship and selected ammo type.
-- Locked target ship.
-- Screenshot of the helper panel.
-- Screenshot or note from the in-game armor viewer.
-- Expected result for `艏艉`, `甲板`, `侧板`, or `装甲延伸`.
+- 游戏版本 / build。
+- 你使用的船和当前弹药类型。
+- 锁定的目标船。
+- 插件面板截图。
+- 游戏内装甲查看器截图或文字说明。
+- 你认为 `艏艉`、`甲板`、`侧板` 或 `装甲延伸` 应该显示的结果。
 
-Good armor corrections should be reproducible from the current client data or
-from the in-game armor viewer.
+有效的装甲修正应能从当前客户端数据或游戏内装甲查看器复现。
 
-## Known Limits
+## 已知限制
 
-- World of Warships updates can change UI APIs, ship IDs, armor labels, or shell
-  data. Regenerate the database after major updates.
-- Compatibility with every other UI mod is not guaranteed.
-- Armor categories are condensed for battle readability. The detailed armor
-  viewer remains the source of truth for exact model geometry.
-- `?` means the local database or live battle state did not provide enough data
-  for a reliable result.
+- 《战舰世界》更新可能改变 UI API、船只 ID、装甲标签或弹药数据。大版本更新后应重新生成数据库。
+- 不保证与所有其他 UI 模组兼容。
+- 战斗面板的装甲分类经过简化，目标是快速阅读。精确几何结构仍以游戏内装甲查看器为准。
+- `?` 表示本地数据库或实时战斗状态没有提供足够数据，无法可靠判断。
 
-## Release
+## 发布
 
-Current test release:
+当前测试版本：
 
 ```text
 v0.2.26
 ```
 
-Recommended release checklist:
+推荐发布流程：
 
-1. Regenerate or diff armor data for the current game build.
-2. Run `tools\test-rule.ps1`.
-3. Run `tools\build.ps1`.
-4. Upload the generated Aslain zip as a GitHub Release asset.
-5. Test in a training room with AP, HE, SAP, and torpedoes.
+1. 为当前游戏版本重新生成或对比装甲数据。
+2. 运行 `tools\test-rule.ps1`。
+3. 运行 `tools\build.ps1`。
+4. 将生成的 Aslain zip 上传为 GitHub Release 附件。
+5. 在训练房用 AP、HE、SAP 和鱼雷状态测试。
 
-## License
+## 许可证
 
-No open-source license has been declared yet. Until a license file is added,
-all rights are reserved by the repository owner.
+目前还没有声明开源许可证。在添加 license 文件之前，仓库所有者保留全部权利。
