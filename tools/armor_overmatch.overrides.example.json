@@ -1,0 +1,27 @@
+{
+  "ships": {
+    "example_ship_id": {
+      "name": "EXAMPLE",
+      "aliases": ["example_ship_id", "Example"],
+      "mainGunCaliberMm": 406,
+      "mainGunHePenMm": 68,
+      "mainGunSapPenMm": null,
+      "armor": {
+        "bowStern": {
+          "bow": [32],
+          "stern": [32]
+        },
+        "deck": {
+          "values": [38]
+        },
+        "side": {
+          "values": [32]
+        },
+        "extendedBowSternBelt": {
+          "present": true,
+          "values": [32, 38]
+        }
+      }
+    }
+  }
+}

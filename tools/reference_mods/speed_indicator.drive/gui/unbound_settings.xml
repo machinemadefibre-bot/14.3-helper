@@ -1,0 +1,7 @@
+<unbound_settings.xml>
+	<live_coding>False</live_coding>
+	<files>
+		<path>./gui/unbound2/</path>
+		<file>./gui/unbound2/pc/crosshair/MaxSpeed_crosshair_indicators.unbound</file>
+	</files>
+</unbound_settings.xml>

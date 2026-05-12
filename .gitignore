@@ -1,0 +1,16 @@
+build/
+dist/
+*.log
+*.tmp
+*.bak
+
+# Local game/resource extraction caches can be very large.
+GameParams*.json
+wowsunpack/
+wowsunpack-git/
+
+# Editor and OS noise.
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini

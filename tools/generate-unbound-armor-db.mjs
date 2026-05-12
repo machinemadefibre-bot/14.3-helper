@@ -1,0 +1,143 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
+const projectRoot = path.resolve(import.meta.dirname, '..');
+const jsonPath = path.join(projectRoot, 'src', 'res_mods', 'PnFMods', 'APOvermatchAssistant', 'data', 'armor_overmatch.json');
+const unboundPath = path.join(projectRoot, 'src', 'res_mods', 'gui', 'unbound2', 'PnFMods', 'APOvermatchAssistant.unbound');
+
+const db = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+
+function unique(values) {
+  return [...new Set((values || []).map(Number).filter((value) => Number.isFinite(value) && value > 0))].sort((a, b) => a - b);
+}
+
+function flatten(group) {
+  if (!group) return [];
+  if (Array.isArray(group)) return unique(group);
+  if (typeof group === 'object') {
+    const result = [];
+    for (const key of ['values', 'bow', 'stern', 'fore', 'aft', 'main']) {
+      const item = group[key];
+      if (Array.isArray(item)) result.push(...item);
+      else if (item != null) result.push(item);
+    }
+    return unique(result);
+  }
+  return unique([group]);
+}
+
+function formatMm(values) {
+  const clean = unique(values);
+  if (!clean.length) return '? mm';
+  return clean.map((value) => Math.abs(value - Math.round(value)) < 0.01 ? `${Math.round(value)} mm` : `${value.toFixed(1)} mm`).join('/');
+}
+
+function section(values) {
+  const clean = unique(values);
+  return {
+    min: clean.length ? clean[0] : 0,
+    max: clean.length ? clean[clean.length - 1] : 0,
+    text: formatMm(clean),
+  };
+}
+
+function literalString(value) {
+  return `'${String(value ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
+}
+
+function numeric(value) {
+  const num = Number(value);
+  return Number.isFinite(num) ? Number(num.toFixed(3)) : 0;
+}
+
+const records = {};
+const aliases = {};
+for (const [name, ship] of Object.entries(db.ships || {})) {
+  const numericAlias = (ship.aliases || []).find((alias) => /^\d+$/.test(String(alias)));
+  if (!numericAlias) continue;
+
+  const armor = ship.armor || {};
+  const bowStern = armor.bowStern || {};
+  const bow = section(flatten(bowStern.bow || bowStern.fore || bowStern.values || bowStern));
+  const stern = section(flatten(bowStern.stern || bowStern.aft || bowStern.values || bowStern));
+  const deck = section(flatten(armor.deck));
+  const side = section(flatten(armor.side));
+
+  const beltGroup = armor.extendedBowSternBelt || {};
+  const beltValues = flatten(beltGroup);
+  const belt = section(beltValues);
+  const beltPresent = Boolean(beltGroup.present) && beltValues.length > 0;
+
+  const recordKey = String(numericAlias);
+  const aliasKeys = [name, ship.name, ...(ship.aliases || [])]
+    .map((value) => String(value ?? '').trim())
+    .filter(Boolean);
+  for (const alias of aliasKeys) {
+    aliases[alias] = recordKey;
+  }
+
+  records[recordKey] = {
+    n: ship.name || name,
+    c: numeric(ship.mainGunCaliberMm),
+    he: numeric(ship.mainGunHePenMm),
+    sap: numeric(ship.mainGunSapPenMm),
+    bmn: bow.min,
+    bmx: bow.max,
+    bt: bow.text,
+    smn: stern.min,
+    smx: stern.max,
+    st: stern.text,
+    dmn: deck.min,
+    dmx: deck.max,
+    dt: deck.text,
+    xmn: side.min,
+    xmx: side.max,
+    xt: side.text,
+    bp: beltPresent,
+    blmn: belt.min,
+    blmx: belt.max,
+    blt: belt.text,
+  };
+}
+
+const lines = [
+  '# BEGIN GENERATED ARMOR DB - run tools/generate-unbound-armor-db.mjs',
+  `(def constant OA_ARMOR_DB_BUILD ${literalString(db.meta?.gameBuild || '')})`,
+  '(def constant OA_ARMOR_DB {',
+];
+
+for (const [id, rec] of Object.entries(records).sort((a, b) => Number(a[0]) - Number(b[0]))) {
+  lines.push(
+    `  '${id}': {n:${literalString(rec.n)}, c:${rec.c}, he:${rec.he}, sap:${rec.sap}, ` +
+    `bmn:${rec.bmn}, bmx:${rec.bmx}, bt:${literalString(rec.bt)}, smn:${rec.smn}, smx:${rec.smx}, st:${literalString(rec.st)}, ` +
+    `dmn:${rec.dmn}, dmx:${rec.dmx}, dt:${literalString(rec.dt)}, xmn:${rec.xmn}, xmx:${rec.xmx}, xt:${literalString(rec.xt)}, ` +
+    `bp:${rec.bp ? 'true' : 'false'}, blmn:${rec.blmn}, blmx:${rec.blmx}, blt:${literalString(rec.blt)}},`
+  );
+}
+
+lines.push('})', '(def constant OA_ARMOR_ALIAS {');
+for (const [alias, id] of Object.entries(aliases).sort((a, b) => a[0].localeCompare(b[0]))) {
+  if (alias === id) continue;
+  lines.push(`  ${literalString(alias)}: ${literalString(id)},`);
+}
+
+lines.push('})', '# END GENERATED ARMOR DB');
+const block = `${lines.join('\n')}\n\n`;
+
+let unbound = fs.readFileSync(unboundPath, 'utf8');
+const begin = '# BEGIN GENERATED ARMOR DB';
+const end = '# END GENERATED ARMOR DB';
+const beginIndex = unbound.indexOf(begin);
+const endIndex = unbound.indexOf(end);
+
+if (beginIndex >= 0 && endIndex >= beginIndex) {
+  const afterEnd = unbound.indexOf('\n', endIndex);
+  const replaceEnd = afterEnd >= 0 ? afterEnd + 1 : unbound.length;
+  unbound = unbound.slice(0, beginIndex) + block + unbound.slice(replaceEnd).replace(/^\n+/, '');
+} else {
+  const insertAt = unbound.indexOf('\n\n');
+  unbound = unbound.slice(0, insertAt + 2) + block + unbound.slice(insertAt + 2);
+}
+
+fs.writeFileSync(unboundPath, unbound, 'utf8');
+console.log(`Wrote ${Object.keys(records).length} armor records and ${Object.keys(aliases).length} aliases to ${unboundPath}`);

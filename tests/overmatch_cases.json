@@ -1,0 +1,11 @@
+[
+  {"caliber": 203, "armor": 14, "expected": "yes"},
+  {"caliber": 203, "armor": 15, "expected": "no"},
+  {"caliber": 380, "armor": 26, "expected": "yes"},
+  {"caliber": 380, "armor": 27, "expected": "no"},
+  {"caliber": 406, "armor": 27, "expected": "yes"},
+  {"caliber": 406, "armor": 30, "expected": "no"},
+  {"caliber": 457, "armor": 32, "expected": "no"},
+  {"caliber": 460, "armor": 32, "expected": "yes"},
+  {"caliber": 406, "armor": [25, 30], "expected": "partial"}
+]
