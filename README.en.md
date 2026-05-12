@@ -2,7 +2,7 @@
 
 [简体中文](README.md) | **English**
 
-[![Version](https://img.shields.io/badge/version-0.2.26-blue.svg)](#release)
+[![Version](https://img.shields.io/badge/version-0.2.27-blue.svg)](#release)
 [![World of Warships](https://img.shields.io/badge/World%20of%20Warships-battle%20UI-informational.svg)](https://worldofwarships.com/)
 [![Aslain custom mod](https://img.shields.io/badge/Aslain-custom%20mod-orange.svg)](https://aslain.com/)
 [![License](https://img.shields.io/badge/license-TBD-lightgrey.svg)](#license)
@@ -61,7 +61,7 @@ This mod is not affiliated with, endorsed by, or approved by Wargaming.
 
 Recommended for testing and distribution.
 
-1. Download the release zip, for example `14.3-Helper_Aslain_v0.2.26.zip`.
+1. Download the release zip, for example `14.3-Helper_Aslain_v0.2.27.zip`.
 2. Do not extract it.
 3. Put the zip in:
 
@@ -211,7 +211,7 @@ from the in-game armor viewer.
 Current test release:
 
 ```text
-v0.2.26
+v0.2.27
 ```
 
 Recommended release checklist:

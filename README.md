@@ -2,7 +2,7 @@
 
 **简体中文** | [English](README.en.md)
 
-[![Version](https://img.shields.io/badge/version-0.2.26-blue.svg)](#发布)
+[![Version](https://img.shields.io/badge/version-0.2.27-blue.svg)](#发布)
 [![World of Warships](https://img.shields.io/badge/World%20of%20Warships-battle%20UI-informational.svg)](https://worldofwarships.com/)
 [![Aslain custom mod](https://img.shields.io/badge/Aslain-custom%20mod-orange.svg)](https://aslain.com/)
 
@@ -50,7 +50,7 @@
 
 推荐用这个方式测试和分发。
 
-1. 下载发布 zip，例如 `14.3-Helper_Aslain_v0.2.26.zip`。
+1. 下载发布 zip，例如 `14.3-Helper_Aslain_v0.2.27.zip`。
 2. 不要解压。
 3. 把 zip 放到：
 
@@ -192,7 +192,7 @@ tools/normalize-deck-values.mjs
 当前测试版本：
 
 ```text
-v0.2.26
+v0.2.27
 ```
 
 推荐发布流程：

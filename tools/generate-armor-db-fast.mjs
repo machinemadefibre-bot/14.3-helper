@@ -165,8 +165,9 @@ function isSternMaterial(name) {
   return /(^|_)St($|_)|^St_|Stern$/.test(name);
 }
 
-function addClassifiedArmor(groups, material, mm) {
+function addClassifiedArmor(groups, material, mm, options = {}) {
   if (mm <= 0) return;
+  const isCarrier = Boolean(options.isCarrier);
   const isBow = isBowMaterial(material);
   const isStern = isSternMaterial(material);
   const isBowOrStern = isBow || isStern;
@@ -191,7 +192,9 @@ function addClassifiedArmor(groups, material, mm) {
     addUnique(groups.deck, mm, platingMax);
   }
 
-  if (!isBowOrStern && /ConstrSide|Side|Belt/.test(material) && !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS/.test(material)) {
+  if (isCarrier && !isBowOrStern && /ConstrSide/.test(material) && !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SideSS/.test(material)) {
+    addUnique(groups.side, mm, sideMax);
+  } else if (!isCarrier && !isBowOrStern && /ConstrSide|Side|Belt/.test(material) && !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS/.test(material)) {
     addUnique(groups.side, mm, sideMax);
   }
 }
@@ -364,6 +367,7 @@ async function collectProjectilePenetration(gameParamsPath) {
 
 function shipRecord(entryName, lines, projectileMap, materialNames) {
   let isShip = false;
+  const isCarrier = /^P.SA/.test(entryName);
   let name = entryName;
   let index = null;
   let id = null;
@@ -413,7 +417,7 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
         const mm = Number(m[2]);
         if (Number.isFinite(rawKey) && Number.isFinite(mm)) {
           const matId = rawKey % 65536;
-          addClassifiedArmor(currentGroups, materialName(materialNames, matId), mm);
+          addClassifiedArmor(currentGroups, materialName(materialNames, matId), mm, { isCarrier });
         }
       }
     }

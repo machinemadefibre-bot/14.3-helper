@@ -134,7 +134,7 @@ function Test-SternMaterial {
 }
 
 function Add-ClassifiedArmor {
-    param([hashtable]$Groups, [string]$MaterialName, [double]$Mm)
+    param([hashtable]$Groups, [string]$MaterialName, [double]$Mm, [bool]$IsCarrier = $false)
 
     if ($Mm -le 0) { return }
     $isBow = Test-BowMaterial $MaterialName
@@ -162,7 +162,11 @@ function Add-ClassifiedArmor {
         Add-UniqueNumber $Groups.deck $Mm $platingMax
     }
 
-    if (-not $isBowOrStern -and $MaterialName -match 'ConstrSide|Side|Belt' -and
+    if ($IsCarrier -and -not $isBowOrStern -and $MaterialName -match 'ConstrSide' -and
+        $MaterialName -notmatch 'Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SideSS') {
+        Add-UniqueNumber $Groups.side $Mm $sideMax
+    }
+    elseif (-not $IsCarrier -and -not $isBowOrStern -and $MaterialName -match 'ConstrSide|Side|Belt' -and
         $MaterialName -notmatch 'Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS') {
         Add-UniqueNumber $Groups.side $Mm $sideMax
     }
@@ -459,7 +463,7 @@ function Find-HullObject {
 }
 
 function Extract-ArmorGroups {
-    param($Hull)
+    param($Hull, [bool]$IsCarrier = $false)
     $groups = New-ArmorGroups
 
     $armor = Get-Prop $Hull "armor"
@@ -470,7 +474,7 @@ function Extract-ArmorGroups {
         try { $mm = [double]$prop.Value } catch { continue }
         $materialId = [int]($rawKey % 65536)
         $materialName = Get-MaterialName $materialId
-        Add-ClassifiedArmor $groups $materialName $mm
+        Add-ClassifiedArmor $groups $materialName $mm $IsCarrier
     }
     return $groups
 }
@@ -616,7 +620,8 @@ function Convert-Record {
     if ((Get-Prop $typeInfo "type") -ne "Ship") { return $null }
 
     $hull = Find-HullObject $Entry
-    $groups = if ($hull) { Extract-ArmorGroups $hull } else { Extract-ArmorGroups $null }
+    $isCarrier = $EntryName -match '^P.SA'
+    $groups = if ($hull) { Extract-ArmorGroups $hull $isCarrier } else { Extract-ArmorGroups $null $isCarrier }
     $name = Get-Prop $Entry "name"
     if (-not $name) { $name = $EntryName }
     $caliber = Find-MainGunCaliber $Entry
@@ -652,6 +657,7 @@ function Convert-RecordFromLines {
     param([string]$EntryName, [System.Collections.ArrayList]$Lines, [hashtable]$ProjectilePenByName)
 
     $isShip = $false
+    $isCarrier = $EntryName -match '^P.SA'
     $name = $EntryName
     $index = $null
     $id = $null
@@ -692,7 +698,7 @@ function Convert-RecordFromLines {
             if ($null -ne $rawKey) {
                 $materialId = [int]($rawKey % 65536)
                 $materialName = Get-MaterialName $materialId
-                Add-ClassifiedArmor $currentGroups $materialName $mm
+                Add-ClassifiedArmor $currentGroups $materialName $mm $isCarrier
             }
         }
 

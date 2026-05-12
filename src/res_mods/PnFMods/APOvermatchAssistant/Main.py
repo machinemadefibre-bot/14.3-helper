@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 API_VERSION = 'API_v1.0'
 MOD_NAME = 'APOvermatchAssistant'
-MOD_VERSION = '0.2.26'
+MOD_VERSION = '0.2.27'
 
 try:
     unicode

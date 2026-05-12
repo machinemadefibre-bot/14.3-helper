@@ -6,7 +6,7 @@ DATABASE = {
     "name": "APOvermatchAssistant",
     "gameBuild": "12267945",
     "realm": "ASIA",
-    "generatedAt": "2026-05-11T17:54:28",
+    "generatedAt": "2026-05-12T12:54:01",
     "source": "wowsunpack GameParams JSON, streamed per ship",
     "notes": "Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS and filtered by the largest main-gun caliber. Extraction is opt-in to avoid high memory use."
   },
@@ -36,7 +36,10 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            10,
+            16
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -73,7 +76,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            13
+            10
           ]
         },
         "extendedBowSternBelt": {
@@ -111,7 +114,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            13
+          ]
         },
         "extendedBowSternBelt": {
           "present": True,
@@ -153,6 +158,7 @@ DATABASE = {
         },
         "side": {
           "values": [
+            16,
             19
           ]
         },
@@ -193,9 +199,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            19,
-            152,
-            178
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -272,7 +276,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            19
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -347,7 +353,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            16
+          ]
         },
         "extendedBowSternBelt": {
           "present": True,
@@ -388,14 +396,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            16
+            19
           ]
         },
         "side": {
           "values": [
-            38,
-            40,
-            102
+            19,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -433,7 +440,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            13
+            10
           ]
         },
         "extendedBowSternBelt": {
@@ -470,6 +477,7 @@ DATABASE = {
         },
         "side": {
           "values": [
+            16,
             19
           ]
         },
@@ -510,9 +518,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            19,
-            152,
-            178
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -550,7 +556,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            19
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -623,7 +631,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            25
+            13
           ]
         },
         "extendedBowSternBelt": {
@@ -658,14 +666,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            16
+            25
           ]
         },
         "side": {
           "values": [
-            38,
-            40,
-            102
+            16,
+            19,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -704,8 +712,8 @@ DATABASE = {
         },
         "side": {
           "values": [
-            178,
-            193
+            19,
+            25
           ]
         },
         "extendedBowSternBelt": {
@@ -740,14 +748,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            16
+            25
           ]
         },
         "side": {
           "values": [
-            38,
-            40,
-            102
+            16,
+            19,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -784,7 +792,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            25
+            16
           ]
         },
         "extendedBowSternBelt": {
@@ -819,14 +827,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            16
+            19
           ]
         },
         "side": {
           "values": [
-            38,
-            40,
-            102
+            19,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -863,7 +870,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            25
+            16
           ]
         },
         "extendedBowSternBelt": {
@@ -898,14 +905,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            16
+            19
           ]
         },
         "side": {
           "values": [
-            38,
-            40,
-            102
+            19,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -945,9 +951,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            19,
-            152,
-            178
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -1024,7 +1028,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            19
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -7261,8 +7267,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            16,
-            76
+            16
           ]
         },
         "extendedBowSternBelt": {
@@ -7302,8 +7307,7 @@ DATABASE = {
         "side": {
           "values": [
             21,
-            38,
-            114
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -7337,13 +7341,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            25
+            21
           ]
         },
         "side": {
           "values": [
-            25,
-            102
+            21,
+            25
           ]
         },
         "extendedBowSternBelt": {
@@ -7382,7 +7386,6 @@ DATABASE = {
         "side": {
           "values": [
             13,
-            16,
             76
           ]
         },
@@ -7423,14 +7426,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            38
+            21
           ]
         },
         "side": {
           "values": [
-            25,
-            38,
-            114
+            21,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -7469,7 +7471,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            21,
+            19,
             38,
             114
           ]
@@ -7508,9 +7510,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            21,
-            25,
-            102
+            21
           ]
         },
         "extendedBowSternBelt": {
@@ -7549,9 +7549,7 @@ DATABASE = {
         "side": {
           "values": [
             16,
-            19,
-            37,
-            114
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -7706,14 +7704,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            38
+            21
           ]
         },
         "side": {
           "values": [
-            25,
-            38,
-            114
+            21,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -12125,6 +12122,8 @@ DATABASE = {
         "side": {
           "values": [
             16,
+            19,
+            50,
             83
           ]
         },
@@ -15285,11 +15284,12 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            20
+            16
           ]
         },
         "side": {
           "values": [
+            16,
             20,
             25
           ]
@@ -15331,8 +15331,7 @@ DATABASE = {
         "side": {
           "values": [
             10,
-            25,
-            80
+            16
           ]
         },
         "extendedBowSternBelt": {
@@ -15377,7 +15376,9 @@ DATABASE = {
         },
         "side": {
           "values": [
-            19
+            19,
+            80,
+            100
           ]
         },
         "extendedBowSternBelt": {
@@ -15420,15 +15421,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19
+            21
           ]
         },
         "side": {
           "values": [
-            45,
-            145,
-            150,
-            175
+            21,
+            25,
+            45
           ]
         },
         "extendedBowSternBelt": {
@@ -15475,7 +15475,10 @@ DATABASE = {
         },
         "side": {
           "values": [
-            16
+            16,
+            20,
+            80,
+            100
           ]
         },
         "extendedBowSternBelt": {
@@ -15520,7 +15523,9 @@ DATABASE = {
         },
         "side": {
           "values": [
-            21
+            21,
+            80,
+            100
           ]
         },
         "extendedBowSternBelt": {
@@ -15563,15 +15568,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19
+            21
           ]
         },
         "side": {
           "values": [
-            45,
-            145,
-            150,
-            175
+            21,
+            25,
+            45
           ]
         },
         "extendedBowSternBelt": {
@@ -15618,7 +15622,9 @@ DATABASE = {
         },
         "side": {
           "values": [
-            21
+            21,
+            80,
+            100
           ]
         },
         "extendedBowSternBelt": {
@@ -15663,7 +15669,9 @@ DATABASE = {
         },
         "side": {
           "values": [
-            21
+            21,
+            80,
+            100
           ]
         },
         "extendedBowSternBelt": {
@@ -15706,15 +15714,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19
+            21
           ]
         },
         "side": {
           "values": [
-            45,
-            145,
-            150,
-            175
+            21,
+            25,
+            45
           ]
         },
         "extendedBowSternBelt": {
@@ -15759,15 +15766,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19
+            21
           ]
         },
         "side": {
           "values": [
-            45,
-            145,
-            150,
-            175
+            21,
+            25,
+            45
           ]
         },
         "extendedBowSternBelt": {
@@ -15812,15 +15818,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19
+            21
           ]
         },
         "side": {
           "values": [
-            45,
-            145,
-            150,
-            175
+            21,
+            25,
+            45
           ]
         },
         "extendedBowSternBelt": {
@@ -25307,7 +25312,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            13
+            10
           ]
         },
         "extendedBowSternBelt": {
@@ -25343,7 +25348,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            10
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -25378,7 +25385,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            13
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -25416,8 +25425,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            19,
-            40
+            16
           ]
         },
         "extendedBowSternBelt": {
@@ -25456,7 +25464,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            215
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -25492,7 +25500,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            6
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -25530,7 +25538,6 @@ DATABASE = {
         "side": {
           "values": [
             16,
-            19,
             50
           ]
         },
@@ -25568,7 +25575,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            13
+            10
           ]
         },
         "extendedBowSternBelt": {
@@ -25604,7 +25611,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            13
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -25642,8 +25651,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            90,
-            215
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -25684,6 +25692,7 @@ DATABASE = {
         "side": {
           "values": [
             16,
+            19,
             50
           ]
         },
@@ -25718,14 +25727,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            25
+            19
           ]
         },
         "side": {
           "values": [
+            19,
             25,
-            50,
-            150
+            50
           ]
         },
         "extendedBowSternBelt": {
@@ -25763,7 +25772,7 @@ DATABASE = {
         "side": {
           "values": [
             16,
-            152
+            25
           ]
         },
         "extendedBowSternBelt": {
@@ -25811,7 +25820,8 @@ DATABASE = {
         "side": {
           "values": [
             16,
-            152
+            19,
+            25
           ]
         },
         "extendedBowSternBelt": {
@@ -25859,7 +25869,8 @@ DATABASE = {
         "side": {
           "values": [
             16,
-            152
+            19,
+            25
           ]
         },
         "extendedBowSternBelt": {
@@ -25897,11 +25908,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            27
+            30
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            30
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -25939,8 +25952,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            90,
-            215
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -25976,7 +25988,8 @@ DATABASE = {
         },
         "side": {
           "values": [
-            19
+            19,
+            25
           ]
         },
         "extendedBowSternBelt": {
@@ -26017,6 +26030,7 @@ DATABASE = {
         "side": {
           "values": [
             16,
+            19,
             50
           ]
         },
@@ -26049,11 +26063,13 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            27
+            30
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            30
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -31663,7 +31679,9 @@ DATABASE = {
           ]
         },
         "side": {
-          "values": []
+          "values": [
+            16
+          ]
         },
         "extendedBowSternBelt": {
           "present": False,
@@ -31701,7 +31719,8 @@ DATABASE = {
         },
         "side": {
           "values": [
-            16
+            16,
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -31733,15 +31752,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            30
+            19
           ]
         },
         "side": {
           "values": [
+            19,
             25,
-            50,
-            100,
-            125
+            50
           ]
         },
         "extendedBowSternBelt": {
@@ -31773,11 +31791,12 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            50
+            19
           ]
         },
         "side": {
           "values": [
+            19,
             25,
             50
           ]
@@ -31830,9 +31849,8 @@ DATABASE = {
         "side": {
           "values": [
             20,
-            25,
-            50,
-            100
+            21,
+            50
           ]
         },
         "extendedBowSternBelt": {
@@ -31874,9 +31892,8 @@ DATABASE = {
         "side": {
           "values": [
             20,
-            25,
-            50,
-            100
+            21,
+            50
           ]
         },
         "extendedBowSternBelt": {
@@ -31908,11 +31925,12 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            50
+            19
           ]
         },
         "side": {
           "values": [
+            19,
             25,
             50
           ]
@@ -41159,14 +41177,12 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            25
+            19
           ]
         },
         "side": {
           "values": [
-            21,
-            152,
-            178
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -41205,8 +41221,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            90,
-            215
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -41244,7 +41259,6 @@ DATABASE = {
         "side": {
           "values": [
             16,
-            19,
             50
           ]
         },
@@ -41280,14 +41294,14 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            16
+            25
           ]
         },
         "side": {
           "values": [
-            38,
-            40,
-            102
+            16,
+            19,
+            38
           ]
         },
         "extendedBowSternBelt": {
@@ -41326,7 +41340,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            50
+            19
           ]
         },
         "extendedBowSternBelt": {
@@ -41363,6 +41377,7 @@ DATABASE = {
         },
         "side": {
           "values": [
+            16,
             19
           ]
         },
@@ -45627,7 +45642,7 @@ DATABASE = {
         },
         "side": {
           "values": [
-            25
+            16
           ]
         },
         "extendedBowSternBelt": {
