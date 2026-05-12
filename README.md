@@ -5,23 +5,20 @@
 [![Version](https://img.shields.io/badge/version-0.2.26-blue.svg)](#发布)
 [![World of Warships](https://img.shields.io/badge/World%20of%20Warships-battle%20UI-informational.svg)](https://worldofwarships.com/)
 [![Aslain custom mod](https://img.shields.io/badge/Aslain-custom%20mod-orange.svg)](https://aslain.com/)
-[![License](https://img.shields.io/badge/license-TBD-lightgrey.svg)](#许可证)
 
-**14.3 Helper** 是一个兼容 Aslain 的《战舰世界》战斗 UI 插件。它会在你锁定敌舰后，根据当前选择的 AP / HE / SAP，显示目标关键外部装甲区域是否能被当前炮弹击穿或碾压。
+**14.3 Helper** 是一个 Aslain 的《战舰世界》战斗 UI 插件。它会在你锁定敌舰后，根据当前选择的 AP / HE / SAP，显示目标外部装甲是否能被当前炮弹击穿或碾压。
 
-这个插件只做一件事：减少战斗中记忆装甲阈值的负担。它不提供提前量计算、瞄准点预测、隐藏信息读取、自动化操作或外部注入。
 
 ## 功能
 
-- 只有在存在有效锁定 / aim-assist 目标时显示。
-- 使用鱼雷等非主炮武器状态时隐藏。
+- 只在使用主炮锁定目标时显示。
 - AP 使用游戏内碾压规则：`口径 / 14.3 >= 装甲厚度`。
 - HE 和 SAP 使用穿深规则，对同一组装甲区域进行判断。
-- 战斗中只显示紧凑符号：
-  - `√` 表示可以。
-  - `×` 表示不可以。
+- 战斗中显示符号：
+  - `√` 表示可以碾压/击穿。
+  - `×` 表示不可以碾压/击穿。
   - `△` 表示部分区域可以、部分区域不可以。
-  - `?` 表示缺少可靠数据。
+  - `?` 表示数据异常。
 - 战斗面板显示四行：
   - `艏艉`：船头 / 船尾外板。
   - `甲板`：露天甲板 / 主要水平甲板。
@@ -88,7 +85,6 @@ World of Warships\bin\<current_build>\res_mods\PnFMods\APOvermatchAssistant\Main
 3. 锁定或瞄准辅助锁定一艘敌舰。
 4. 在准星附近读取四行结果。
 
-面板会刻意保持简洁。它不会在战斗中显示目标名称、详细装甲数值、你的穿深数值或长文本说明。
 
 ## 构建
 
