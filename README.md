@@ -27,16 +27,25 @@ Mixed armor groups show partial status instead of being collapsed to a single
 yes/no result.
 
 The in-battle panel is multilingual. English is the default for modpack
-distribution, and Simplified Chinese can be selected from the TTaro Mod Config
-language option.
+distribution. Simplified Chinese remains supported through the stored
+`apOvermatchAssistantLanguage` preference, but this standalone archive does not
+bundle a TTaro settings UI.
+
+The Aslain archive is standalone for battle use: it includes the PnFMods loader,
+ModsInstaller, and the battle UI. It intentionally does not bundle TTaro config
+center files, so it will not overwrite another mod's shared TTaro panel.
 
 ## Layout
 
 ```text
 src/res_mods/PnFMods/APOvermatchAssistant/Main.py
 src/res_mods/PnFMods/APOvermatchAssistant/data/armor_overmatch.json
+src/res_mods/PnFMods/ModsInstaller_4_3_1/Main.py
+src/res_mods/PnFMods/ModsInstaller_4_3_1/ModsInstaller.py
+src/res_mods/PnFMods/ModsInstaller_4_3_1/ResMgr.py
 src/res_mods/gui/unbound2/PnFMods/APOvermatchAssistant.unbound
 src/res_mods/PnFMods/ModsInstaller_4_3_1/mods/APOvermatchAssistant.xml
+src/res_mods/PnFModsLoader.py
 tools/generate-armor-db.ps1
 tools/generate-armor-db-fast.mjs
 tools/update-armor-db.ps1

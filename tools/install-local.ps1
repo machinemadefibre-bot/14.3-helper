@@ -28,6 +28,7 @@ if (-not (Test-Path $target)) {
 
 Copy-Item -LiteralPath (Join-Path $source "PnFMods") -Destination $target -Recurse -Force
 Copy-Item -LiteralPath (Join-Path $source "gui") -Destination $target -Recurse -Force
+Copy-Item -LiteralPath (Join-Path $source "PnFModsLoader.py") -Destination $target -Force
 
 Write-Host "Installed APOvermatchAssistant to $target"
 Write-Host "Start the game once so ModsInstaller_4_3_1 can patch gui\battle_elements.xml."

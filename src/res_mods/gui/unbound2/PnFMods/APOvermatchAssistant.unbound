@@ -2,6 +2,26 @@
 (def constant OA_ELEMENT_NAME 'apOvermatchAssistant')
 (def constant TT_APOVERMATCHASSISTANT_INSTALLED "true")
 
+(def constant APOA_LOCAL_PREFS {
+	LANGUAGE: {min: 0, max: 0, step: 1, key: 'apOvermatchAssistantLanguage', default: 0},
+	SCALE: {min: 0.7, max: 1.5, step: 0.1, key: 'apOvermatchAssistantScale', default: 1},
+	DISABLE_DRAGDROP: {key: 'apOvermatchAssistantDisableDragDrop', default: false},
+	BACKGROUND_ALPHA: {min: 0, max: 1, step: 0.1, key: 'apOvermatchAssistantBackgroundOpacity', default: 0.78},
+})
+
+(def macro APOA_GET_USERPREF()
+	(var userPrefsComponent:gfx = "$datahub.getSingleComponent(CC.userPrefs)")
+	(var _userPrefsNum:gfx = "userPrefsComponent.userPrefs.chatBoxWidth" watch=false (event "userPrefsComponent.evUserPrefsChanged"))
+)
+
+(def macro APOA_GET_PREF_NUMBER (_varName:expression, _pref:expression)
+	(var name="_varName" type=number value="_userPrefsNum && isNumber(_userPrefsNum[_pref.key]) ? _pref.min + (round(_userPrefsNum[_pref.key]) * _pref.step) : _pref.default")
+)
+
+(def macro APOA_GET_PREF_BOOL (_varName:expression, _pref:expression)
+	(var name="_varName" type=bool value="_userPrefsNum && isNumber(_userPrefsNum[_pref.key]) ? round(_userPrefsNum[_pref.key]) : _pref.default")
+)
+
 # BEGIN GENERATED ARMOR DB - run tools/generate-unbound-armor-db.mjs
 (def constant OA_ARMOR_DB_BUILD '12267945')
 (def constant OA_ARMOR_DB {
@@ -3556,11 +3576,11 @@
 	(scope
 		(macro STAGE_SIZE)
 
-		(macro TT_GET_USERPREF)
-		(macro TT_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_PREFS.LANGUAGE")
-		(macro TT_GET_PREF_NUMBER _varName="'scale'" _pref="APOA_PREFS.SCALE")
-		(macro TT_GET_PREF_NUMBER _varName="'backgroundAlpha'" _pref="APOA_PREFS.BACKGROUND_ALPHA")
-		(macro TT_GET_PREF_BOOL _varName="'isPositionLocked'" _pref="APOA_PREFS.DISABLE_DRAGDROP")
+		(macro APOA_GET_USERPREF)
+		(macro APOA_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_LOCAL_PREFS.LANGUAGE")
+		(macro APOA_GET_PREF_NUMBER _varName="'scale'" _pref="APOA_LOCAL_PREFS.SCALE")
+		(macro APOA_GET_PREF_NUMBER _varName="'backgroundAlpha'" _pref="APOA_LOCAL_PREFS.BACKGROUND_ALPHA")
+		(macro APOA_GET_PREF_BOOL _varName="'isPositionLocked'" _pref="APOA_LOCAL_PREFS.DISABLE_DRAGDROP")
 
 		(var defaultPos:dict = "{'positionX': (stageWidth / 2 + 72), 'positionY': (stageHeight / 2 + 78)}")
 		(macro DRAGGABLE_GET_DROP_POSITION _elementName="OA_ELEMENT_NAME" _defaultPosition="defaultPos")
@@ -3835,8 +3855,8 @@
 
 (def element OA_TargetPanel(_markerEntity:gfx, _dragPosX:number, _dragPosY:number, _scale:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
-		(macro TT_GET_USERPREF)
-		(macro TT_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_PREFS.LANGUAGE")
+		(macro APOA_GET_USERPREF)
+		(macro APOA_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_LOCAL_PREFS.LANGUAGE")
 		(var target:gfx = "_markerEntity ? _markerEntity.target : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
 		(var targetFlags:number = "target ? target.flags : 0" (event "target.evChanged") (event "target.evFlagsChanged"))
 		(var isTargetLocked:bool = "(targetFlags & LOCKABLE_WEAPONS) > 0")
