@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 API_VERSION = 'API_v1.0'
 MOD_NAME = '14.3-helper'
-MOD_VERSION = '0.3.1'
+MOD_VERSION = '0.3.2'
 
 try:
     unicode
@@ -10,6 +10,7 @@ except NameError:
 
 BigWorld = None
 BWPersonality = None
+events = None
 ui = None
 Vary = None
 
@@ -309,8 +310,23 @@ class APOvermatchAssistant(object):
         self.active = False
         self.last_payload = None
         self.runtime_loaded = False
+        self.events_registered = False
 
-        _log_info('registered for API_v2 lifecycle')
+        self._register_events()
+
+    def _register_events(self):
+        global events
+        if self.events_registered:
+            return
+        try:
+            import events as _events
+            events = _events
+            events.onBattleStart(self.on_battle_start)
+            events.onBattleQuit(self.on_battle_quit)
+            self.events_registered = True
+            _log_info('registered battle lifecycle events')
+        except Exception as exc:
+            _log_error('failed to register battle lifecycle events: {}'.format(exc))
 
     def _load_runtime(self):
         global BigWorld, BWPersonality, ui, Vary
@@ -366,6 +382,9 @@ class APOvermatchAssistant(object):
     def on_battle_start(self, *args):
         self.start(*args)
 
+    def onBattleStart(self, *args):
+        self.on_battle_start(*args)
+
     def stop(self, *args):
         self.active = False
         try:
@@ -386,6 +405,9 @@ class APOvermatchAssistant(object):
 
     def on_battle_quit(self, *args):
         self.stop(*args)
+
+    def onBattleQuit(self, *args):
+        self.on_battle_quit(*args)
 
     def kill(self, *args):
         self.stop(*args)
