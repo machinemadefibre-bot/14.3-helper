@@ -606,25 +606,17 @@ function Select-ExtendedBowSternBelt {
         [System.Collections.ArrayList]$SternValues
     )
 
-    $bowBase = Get-MaxPrimaryArmorValue $BowValues
-    $sternBase = Get-MaxPrimaryArmorValue $SternValues
     $bow = New-Object System.Collections.ArrayList
     $stern = New-Object System.Collections.ArrayList
     $values = New-Object System.Collections.ArrayList
 
     foreach ($value in @(Select-PrimaryArmorValues $BowBeltValues)) {
-        if ([double]$value -gt $bowBase) {
-            Add-UniqueNumber $bow $value 1000
-            Add-UniqueNumber $values $value 1000
-        }
+        Add-UniqueNumber $bow $value 1000
+        Add-UniqueNumber $values $value 1000
     }
-    if ($bow.Count -gt 0) {
-        foreach ($value in @(Select-PrimaryArmorValues $SternBeltValues)) {
-            if ([double]$value -gt $sternBase) {
-                Add-UniqueNumber $stern $value 1000
-                Add-UniqueNumber $values $value 1000
-            }
-        }
+    foreach ($value in @(Select-PrimaryArmorValues $SternBeltValues)) {
+        Add-UniqueNumber $stern $value 1000
+        Add-UniqueNumber $values $value 1000
     }
 
     return [pscustomobject]@{

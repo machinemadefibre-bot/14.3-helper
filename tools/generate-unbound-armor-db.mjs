@@ -68,9 +68,16 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
   const side = section(flatten(armor.side));
 
   const beltGroup = armor.extendedBowSternBelt || {};
-  const beltValues = flatten(beltGroup);
+  const beltBowValues = flatten(beltGroup.bow || beltGroup.fore || []);
+  const beltSternValues = flatten(beltGroup.stern || beltGroup.aft || []);
+  const legacyBeltValues = beltBowValues.length || beltSternValues.length ? [] : flatten(beltGroup);
+  const beltBow = section(beltBowValues);
+  const beltStern = section(beltSternValues);
+  const beltValues = unique([...beltBowValues, ...beltSternValues, ...legacyBeltValues]);
   const belt = section(beltValues);
-  const beltPresent = Boolean(beltGroup.present) && beltValues.length > 0;
+  const beltBowPresent = beltBowValues.length > 0;
+  const beltSternPresent = beltSternValues.length > 0;
+  const beltPresent = Boolean(beltGroup.present) && (beltBowPresent || beltSternPresent || beltValues.length > 0);
 
   const recordKey = String(numericAlias);
   const aliasKeys = [name, ship.name, ...(ship.aliases || [])]
@@ -98,6 +105,14 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     xmx: side.max,
     xt: side.text,
     bp: beltPresent,
+    bbp: beltBowPresent,
+    bbmn: beltBow.min,
+    bbmx: beltBow.max,
+    bbt: beltBow.text,
+    bsp: beltSternPresent,
+    bsmn: beltStern.min,
+    bsmx: beltStern.max,
+    bst: beltStern.text,
     blmn: belt.min,
     blmx: belt.max,
     blt: belt.text,
@@ -115,7 +130,9 @@ for (const [id, rec] of Object.entries(records).sort((a, b) => Number(a[0]) - Nu
     `  '${id}': {n:${literalString(rec.n)}, c:${rec.c}, he:${rec.he}, sap:${rec.sap}, ` +
     `bmn:${rec.bmn}, bmx:${rec.bmx}, bt:${literalString(rec.bt)}, smn:${rec.smn}, smx:${rec.smx}, st:${literalString(rec.st)}, ` +
     `dmn:${rec.dmn}, dmx:${rec.dmx}, dt:${literalString(rec.dt)}, xmn:${rec.xmn}, xmx:${rec.xmx}, xt:${literalString(rec.xt)}, ` +
-    `bp:${rec.bp ? 'true' : 'false'}, blmn:${rec.blmn}, blmx:${rec.blmx}, blt:${literalString(rec.blt)}},`
+    `bp:${rec.bp ? 'true' : 'false'}, bbp:${rec.bbp ? 'true' : 'false'}, bbmn:${rec.bbmn}, bbmx:${rec.bbmx}, bbt:${literalString(rec.bbt)}, ` +
+    `bsp:${rec.bsp ? 'true' : 'false'}, bsmn:${rec.bsmn}, bsmx:${rec.bsmx}, bst:${literalString(rec.bst)}, ` +
+    `blmn:${rec.blmn}, blmx:${rec.blmx}, blt:${literalString(rec.blt)}},`
   );
 }
 

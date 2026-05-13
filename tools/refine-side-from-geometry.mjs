@@ -300,10 +300,10 @@ function buildGeometryIndex(geometryDir) {
 function geometryFilesForModel(modelPath, geometryIndex) {
   const base = path.basename(modelPath, path.extname(modelPath));
   const direct = geometryIndex.get(`${base}.geometry`);
-  if (direct) return [direct];
-  return [...geometryIndex]
+  const splitFiles = [...geometryIndex]
     .filter(([name]) => name.startsWith(`${base}_`) && name.endsWith('.geometry'))
     .map(([, filePath]) => filePath);
+  return direct ? [direct, ...splitFiles] : splitFiles;
 }
 
 const geometryCache = new Map();
@@ -323,7 +323,11 @@ function isAboveWaterSide(bounds) {
 }
 
 function hasVisibleAboveWaterPart(bounds) {
-  return bounds && bounds.count > 0 && bounds.max[1] > 0.10;
+  return bounds && bounds.count > 0 && bounds.max[1] >= 0.05;
+}
+
+function hasNearWaterlineBeltPart(bounds) {
+  return bounds && bounds.count > 0 && bounds.max[1] >= -0.05;
 }
 
 function hasVisibleHorizontalDeck(bounds) {
@@ -332,6 +336,10 @@ function hasVisibleHorizontalDeck(bounds) {
 
 function sideSurface(entry) {
   return entry.bounds?.side?.count ? entry.bounds.side : null;
+}
+
+function sideOrFullBounds(entry) {
+  return sideSurface(entry) || (entry.bounds?.count ? entry.bounds : null);
 }
 
 function sideLength(entry) {
@@ -553,16 +561,54 @@ function beltValuesFromEntries(entries, side) {
       isTarget(entry.materialName) &&
       /Belt/.test(entry.materialName) &&
       !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS/.test(entry.materialName) &&
-      hasVisibleAboveWaterPart(entry.bounds)
+      hasNearWaterlineBeltPart(entry.bounds)
+    ))
+    .map((entry) => entry.thickness));
+}
+
+function rangesTouchOrOverlap(left, right, axis, tolerance) {
+  return Math.min(left.max[axis], right.max[axis]) >= Math.max(left.min[axis], right.min[axis]) - tolerance;
+}
+
+function isConnectedToMainBelt(candidate, mainBeltEntries, side) {
+  const candidateBounds = sideOrFullBounds(candidate);
+  if (!candidateBounds) return false;
+
+  return mainBeltEntries.some((mainBelt) => {
+    const mainBounds = sideOrFullBounds(mainBelt);
+    if (!mainBounds) return false;
+    if (!rangesTouchOrOverlap(candidateBounds, mainBounds, 0, 0.05)) return false;
+    if (!rangesTouchOrOverlap(candidateBounds, mainBounds, 1, 0.02)) return false;
+
+    const longitudinalGap = side === 'bow'
+      ? candidateBounds.min[2] - mainBounds.max[2]
+      : mainBounds.min[2] - candidateBounds.max[2];
+    return Math.abs(longitudinalGap) <= 0.15;
+  });
+}
+
+function connectedBeltValuesFromEntries(entries, side) {
+  const isTarget = side === 'bow' ? isBowMaterial : isSternMaterial;
+  const mainBeltEntries = entries.filter((entry) => (
+    isCentralBeltMaterial(entry.materialName) &&
+    sideOrFullBounds(entry)
+  ));
+  if (!mainBeltEntries.length) return [];
+
+  return primaryVisible(entries
+    .filter((entry) => (
+      isTarget(entry.materialName) &&
+      /Belt/.test(entry.materialName) &&
+      !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS/.test(entry.materialName) &&
+      hasNearWaterlineBeltPart(entry.bounds) &&
+      isConnectedToMainBelt(entry, mainBeltEntries, side)
     ))
     .map((entry) => entry.thickness));
 }
 
 function extendedBeltFromEntries(entries, bowValues, sternValues) {
-  const bowBase = maxValue(bowValues);
-  const sternBase = maxValue(sternValues);
-  const bow = beltValuesFromEntries(entries, 'bow').filter((value) => value > bowBase);
-  const stern = beltValuesFromEntries(entries, 'stern').filter((value) => value > sternBase);
+  const bow = beltValuesFromEntries(entries, 'bow');
+  const stern = beltValuesFromEntries(entries, 'stern');
   return {
     present: bow.length > 0 || stern.length > 0,
     values: sortUnique([...bow, ...stern]),
@@ -670,6 +716,15 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
       const geometryArmor = armorValuesFromHull(entryName, selectedHull, materialNames, geometryIndex);
       if (geometryArmor === null) {
         missingGeometry++;
+        if (!isSubmarineKey(entryName) && dbShip?.armor?.extendedBowSternBelt?.present) {
+          dbShip.armor.extendedBowSternBelt = {
+            present: false,
+            values: [],
+            bow: [],
+            stern: [],
+          };
+          changedExtendedBelt++;
+        }
       } else {
         const armor = dbShip.armor;
         const bowStern = armor.bowStern || {};
@@ -803,7 +858,7 @@ const result = await refineDatabase(db, gameParamsPath, materialNames, geometryI
 });
 
 if (db.meta) {
-  const note = 'Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern and extended belt conservatively remove values not visible in end plating positions, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor.';
+  const note = 'Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor.';
   db.meta.notes = db.meta.notes && !db.meta.notes.includes(note)
     ? `${note} ${db.meta.notes}`
     : (db.meta.notes || note);

@@ -4,9 +4,9 @@
     "name": "14.3-helper",
     "gameBuild": "12267945",
     "realm": "ASIA",
-    "generatedAt": "2026-05-11T17:54:28",
+    "generatedAt": "2026-05-13T15:22:48",
     "source": "wowsunpack GameParams JSON, streamed per ship",
-    "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern and extended belt conservatively remove values not visible in end plating positions, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, bow/stern and extended belt conservatively remove values not visible in end plating positions, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Armor groups are refined from armor geometry where available: deck uses the outermost horizontal deck surface (carriers use the highest flight deck), side includes above-water side/casemate armor layers while excluding lower belt extensions, bow/stern and extended belt conservatively remove values not visible in end plating positions, carrier side uses the strongest non-belt side plating, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Side values are refined from armor geometry and include above-water side/casemate armor layers while excluding lower belt extensions where geometry is available. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS and filtered by the largest main-gun caliber. Extraction is opt-in to avoid high memory use."
+    "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS and filtered by the largest main-gun caliber. Extraction is opt-in to avoid high memory use."
   },
   "ships": {
     "PASA002_Bogue_1942": {
@@ -112,15 +112,9 @@
           "values": []
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            51,
-            102
-          ],
-          "bow": [
-            51,
-            102
-          ],
+          "present": false,
+          "values": [],
+          "bow": [],
           "stern": []
         }
       }
@@ -1072,10 +1066,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            38
+          ],
+          "bow": [
+            38
+          ],
+          "stern": [
+            38
+          ]
         }
       }
     },
@@ -1109,10 +1109,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            89
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            89
+          ]
         }
       }
     },
@@ -1146,10 +1150,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            152
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            152
+          ]
         }
       }
     },
@@ -1183,10 +1191,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -1257,10 +1269,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            89
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            89
+          ]
         }
       }
     },
@@ -1368,10 +1384,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -1405,9 +1425,15 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            32,
+            273
+          ],
+          "bow": [
+            32,
+            273
+          ],
           "stern": []
         }
       }
@@ -1442,9 +1468,15 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            32,
+            273
+          ],
+          "bow": [
+            32,
+            273
+          ],
           "stern": []
         }
       }
@@ -1479,10 +1511,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            292
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            292
+          ]
         }
       }
     },
@@ -1671,10 +1707,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            330
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            330
+          ]
         }
       }
     },
@@ -1709,10 +1749,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -1746,10 +1790,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -2007,10 +2055,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -2231,10 +2283,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            152
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            152
+          ]
         }
       }
     },
@@ -2903,10 +2959,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            292
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            292
+          ]
         }
       }
     },
@@ -3125,10 +3185,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            292
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            292
+          ]
         }
       }
     },
@@ -3162,10 +3226,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -3369,7 +3437,8 @@
       "armor": {
         "bowStern": {
           "bow": [
-            13
+            13,
+            25
           ],
           "stern": [
             13,
@@ -3534,10 +3603,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            19
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            19
+          ]
         }
       }
     },
@@ -3777,7 +3850,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -3814,7 +3888,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -3865,10 +3940,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            19
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            19
+          ]
         }
       }
     },
@@ -4259,7 +4338,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -7207,10 +7287,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            76
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -7738,6 +7822,7 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            127,
             152,
             178
           ],
@@ -7745,7 +7830,9 @@
             152,
             178
           ],
-          "stern": []
+          "stern": [
+            127
+          ]
         }
       }
     },
@@ -7779,10 +7866,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            63,
+            102,
+            152
+          ],
+          "bow": [
+            102,
+            152
+          ],
+          "stern": [
+            63
+          ]
         }
       }
     },
@@ -8064,10 +8160,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            51,
+            63
+          ],
+          "bow": [
+            63
+          ],
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -8108,7 +8211,9 @@
           "bow": [
             64
           ],
-          "stern": []
+          "stern": [
+            64
+          ]
         }
       }
     },
@@ -8128,7 +8233,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            25
           ]
         },
         "deck": {
@@ -8229,10 +8335,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76,
+            102,
+            229
+          ],
+          "bow": [
+            102,
+            229
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -8422,12 +8537,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            102,
             152
           ],
           "bow": [
             152
           ],
-          "stern": []
+          "stern": [
+            102
+          ]
         }
       }
     },
@@ -8510,12 +8628,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            127
+            127,
+            152
           ],
           "bow": [
-            127
+            127,
+            152
           ],
-          "stern": []
+          "stern": [
+            152
+          ]
         }
       }
     },
@@ -8551,10 +8673,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            32,
+            64
+          ],
+          "bow": [
+            64
+          ],
+          "stern": [
+            32
+          ]
         }
       }
     },
@@ -8704,12 +8833,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            76,
+            102,
             152
           ],
           "bow": [
+            102,
             152
           ],
-          "stern": []
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -8785,12 +8919,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            76,
+            102,
             152
           ],
           "bow": [
+            102,
             152
           ],
-          "stern": []
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -8861,10 +9000,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76,
+            102,
+            229
+          ],
+          "bow": [
+            102,
+            229
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -8938,12 +9086,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            102
+            102,
+            127
           ],
           "bow": [
-            102
+            102,
+            127
           ],
-          "stern": []
+          "stern": [
+            127
+          ]
         }
       }
     },
@@ -9094,12 +9246,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            26,
+            102,
             152
           ],
           "bow": [
+            26,
+            102,
             152
           ],
           "stern": [
+            102,
             152
           ]
         }
@@ -9286,10 +9443,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            51
+          ],
+          "bow": [
+            51
+          ],
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -9408,6 +9571,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -9454,6 +9618,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -9502,6 +9667,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -9561,7 +9727,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            38
           ]
         },
         "deck": {
@@ -9881,10 +10048,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            102
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            102
+          ]
         }
       }
     },
@@ -9918,10 +10089,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            114
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            114
+          ]
         }
       }
     },
@@ -9955,10 +10130,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            51
+          ],
+          "bow": [
+            51
+          ],
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -10067,10 +10248,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            102
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            102
+          ]
         }
       }
     },
@@ -10202,7 +10387,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -10367,10 +10553,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            102
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            102
+          ]
         }
       }
     },
@@ -10404,10 +10594,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            51
+          ],
+          "bow": [
+            51
+          ],
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -10738,10 +10934,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            51
+          ],
+          "bow": [
+            51
+          ],
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -11825,7 +12027,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            40
           ]
         },
         "deck": {
@@ -11839,10 +12042,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            170,
+            230
+          ],
+          "bow": [
+            170,
+            230
+          ],
+          "stern": [
+            170,
+            230
+          ]
         }
       }
     },
@@ -11909,7 +12121,8 @@
             19
           ],
           "stern": [
-            19
+            19,
+            30
           ]
         },
         "deck": {
@@ -11924,10 +12137,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            150,
+            200
+          ],
+          "bow": [
+            150,
+            200
+          ],
+          "stern": [
+            150,
+            200
+          ]
         }
       }
     },
@@ -11965,13 +12187,15 @@
           "present": true,
           "values": [
             120,
-            180
+            180,
+            200
           ],
           "bow": [
             180
           ],
           "stern": [
-            120
+            120,
+            200
           ]
         }
       }
@@ -12012,13 +12236,15 @@
           "present": true,
           "values": [
             120,
-            180
+            180,
+            200
           ],
           "bow": [
             180
           ],
           "stern": [
-            120
+            120,
+            200
           ]
         }
       }
@@ -12165,10 +12391,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            50
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -12469,13 +12699,15 @@
           "present": true,
           "values": [
             120,
-            180
+            180,
+            200
           ],
           "bow": [
             180
           ],
           "stern": [
-            120
+            120,
+            200
           ]
         }
       }
@@ -14835,12 +15067,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            40,
+            70
           ],
           "bow": [
             40
           ],
-          "stern": []
+          "stern": [
+            70
+          ]
         }
       }
     },
@@ -14874,10 +15109,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            80
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -14948,7 +15190,8 @@
             19
           ],
           "stern": [
-            19
+            19,
+            60
           ]
         },
         "deck": {
@@ -14962,10 +15205,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            80
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -14999,10 +15249,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            80
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -15087,10 +15344,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            80
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -15124,10 +15388,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            80
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -15321,7 +15592,9 @@
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -15361,14 +15634,18 @@
           "values": [
             80,
             90,
-            100
+            100,
+            120,
+            140
           ],
           "bow": [
             80,
-            100
+            100,
+            140
           ],
           "stern": [
-            90
+            90,
+            120
           ]
         }
       }
@@ -15414,7 +15691,9 @@
             120,
             180
           ],
-          "stern": []
+          "stern": [
+            180
+          ]
         }
       }
     },
@@ -15459,7 +15738,9 @@
             150,
             200
           ],
-          "stern": []
+          "stern": [
+            150
+          ]
         }
       }
     },
@@ -15505,7 +15786,9 @@
             150,
             200
           ],
-          "stern": []
+          "stern": [
+            200
+          ]
         }
       }
     },
@@ -15583,10 +15866,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            60
+          ],
+          "bow": [
+            60
+          ],
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -15773,13 +16062,18 @@
           "present": true,
           "values": [
             80,
-            100
+            100,
+            120
           ],
           "bow": [
             80,
-            100
+            100,
+            120
           ],
-          "stern": []
+          "stern": [
+            80,
+            100
+          ]
         }
       }
     },
@@ -15916,13 +16210,16 @@
           "present": true,
           "values": [
             30,
+            100,
             120
           ],
           "bow": [
             30,
             120
           ],
-          "stern": []
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -16004,12 +16301,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            60
+            60,
+            350
           ],
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            350
+          ]
         }
       }
     },
@@ -16191,13 +16491,17 @@
           "present": true,
           "values": [
             120,
+            150,
+            165,
             180
           ],
           "bow": [
             120,
+            150,
             180
           ],
           "stern": [
+            165,
             180
           ]
         }
@@ -16234,10 +16538,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            30,
+            100,
+            120
+          ],
+          "bow": [
+            30,
+            120
+          ],
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -16511,6 +16824,7 @@
             200
           ],
           "stern": [
+            170,
             200
           ]
         }
@@ -16641,7 +16955,9 @@
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -16770,10 +17086,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            60
+          ],
+          "bow": [
+            60
+          ],
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -16858,7 +17180,9 @@
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -16936,10 +17260,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            60
+          ],
+          "bow": [
+            60
+          ],
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -16975,12 +17305,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            60
+            60,
+            350
           ],
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            350
+          ]
         }
       }
     },
@@ -17206,10 +17539,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            32,
+            100
+          ],
+          "bow": [
+            32
+          ],
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -17296,10 +17636,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            30
+          ],
+          "bow": [
+            30
+          ],
+          "stern": [
+            30
+          ]
         }
       }
     },
@@ -17410,12 +17756,19 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            25,
+            45,
+            50,
             100
           ],
           "bow": [
+            25,
             100
           ],
-          "stern": []
+          "stern": [
+            45,
+            50
+          ]
         }
       }
     },
@@ -17449,10 +17802,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            45,
+            50
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            45,
+            50
+          ]
         }
       }
     },
@@ -17486,10 +17848,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            27,
+            80
+          ],
+          "bow": [
+            27
+          ],
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -17686,10 +18055,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            20,
+            35
+          ],
+          "bow": [
+            20
+          ],
+          "stern": [
+            35
+          ]
         }
       }
     },
@@ -17723,10 +18099,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            51
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -17762,12 +18142,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            40,
+            70,
+            80
           ],
           "bow": [
             40
           ],
-          "stern": []
+          "stern": [
+            70,
+            80
+          ]
         }
       }
     },
@@ -17803,12 +18188,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            80
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -17844,12 +18234,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            90
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -17883,10 +18278,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            27,
+            40,
+            90
+          ],
+          "bow": [
+            27,
+            40
+          ],
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -17956,10 +18360,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            19,
+            45,
+            50
+          ],
+          "bow": [
+            19
+          ],
+          "stern": [
+            45,
+            50
+          ]
         }
       }
     },
@@ -17993,10 +18406,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            30
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            30
+          ]
         }
       }
     },
@@ -18032,12 +18449,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            70
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            70
+          ]
         }
       }
     },
@@ -18153,10 +18575,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            51
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            51
+          ]
         }
       }
     },
@@ -18273,12 +18699,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            30
+            30,
+            80
           ],
           "bow": [
             30
           ],
-          "stern": []
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -18393,10 +18822,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            19,
+            45,
+            50
+          ],
+          "bow": [
+            19
+          ],
+          "stern": [
+            45,
+            50
+          ]
         }
       }
     },
@@ -18470,10 +18908,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            20,
+            35
+          ],
+          "bow": [
+            20
+          ],
+          "stern": [
+            35
+          ]
         }
       }
     },
@@ -18551,10 +18996,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            40,
+            90
+          ],
+          "bow": [
+            25,
+            40
+          ],
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -18588,10 +19042,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            40
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            40
+          ]
         }
       }
     },
@@ -18627,12 +19085,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            40,
+            70,
+            80
           ],
           "bow": [
             40
           ],
-          "stern": []
+          "stern": [
+            70,
+            80
+          ]
         }
       }
     },
@@ -18668,12 +19131,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            80
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -18707,10 +19175,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            30
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            30
+          ]
         }
       }
     },
@@ -18746,12 +19218,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            90
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -18785,10 +19262,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            27,
+            40,
+            90
+          ],
+          "bow": [
+            27,
+            40
+          ],
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -18861,12 +19347,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            30
+            30,
+            80
           ],
           "bow": [
             30
           ],
-          "stern": []
+          "stern": [
+            80
+          ]
         }
       }
     },
@@ -18902,12 +19391,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            90
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -18941,10 +19435,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            40,
+            90
+          ],
+          "bow": [
+            25,
+            40
+          ],
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -18978,10 +19481,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            45,
+            50
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            45,
+            50
+          ]
         }
       }
     },
@@ -20549,10 +21061,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            90
+          ],
+          "bow": [
+            16
+          ],
+          "stern": [
+            16,
+            90
+          ]
         }
       }
     },
@@ -20586,10 +21106,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            16
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            16
+          ]
         }
       }
     },
@@ -20623,10 +21147,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            16
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            16
+          ]
         }
       }
     },
@@ -20734,10 +21262,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            50
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -20809,10 +21341,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            50
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -20849,10 +21385,23 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            20,
+            50,
+            60,
+            75
+          ],
+          "bow": [
+            16,
+            50
+          ],
+          "stern": [
+            20,
+            60,
+            75
+          ]
         }
       }
     },
@@ -20888,10 +21437,23 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            20,
+            50,
+            60,
+            75
+          ],
+          "bow": [
+            16,
+            50
+          ],
+          "stern": [
+            20,
+            60,
+            75
+          ]
         }
       }
     },
@@ -21052,10 +21614,22 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            50,
+            60,
+            75
+          ],
+          "bow": [
+            25,
+            50
+          ],
+          "stern": [
+            25,
+            60,
+            75
+          ]
         }
       }
     },
@@ -21133,10 +21707,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            50,
+            75
+          ],
+          "bow": [
+            16,
+            50
+          ],
+          "stern": [
+            16,
+            75
+          ]
         }
       }
     },
@@ -21253,10 +21837,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            90
+          ],
+          "bow": [
+            16
+          ],
+          "stern": [
+            16,
+            90
+          ]
         }
       }
     },
@@ -21291,10 +21883,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            50
+          ],
+          "bow": [
+            16,
+            50
+          ],
+          "stern": [
+            16
+          ]
         }
       }
     },
@@ -21370,10 +21970,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            16,
+            50
+          ],
+          "bow": [
+            16,
+            50
+          ],
+          "stern": [
+            16
+          ]
         }
       }
     },
@@ -21445,10 +22053,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            19
+          ],
+          "bow": [
+            19
+          ],
+          "stern": [
+            19
+          ]
         }
       }
     },
@@ -21699,10 +22313,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            90,
+            110,
+            120,
+            130
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            90,
+            110,
+            120,
+            130
+          ]
         }
       }
     },
@@ -21749,6 +22373,7 @@
             300
           ],
           "stern": [
+            150,
             300
           ]
         }
@@ -21830,13 +22455,17 @@
           "present": true,
           "values": [
             60,
-            80
+            80,
+            200
           ],
           "bow": [
             60,
             80
           ],
-          "stern": []
+          "stern": [
+            80,
+            200
+          ]
         }
       }
     },
@@ -21916,12 +22545,19 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            110
+            85,
+            110,
+            130
           ],
           "bow": [
-            110
+            110,
+            130
           ],
-          "stern": []
+          "stern": [
+            85,
+            110,
+            130
+          ]
         }
       }
     },
@@ -22249,12 +22885,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            30,
+            150,
             300
           ],
           "bow": [
+            30,
             300
           ],
           "stern": [
+            150,
             300
           ]
         }
@@ -22335,12 +22975,19 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            110
+            85,
+            110,
+            130
           ],
           "bow": [
-            110
+            110,
+            130
           ],
-          "stern": []
+          "stern": [
+            85,
+            110,
+            130
+          ]
         }
       }
     },
@@ -22417,12 +23064,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            30,
+            150,
             300
           ],
           "bow": [
+            30,
             300
           ],
           "stern": [
+            150,
             300
           ]
         }
@@ -22661,7 +23312,9 @@
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -22847,10 +23500,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -22885,10 +23544,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50,
+            100,
+            120
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50,
+            100,
+            120
+          ]
         }
       }
     },
@@ -23491,10 +24160,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -23567,10 +24242,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -25036,10 +25717,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            102
+          ],
+          "bow": [
+            102
+          ],
+          "stern": [
+            102
+          ]
         }
       }
     },
@@ -25080,7 +25767,9 @@
           "bow": [
             76
           ],
-          "stern": []
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -25117,12 +25806,18 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            102
+            102,
+            229,
+            305
           ],
           "bow": [
             102
           ],
-          "stern": []
+          "stern": [
+            102,
+            229,
+            305
+          ]
         }
       }
     },
@@ -25157,10 +25852,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76
+          ],
+          "bow": [
+            76
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -25202,7 +25903,9 @@
           "bow": [
             76
           ],
-          "stern": []
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -25237,10 +25940,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            305
+          ],
+          "bow": [
+            305
+          ],
+          "stern": [
+            305
+          ]
         }
       }
     },
@@ -25274,10 +25983,22 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            102,
+            127,
+            178
+          ],
+          "bow": [
+            102,
+            127,
+            178
+          ],
+          "stern": [
+            102,
+            127,
+            178
+          ]
         }
       }
     },
@@ -25311,10 +26032,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            254
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            254
+          ]
         }
       }
     },
@@ -25387,10 +26112,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            305
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            305
+          ]
         }
       }
     },
@@ -25466,10 +26195,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            203
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            203
+          ]
         }
       }
     },
@@ -25507,9 +26240,12 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            229,
             255
           ],
-          "bow": [],
+          "bow": [
+            229
+          ],
           "stern": [
             255
           ]
@@ -25546,10 +26282,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            305
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            305
+          ]
         }
       }
     },
@@ -25566,7 +26306,8 @@
       "armor": {
         "bowStern": {
           "bow": [
-            26
+            26,
+            51
           ],
           "stern": [
             26
@@ -25584,10 +26325,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            305
+          ],
+          "bow": [
+            305
+          ],
+          "stern": [
+            305
+          ]
         }
       }
     },
@@ -25621,10 +26368,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            229
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            229
+          ]
         }
       }
     },
@@ -25658,10 +26409,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            229
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            229
+          ]
         }
       }
     },
@@ -25812,10 +26567,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            229,
+            356
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            229,
+            356
+          ]
         }
       }
     },
@@ -25888,10 +26649,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            229,
+            356
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            229,
+            356
+          ]
         }
       }
     },
@@ -25925,10 +26692,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            76
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -25962,10 +26733,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            254
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            254
+          ]
         }
       }
     },
@@ -26000,10 +26775,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            229,
+            356
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            229,
+            356
+          ]
         }
       }
     },
@@ -26077,10 +26858,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76
+          ],
+          "bow": [
+            76
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -26115,10 +26902,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76
+          ],
+          "bow": [
+            76
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -26153,10 +26946,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76
+          ],
+          "bow": [
+            76
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -26191,10 +26990,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76
+          ],
+          "bow": [
+            76
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -26268,10 +27073,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            76
+          ],
+          "bow": [
+            76
+          ],
+          "stern": [
+            76
+          ]
         }
       }
     },
@@ -26309,9 +27120,12 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            229,
             255
           ],
-          "bow": [],
+          "bow": [
+            229
+          ],
           "stern": [
             255
           ]
@@ -26416,10 +27230,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            254
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            254
+          ]
         }
       }
     },
@@ -26453,10 +27271,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            254
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            254
+          ]
         }
       }
     },
@@ -27608,10 +28430,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            120,
+            175
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            25,
+            120,
+            175
+          ]
         }
       }
     },
@@ -27682,10 +28514,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            120,
+            175
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            25,
+            120,
+            175
+          ]
         }
       }
     },
@@ -27719,10 +28561,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            120,
+            175
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            25,
+            120,
+            175
+          ]
         }
       }
     },
@@ -27756,10 +28608,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            120,
+            175
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            25,
+            120,
+            175
+          ]
         }
       }
     },
@@ -28503,10 +29365,20 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            120,
+            175
+          ],
+          "bow": [
+            25
+          ],
+          "stern": [
+            25,
+            120,
+            175
+          ]
         }
       }
     },
@@ -30641,10 +31513,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            50
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -30682,10 +31558,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            50
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -30768,13 +31648,18 @@
           "present": true,
           "values": [
             100,
+            175,
             200
           ],
           "bow": [
             100,
+            175,
             200
           ],
-          "stern": []
+          "stern": [
+            175,
+            200
+          ]
         }
       }
     },
@@ -30871,7 +31756,8 @@
           ],
           "stern": [
             50,
-            100
+            100,
+            125
           ]
         }
       }
@@ -30957,6 +31843,7 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            26,
             113,
             125,
             181
@@ -30966,7 +31853,11 @@
             125,
             181
           ],
-          "stern": []
+          "stern": [
+            26,
+            125,
+            181
+          ]
         }
       }
     },
@@ -31258,7 +32149,8 @@
             225
           ],
           "stern": [
-            100
+            100,
+            125
           ]
         }
       }
@@ -31385,10 +32277,12 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            25,
             100,
             300
           ],
           "bow": [
+            25,
             100
           ],
           "stern": [
@@ -31431,12 +32325,19 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            110
+            85,
+            110,
+            130
           ],
           "bow": [
-            110
+            110,
+            130
           ],
-          "stern": []
+          "stern": [
+            85,
+            110,
+            130
+          ]
         }
       }
     },
@@ -31456,7 +32357,9 @@
             32
           ],
           "stern": [
-            32
+            25,
+            32,
+            35
           ]
         },
         "deck": {
@@ -31471,10 +32374,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            100,
+            200
+          ],
+          "bow": [
+            100
+          ],
+          "stern": [
+            100,
+            200
+          ]
         }
       }
     },
@@ -31511,14 +32422,16 @@
           "present": true,
           "values": [
             50,
-            100
+            100,
+            200
           ],
           "bow": [
             50,
             100
           ],
           "stern": [
-            50
+            50,
+            200
           ]
         }
       }
@@ -31539,7 +32452,9 @@
             32
           ],
           "stern": [
-            32
+            25,
+            32,
+            35
           ]
         },
         "deck": {
@@ -31554,10 +32469,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            100,
+            200
+          ],
+          "bow": [
+            100
+          ],
+          "stern": [
+            100,
+            200
+          ]
         }
       }
     },
@@ -31672,10 +32595,12 @@
       "armor": {
         "bowStern": {
           "bow": [
-            16
+            16,
+            26
           ],
           "stern": [
-            16
+            16,
+            26
           ]
         },
         "deck": {
@@ -31691,12 +32616,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            26,
+            102,
             152
           ],
           "bow": [
+            26,
+            102,
             152
           ],
           "stern": [
+            102,
             152
           ]
         }
@@ -31778,14 +32708,16 @@
           "present": true,
           "values": [
             50,
-            100
+            100,
+            200
           ],
           "bow": [
             50,
             100
           ],
           "stern": [
-            50
+            50,
+            200
           ]
         }
       }
@@ -31968,7 +32900,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -32156,6 +33089,7 @@
             20
           ],
           "stern": [
+            13,
             20
           ]
         },
@@ -32173,13 +33107,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            25
+            25,
+            75
           ],
           "bow": [
-            25
+            25,
+            75
           ],
           "stern": [
-            25
+            25,
+            75
           ]
         }
       }
@@ -32274,7 +33211,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            35
           ]
         },
         "deck": {
@@ -32325,9 +33263,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -32362,10 +33304,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            35
+          ],
+          "bow": [
+            35
+          ],
+          "stern": [
+            35
+          ]
         }
       }
     },
@@ -32751,13 +33699,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            25
+            25,
+            75
           ],
           "bow": [
-            25
+            25,
+            75
           ],
           "stern": [
-            25
+            25,
+            75
           ]
         }
       }
@@ -32829,9 +33780,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -32867,9 +33822,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -32906,13 +33865,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            50
+            50,
+            170
           ],
           "bow": [
             50
           ],
           "stern": [
-            50
+            50,
+            170
           ]
         }
       }
@@ -33064,13 +34025,15 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            50
+            50,
+            170
           ],
           "bow": [
             50
           ],
           "stern": [
-            50
+            50,
+            170
           ]
         }
       }
@@ -33201,7 +34164,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            20
           ]
         },
         "deck": {
@@ -33252,10 +34216,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            40,
+            100
+          ],
+          "bow": [
+            40
+          ],
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -33289,10 +34260,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            40,
+            100
+          ],
+          "bow": [
+            40
+          ],
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -33326,9 +34304,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -33404,10 +34386,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            20,
+            35
+          ],
+          "bow": [
+            20
+          ],
+          "stern": [
+            35
+          ]
         }
       }
     },
@@ -33427,7 +34416,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            20
           ]
         },
         "deck": {
@@ -33481,14 +34471,16 @@
           "present": true,
           "values": [
             50,
-            100
+            100,
+            200
           ],
           "bow": [
             50,
             100
           ],
           "stern": [
-            50
+            50,
+            200
           ]
         }
       }
@@ -33524,9 +34516,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -33561,10 +34557,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            35
+          ],
+          "bow": [
+            35
+          ],
+          "stern": [
+            35
+          ]
         }
       }
     },
@@ -33636,9 +34638,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -35266,6 +36272,7 @@
             75
           ],
           "stern": [
+            38,
             50,
             75
           ]
@@ -35356,6 +36363,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -35402,6 +36410,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -35476,10 +36485,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -35514,10 +36529,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -35552,10 +36573,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -35589,10 +36616,18 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            40,
+            60
+          ],
+          "bow": [
+            40
+          ],
+          "stern": [
+            40,
+            60
+          ]
         }
       }
     },
@@ -35701,10 +36736,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            50
+          ],
+          "bow": [
+            50
+          ],
+          "stern": [
+            50
+          ]
         }
       }
     },
@@ -35974,6 +37015,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -36020,6 +37062,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -36171,10 +37214,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            102
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            102
+          ]
         }
       }
     },
@@ -36345,7 +37392,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            38
           ]
         },
         "deck": {
@@ -36494,7 +37542,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            38
           ]
         },
         "deck": {
@@ -36879,10 +37928,12 @@
       "armor": {
         "bowStern": {
           "bow": [
-            32
+            32,
+            51
           ],
           "stern": [
-            32
+            32,
+            51
           ]
         },
         "deck": {
@@ -36896,10 +37947,25 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            102,
+            152,
+            305,
+            356
+          ],
+          "bow": [
+            102,
+            152,
+            305,
+            356
+          ],
+          "stern": [
+            102,
+            152,
+            305,
+            356
+          ]
         }
       }
     },
@@ -36933,9 +37999,15 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            32,
+            273
+          ],
+          "bow": [
+            32,
+            273
+          ],
           "stern": []
         }
       }
@@ -36972,10 +38044,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            32,
+            64
+          ],
+          "bow": [
+            64
+          ],
+          "stern": [
+            32
+          ]
         }
       }
     },
@@ -37211,6 +38290,7 @@
             76
           ],
           "stern": [
+            38,
             57,
             76
           ]
@@ -37551,10 +38631,22 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            25,
+            50,
+            60,
+            75
+          ],
+          "bow": [
+            25,
+            50
+          ],
+          "stern": [
+            25,
+            60,
+            75
+          ]
         }
       }
     },
@@ -37707,12 +38799,16 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
+            32,
             40
           ],
           "bow": [
+            32,
             40
           ],
-          "stern": []
+          "stern": [
+            32
+          ]
         }
       }
     },
@@ -37804,6 +38900,7 @@
             130,
             150,
             180,
+            225,
             280
           ],
           "bow": [
@@ -37811,10 +38908,13 @@
             130,
             150,
             180,
+            225,
             280
           ],
           "stern": [
+            150,
             180,
+            225,
             280
           ]
         }
@@ -37853,10 +38953,12 @@
           "present": true,
           "values": [
             40,
+            140,
             200
           ],
           "bow": [
-            40
+            40,
+            140
           ],
           "stern": [
             200
@@ -37897,13 +38999,16 @@
           "present": true,
           "values": [
             30,
+            100,
             120
           ],
           "bow": [
             30,
             120
           ],
-          "stern": []
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -37938,10 +39043,19 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            32,
+            280
+          ],
+          "bow": [
+            32,
+            280
+          ],
+          "stern": [
+            32,
+            280
+          ]
         }
       }
     },
@@ -37975,9 +39089,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            32
+          ],
+          "bow": [
+            32
+          ],
           "stern": []
         }
       }
@@ -38020,6 +39138,7 @@
             130,
             150,
             180,
+            225,
             280
           ],
           "bow": [
@@ -38027,10 +39146,13 @@
             130,
             150,
             180,
+            225,
             280
           ],
           "stern": [
+            150,
             180,
+            225,
             280
           ]
         }
@@ -38117,13 +39239,15 @@
           "present": true,
           "values": [
             120,
-            180
+            180,
+            200
           ],
           "bow": [
             180
           ],
           "stern": [
-            120
+            120,
+            200
           ]
         }
       }
@@ -38203,10 +39327,17 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            32,
+            100
+          ],
+          "bow": [
+            32
+          ],
+          "stern": [
+            100
+          ]
         }
       }
     },
@@ -39312,7 +40443,8 @@
             19
           ],
           "stern": [
-            19
+            19,
+            25
           ]
         },
         "deck": {
@@ -39878,14 +41010,18 @@
           "values": [
             80,
             90,
-            100
+            100,
+            120,
+            140
           ],
           "bow": [
             80,
-            100
+            100,
+            140
           ],
           "stern": [
-            90
+            90,
+            120
           ]
         }
       }
@@ -39923,13 +41059,18 @@
           "present": true,
           "values": [
             100,
+            175,
             200
           ],
           "bow": [
             100,
+            175,
             200
           ],
-          "stern": []
+          "stern": [
+            175,
+            200
+          ]
         }
       }
     },
@@ -39964,22 +41105,10 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            102,
-            127,
-            178
-          ],
-          "bow": [
-            102,
-            127,
-            178
-          ],
-          "stern": [
-            102,
-            127,
-            178
-          ]
+          "present": false,
+          "values": [],
+          "bow": [],
+          "stern": []
         }
       }
     },
@@ -40020,7 +41149,9 @@
           "bow": [
             60
           ],
-          "stern": []
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -40054,10 +41185,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
-          "stern": []
+          "present": true,
+          "values": [
+            60
+          ],
+          "bow": [
+            60
+          ],
+          "stern": [
+            60
+          ]
         }
       }
     },
@@ -40323,13 +41460,9 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            400
-          ],
-          "bow": [
-            400
-          ],
+          "present": false,
+          "values": [],
+          "bow": [],
           "stern": []
         }
       }
@@ -40747,13 +41880,9 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            1
-          ],
-          "bow": [
-            1
-          ],
+          "present": false,
+          "values": [],
+          "bow": [],
           "stern": []
         }
       }
@@ -40786,13 +41915,9 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            1
-          ],
-          "bow": [
-            1
-          ],
+          "present": false,
+          "values": [],
+          "bow": [],
           "stern": []
         }
       }
@@ -40902,9 +42027,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -41136,12 +42265,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            90
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -41214,12 +42348,17 @@
         "extendedBowSternBelt": {
           "present": true,
           "values": [
-            40
+            27,
+            40,
+            90
           ],
           "bow": [
+            27,
             40
           ],
-          "stern": []
+          "stern": [
+            90
+          ]
         }
       }
     },
@@ -41514,17 +42653,10 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            40,
-            90
-          ],
-          "bow": [
-            40
-          ],
-          "stern": [
-            90
-          ]
+          "present": false,
+          "values": [],
+          "bow": [],
+          "stern": []
         }
       }
     },
@@ -41705,13 +42837,9 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            1
-          ],
-          "bow": [
-            1
-          ],
+          "present": false,
+          "values": [],
+          "bow": [],
           "stern": []
         }
       }
@@ -41744,13 +42872,9 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": true,
-          "values": [
-            1
-          ],
-          "bow": [
-            1
-          ],
+          "present": false,
+          "values": [],
+          "bow": [],
           "stern": []
         }
       }
@@ -44116,10 +45240,14 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            305
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            305
+          ]
         }
       }
     },
@@ -44287,6 +45415,7 @@
             200
           ],
           "bow": [
+            30,
             200
           ],
           "stern": [
@@ -44363,10 +45492,16 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
+          "present": true,
+          "values": [
+            229,
+            356
+          ],
           "bow": [],
-          "stern": []
+          "stern": [
+            229,
+            356
+          ]
         }
       }
     },
@@ -44517,7 +45652,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -44555,7 +45691,8 @@
             13
           ],
           "stern": [
-            13
+            13,
+            25
           ]
         },
         "deck": {
@@ -44777,7 +45914,8 @@
             16
           ],
           "stern": [
-            16
+            16,
+            25
           ]
         },
         "deck": {
@@ -44828,9 +45966,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }
@@ -45213,9 +46355,13 @@
           ]
         },
         "extendedBowSternBelt": {
-          "present": false,
-          "values": [],
-          "bow": [],
+          "present": true,
+          "values": [
+            25
+          ],
+          "bow": [
+            25
+          ],
           "stern": []
         }
       }

@@ -62,12 +62,8 @@ function maxValue(values) {
 }
 
 function selectExtendedBowSternBelt(bowBeltValues, sternBeltValues, bowValues, sternValues) {
-  const bowBase = maxValue(bowValues);
-  const sternBase = maxValue(sternValues);
-  const bow = selectPrimary(bowBeltValues).filter((value) => value > bowBase);
-  const stern = bow.length
-    ? selectPrimary(sternBeltValues).filter((value) => value > sternBase)
-    : [];
+  const bow = selectPrimary(bowBeltValues);
+  const stern = selectPrimary(sternBeltValues);
   return {
     values: sortUnique([...bow, ...stern]),
     bow,

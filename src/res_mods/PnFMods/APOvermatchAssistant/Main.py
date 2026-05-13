@@ -40,9 +40,11 @@ TXT_UNKNOWN = u'\u672a\u77e5'
 TXT_BOW_STERN = u'\u5934\u5c3e'
 TXT_BOW = u'\u824f'
 TXT_STERN = u'\u8249'
+TXT_FRONT = u'\u524d'
+TXT_REAR = u'\u540e'
 TXT_DECK = u'\u7532\u677f'
 TXT_SIDE = u'\u4fa7\u677f'
-TXT_BELT = u'\u884d\u751f\u5e26/\u7834\u51b0\u5e26'
+TXT_BELT = u'\u5ef6\u4f38\u5e26'
 TXT_NO_BELT = u'\u65e0'
 TXT_HAS_BELT = u'\u6709'
 TXT_TARGET = u'\u76ee\u6807'
@@ -674,13 +676,20 @@ class APOvermatchAssistant(object):
             present = bool(group.get('present'))
 
         if not present:
-            payload['beltText'] = u'{}: {}'.format(TXT_BELT, TXT_NO_BELT)
+            payload['beltText'] = u'{}\uff1a{}\uff1a{}  {}\uff1a{}'.format(TXT_BELT, TXT_FRONT, TXT_NO_BELT, TXT_REAR, TXT_NO_BELT)
             payload['beltColor'] = STATE_COLOR[STATE_YES]
             return
 
-        values = _flatten_values(group)
-        state = _state_for_limit(values, limit)
-        payload['beltText'] = u'{}: {} - {} ({})'.format(TXT_BELT, TXT_HAS_BELT, state_text[state], _format_mm(values))
+        bow = _flatten_values(group.get('bow') or group.get('fore')) if isinstance(group, dict) else []
+        stern = _flatten_values(group.get('stern') or group.get('aft')) if isinstance(group, dict) else []
+        if not bow and not stern:
+            bow = _flatten_values(group)
+        bow_state = _state_for_limit(bow, limit) if bow else STATE_YES
+        stern_state = _state_for_limit(stern, limit) if stern else STATE_YES
+        state = self._merge_states([bow_state, stern_state])
+        bow_text = state_text[bow_state] if bow else TXT_NO_BELT
+        stern_text = state_text[stern_state] if stern else TXT_NO_BELT
+        payload['beltText'] = u'{}\uff1a{}\uff1a{}  {}\uff1a{}'.format(TXT_BELT, TXT_FRONT, bow_text, TXT_REAR, stern_text)
         payload['beltColor'] = STATE_COLOR[state]
 
     def _merge_states(self, states):

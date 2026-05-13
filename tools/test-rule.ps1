@@ -262,13 +262,7 @@ if (Test-Path $dataPath) {
     }
 
     $noExtendedBeltKeys = @(
-        "PJSC520_Yoshino",
-        "PJSC590_Black_Yoshino",
-        "PXSB054_Yoshino_modern",
-        "PJSC510_Azumaya",
-        "PJSC519_AZUR_Azuma",
-        "PJSC829_Black_Azumaya",
-        "PRSC509_Kronshtadt"
+        "PXSB054_Yoshino_modern"
     )
     foreach ($shipKey in $noExtendedBeltKeys) {
         $ship = $db.ships.PSObject.Properties[$shipKey].Value
@@ -282,12 +276,57 @@ if (Test-Path $dataPath) {
     $extendedBeltKeys = @(
         "PRSC520_Stalingrad",
         "PRSC310_Petropavlovsk",
-        "PHSC509_Van_Speijk"
+        "PHSC509_Van_Speijk",
+        "PGSC111_Clausewitz",
+        "PGSC891_Clausewitz_PLUS"
     )
     foreach ($shipKey in $extendedBeltKeys) {
         $ship = $db.ships.PSObject.Properties[$shipKey].Value
         if (-not [bool]$ship.armor.extendedBowSternBelt.present) {
             Write-Host "FAIL $shipKey extended belt expected=true actual=false"
+            $failed++
+        }
+    }
+
+    $extendedBeltValueCases = @{
+        "PGSC110_Hindenburg" = "27/40/90"
+        "PGSC111_Clausewitz" = "27/40/90"
+        "PGSC891_Clausewitz_PLUS" = "27/40/90"
+        "PBSB507_Hood" = "127/152"
+        "PJSC510_Azumaya" = "25/120/175"
+        "PJSC520_Yoshino" = "25/120/175"
+        "PJSB021_Izumo_1938" = "305"
+        "PZSB509_Izumo_Bajie" = "305"
+        "PRSC509_Kronshtadt" = "25"
+    }
+    foreach ($shipKey in $extendedBeltValueCases.Keys) {
+        $ship = $db.ships.PSObject.Properties[$shipKey].Value
+        $values = @($ship.armor.extendedBowSternBelt.values) -join "/"
+        if ($values -ne $extendedBeltValueCases[$shipKey]) {
+            Write-Host "FAIL $shipKey extended belt expected=$($extendedBeltValueCases[$shipKey]) actual=$values"
+            $failed++
+        }
+    }
+
+    $extendedBeltDirectionCases = @{
+        "PGSC110_Hindenburg" = @{ bow = "27/40"; stern = "90" }
+        "PGSC111_Clausewitz" = @{ bow = "27/40"; stern = "90" }
+        "PGSC891_Clausewitz_PLUS" = @{ bow = "27/40"; stern = "90" }
+        "PBSB507_Hood" = @{ bow = "127/152"; stern = "152" }
+        "PJSC510_Azumaya" = @{ bow = "25"; stern = "25/120/175" }
+        "PJSC520_Yoshino" = @{ bow = "25"; stern = "25/120/175" }
+        "PJSB021_Izumo_1938" = @{ bow = ""; stern = "305" }
+        "PZSB509_Izumo_Bajie" = @{ bow = ""; stern = "305" }
+        "PRSC509_Kronshtadt" = @{ bow = "25"; stern = "" }
+    }
+    foreach ($shipKey in $extendedBeltDirectionCases.Keys) {
+        $ship = $db.ships.PSObject.Properties[$shipKey].Value
+        $belt = $ship.armor.extendedBowSternBelt
+        $bow = @($belt.bow) -join "/"
+        $stern = @($belt.stern) -join "/"
+        $expected = $extendedBeltDirectionCases[$shipKey]
+        if ($bow -ne $expected.bow -or $stern -ne $expected.stern) {
+            Write-Host "FAIL $shipKey extended belt directions expected=bow:$($expected.bow),stern:$($expected.stern) actual=bow:$bow,stern:$stern"
             $failed++
         }
     }
