@@ -5,7 +5,11 @@ const projectRoot = path.resolve(import.meta.dirname, '..');
 const jsonPath = path.join(projectRoot, 'src', 'res_mods', 'PnFMods', 'APOvermatchAssistant', 'data', 'armor_overmatch.json');
 const unboundPath = path.join(projectRoot, 'src', 'res_mods', 'gui', 'unbound2', 'PnFMods', 'APOvermatchAssistant.unbound');
 
-const db = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+function readJsonFile(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, ''));
+}
+
+const db = readJsonFile(jsonPath);
 
 function unique(values) {
   return [...new Set((values || []).map(Number).filter((value) => Number.isFinite(value) && value > 0))].sort((a, b) => a - b);

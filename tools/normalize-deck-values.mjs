@@ -13,6 +13,10 @@ const jsonPath = process.argv[2] || path.join(
   'armor_overmatch.json',
 );
 
+function readJsonFile(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, ''));
+}
+
 function sortUnique(values) {
   return [...new Set((values || []).map(Number).filter((value) => Number.isFinite(value) && value > 0))]
     .sort((a, b) => a - b);
@@ -72,6 +76,11 @@ function selectExtendedBowSternBelt(bowBeltValues, sternBeltValues, bowValues, s
 }
 
 const SIDE_VALUE_OVERRIDES = {
+  PGSC108_Hipper: [27],
+  PGSC508_Prinz_Eugen: [27],
+  PGSC518_Mainz: [25],
+  PGSC598_Black_Mainz: [25],
+  PGSC729_Blucher: [27],
   PGSB207_Prinz_Heinrich: [150],
   PGSB517_AZUR_Prinz_Heinrich: [150],
   PGSB108_Bismarck: [160],
@@ -86,14 +95,40 @@ function sameValues(left, right) {
   return left.length === right.length && left.every((value, index) => value === right[index]);
 }
 
-function writePythonDatabase(jsonText, outPath) {
+function pythonLiteral(value, depth = 0) {
+  const indent = '  '.repeat(depth);
+  const nextIndent = '  '.repeat(depth + 1);
+  if (value === null) return 'None';
+  if (typeof value === 'boolean') return value ? 'True' : 'False';
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) throw new Error(`Cannot write non-finite number: ${value}`);
+    return String(value);
+  }
+  if (typeof value === 'string') return JSON.stringify(value);
+  if (Array.isArray(value)) {
+    if (!value.length) return '[]';
+    const items = value.map((item) => `${nextIndent}${pythonLiteral(item, depth + 1)}`);
+    return `[\n${items.join(',\n')}\n${indent}]`;
+  }
+  if (typeof value === 'object') {
+    const entries = Object.entries(value);
+    if (!entries.length) return '{}';
+    const items = entries.map(([key, item]) => (
+      `${nextIndent}${pythonLiteral(key)}: ${pythonLiteral(item, depth + 1)}`
+    ));
+    return `{\n${items.join(',\n')}\n${indent}}`;
+  }
+  throw new Error(`Unsupported value in Python database: ${typeof value}`);
+}
+
+function writePythonDatabase(database, outPath) {
   const pyOutPath = outPath.replace(/\.[^.]*$/, '.py');
-  const pyLiteral = jsonText.replace(/\btrue\b/g, 'True').replace(/\bfalse\b/g, 'False').replace(/\bnull\b/g, 'None');
+  const pyLiteral = pythonLiteral(database);
   const pyText = `# -*- coding: utf-8 -*-\n# Generated from armor_overmatch.json. WoWS ModsAPI blocks the json module.\nDATABASE = ${pyLiteral}\n`;
   fs.writeFileSync(pyOutPath, pyText, 'utf8');
 }
 
-const db = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+const db = readJsonFile(jsonPath);
 let changedDeck = 0;
 let changedSide = 0;
 let changedBelt = 0;
@@ -162,7 +197,7 @@ if (db.meta) {
 
 const jsonText = `${JSON.stringify(db, null, 2)}\n`;
 fs.writeFileSync(jsonPath, jsonText, 'utf8');
-writePythonDatabase(jsonText, jsonPath);
+writePythonDatabase(db, jsonPath);
 
 const hindenburg = db.ships?.PGSC110_Hindenburg?.armor?.deck?.values || [];
 const prinzHeinrich = db.ships?.PGSB207_Prinz_Heinrich?.armor?.side?.values || [];

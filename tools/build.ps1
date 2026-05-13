@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 $src = Join-Path $ProjectRoot "src"
 $dist = Join-Path $ProjectRoot "dist"
 $build = Join-Path $ProjectRoot "build\package"
-$zip = Join-Path $dist "APOvermatchAssistant_Aslain.zip"
+$zip = Join-Path $dist "14.3-helper_Aslain.zip"
 
 if (Test-Path $build) {
     Remove-Item -LiteralPath $build -Recurse -Force

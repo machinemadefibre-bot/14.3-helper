@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 API_VERSION = 'API_v1.0'
-MOD_NAME = 'APOvermatchAssistant'
+MOD_NAME = '14.3-helper'
 MOD_VERSION = '0.2.27'
 
 try:
@@ -544,9 +544,9 @@ class APOvermatchAssistant(object):
         if depth > 3 or obj is None:
             return None
         if isinstance(obj, dict):
-            items = obj.items()
+            items = list(obj.items())
         elif isinstance(obj, (list, tuple)):
-            items = enumerate(obj)
+            items = list(enumerate(obj))
         else:
             for name in ('caliber', 'gunCaliber', 'mainGunCaliber', 'bulletDiameter', 'bulletDiametr'):
                 value = _safe_getattr(obj, name)

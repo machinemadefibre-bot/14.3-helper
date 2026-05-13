@@ -20,6 +20,10 @@ function parseArgs(argv) {
   return args;
 }
 
+function readJsonFile(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, ''));
+}
+
 function getLatestBuild(gameDir) {
   const bin = path.join(gameDir, 'bin');
   return fs.readdirSync(bin, { withFileTypes: true })
@@ -165,9 +169,8 @@ function isSternMaterial(name) {
   return /(^|_)St($|_)|^St_|Stern$/.test(name);
 }
 
-function addClassifiedArmor(groups, material, mm, options = {}) {
+function addClassifiedArmor(groups, material, mm) {
   if (mm <= 0) return;
-  const isCarrier = Boolean(options.isCarrier);
   const isBow = isBowMaterial(material);
   const isStern = isSternMaterial(material);
   const isBowOrStern = isBow || isStern;
@@ -192,9 +195,11 @@ function addClassifiedArmor(groups, material, mm, options = {}) {
     addUnique(groups.deck, mm, platingMax);
   }
 
-  if (isCarrier && !isBowOrStern && /ConstrSide/.test(material) && !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SideSS/.test(material)) {
-    addUnique(groups.side, mm, sideMax);
-  } else if (!isCarrier && !isBowOrStern && /ConstrSide|Side|Belt/.test(material) && !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS/.test(material)) {
+  if (
+    !isBowOrStern &&
+    /ConstrSide|Side|Belt/.test(material) &&
+    !/Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS/.test(material)
+  ) {
     addUnique(groups.side, mm, sideMax);
   }
 }
@@ -367,7 +372,6 @@ async function collectProjectilePenetration(gameParamsPath) {
 
 function shipRecord(entryName, lines, projectileMap, materialNames) {
   let isShip = false;
-  const isCarrier = /^P.SA/.test(entryName);
   let name = entryName;
   let index = null;
   let id = null;
@@ -417,7 +421,7 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
         const mm = Number(m[2]);
         if (Number.isFinite(rawKey) && Number.isFinite(mm)) {
           const matId = rawKey % 65536;
-          addClassifiedArmor(currentGroups, materialName(materialNames, matId), mm, { isCarrier });
+          addClassifiedArmor(currentGroups, materialName(materialNames, matId), mm);
         }
       }
     }
@@ -449,6 +453,7 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
     selectedGroups.bow,
     selectedGroups.stern,
   );
+  const sideValues = selectPrimarySide(selectedGroups.side, selectedGroups.belt);
 
   return {
     name: String(name),
@@ -464,8 +469,8 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
         bow: selectPrimary(selectedGroups.bow),
         stern: selectPrimary(selectedGroups.stern),
       },
-      deck: { values: selectPrimaryDeck(selectedGroups.deck, selectedGroups.bow, selectedGroups.stern, selectedGroups.side) },
-      side: { values: selectPrimarySide(selectedGroups.side, selectedGroups.belt) },
+      deck: { values: selectPrimaryDeck(selectedGroups.deck, selectedGroups.bow, selectedGroups.stern, sideValues) },
+      side: { values: sideValues },
       extendedBowSternBelt: {
         present: extendedBelt.values.length > 0,
         values: extendedBelt.values,
@@ -605,14 +610,40 @@ function wildcardMatch(value, pattern) {
 function applyOverrides(ships, overridePath) {
   if (!overridePath || !fs.existsSync(overridePath)) return;
   console.log(`Applying overrides from ${overridePath}...`);
-  const overrides = JSON.parse(fs.readFileSync(overridePath, 'utf8'));
+  const overrides = readJsonFile(overridePath);
   if (!overrides.ships) return;
   for (const [key, value] of Object.entries(overrides.ships)) ships[key] = value;
 }
 
-function writePythonDatabase(jsonText, outPath) {
+function pythonLiteral(value, depth = 0) {
+  const indent = '  '.repeat(depth);
+  const nextIndent = '  '.repeat(depth + 1);
+  if (value === null) return 'None';
+  if (typeof value === 'boolean') return value ? 'True' : 'False';
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) throw new Error(`Cannot write non-finite number: ${value}`);
+    return String(value);
+  }
+  if (typeof value === 'string') return JSON.stringify(value);
+  if (Array.isArray(value)) {
+    if (!value.length) return '[]';
+    const items = value.map((item) => `${nextIndent}${pythonLiteral(item, depth + 1)}`);
+    return `[\n${items.join(',\n')}\n${indent}]`;
+  }
+  if (typeof value === 'object') {
+    const entries = Object.entries(value);
+    if (!entries.length) return '{}';
+    const items = entries.map(([key, item]) => (
+      `${nextIndent}${pythonLiteral(key)}: ${pythonLiteral(item, depth + 1)}`
+    ));
+    return `{\n${items.join(',\n')}\n${indent}}`;
+  }
+  throw new Error(`Unsupported value in Python database: ${typeof value}`);
+}
+
+function writePythonDatabase(database, outPath) {
   const pyOutPath = outPath.replace(/\.[^.]*$/, '.py');
-  const pyLiteral = jsonText.replace(/\btrue\b/g, 'True').replace(/\bfalse\b/g, 'False').replace(/\bnull\b/g, 'None');
+  const pyLiteral = pythonLiteral(database);
   const pyText = `# -*- coding: utf-8 -*-\n# Generated from armor_overmatch.json. WoWS ModsAPI blocks the json module.\nDATABASE = ${pyLiteral}\n`;
   fs.writeFileSync(pyOutPath, pyText, 'utf8');
   return pyOutPath;
@@ -646,7 +677,7 @@ async function main() {
   const database = {
     schema: 2,
     meta: {
-      name: 'APOvermatchAssistant',
+      name: '14.3-helper',
       gameBuild: build,
       realm,
       generatedAt: new Date().toISOString().slice(0, 19),
@@ -659,7 +690,7 @@ async function main() {
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const jsonText = JSON.stringify(database, null, 2);
   fs.writeFileSync(outPath, jsonText, 'utf8');
-  const pyOutPath = writePythonDatabase(jsonText, outPath);
+  const pyOutPath = writePythonDatabase(database, outPath);
   console.log(`Wrote ${Object.keys(ships).length} ships to ${outPath}`);
   console.log(`Wrote Python database to ${pyOutPath}`);
 }

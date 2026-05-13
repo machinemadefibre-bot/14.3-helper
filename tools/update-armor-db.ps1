@@ -5,8 +5,10 @@ param(
     [string]$GameParamsJson = "",
     [string]$Realm = "",
     [string]$ShipKeyFilter = "",
+    [string]$GeometryDir = "",
     [int]$MaxShips = 0,
     [switch]$ExtractGameParams,
+    [switch]$SkipGeometryRefine,
     [switch]$Apply
 )
 
@@ -186,6 +188,25 @@ if ($node -and (Test-Path $normalizeScript)) {
     if ($LASTEXITCODE -ne 0) {
         throw "normalize-deck-values.mjs failed with exit code $LASTEXITCODE"
     }
+}
+
+$refineScript = Join-Path $PSScriptRoot "refine-side-from-geometry.mjs"
+if (-not $GeometryDir) {
+    $GeometryDir = Join-Path $ProjectRoot "build\scratch\ship_geometry_flat"
+}
+$refineGameParamsJson = $GameParamsJson
+if (-not $refineGameParamsJson) {
+    $defaultGameParamsJson = "C:\tmp\GameParams_ASIA.json"
+    if (Test-Path $defaultGameParamsJson) { $refineGameParamsJson = $defaultGameParamsJson }
+}
+if (-not $SkipGeometryRefine -and $node -and (Test-Path $refineScript) -and (Test-Path $refineGameParamsJson) -and (Test-Path $GeometryDir)) {
+    Write-Host "Refining armor values from geometry positions..."
+    & $node.Source $refineScript --db $candidatePath --game-params $refineGameParamsJson --geometry-dir $GeometryDir
+    if ($LASTEXITCODE -ne 0) {
+        throw "refine-side-from-geometry.mjs failed with exit code $LASTEXITCODE"
+    }
+} else {
+    Write-Host "Skipping geometry refinement; provide -GameParamsJson and -GeometryDir, or populate C:\tmp\GameParams_ASIA.json and build\scratch\ship_geometry_flat."
 }
 
 $oldDb = Read-JsonFile $dataPath

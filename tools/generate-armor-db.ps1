@@ -96,6 +96,66 @@ function Get-Prop {
     return $null
 }
 
+function ConvertTo-PythonStringLiteral {
+    param([string]$Value)
+    $escaped = $Value.
+        Replace('\', '\\').
+        Replace('"', '\"').
+        Replace("`r", '\r').
+        Replace("`n", '\n').
+        Replace("`t", '\t')
+    return '"' + $escaped + '"'
+}
+
+function ConvertTo-PythonLiteral {
+    param($Value, [int]$Depth = 0)
+
+    $indent = "  " * $Depth
+    $nextIndent = "  " * ($Depth + 1)
+
+    if ($null -eq $Value) { return "None" }
+    if ($Value -is [bool]) {
+        if ($Value) { return "True" }
+        return "False"
+    }
+    if ($Value -is [string]) { return ConvertTo-PythonStringLiteral $Value }
+    if ($Value -is [byte] -or $Value -is [sbyte] -or
+        $Value -is [int16] -or $Value -is [uint16] -or
+        $Value -is [int32] -or $Value -is [uint32] -or
+        $Value -is [int64] -or $Value -is [uint64] -or
+        $Value -is [single] -or $Value -is [double] -or $Value -is [decimal]) {
+        return [System.Convert]::ToString($Value, [System.Globalization.CultureInfo]::InvariantCulture)
+    }
+    if ($Value -is [System.Collections.IDictionary]) {
+        if ($Value.Count -eq 0) { return "{}" }
+        $items = New-Object System.Collections.ArrayList
+        foreach ($key in $Value.Keys) {
+            [void]$items.Add($nextIndent + (ConvertTo-PythonLiteral ([string]$key)) + ": " + (ConvertTo-PythonLiteral $Value[$key] ($Depth + 1)))
+        }
+        return "{`n" + ($items -join ",`n") + "`n$indent}"
+    }
+    if ($Value -is [System.Collections.IEnumerable]) {
+        $values = @($Value)
+        if ($values.Count -eq 0) { return "[]" }
+        $items = New-Object System.Collections.ArrayList
+        foreach ($item in $values) {
+            [void]$items.Add($nextIndent + (ConvertTo-PythonLiteral $item ($Depth + 1)))
+        }
+        return "[`n" + ($items -join ",`n") + "`n$indent]"
+    }
+
+    $props = @($Value.PSObject.Properties | Where-Object { $_.MemberType -eq "NoteProperty" -or $_.MemberType -eq "Property" })
+    if ($props.Count -gt 0) {
+        $items = New-Object System.Collections.ArrayList
+        foreach ($prop in $props) {
+            [void]$items.Add($nextIndent + (ConvertTo-PythonLiteral ([string]$prop.Name)) + ": " + (ConvertTo-PythonLiteral $prop.Value ($Depth + 1)))
+        }
+        return "{`n" + ($items -join ",`n") + "`n$indent}"
+    }
+
+    return ConvertTo-PythonStringLiteral ([string]$Value)
+}
+
 function Normalize-Caliber {
     param($Value)
     if ($null -eq $Value) { return $null }
@@ -134,7 +194,7 @@ function Test-SternMaterial {
 }
 
 function Add-ClassifiedArmor {
-    param([hashtable]$Groups, [string]$MaterialName, [double]$Mm, [bool]$IsCarrier = $false)
+    param([hashtable]$Groups, [string]$MaterialName, [double]$Mm)
 
     if ($Mm -le 0) { return }
     $isBow = Test-BowMaterial $MaterialName
@@ -162,11 +222,7 @@ function Add-ClassifiedArmor {
         Add-UniqueNumber $Groups.deck $Mm $platingMax
     }
 
-    if ($IsCarrier -and -not $isBowOrStern -and $MaterialName -match 'ConstrSide' -and
-        $MaterialName -notmatch 'Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SideSS') {
-        Add-UniqueNumber $Groups.side $Mm $sideMax
-    }
-    elseif (-not $IsCarrier -and -not $isBowOrStern -and $MaterialName -match 'ConstrSide|Side|Belt' -and
+    if (-not $isBowOrStern -and $MaterialName -match 'ConstrSide|Side|Belt' -and
         $MaterialName -notmatch 'Cit|OCit|Tur|Art|Bridge|Funnel|Kdp|Rudder|Bulge|Bottom|SS_|SSC|SideSS') {
         Add-UniqueNumber $Groups.side $Mm $sideMax
     }
@@ -463,7 +519,7 @@ function Find-HullObject {
 }
 
 function Extract-ArmorGroups {
-    param($Hull, [bool]$IsCarrier = $false)
+    param($Hull)
     $groups = New-ArmorGroups
 
     $armor = Get-Prop $Hull "armor"
@@ -474,7 +530,7 @@ function Extract-ArmorGroups {
         try { $mm = [double]$prop.Value } catch { continue }
         $materialId = [int]($rawKey % 65536)
         $materialName = Get-MaterialName $materialId
-        Add-ClassifiedArmor $groups $materialName $mm $IsCarrier
+        Add-ClassifiedArmor $groups $materialName $mm
     }
     return $groups
 }
@@ -620,12 +676,12 @@ function Convert-Record {
     if ((Get-Prop $typeInfo "type") -ne "Ship") { return $null }
 
     $hull = Find-HullObject $Entry
-    $isCarrier = $EntryName -match '^P.SA'
-    $groups = if ($hull) { Extract-ArmorGroups $hull $isCarrier } else { Extract-ArmorGroups $null $isCarrier }
+    $groups = if ($hull) { Extract-ArmorGroups $hull } else { Extract-ArmorGroups $null }
     $name = Get-Prop $Entry "name"
     if (-not $name) { $name = $EntryName }
     $caliber = Find-MainGunCaliber $Entry
     $extendedBelt = Select-ExtendedBowSternBelt $groups.bowBelt $groups.sternBelt $groups.bow $groups.stern
+    $sideValues = @(Select-PrimarySideArmorValues $groups.side $groups.belt)
 
     $aliases = New-Object System.Collections.ArrayList
     foreach ($alias in @($EntryName, (Get-Prop $Entry "index"), (Get-Prop $Entry "id"), $name)) {
@@ -641,8 +697,8 @@ function Convert-Record {
                 bow = @(Select-PrimaryArmorValues $groups.bow)
                 stern = @(Select-PrimaryArmorValues $groups.stern)
             }
-            deck = [ordered]@{ values = @(Select-PrimaryDeckArmorValues $groups.deck $groups.bow $groups.stern $groups.side) }
-            side = [ordered]@{ values = @(Select-PrimarySideArmorValues $groups.side $groups.belt) }
+            deck = [ordered]@{ values = @(Select-PrimaryDeckArmorValues $groups.deck $groups.bow $groups.stern $sideValues) }
+            side = [ordered]@{ values = $sideValues }
             extendedBowSternBelt = [ordered]@{
                 present = ($extendedBelt.values.Count -gt 0)
                 values = @($extendedBelt.values)
@@ -657,7 +713,6 @@ function Convert-RecordFromLines {
     param([string]$EntryName, [System.Collections.ArrayList]$Lines, [hashtable]$ProjectilePenByName)
 
     $isShip = $false
-    $isCarrier = $EntryName -match '^P.SA'
     $name = $EntryName
     $index = $null
     $id = $null
@@ -698,7 +753,7 @@ function Convert-RecordFromLines {
             if ($null -ne $rawKey) {
                 $materialId = [int]($rawKey % 65536)
                 $materialName = Get-MaterialName $materialId
-                Add-ClassifiedArmor $currentGroups $materialName $mm $isCarrier
+                Add-ClassifiedArmor $currentGroups $materialName $mm
             }
         }
 
@@ -724,6 +779,7 @@ function Convert-RecordFromLines {
     $hePen = Find-MainGunAmmoPenetration $ammoNames $ProjectilePenByName $maxCaliber "HE"
     $sapPen = Find-MainGunAmmoPenetration $ammoNames $ProjectilePenByName $maxCaliber "CS"
     $extendedBelt = Select-ExtendedBowSternBelt $selectedGroups.bowBelt $selectedGroups.sternBelt $selectedGroups.bow $selectedGroups.stern
+    $sideValues = @(Select-PrimarySideArmorValues $selectedGroups.side $selectedGroups.belt)
 
     $aliases = New-Object System.Collections.ArrayList
     foreach ($alias in @($EntryName, $index, $id, $name)) {
@@ -741,8 +797,8 @@ function Convert-RecordFromLines {
                 bow = @(Select-PrimaryArmorValues $selectedGroups.bow)
                 stern = @(Select-PrimaryArmorValues $selectedGroups.stern)
             }
-            deck = [ordered]@{ values = @(Select-PrimaryDeckArmorValues $selectedGroups.deck $selectedGroups.bow $selectedGroups.stern $selectedGroups.side) }
-            side = [ordered]@{ values = @(Select-PrimarySideArmorValues $selectedGroups.side $selectedGroups.belt) }
+            deck = [ordered]@{ values = @(Select-PrimaryDeckArmorValues $selectedGroups.deck $selectedGroups.bow $selectedGroups.stern $sideValues) }
+            side = [ordered]@{ values = $sideValues }
             extendedBowSternBelt = [ordered]@{
                 present = ($extendedBelt.values.Count -gt 0)
                 values = @($extendedBelt.values)
@@ -904,7 +960,7 @@ if (Test-Path $OverridePath) {
 $database = [ordered]@{
     schema = 2
     meta = [ordered]@{
-        name = "APOvermatchAssistant"
+        name = "14.3-helper"
         gameBuild = $buildDir.Name
         realm = $realmId
         generatedAt = (Get-Date).ToString("s")
@@ -917,7 +973,7 @@ $database = [ordered]@{
 $json = $database | ConvertTo-Json -Depth 30
 [System.IO.File]::WriteAllText($OutPath, $json, [System.Text.Encoding]::UTF8)
 $pyOutPath = [System.IO.Path]::ChangeExtension($OutPath, ".py")
-$pyLiteral = $json -replace '\btrue\b', 'True' -replace '\bfalse\b', 'False' -replace '\bnull\b', 'None'
+$pyLiteral = ConvertTo-PythonLiteral $database
 $pyText = "# -*- coding: utf-8 -*-`n# Generated from armor_overmatch.json. WoWS ModsAPI blocks the json module.`nDATABASE = $pyLiteral`n"
 [System.IO.File]::WriteAllText($pyOutPath, $pyText, [System.Text.Encoding]::UTF8)
 Write-Host "Wrote $($ships.Count) ships to $OutPath"
