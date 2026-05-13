@@ -3953,6 +3953,12 @@
 			(element OA_DiagRow _text="diagText" _visible="diagVisible")
 		)
 
+		(element TT_ConfigButtonElement _modIndex="22" _tooltipAlign="outerTop|outerLeft"
+			(style
+				(left = -30px)
+				(top = 20px)
+			)
+		)
 	)
 )
 
@@ -4077,6 +4083,12 @@
 			(element OA_Row _text="beltText" _color="beltColor")
 		)
 
+		(element TT_ConfigButtonElement _modIndex="22" _tooltipAlign="outerTop|outerLeft"
+			(style
+				(left = -30px)
+				(top = 20px)
+			)
+		)
 	)
 )
 
