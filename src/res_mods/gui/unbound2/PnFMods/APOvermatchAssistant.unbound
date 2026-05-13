@@ -3751,7 +3751,7 @@
 		(var labelBelt:str = "isChinese ? '延伸' : 'Ext'")
 		(var labelBeltBow:str = "isChinese ? '前' : 'Bow'")
 		(var labelBeltStern:str = "isChinese ? '后' : 'Stern'")
-		(var textNoBelt:str = "isChinese ? '无' : 'None'")
+		(var textNoBelt:str = "isChinese ? '无' : 'NA'")
 		(var hasTargetArmorRecord:bool = "_targetRecord")
 		(var hasRule:bool = "_ruleLimit > 0")
 
