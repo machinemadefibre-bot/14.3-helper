@@ -22,6 +22,115 @@
 	(var name="_varName" type=bool value="_userPrefsNum && isNumber(_userPrefsNum[_pref.key]) ? round(_userPrefsNum[_pref.key]) : _pref.default")
 )
 
+(def constant APOA_DRAGGABLE_SNAP_PIXELS 20)
+
+(def macro APOA_STAGE_SIZE()
+	(var stageComponent:gfx = "$datahub.getSingleComponent(CC.stage)")
+	(var stageWidth:number = "stageComponent ? stageComponent.width : 1920" (event "stageComponent.evStageSizeChanged"))
+	(var stageHeight:number = "stageComponent ? stageComponent.height : 1080" (event "stageComponent.evStageSizeChanged"))
+)
+
+(def macro APOA_GET_DROP_POSITION (_elementName:expression, _defaultPosition:expression="{positionX:100, positionY: 100}")
+	(var __apoaDraggablePosNotifyEventName:str = "'ev' + _elementName + 'PositionChanged'")
+	(event name = "__apoaDraggablePosNotifyEventName")
+
+	(var __apoaDraggablePrefNameX:str = "_elementName + '_positionX'")
+	(var __apoaDraggablePrefNameY:str = "_elementName + '_positionY'")
+
+	(var __apoaDraggableUserPrefsComponent:gfx = "$datahub.getSingleComponent(CC.userPrefs)")
+	(var __apoaDraggableUserPrefsNum:gfx = "__apoaDraggableUserPrefsComponent.userPrefs.chatBoxWidth" watch=false (event "__apoaDraggableUserPrefsComponent.evUserPrefsChanged"))
+	(var dragPosX:number = "isNumber(__apoaDraggableUserPrefsNum[__apoaDraggablePrefNameX]) ? round(__apoaDraggableUserPrefsNum[__apoaDraggablePrefNameX]) : 'positionX' in _defaultPosition ? _defaultPosition.positionX : 100")
+	(var dragPosY:number = "isNumber(__apoaDraggableUserPrefsNum[__apoaDraggablePrefNameY]) ? round(__apoaDraggableUserPrefsNum[__apoaDraggablePrefNameY]) : 'positionY' in _defaultPosition ? _defaultPosition.positionY : 100")
+
+	(bind dragPosX "$event.x" init=false watch=false (event "$scope[__apoaDraggablePosNotifyEventName]"))
+	(bind dragPosY "$event.y" init=false watch=false (event "$scope[__apoaDraggablePosNotifyEventName]"))
+)
+
+(def element APOA_DraggableElement (
+		_elementName		:str,
+		_defaultPosition	:dict="{positionX: 100, positionY: 100}",
+		_screenBoundsOffset	:dict="{top:0, left:0, right:0, bottom:0}"
+	) layout=true
+
+	(scope
+		(event evAPOADraggableMouseDown)
+		(event evAPOADraggableMouseUp)
+		(event evAPOADraggableMouseMove)
+		(event evAPOADraggableMouseDisable)
+		(event evAPOADraggableDragEnded)
+		(var __apoaDraggablePosNotifyEventName:str = "'ev' + _elementName + 'PositionChanged'")
+		(event name = "__apoaDraggablePosNotifyEventName")
+
+		(var parentElement:gfx = "null")
+		(var mouse:gfx = "$datahub.getSingleComponent(CC.mouse)")
+		(var isMouseActive:bool = "mouse.active" (event "mouse.evActiveChanged"))
+		(var stageComponent:gfx = "$datahub.getSingleComponent(CC.stage)")
+		(var stageWidth:number = "stageComponent.width" (event "stageComponent.evStageSizeChanged"))
+		(var stageHeight:number = "stageComponent.height" (event "stageComponent.evStageSizeChanged"))
+		(var stageScale:number = "stageComponent.scale" (event "stageComponent.evStageSizeChanged"))
+
+		(var isSnapMode:bool = "$event ? $event.isSnapMode : false" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var mouseX:number = "$event ? round($event.x / stageScale) : 0" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var mouseY:number = "$event ? round($event.y / stageScale) : 0" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+
+		(var userPrefsComponent:gfx = "$datahub.getSingleComponent(CC.userPrefs)")
+		(var uPrefsNum:gfx = "userPrefsComponent.userPrefs.chatBoxWidth" watch=false init=false (event "userPrefsComponent.evUserPrefsChanged"))
+		(var prefKeyX:str = "_elementName + '_positionX'")
+		(var prefKeyY:str = "_elementName + '_positionY'")
+		(var defaultX:number = "'positionX' in _defaultPosition ? _defaultPosition.positionX : 100")
+		(var defaultY:number = "'positionY' in _defaultPosition ? _defaultPosition.positionY : 100")
+		(var positionX:number = "isNumber(uPrefsNum[prefKeyX]) ? round(uPrefsNum[prefKeyX]) : defaultX" watch=false (event "evAPOADraggableMouseDown"))
+		(var positionY:number = "isNumber(uPrefsNum[prefKeyY]) ? round(uPrefsNum[prefKeyY]) : defaultY" watch=false (event "evAPOADraggableMouseDown"))
+
+		(var dragOffsetX:number = "mouseX - positionX" init=false watch=false (event "evAPOADraggableMouseDown"))
+		(var dragOffsetY:number = "mouseY - positionY" init=false watch=false (event "evAPOADraggableMouseDown"))
+		(var minBoundOffsetX:number = "_screenBoundsOffset && 'left' in _screenBoundsOffset ? _screenBoundsOffset.left : 0")
+		(var minBoundOffsetY:number = "_screenBoundsOffset && 'top' in _screenBoundsOffset ? _screenBoundsOffset.top : 0")
+		(var maxBoundOffsetX:number = "_screenBoundsOffset && 'right' in _screenBoundsOffset ? _screenBoundsOffset.right : 0")
+		(var maxBoundOffsetY:number = "_screenBoundsOffset && 'bottom' in _screenBoundsOffset ? _screenBoundsOffset.bottom : 0")
+		(var originToPivotX:number = "positionX - $globalLayoutBounds[0]" watch=false (event "evAPOADraggableMouseDown"))
+		(var originToPivotY:number = "positionY - $globalLayoutBounds[1]" watch=false (event "evAPOADraggableMouseDown"))
+		(var elementWidth:number = "parentElement ? parentElement.width : $globalLayoutBounds[2]" watch=false (event "evAPOADraggableMouseDown"))
+		(var elementHeight:number = "parentElement ? parentElement.height : $globalLayoutBounds[3]" watch=false (event "evAPOADraggableMouseDown"))
+		(var pivotToBoundX:number = "elementWidth - originToPivotX" watch=false (event "evAPOADraggableMouseDown"))
+		(var pivotToBoundY:number = "elementHeight - originToPivotY" watch=false (event "evAPOADraggableMouseDown"))
+		(var rawDragPosX:number = "mouseX - dragOffsetX" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var rawDragPosY:number = "mouseY - dragOffsetY" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var maxStageX:number = "stageWidth - maxBoundOffsetX - pivotToBoundX")
+		(var maxStageY:number = "stageHeight - maxBoundOffsetY - pivotToBoundY")
+		(var minStageX:number = "originToPivotX + minBoundOffsetX")
+		(var minStageY:number = "originToPivotY + minBoundOffsetY")
+		(var snappedDragPosX:number = "isSnapMode ? round(rawDragPosX / APOA_DRAGGABLE_SNAP_PIXELS) * APOA_DRAGGABLE_SNAP_PIXELS : rawDragPosX" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var snappedDragPosY:number = "isSnapMode ? round(rawDragPosY / APOA_DRAGGABLE_SNAP_PIXELS) * APOA_DRAGGABLE_SNAP_PIXELS : rawDragPosY" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var clampedDragPosX:number = "min(max(snappedDragPosX, minStageX), maxStageX)" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var clampedDragPosY:number = "min(max(snappedDragPosY, minStageY), maxStageY)" watch=false (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(var isDragging:bool = "false" watch=false)
+		(dispatch "__apoaDraggablePosNotifyEventName" args = "{x: clampedDragPosX, y: clampedDragPosY}" dir="EventDirection.UP" watch=false (bind enabled "isDragging && isMouseActive") (event "evAPOADraggableMouseMove")(event "evAPOADraggableMouseDown"))
+		(bind isDragging "$event.isDragging" watch=false init=false (event "evAPOADraggableMouseDown")(event "evAPOADraggableMouseUp")(event "evAPOADraggableMouseDisable"))
+	)
+
+	(class $FullsizeAbsolute)
+	(style
+		(backgroundColor=0x01000000)
+		(zindex = "ZIndex.BACKGROUND")
+	)
+
+	(mc contrast_panel
+		(class $FullsizeAbsolute)
+		(bind alpha "0.4")
+		(bind visible "isMouseActive")
+	)
+
+	(sync parentElement from='parent' on='addedToStage')
+	(bindcall externalCall 'inputMapping.onAction' "['setUserPref', {'value': clampedDragPosX + 0.00001, 'name': 'chatBoxWidth', 'subName': prefKeyX}]" init=false watch=false (event "evAPOADraggableDragEnded"))
+	(bindcall externalCall 'inputMapping.onAction' "['setUserPref', {'value': clampedDragPosY + 0.00001, 'name': 'chatBoxWidth', 'subName': prefKeyY}]" init=false watch=false (event "evAPOADraggableDragEnded"))
+	(dispatch evAPOADraggableMouseDown args = "{isDragging: true, x: $event.stageX, y: $event.stageY, isSnapMode: $event.shiftKey}" on = 'mouseDown')
+	(dispatch evAPOADraggableMouseUp args = "{isDragging: false}" on = 'stageMouseUp')
+	(dispatch evAPOADraggableMouseMove args = "$event ? {x: $event.stageX, y: $event.stageY, isSnapMode: $event.shiftKey} : null" on = 'stageMouseMove' (bind enabled "isDragging"))
+	(dispatch evAPOADraggableMouseDisable args = "{isDragging: false}" (event "mouse.evActiveChanged"))
+	(dispatch evAPOADraggableDragEnded args="{}" (bind enabled "!isDragging") (bind trigger "isDragging"))
+)
+
 # BEGIN GENERATED ARMOR DB - run tools/generate-unbound-armor-db.mjs
 (def constant OA_ARMOR_DB_BUILD '12267945')
 (def constant OA_ARMOR_DB {
@@ -3574,7 +3683,7 @@
 	(bindcall externalCall 'inputMapping.onAction' "['createParamsForAllShipsInBattle', {}]" on='addedToStage')
 
 	(scope
-		(macro STAGE_SIZE)
+		(macro APOA_STAGE_SIZE)
 
 		(macro APOA_GET_USERPREF)
 		(macro APOA_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_LOCAL_PREFS.LANGUAGE")
@@ -3583,7 +3692,7 @@
 		(macro APOA_GET_PREF_BOOL _varName="'isPositionLocked'" _pref="APOA_LOCAL_PREFS.DISABLE_DRAGDROP")
 
 		(var defaultPos:dict = "{'positionX': (stageWidth / 2 + 72), 'positionY': (stageHeight / 2 + 78)}")
-		(macro DRAGGABLE_GET_DROP_POSITION _elementName="OA_ELEMENT_NAME" _defaultPosition="defaultPos")
+		(macro APOA_GET_DROP_POSITION _elementName="OA_ELEMENT_NAME" _defaultPosition="defaultPos")
 
 		(var vehicleCollection:gfx = "$datahub.getCollection(CC.avatar)")
 		(var vehicleCount:number = "vehicleCollection ? vehicleCollection.items.length : 0" (event "vehicleCollection.evAdded") (event "vehicleCollection.evRemoved"))
@@ -3814,7 +3923,7 @@
 			(bind scaleY "_scale")
 		)
 
-		(controller $Instance renderer='ModDraggableElement'
+		(controller $Instance renderer='APOA_DraggableElement'
 			(bind enabled "!_isPositionLocked")
 			(args
 				_elementName="OA_ELEMENT_NAME"
@@ -3844,12 +3953,6 @@
 			(element OA_DiagRow _text="diagText" _visible="diagVisible")
 		)
 
-		(element TT_ConfigButtonElement _modIndex="22" _tooltipAlign="outerTop|outerLeft"
-			(style
-				(left = -30px)
-				(top = 20px)
-			)
-		)
 	)
 )
 
@@ -3934,7 +4037,7 @@
 			(bind scaleY "_scale")
 		)
 
-		(controller $Instance renderer='ModDraggableElement'
+		(controller $Instance renderer='APOA_DraggableElement'
 			(bind enabled "!_isPositionLocked")
 			(args
 				_elementName="OA_ELEMENT_NAME"
@@ -3974,12 +4077,6 @@
 			(element OA_Row _text="beltText" _color="beltColor")
 		)
 
-		(element TT_ConfigButtonElement _modIndex="22" _tooltipAlign="outerTop|outerLeft"
-			(style
-				(left = -30px)
-				(top = 20px)
-			)
-		)
 	)
 )
 

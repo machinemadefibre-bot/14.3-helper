@@ -33,7 +33,8 @@ bundle a TTaro settings UI.
 
 The Aslain archive is standalone for battle use: it includes the PnFMods loader,
 ModsInstaller, and the battle UI. It intentionally does not bundle TTaro config
-center files, so it will not overwrite another mod's shared TTaro panel.
+center files, so it will not overwrite another mod's shared TTaro panel. It does
+not require any other installed mod to provide TTaro or draggable helpers.
 
 ## Layout
 
