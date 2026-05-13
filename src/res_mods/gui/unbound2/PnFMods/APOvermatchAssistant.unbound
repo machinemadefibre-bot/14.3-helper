@@ -3770,7 +3770,7 @@
 		(var sternBeltSymbol:str = "!hasTargetArmorRecord || !hasRule ? '?' : !_targetRecord.bsp ? textNoBelt : _targetRecord.bsmx <= 0 ? '?' : _ruleLimit >= _targetRecord.bsmx * _ruleScale ? '√' : _ruleLimit >= _targetRecord.bsmn * _ruleScale ? '△' : '×'")
 		(var bowBeltColor:number = "bowBeltSymbol == '√' ? 0x76D672 : bowBeltSymbol == '×' ? 0xFF6666 : bowBeltSymbol == '△' ? 0xFFCC66 : 0xB8B8B8")
 		(var sternBeltColor:number = "sternBeltSymbol == '√' ? 0x76D672 : sternBeltSymbol == '×' ? 0xFF6666 : sternBeltSymbol == '△' ? 0xFFCC66 : 0xB8B8B8")
-		(var beltLabelColor:number = "bowBeltColor == 0x76D672 && sternBeltColor == 0x76D672 ? 0x76D672 : bowBeltColor == 0xFF6666 && sternBeltColor == 0xFF6666 ? 0xFF6666 : 0xFFCC66")
+		(var beltLabelColor:number = "bowBeltColor == 0x76D672 && sternBeltColor == 0x76D672 ? 0x76D672 : bowBeltColor == 0xFF6666 && sternBeltColor == 0xFF6666 ? 0xFF6666 : bowBeltColor == 0xB8B8B8 && sternBeltColor == 0xB8B8B8 ? 0xB8B8B8 : 0xFFCC66")
 
 		(var bowSternText:str = "labelBowStern + '  ' + bowSternSymbol")
 		(var deckText:str = "labelDeck + '  ' + deckSymbol")
