@@ -3858,10 +3858,12 @@
 		(var ownHePen:number = "_ownRecord ? _ownRecord.he : 0")
 		(var ownSapPen:number = "_ownRecord ? _ownRecord.sap : 0")
 		(var enemyCaliber:number = "_targetRecord ? _targetRecord.c : 0")
+		(var enemyHePen:number = "_targetRecord ? _targetRecord.he : 0")
+		(var isDefenseHeMode:bool = "isDefenseMode && enemyCaliber > 0 && enemyCaliber < 283")
 		(var ownApRuleLimit:number = "ownCaliber * 10")
 		(var enemyApRuleLimit:number = "enemyCaliber * 10")
-		(var selectedRuleLimit:number = "isDefenseMode ? enemyApRuleLimit : isApAmmo ? ownApRuleLimit : isHeAmmo ? ownHePen : isSapAmmo ? ownSapPen : 0")
-		(var selectedRuleScale:number = "isDefenseMode || isApAmmo ? 143 : 1")
+		(var selectedRuleLimit:number = "isDefenseHeMode ? enemyHePen : isDefenseMode ? enemyApRuleLimit : isApAmmo ? ownApRuleLimit : isHeAmmo ? ownHePen : isSapAmmo ? ownSapPen : 0")
+		(var selectedRuleScale:number = "isDefenseHeMode ? 1 : isDefenseMode || isApAmmo ? 143 : 1")
 		(var selectedArmorRecord:dict = "isDefenseMode ? _ownRecord : _targetRecord")
 		(var selectedRuleDbKey:str = "isDefenseMode ? _targetDbKey : _ownDbKey")
 		(var selectedRuleCaliber:number = "isDefenseMode ? enemyCaliber : ownCaliber")
@@ -3873,6 +3875,7 @@
 		_ruleLimit="selectedRuleLimit"
 		_ruleScale="selectedRuleScale"
 		_displayMode="_displayMode"
+		_isDefenseHeMode="isDefenseHeMode"
 		_ownDbKey="selectedRuleDbKey"
 		_ownCaliber="selectedRuleCaliber"
 		_targetRecord="selectedArmorRecord"
@@ -3886,11 +3889,11 @@
 	)
 )
 
-(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
+(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _isDefenseHeMode:bool, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var isChinese:bool = "_languageIndex == 1")
 		(var isDefenseMode:bool = "_displayMode == 1")
-		(var labelModePrefix:str = "isDefenseMode ? (isChinese ? '受 ' : 'In ') : ''")
+		(var labelModePrefix:str = "isChinese ? (isDefenseMode ? '防 ' : '攻 ') : (isDefenseMode ? 'In ' : 'Out ')")
 		(var labelBowStern:str = "labelModePrefix + (isChinese ? '艏艉' : 'Bow/Stern')")
 		(var labelDeck:str = "labelModePrefix + (isChinese ? '甲板' : 'Deck')")
 		(var labelSide:str = "labelModePrefix + (isChinese ? '侧板' : 'Side')")
@@ -3917,6 +3920,13 @@
 		(var bowBeltColor:number = "bowBeltSymbol == '√' ? 0x76D672 : bowBeltSymbol == '×' ? 0xFF6666 : bowBeltSymbol == '△' ? 0xFFCC66 : 0xB8B8B8")
 		(var sternBeltColor:number = "sternBeltSymbol == '√' ? 0x76D672 : sternBeltSymbol == '×' ? 0xFF6666 : sternBeltSymbol == '△' ? 0xFFCC66 : 0xB8B8B8")
 		(var beltLabelColor:number = "bowBeltColor == 0x76D672 && sternBeltColor == 0x76D672 ? 0x76D672 : bowBeltColor == 0xFF6666 && sternBeltColor == 0xFF6666 ? 0xFF6666 : bowBeltColor == 0xB8B8B8 && sternBeltColor == 0xB8B8B8 ? 0xB8B8B8 : 0xFFCC66")
+
+		(var bowSternDisplayColor:number = "isDefenseMode && bowSternColor == 0x76D672 ? 0xFF6666 : isDefenseMode && bowSternColor == 0xFF6666 ? 0x76D672 : bowSternColor")
+		(var deckDisplayColor:number = "isDefenseMode && deckColor == 0x76D672 ? 0xFF6666 : isDefenseMode && deckColor == 0xFF6666 ? 0x76D672 : deckColor")
+		(var sideDisplayColor:number = "isDefenseMode && sideColor == 0x76D672 ? 0xFF6666 : isDefenseMode && sideColor == 0xFF6666 ? 0x76D672 : sideColor")
+		(var bowBeltDisplayColor:number = "isDefenseMode && bowBeltColor == 0x76D672 ? 0xFF6666 : isDefenseMode && bowBeltColor == 0xFF6666 ? 0x76D672 : bowBeltColor")
+		(var sternBeltDisplayColor:number = "isDefenseMode && sternBeltColor == 0x76D672 ? 0xFF6666 : isDefenseMode && sternBeltColor == 0xFF6666 ? 0x76D672 : sternBeltColor")
+		(var beltLabelDisplayColor:number = "bowBeltDisplayColor == 0x76D672 && sternBeltDisplayColor == 0x76D672 ? 0x76D672 : bowBeltDisplayColor == 0xFF6666 && sternBeltDisplayColor == 0xFF6666 ? 0xFF6666 : bowBeltDisplayColor == 0xB8B8B8 && sternBeltDisplayColor == 0xB8B8B8 ? 0xB8B8B8 : 0xFFCC66")
 
 		(var bowSternText:str = "labelBowStern + '  ' + bowSternSymbol")
 		(var deckText:str = "labelDeck + '  ' + deckSymbol")
@@ -3963,10 +3973,10 @@
 				(hitTest = false)
 			)
 
-			(element OA_Row _text="bowSternText" _color="bowSternColor")
-			(element OA_Row _text="deckText" _color="deckColor")
-			(element OA_Row _text="sideText" _color="sideColor")
-			(element OA_BeltRow _labelText="labelBelt" _labelColor="beltLabelColor" _bowText="bowBeltText" _bowColor="bowBeltColor" _sternText="sternBeltText" _sternColor="sternBeltColor")
+			(element OA_Row _text="bowSternText" _color="bowSternDisplayColor")
+			(element OA_Row _text="deckText" _color="deckDisplayColor")
+			(element OA_Row _text="sideText" _color="sideDisplayColor")
+			(element OA_BeltRow _labelText="labelBelt" _labelColor="beltLabelDisplayColor" _bowText="bowBeltText" _bowColor="bowBeltDisplayColor" _sternText="sternBeltText" _sternColor="sternBeltDisplayColor")
 			(element OA_DiagRow _text="diagText" _visible="diagVisible")
 		)
 
