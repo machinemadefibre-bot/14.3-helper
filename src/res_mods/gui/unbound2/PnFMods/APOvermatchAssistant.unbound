@@ -3859,11 +3859,13 @@
 		(var ownSapPen:number = "_ownRecord ? _ownRecord.sap : 0")
 		(var enemyCaliber:number = "_targetRecord ? _targetRecord.c : 0")
 		(var enemyHePen:number = "_targetRecord ? _targetRecord.he : 0")
-		(var isDefenseHeMode:bool = "isDefenseMode && enemyCaliber > 0 && enemyCaliber < 283")
+		(var enemySapPen:number = "_targetRecord ? _targetRecord.sap : 0")
+		(var isDefenseSapMode:bool = "isDefenseMode && enemySapPen > 0")
+		(var isDefenseHeMode:bool = "isDefenseMode && !isDefenseSapMode && enemyCaliber > 0 && enemyCaliber < 283")
 		(var ownApRuleLimit:number = "ownCaliber * 10")
 		(var enemyApRuleLimit:number = "enemyCaliber * 10")
-		(var selectedRuleLimit:number = "isDefenseHeMode ? enemyHePen : isDefenseMode ? enemyApRuleLimit : isApAmmo ? ownApRuleLimit : isHeAmmo ? ownHePen : isSapAmmo ? ownSapPen : 0")
-		(var selectedRuleScale:number = "isDefenseHeMode ? 1 : isDefenseMode || isApAmmo ? 143 : 1")
+		(var selectedRuleLimit:number = "isDefenseSapMode ? enemySapPen : isDefenseHeMode ? enemyHePen : isDefenseMode ? enemyApRuleLimit : isApAmmo ? ownApRuleLimit : isHeAmmo ? ownHePen : isSapAmmo ? ownSapPen : 0")
+		(var selectedRuleScale:number = "isDefenseSapMode || isDefenseHeMode ? 1 : isDefenseMode || isApAmmo ? 143 : 1")
 		(var selectedArmorRecord:dict = "isDefenseMode ? _ownRecord : _targetRecord")
 		(var selectedRuleDbKey:str = "isDefenseMode ? _targetDbKey : _ownDbKey")
 		(var selectedRuleCaliber:number = "isDefenseMode ? enemyCaliber : ownCaliber")
@@ -3875,7 +3877,6 @@
 		_ruleLimit="selectedRuleLimit"
 		_ruleScale="selectedRuleScale"
 		_displayMode="_displayMode"
-		_isDefenseHeMode="isDefenseHeMode"
 		_ownDbKey="selectedRuleDbKey"
 		_ownCaliber="selectedRuleCaliber"
 		_targetRecord="selectedArmorRecord"
@@ -3889,7 +3890,7 @@
 	)
 )
 
-(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _isDefenseHeMode:bool, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
+(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var isChinese:bool = "_languageIndex == 1")
 		(var isDefenseMode:bool = "_displayMode == 1")

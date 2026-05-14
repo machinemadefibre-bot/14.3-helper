@@ -11,7 +11,7 @@ The current release package is standalone. When installed through Aslain `Custom
 - AP: checks overmatch with `caliber / 14.3`.
 - HE / SAP: checks penetration with the current shell penetration value.
 - Battle-switchable display mode: `My gun` checks your current shell against the target, while `Enemy gun` checks whether the target ship's main guns can threaten your armor areas.
-- In `Enemy gun` mode, target main guns below `283 mm` use target HE penetration; `283 mm` and larger guns use target AP overmatch.
+- In `Enemy gun` mode, targets with SAP use target SAP penetration first. Without SAP, target main guns below `283 mm` use HE penetration, while `283 mm` and larger guns use AP overmatch.
 - The floating panel uses `Out` / `In` prefixes for outgoing and incoming checks. Incoming checks color safety: `×` is green, `√` is red.
 - Each battle starts with the last saved display mode. Holding Alt temporarily flips to the other mode, then returns when Alt is released.
 - Shows separate checks for bow/stern, deck, side plating, and forward/aft extended belt.
