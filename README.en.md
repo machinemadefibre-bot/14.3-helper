@@ -46,8 +46,6 @@ World of Warships\Aslain_Modpack\Custom_mods
 3. Run the Aslain Modpack installer.
 4. Enter a battle and check the floating panel and the settings button.
 
-The `dist` zip is a release artifact and is not committed to the repository. Use GitHub Releases for downloadable packages.
-
 ### Local Test Install
 
 From the repository root:
@@ -105,7 +103,7 @@ Use `-ExtractGameParams` when the script must extract fresh data from game files
 
 The whole program was vibe-coded with AI assistance. It has been manually tested, but not against every ship, every armor piece, or every game-version change, so it does not promise 100% accuracy.
 
-The armor database combines extracted geometry, positional filtering, and manual correction rules. Complex layouts can still be wrong, especially extended belts, local deck plates, turret/funnel/conning-tower roofs, transverse bulkheads, underwater armor, and carrier side plating.
+The armor database combines extracted geometry, positional filtering, and manual correction rules. Complex layouts can still be wrong, especially extended belts, minor deck plates, underwater armor, and carrier side plating.
 
 If you find a wrong result, please open an issue with:
 
