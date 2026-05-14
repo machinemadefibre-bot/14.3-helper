@@ -3693,6 +3693,10 @@
 		(macro APOA_GET_PREF_NUMBER _varName="'backgroundAlpha'" _pref="APOA_LOCAL_PREFS.BACKGROUND_ALPHA")
 		(macro APOA_GET_PREF_BOOL _varName="'isPositionLocked'" _pref="APOA_LOCAL_PREFS.DISABLE_DRAGDROP")
 
+		(var cameraEntity:gfx = "$datahub.getSingleEntity(CC.camera)")
+		(var isAltVision:bool = "cameraEntity && cameraEntity.camera ? cameraEntity.camera.altVision : false" (event "cameraEntity.camera.evAltVisionChanged"))
+		(var effectiveDisplayMode:number = "isAltVision ? (displayMode == 1 ? 0 : 1) : displayMode")
+
 		(var defaultPos:dict = "{'positionX': (stageWidth / 2 + 72), 'positionY': (stageHeight / 2 + 78)}")
 		(macro APOA_GET_DROP_POSITION _elementName="OA_ELEMENT_NAME" _defaultPosition="defaultPos")
 
@@ -3723,7 +3727,7 @@
 		_dragPosY="dragPosY"
 		_scale="scale"
 		_languageIndex="languageIndex"
-		_displayMode="displayMode"
+		_displayMode="effectiveDisplayMode"
 		_backgroundAlpha="backgroundAlpha"
 		_isPositionLocked="isPositionLocked"
 		_defaultPos="defaultPos"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 API_VERSION = 'API_v1.0'
 MOD_NAME = '14.3-helper'
-MOD_VERSION = '0.3.6'
+MOD_VERSION = '0.3.7'
 
 try:
     unicode
