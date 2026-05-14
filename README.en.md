@@ -10,6 +10,7 @@ The current release package is standalone. When installed through Aslain `Custom
 
 - AP: checks overmatch with `caliber / 14.3`.
 - HE / SAP: checks penetration with the current shell penetration value.
+- Battle-switchable display mode: `My gun` checks your current shell against the target, while `Enemy gun` checks whether the target ship's main-gun AP can overmatch your armor areas.
 - Shows separate checks for bow/stern, deck, side plating, and forward/aft extended belt.
 - Extended belt is split into forward and aft results, for example `Ext Bow √ Stern ×`.
 - Result colors are per armor area: green means pass, red means fail, yellow means mixed or borderline, gray means no data.
@@ -25,6 +26,7 @@ In battle, the floating helper has a small gear button on its left side. Click i
 Available settings:
 
 - Language: `ZH` / `EN`
+- Display mode: `My gun` / `Enemy gun`
 - UI scale
 - Drag lock
 - Reset position

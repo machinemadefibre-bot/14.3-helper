@@ -4,6 +4,7 @@
 
 (def constant APOA_LOCAL_PREFS {
 	LANGUAGE: {min: 0, max: 0, step: 1, key: 'apOvermatchAssistantLanguage', default: 0},
+	MODE: {min: 0, max: 0, step: 1, key: 'apOvermatchAssistantMode', default: 0},
 	SCALE: {min: 0.7, max: 1.5, step: 0.1, key: 'apOvermatchAssistantScale', default: 1},
 	DISABLE_DRAGDROP: {key: 'apOvermatchAssistantDisableDragDrop', default: false},
 	BACKGROUND_ALPHA: {min: 0, max: 1, step: 0.1, key: 'apOvermatchAssistantBackgroundOpacity', default: 0.78},
@@ -3687,6 +3688,7 @@
 
 		(macro APOA_GET_USERPREF)
 		(macro APOA_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_LOCAL_PREFS.LANGUAGE")
+		(macro APOA_GET_PREF_NUMBER _varName="'displayMode'" _pref="APOA_LOCAL_PREFS.MODE")
 		(macro APOA_GET_PREF_NUMBER _varName="'scale'" _pref="APOA_LOCAL_PREFS.SCALE")
 		(macro APOA_GET_PREF_NUMBER _varName="'backgroundAlpha'" _pref="APOA_LOCAL_PREFS.BACKGROUND_ALPHA")
 		(macro APOA_GET_PREF_BOOL _varName="'isPositionLocked'" _pref="APOA_LOCAL_PREFS.DISABLE_DRAGDROP")
@@ -3721,6 +3723,7 @@
 		_dragPosY="dragPosY"
 		_scale="scale"
 		_languageIndex="languageIndex"
+		_displayMode="displayMode"
 		_backgroundAlpha="backgroundAlpha"
 		_isPositionLocked="isPositionLocked"
 		_defaultPos="defaultPos"
@@ -3752,7 +3755,7 @@
 	)
 )
 
-(def element OA_TargetPanelV2(_markerEntity:gfx, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
+(def element OA_TargetPanelV2(_markerEntity:gfx, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _displayMode:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var target:gfx = "_markerEntity && _markerEntity.hasComponent(CC.target) ? _markerEntity.target : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
 		(var targetFlags:number = "target ? target.flags : 0" (event "target.evChanged") (event "target.evFlagsChanged"))
@@ -3821,6 +3824,7 @@
 			_dragPosY="_dragPosY"
 			_scale="_scale"
 			_languageIndex="_languageIndex"
+			_displayMode="_displayMode"
 			_backgroundAlpha="_backgroundAlpha"
 			_isPositionLocked="_isPositionLocked"
 			_defaultPos="_defaultPos"
@@ -3828,7 +3832,7 @@
 	)
 )
 
-(def element OA_AmmoPanel(_slot:gfx, _isTargetVisible:bool, _ownRecord:dict, _targetRecord:dict, _hasOwnRecord:bool, _hasTargetRecord:bool, _ownShipId:str, _ownShipNameKey:str, _ownShipIndexKey:str, _ownDbKey:str, _targetShipId:str, _targetShipNameKey:str, _targetShipIndexKey:str, _targetDbKey:str, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
+(def element OA_AmmoPanel(_slot:gfx, _isTargetVisible:bool, _ownRecord:dict, _targetRecord:dict, _hasOwnRecord:bool, _hasTargetRecord:bool, _ownShipId:str, _ownShipNameKey:str, _ownShipIndexKey:str, _ownDbKey:str, _targetShipId:str, _targetShipNameKey:str, _targetShipIndexKey:str, _targetDbKey:str, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _displayMode:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var slotWeapon:gfx = "_slot ? _slot.weaponSlot : null" (event "_slot.evAdded") (event "_slot.evRemoved"))
 		(var slotType:number = "slotWeapon ? slotWeapon.type : -1")
@@ -3844,23 +3848,30 @@
 		(var isHeAmmo:bool = "ammoParamsLower == 'he'")
 		(var isApAmmo:bool = "ammoParamsLower == 'ap'")
 		(var isSupportedAmmo:bool = "isApAmmo || isHeAmmo || isSapAmmo")
+		(var isDefenseMode:bool = "_displayMode == 1")
 
 		(var ownCaliber:number = "_ownRecord ? _ownRecord.c : 0")
 		(var ownHePen:number = "_ownRecord ? _ownRecord.he : 0")
 		(var ownSapPen:number = "_ownRecord ? _ownRecord.sap : 0")
-		(var apRuleLimit:number = "ownCaliber * 10")
-		(var selectedRuleLimit:number = "isApAmmo ? apRuleLimit : isHeAmmo ? ownHePen : isSapAmmo ? ownSapPen : 0")
-		(var selectedRuleScale:number = "isApAmmo ? 143 : 1")
-		(var isPanelVisible:bool = "_isTargetVisible && isArtillerySlot && isSlotActive && isSupportedAmmo")
+		(var enemyCaliber:number = "_targetRecord ? _targetRecord.c : 0")
+		(var ownApRuleLimit:number = "ownCaliber * 10")
+		(var enemyApRuleLimit:number = "enemyCaliber * 10")
+		(var selectedRuleLimit:number = "isDefenseMode ? enemyApRuleLimit : isApAmmo ? ownApRuleLimit : isHeAmmo ? ownHePen : isSapAmmo ? ownSapPen : 0")
+		(var selectedRuleScale:number = "isDefenseMode || isApAmmo ? 143 : 1")
+		(var selectedArmorRecord:dict = "isDefenseMode ? _ownRecord : _targetRecord")
+		(var selectedRuleDbKey:str = "isDefenseMode ? _targetDbKey : _ownDbKey")
+		(var selectedRuleCaliber:number = "isDefenseMode ? enemyCaliber : ownCaliber")
+		(var isPanelVisible:bool = "_isTargetVisible && isArtillerySlot && isSlotActive && (isDefenseMode || isSupportedAmmo)")
 	)
 
 	(element OA_RulePanel
 		_visible="isPanelVisible"
 		_ruleLimit="selectedRuleLimit"
 		_ruleScale="selectedRuleScale"
-		_ownDbKey="_ownDbKey"
-		_ownCaliber="ownCaliber"
-		_targetRecord="_targetRecord"
+		_displayMode="_displayMode"
+		_ownDbKey="selectedRuleDbKey"
+		_ownCaliber="selectedRuleCaliber"
+		_targetRecord="selectedArmorRecord"
 		_dragPosX="_dragPosX"
 		_dragPosY="_dragPosY"
 		_scale="_scale"
@@ -3871,13 +3882,15 @@
 	)
 )
 
-(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
+(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var isChinese:bool = "_languageIndex == 1")
-		(var labelBowStern:str = "isChinese ? '艏艉' : 'Bow/Stern'")
-		(var labelDeck:str = "isChinese ? '甲板' : 'Deck'")
-		(var labelSide:str = "isChinese ? '侧板' : 'Side'")
-		(var labelBelt:str = "isChinese ? '延伸' : 'Ext'")
+		(var isDefenseMode:bool = "_displayMode == 1")
+		(var labelModePrefix:str = "isDefenseMode ? (isChinese ? '受 ' : 'In ') : ''")
+		(var labelBowStern:str = "labelModePrefix + (isChinese ? '艏艉' : 'Bow/Stern')")
+		(var labelDeck:str = "labelModePrefix + (isChinese ? '甲板' : 'Deck')")
+		(var labelSide:str = "labelModePrefix + (isChinese ? '侧板' : 'Side')")
+		(var labelBelt:str = "labelModePrefix + (isChinese ? '延伸' : 'Ext')")
 		(var labelBeltBow:str = "isChinese ? '前' : 'Bow'")
 		(var labelBeltStern:str = "isChinese ? '后' : 'Stern'")
 		(var textNoBelt:str = "isChinese ? '无' : 'NA'")
