@@ -1,133 +1,131 @@
 # 14.3-helper
 
-Aslain-compatible World of Warships battle UI mod for showing armor interaction
-against the current aim-assist target.
+[中文](README.md)
 
-The mod uses the normal WoWS ModAPI/DataHub path used by existing PnFMods. It
-does not inject code into the game process, read hidden enemies, or calculate
-aiming solutions. It evaluates local reference data against the current target.
+`14.3-helper` is an in-battle UI mod for World of Warships. It checks the shell you are currently using against the ship you are aiming at, then shows whether that shell can overmatch or penetrate several armor areas.
 
-## UI Behavior
+The current release package is standalone. When installed through Aslain `Custom_mods`, it does not require another TTaro, PnFMods, or helper mod to be installed first.
 
-The panel is hidden unless the player has a valid enemy aim-assist target.
+## Features
 
-- AP: shows overmatch status using `caliber_mm / 14.3 >= armor_mm`.
-- HE: shows penetration status using `mainGunHePenMm >= armor_mm`.
-- SAP: shows penetration status using `mainGunSapPenMm >= armor_mm`.
-- Torpedo/depth-charge weapon state: hidden.
+- AP: checks overmatch with `caliber / 14.3`.
+- HE / SAP: checks penetration with the current shell penetration value.
+- Shows separate checks for bow/stern, deck, side plating, and forward/aft extended belt.
+- Extended belt is split into forward and aft results, for example `Ext Bow √ Stern ×`.
+- Result colors are per armor area: green means pass, red means fail, yellow means mixed or borderline, gray means no data.
+- Chinese and English UI text. The language setting is shown as `ZH` / `EN`.
+- Supports dragging, scale, position lock, position reset, and background opacity.
 
-Rows:
+The mod only uses current in-battle target data, current shell data, and a local armor database. It does not provide aim assist, does not reveal hidden enemies, and does not inject into the game process.
 
-- Bow/Stern
-- Deck
-- Side
-- Extended bow/stern belt / icebreaker
+## In-Game Settings
 
-Mixed armor groups show partial status instead of being collapsed to a single
-yes/no result.
+In battle, the floating helper has a small gear button on its left side. Click it to open the `14.3-helper` settings page.
 
-The in-battle panel is multilingual. English is the default for modpack
-distribution. Simplified Chinese can be selected from the included TTaro settings panel.
+Available settings:
 
-The Aslain archive is standalone for battle use: it includes the PnFMods loader,
-ModsInstaller, the battle UI, the TTaro settings panel, and the draggable helper used by that panel. It does not require any other installed mod to provide TTaro.
+- Language: `ZH` / `EN`
+- UI scale
+- Drag lock
+- Reset position
+- Background opacity
 
-## Layout
+If the top-left TTaro settings panel is visible, `14.3-helper` can also be selected there.
+
+## Installation
+
+### Aslain Custom Mods
+
+1. Download `14.3-helper_Aslain.zip` from GitHub Releases.
+2. Put it into:
 
 ```text
-src/res_mods/PnFMods/APOvermatchAssistant/Main.py
-src/res_mods/PnFMods/APOvermatchAssistant/data/armor_overmatch.json
-src/res_mods/PnFMods/ModsInstaller_4_3_1/Main.py
-src/res_mods/PnFMods/ModsInstaller_4_3_1/ModsInstaller.py
-src/res_mods/PnFMods/ModsInstaller_4_3_1/ResMgr.py
-src/res_mods/gui/unbound2/PnFMods/APOvermatchAssistant.unbound
-src/res_mods/gui/unbound2/PnFMods/TTaroModConfig.unbound
-src/res_mods/gui/unbound2/PnFMods/TTaroModConfigConstants.unbound
-src/res_mods/gui/unbound2/PnFMods/TTaroModConfigTranslations.unbound
-src/res_mods/gui/unbound2/mods/draggable.unbound
-src/res_mods/PnFMods/ModsInstaller_4_3_1/mods/APOvermatchAssistant.xml
-src/res_mods/PnFMods/ModsInstaller_4_3_1/mods/TTaroModConfig.xml
-src/res_mods/PnFModsLoader.py
-tools/generate-armor-db.ps1
-tools/generate-armor-db-fast.mjs
-tools/update-armor-db.ps1
-tools/setup-wowsunpack.ps1
+World of Warships\Aslain_Modpack\Custom_mods
 ```
+
+3. Run the Aslain Modpack installer.
+4. Enter a battle and check the floating panel and the settings button.
+
+The `dist` zip is a release artifact and is not committed to the repository. Use GitHub Releases for downloadable packages.
+
+### Local Test Install
+
+From the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships\bin\<current version>"
+```
+
+After installation, start the game once. The bundled `ModsInstaller_4_3_1` will patch the battle UI entry into `gui\battle_elements.xml`.
 
 ## Build
 
+Run the rule check first:
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\test-rule.ps1
+```
+
+Then build the Aslain package:
+
+```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-The Aslain custom mod archive is written to:
+The output is:
 
 ```text
 dist\14.3-helper_Aslain.zip
 ```
 
-## Local Install
+## Updating Armor Data
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
-```
-
-## Armor Database Update
-
-`update-armor-db.ps1` creates a candidate database, compares it with the
-current database, writes diff reports, and only replaces the committed database
-when `-Apply` is passed. The generator uses `tools/generate-armor-db-fast.mjs`
-when `node` is available and falls back to PowerShell otherwise.
-
-Report only:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
-```
-
-Report and apply:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships" `
-  -Apply
-```
-
-If the cached GameParams JSON for the current build is missing, extract it
-explicitly:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships" `
-  -ExtractGameParams `
-  -Apply
-```
-
-Extraction is opt-in because it is the only high-memory step. Generated
-GameParams caches are build-specific under:
+Armor data lives in:
 
 ```text
-build\gameparams\GameParams_<gameBuild>_<realm>.json
+src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-Diff outputs are written under:
+The update script is:
 
 ```text
-build\armor-update\armor_diff.<timestamp>.json
-build\armor-update\armor_diff.<timestamp>.md
+tools\update-armor-db.ps1
 ```
 
-Quick sample check:
+Common flow:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\generate-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships" `
-  -GameParamsJson "C:\tmp\GameParams_ASIA.json" `
-  -ShipKeyFilter "PASB017_Montana_1945"
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Report
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Apply
 ```
 
-The generated Montana record should show 406 mm guns, HE 68 mm, bow/stern 32,
-deck 38, side 38, and no extended bow/stern belt.
+Use `-ExtractGameParams` when the script must extract fresh data from game files. That step can use a lot of memory, so it is best reserved for game-version data refreshes.
+
+## Accuracy Notice
+
+The whole program was vibe-coded with AI assistance. It has been manually tested, but not against every ship, every armor piece, or every game-version change, so it does not promise 100% accuracy.
+
+The armor database combines extracted geometry, positional filtering, and manual correction rules. Complex layouts can still be wrong, especially extended belts, local deck plates, turret/funnel/conning-tower roofs, transverse bulkheads, underwater armor, and carrier side plating.
+
+If you find a wrong result, please open an issue with:
+
+- Ship name and game client language
+- Shell type and gun caliber
+- Screenshot of the in-game armor view
+- Result shown by the mod
+
+## Repository Layout
+
+```text
+src\
+  res_mods\
+    PnFMods\
+      APOvermatchAssistant\      # Main logic and armor database
+      ModsInstaller_4_3_1\       # UI patcher required for standalone install
+    gui\
+      unbound2\
+        PnFMods\                 # Floating panel and settings UI
+        mods\                    # Drag helper
+tools\                           # Build, install, and armor-data scripts
+dist\                            # Local release artifacts, not committed
+```

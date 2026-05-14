@@ -1,133 +1,131 @@
 # 14.3-helper
 
-Aslain-compatible World of Warships battle UI mod for showing armor interaction
-against the current aim-assist target.
+[English](README.en.md)
 
-The mod uses the normal WoWS ModAPI/DataHub path used by existing PnFMods. It
-does not inject code into the game process, read hidden enemies, or calculate
-aiming solutions. It evaluates local reference data against the current target.
+`14.3-helper` 是一个给 World of Warships 使用的战斗内辅助 UI mod。它会根据你当前选中的弹种和正在瞄准的目标，显示这发炮弹对目标不同部位的碾压或击穿结果。
 
-## UI Behavior
+当前包是独立包：放进 Aslain 的 `Custom_mods` 后不需要额外安装 TTaro、PnFMods 或其他依赖 mod。
 
-The panel is hidden unless the player has a valid enemy aim-assist target.
+## 功能
 
-- AP: shows overmatch status using `caliber_mm / 14.3 >= armor_mm`.
-- HE: shows penetration status using `mainGunHePenMm >= armor_mm`.
-- SAP: shows penetration status using `mainGunSapPenMm >= armor_mm`.
-- Torpedo/depth-charge weapon state: hidden.
+- AP：按 `口径 / 14.3` 判断是否可以碾压目标装甲。
+- HE / SAP：按当前炮弹的穿深判断是否可以击穿目标装甲。
+- 分开显示舰艏/舰艉、甲板、侧板、前后延伸装甲带。
+- 延伸装甲带分别显示前后结果，例如 `Ext Bow √ Stern ×` / `延伸 前√ 后×`。
+- 结果颜色按部位单独显示：可穿为绿色，不可穿为红色，临界或混合结果为黄色，无数据为灰色。
+- 支持中文和英文界面，语言选项显示为 `ZH` / `EN`。
+- 支持拖动、缩放、锁定位置、重置位置和调整背景透明度。
 
-Rows:
+这个 mod 只读取游戏内已有的当前目标、当前弹种和本地装甲数据，不提供自动瞄准、不读取隐藏敌人、不注入游戏进程。
 
-- Bow/Stern
-- Deck
-- Side
-- Extended bow/stern belt / icebreaker
+## 游戏内设置
 
-Mixed armor groups show partial status instead of being collapsed to a single
-yes/no result.
+战斗中悬浮窗口左侧有一个小齿轮按钮，可以打开 `14.3-helper` 的设置页。
 
-The in-battle panel is multilingual. English is the default for modpack
-distribution. Simplified Chinese can be selected from the included TTaro settings panel.
+可调项目包括：
 
-The Aslain archive is standalone for battle use: it includes the PnFMods loader,
-ModsInstaller, the battle UI, the TTaro settings panel, and the draggable helper used by that panel. It does not require any other installed mod to provide TTaro.
+- 语言：`ZH` / `EN`
+- 界面缩放
+- 是否锁定拖动
+- 重置窗口位置
+- 背景透明度
 
-## Layout
+如果左上角的 TTaro 设置面板可见，也可以从里面选择 `14.3-helper`。
+
+## 安装
+
+### Aslain Custom Mods
+
+1. 下载 release 里的 `14.3-helper_Aslain.zip`。
+2. 放到：
 
 ```text
-src/res_mods/PnFMods/APOvermatchAssistant/Main.py
-src/res_mods/PnFMods/APOvermatchAssistant/data/armor_overmatch.json
-src/res_mods/PnFMods/ModsInstaller_4_3_1/Main.py
-src/res_mods/PnFMods/ModsInstaller_4_3_1/ModsInstaller.py
-src/res_mods/PnFMods/ModsInstaller_4_3_1/ResMgr.py
-src/res_mods/gui/unbound2/PnFMods/APOvermatchAssistant.unbound
-src/res_mods/gui/unbound2/PnFMods/TTaroModConfig.unbound
-src/res_mods/gui/unbound2/PnFMods/TTaroModConfigConstants.unbound
-src/res_mods/gui/unbound2/PnFMods/TTaroModConfigTranslations.unbound
-src/res_mods/gui/unbound2/mods/draggable.unbound
-src/res_mods/PnFMods/ModsInstaller_4_3_1/mods/APOvermatchAssistant.xml
-src/res_mods/PnFMods/ModsInstaller_4_3_1/mods/TTaroModConfig.xml
-src/res_mods/PnFModsLoader.py
-tools/generate-armor-db.ps1
-tools/generate-armor-db-fast.mjs
-tools/update-armor-db.ps1
-tools/setup-wowsunpack.ps1
+World of Warships\Aslain_Modpack\Custom_mods
 ```
 
-## Build
+3. 运行 Aslain Modpack 安装器。
+4. 进战斗测试悬浮窗口和设置按钮。
+
+`dist` 目录里的 zip 是发布产物，不提交到仓库；正式下载请使用 GitHub Releases。
+
+### 本地测试
+
+在仓库根目录运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships\bin\<当前版本号>"
+```
+
+安装后启动游戏一次，内置的 `ModsInstaller_4_3_1` 会把 battle UI 入口补进 `gui\battle_elements.xml`。
+
+## 构建
+
+先运行规则检查：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\test-rule.ps1
+```
+
+然后构建 Aslain 包：
+
+```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-The Aslain custom mod archive is written to:
+构建产物会生成在：
 
 ```text
 dist\14.3-helper_Aslain.zip
 ```
 
-## Local Install
+## 更新装甲数据
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
-```
-
-## Armor Database Update
-
-`update-armor-db.ps1` creates a candidate database, compares it with the
-current database, writes diff reports, and only replaces the committed database
-when `-Apply` is passed. The generator uses `tools/generate-armor-db-fast.mjs`
-when `node` is available and falls back to PowerShell otherwise.
-
-Report only:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
-```
-
-Report and apply:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships" `
-  -Apply
-```
-
-If the cached GameParams JSON for the current build is missing, extract it
-explicitly:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships" `
-  -ExtractGameParams `
-  -Apply
-```
-
-Extraction is opt-in because it is the only high-memory step. Generated
-GameParams caches are build-specific under:
+装甲数据在：
 
 ```text
-build\gameparams\GameParams_<gameBuild>_<realm>.json
+src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-Diff outputs are written under:
+生成和检查脚本在：
 
 ```text
-build\armor-update\armor_diff.<timestamp>.json
-build\armor-update\armor_diff.<timestamp>.md
+tools\update-armor-db.ps1
 ```
 
-Quick sample check:
+常用流程：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\generate-armor-db.ps1 `
-  -GameDir "S:\SteamLibrary\steamapps\common\World of Warships" `
-  -GameParamsJson "C:\tmp\GameParams_ASIA.json" `
-  -ShipKeyFilter "PASB017_Montana_1945"
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Report
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Apply
 ```
 
-The generated Montana record should show 406 mm guns, HE 68 mm, bow/stern 32,
-deck 38, side 38, and no extended bow/stern belt.
+如果需要从游戏参数重新提取数据，可以追加 `-ExtractGameParams`。这个步骤比较吃内存，建议只在需要同步新版本数据时运行。
+
+## 准确性说明
+
+整个程序是 vibe-coded，并且使用 AI 辅助完成。它经过了手动测试，但没有覆盖所有船、所有装甲块和所有版本变化，因此不承诺 100% 准确。
+
+装甲数据库结合了自动提取、位置筛选和人工修正规则。对于复杂船体，尤其是装甲带延伸、局部甲板块、炮塔/烟囱/指挥塔顶板、横向围板、水下装甲和航母侧板，仍然可能出现误判。
+
+如果你发现错误，请带上以下信息提交 issue：
+
+- 舰名和服务器语言
+- 弹种和炮口径
+- 游戏中实际显示的装甲截图
+- mod 显示的结果
+
+## 仓库结构
+
+```text
+src\
+  res_mods\
+    PnFMods\
+      APOvermatchAssistant\      # 主逻辑和装甲数据库
+      ModsInstaller_4_3_1\       # 独立安装所需的 UI patcher
+    gui\
+      unbound2\
+        PnFMods\                 # 悬浮窗口和设置面板
+        mods\                    # 拖动组件
+tools\                           # 构建、安装和装甲数据脚本
+dist\                            # 本地发布产物，不提交
+```
