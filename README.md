@@ -90,16 +90,28 @@ dist\14.3-helper_Aslain.zip
 src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-生成和检查脚本在：
+一键更新入口在：
+
+```text
+tools\update-armor-db-and-build.exe
+```
+
+双击它会在命令行窗口中生成候选数据库、列出新增/删除/变化 diff，输入 `Y` 后才会覆盖当前数据库，然后自动运行规则测试并打包到 `dist`。输出 zip 会带游戏版本后缀：
+
+```text
+dist\14.3-helper_Aslain-patch<游戏版本>.zip
+```
+
+底层生成和检查脚本在：
 
 ```text
 tools\update-armor-db.ps1
 ```
 
-常用流程：
+手动流程：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Report
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1
 powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Apply
 ```
 

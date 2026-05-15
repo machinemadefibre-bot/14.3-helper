@@ -90,16 +90,28 @@ Armor data lives in:
 src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-The update script is:
+The one-click update entry is:
+
+```text
+tools\update-armor-db-and-build.exe
+```
+
+Double-click it to generate a candidate database, print added/removed/changed diff details in a command window, and wait for `Y` before replacing the current database. After confirmation it runs the rule tests and builds the package into `dist`. The output zip gets a game-patch suffix:
+
+```text
+dist\14.3-helper_Aslain-patch<game version>.zip
+```
+
+The lower-level update script is:
 
 ```text
 tools\update-armor-db.ps1
 ```
 
-Common flow:
+Manual flow:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Report
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1
 powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Apply
 ```
 

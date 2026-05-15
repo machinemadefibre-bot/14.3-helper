@@ -1,5 +1,7 @@
 param(
-    [string]$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path
+    [string]$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path,
+    [string]$ZipName = "",
+    [string]$PatchVersion = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -7,7 +9,20 @@ $ErrorActionPreference = "Stop"
 $src = Join-Path $ProjectRoot "src"
 $dist = Join-Path $ProjectRoot "dist"
 $build = Join-Path $ProjectRoot "build\package"
-$zip = Join-Path $dist "14.3-helper_Aslain.zip"
+
+if (-not $ZipName) {
+    if ($PatchVersion) {
+        $safePatchVersion = ([string]$PatchVersion).Trim() -replace '[^A-Za-z0-9._-]+', '_'
+        if (-not $safePatchVersion) { throw "PatchVersion produced an empty zip suffix." }
+        $ZipName = "14.3-helper_Aslain-patch$safePatchVersion.zip"
+    } else {
+        $ZipName = "14.3-helper_Aslain.zip"
+    }
+}
+if (-not $ZipName.EndsWith(".zip", [System.StringComparison]::OrdinalIgnoreCase)) {
+    $ZipName = "$ZipName.zip"
+}
+$zip = Join-Path $dist $ZipName
 
 if (Test-Path $build) {
     Remove-Item -LiteralPath $build -Recurse -Force
