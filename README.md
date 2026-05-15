@@ -90,32 +90,40 @@ dist\14.3-helper_Aslain.zip
 src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-一键更新入口在：
+推荐使用一键更新入口：
 
 ```text
 tools\update-armor-db-and-build.exe
 ```
 
-双击它会在命令行窗口中生成候选数据库、列出新增/删除/变化 diff，输入 `Y` 后才会覆盖当前数据库，然后自动运行规则测试并打包到 `dist`。输出 zip 会带游戏版本后缀：
+双击后会打开命令行窗口并执行完整流程：
+
+1. 从当前游戏版本生成候选数据库。
+2. 在窗口里列出新增、删除和变化的船只/字段。
+3. 等待输入 `Y` / `N` 确认。
+4. 输入 `Y` 后才覆盖当前数据库，并备份旧数据库到 `tools\armor_snapshots`。
+5. 自动运行规则测试。
+6. 自动打包到 `dist`。
+
+输出 zip 会带游戏版本后缀：
 
 ```text
 dist\14.3-helper_Aslain-patch<游戏版本>.zip
 ```
 
-底层生成和检查脚本在：
+如果只想生成 diff、不覆盖数据库，可以输入 `N` 退出。候选文件和 diff 会保留在：
 
 ```text
-tools\update-armor-db.ps1
+build\armor-update
 ```
 
-手动流程：
+需要传自定义参数时，可以直接运行底层脚本。例如使用已有的 GameParams JSON：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Apply
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -GameParamsJson "C:\tmp\GameParams_ASIA.json"
 ```
 
-如果需要从游戏参数重新提取数据，可以追加 `-ExtractGameParams`。这个步骤比较吃内存，建议只在需要同步新版本数据时运行。
+底层报告脚本是 `tools\update-armor-db.ps1`。不加 `-Apply` 时只生成报告；加 `-Apply` 才会覆盖数据库。`-ExtractGameParams` 会从游戏文件重新提取数据，比较吃内存，只建议在同步新游戏版本时使用。
 
 ## 准确性说明
 

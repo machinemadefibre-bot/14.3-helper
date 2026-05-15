@@ -90,32 +90,40 @@ Armor data lives in:
 src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-The one-click update entry is:
+Use the one-click update entry for normal version refreshes:
 
 ```text
 tools\update-armor-db-and-build.exe
 ```
 
-Double-click it to generate a candidate database, print added/removed/changed diff details in a command window, and wait for `Y` before replacing the current database. After confirmation it runs the rule tests and builds the package into `dist`. The output zip gets a game-patch suffix:
+Double-click it to open a command window and run the full workflow:
+
+1. Generate a candidate database from the current game version.
+2. Print added, removed, and changed ships/fields.
+3. Wait for `Y` / `N` confirmation.
+4. Replace the current database only after `Y`, backing up the old database to `tools\armor_snapshots`.
+5. Run the rule tests.
+6. Build the package into `dist`.
+
+The output zip gets a game-patch suffix:
 
 ```text
 dist\14.3-helper_Aslain-patch<game version>.zip
 ```
 
-The lower-level update script is:
+Type `N` if you only want to inspect the diff. The candidate database and diff files remain under:
 
 ```text
-tools\update-armor-db.ps1
+build\armor-update
 ```
 
-Manual flow:
+Run the PowerShell workflow directly when you need custom arguments. For example, to reuse an existing GameParams JSON:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1
-powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db.ps1 -Apply
+powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -GameParamsJson "C:\tmp\GameParams_ASIA.json"
 ```
 
-Use `-ExtractGameParams` when the script must extract fresh data from game files. That step can use a lot of memory, so it is best reserved for game-version data refreshes.
+The lower-level report script is `tools\update-armor-db.ps1`. Without `-Apply`, it only writes a report. With `-Apply`, it replaces the database. `-ExtractGameParams` extracts fresh data from game files and can use a lot of memory, so reserve it for game-version refreshes.
 
 ## Accuracy Notice
 
