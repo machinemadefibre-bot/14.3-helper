@@ -1,0 +1,77 @@
+# -*- coding: utf-8 -*-
+
+API_VERSION = 'API_v1.0'
+MOD_NAME = '14.3-helper'
+MOD_VERSION = '0.4.0'
+
+COMPONENT_KEY = 'modOvermatchAssistant'
+UPDATE_INTERVAL = 0.2
+OVERMATCH_DIVISOR = 14.3
+INF = 1000000
+OBSERVER_TEAM_ID = 0
+
+AMMO_AP = 'AP'
+AMMO_HE = 'HE'
+AMMO_SAP = 'SAP'
+AMMO_TORPEDO = 'TORPEDO'
+
+STATE_YES = 'yes'
+STATE_PARTIAL = 'partial'
+STATE_NO = 'no'
+STATE_UNKNOWN = 'unknown'
+
+TXT_YES_OVERMATCH = u'\u53ef\u78be\u538b'
+TXT_PARTIAL_OVERMATCH = u'\u90e8\u5206\u53ef\u78be\u538b'
+TXT_NO_OVERMATCH = u'\u4e0d\u53ef\u78be\u538b'
+TXT_YES_PEN = u'\u53ef\u51fb\u7a7f'
+TXT_PARTIAL_PEN = u'\u90e8\u5206\u53ef\u51fb\u7a7f'
+TXT_NO_PEN = u'\u4e0d\u53ef\u51fb\u7a7f'
+TXT_UNKNOWN = u'\u672a\u77e5'
+TXT_BOW_STERN = u'\u5934\u5c3e'
+TXT_BOW = u'\u824f'
+TXT_STERN = u'\u8249'
+TXT_FRONT = u'\u524d'
+TXT_REAR = u'\u540e'
+TXT_DECK = u'\u7532\u677f'
+TXT_SIDE = u'\u4fa7\u677f'
+TXT_BELT = u'\u5ef6\u4f38\u5e26'
+TXT_NO_BELT = u'\u65e0'
+TXT_TARGET = u'\u76ee\u6807'
+TXT_OVERMATCH_LIMIT = u'\u78be\u538b'
+TXT_PENETRATION = u'\u7a7f\u6df1'
+
+STATE_TEXT_OVERMATCH = {
+    STATE_YES: TXT_YES_OVERMATCH,
+    STATE_PARTIAL: TXT_PARTIAL_OVERMATCH,
+    STATE_NO: TXT_NO_OVERMATCH,
+    STATE_UNKNOWN: TXT_UNKNOWN,
+}
+
+STATE_TEXT_PEN = {
+    STATE_YES: TXT_YES_PEN,
+    STATE_PARTIAL: TXT_PARTIAL_PEN,
+    STATE_NO: TXT_NO_PEN,
+    STATE_UNKNOWN: TXT_UNKNOWN,
+}
+
+STATE_COLOR = {
+    STATE_YES: 0x76D672,
+    STATE_PARTIAL: 0xFFCC66,
+    STATE_NO: 0xFF6666,
+    STATE_UNKNOWN: 0xB8B8B8,
+}
+
+DEFAULT_PAYLOAD = {
+    'visible': False,
+    'targetName': '',
+    'weaponText': '',
+    'caliberText': '',
+    'bowSternText': TXT_BOW_STERN + u': ' + TXT_UNKNOWN,
+    'bowSternColor': STATE_COLOR[STATE_UNKNOWN],
+    'deckText': TXT_DECK + u': ' + TXT_UNKNOWN,
+    'deckColor': STATE_COLOR[STATE_UNKNOWN],
+    'sideText': TXT_SIDE + u': ' + TXT_UNKNOWN,
+    'sideColor': STATE_COLOR[STATE_UNKNOWN],
+    'beltText': TXT_BELT + u': ' + TXT_UNKNOWN,
+    'beltColor': STATE_COLOR[STATE_UNKNOWN],
+}

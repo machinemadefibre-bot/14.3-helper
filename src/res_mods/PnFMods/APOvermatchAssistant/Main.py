@@ -1,12 +1,34 @@
 # -*- coding: utf-8 -*-
-API_VERSION = 'API_v1.0'
-MOD_NAME = '14.3-helper'
-MOD_VERSION = '0.4.0'
+
+import sys
 
 try:
-    unicode
-except NameError:
-    unicode = str
+    _MODULE_DIR_INDEX = max(__file__.rfind('/'), __file__.rfind('\\'))
+    _MODULE_DIR = __file__[:_MODULE_DIR_INDEX] if _MODULE_DIR_INDEX >= 0 else ''
+    if _MODULE_DIR and _MODULE_DIR not in sys.path:
+        sys.path.insert(0, _MODULE_DIR)
+except Exception:
+    pass
+
+from overmatch_constants import (
+    AMMO_AP,
+    AMMO_HE,
+    AMMO_SAP,
+    AMMO_TORPEDO,
+    API_VERSION,
+    COMPONENT_KEY,
+    INF,
+    MOD_NAME,
+    MOD_VERSION,
+    OBSERVER_TEAM_ID,
+    TXT_TARGET,
+    UPDATE_INTERVAL,
+)
+from overmatch_database import ArmorDatabase
+from overmatch_logging import log_error, log_info
+from overmatch_payload import OvermatchPayloadBuilder, default_payload
+from overmatch_rules import record_number, rule_limit_for_ammo
+from overmatch_utils import get_path, normalize_caliber_mm, safe_getattr
 
 BigWorld = None
 BWPersonality = None
@@ -15,298 +37,13 @@ ui = None
 Vary = None
 
 
-COMPONENT_KEY = 'modOvermatchAssistant'
-UPDATE_INTERVAL = 0.2
-OVERMATCH_DIVISOR = 14.3
-INF = 1000000
-OBSERVER_TEAM_ID = 0
-
-AMMO_AP = 'AP'
-AMMO_HE = 'HE'
-AMMO_SAP = 'SAP'
-AMMO_TORPEDO = 'TORPEDO'
-
-STATE_YES = 'yes'
-STATE_PARTIAL = 'partial'
-STATE_NO = 'no'
-STATE_UNKNOWN = 'unknown'
-
-TXT_YES_OVERMATCH = u'\u53ef\u78be\u538b'
-TXT_PARTIAL_OVERMATCH = u'\u90e8\u5206\u53ef\u78be\u538b'
-TXT_NO_OVERMATCH = u'\u4e0d\u53ef\u78be\u538b'
-TXT_YES_PEN = u'\u53ef\u51fb\u7a7f'
-TXT_PARTIAL_PEN = u'\u90e8\u5206\u53ef\u51fb\u7a7f'
-TXT_NO_PEN = u'\u4e0d\u53ef\u51fb\u7a7f'
-TXT_UNKNOWN = u'\u672a\u77e5'
-TXT_BOW_STERN = u'\u5934\u5c3e'
-TXT_BOW = u'\u824f'
-TXT_STERN = u'\u8249'
-TXT_FRONT = u'\u524d'
-TXT_REAR = u'\u540e'
-TXT_DECK = u'\u7532\u677f'
-TXT_SIDE = u'\u4fa7\u677f'
-TXT_BELT = u'\u5ef6\u4f38\u5e26'
-TXT_NO_BELT = u'\u65e0'
-TXT_HAS_BELT = u'\u6709'
-TXT_TARGET = u'\u76ee\u6807'
-TXT_OVERMATCH_LIMIT = u'\u78be\u538b'
-TXT_PENETRATION = u'\u7a7f\u6df1'
-
-STATE_TEXT_OVERMATCH = {
-    STATE_YES: TXT_YES_OVERMATCH,
-    STATE_PARTIAL: TXT_PARTIAL_OVERMATCH,
-    STATE_NO: TXT_NO_OVERMATCH,
-    STATE_UNKNOWN: TXT_UNKNOWN,
-}
-
-STATE_TEXT_PEN = {
-    STATE_YES: TXT_YES_PEN,
-    STATE_PARTIAL: TXT_PARTIAL_PEN,
-    STATE_NO: TXT_NO_PEN,
-    STATE_UNKNOWN: TXT_UNKNOWN,
-}
-
-STATE_COLOR = {
-    STATE_YES: 0x76D672,
-    STATE_PARTIAL: 0xFFCC66,
-    STATE_NO: 0xFF6666,
-    STATE_UNKNOWN: 0xB8B8B8,
-}
-
-DEFAULT_PAYLOAD = {
-    'visible': False,
-    'targetName': '',
-    'weaponText': '',
-    'caliberText': '',
-    'bowSternText': TXT_BOW_STERN + u': ' + TXT_UNKNOWN,
-    'bowSternColor': STATE_COLOR[STATE_UNKNOWN],
-    'deckText': TXT_DECK + u': ' + TXT_UNKNOWN,
-    'deckColor': STATE_COLOR[STATE_UNKNOWN],
-    'sideText': TXT_SIDE + u': ' + TXT_UNKNOWN,
-    'sideColor': STATE_COLOR[STATE_UNKNOWN],
-    'beltText': TXT_BELT + u': ' + TXT_UNKNOWN,
-    'beltColor': STATE_COLOR[STATE_UNKNOWN],
-}
-
-
-def _log(level, message):
-    try:
-        text = '[{}] {}: {}'.format(MOD_NAME, level, message)
-        try:
-            if level == 'ERROR':
-                utils.logError(text)
-            else:
-                utils.logInfo(text)
-            return
-        except Exception:
-            pass
-        try:
-            print(text)
-        except Exception:
-            pass
-    except Exception:
-        pass
-
-
-def _log_info(message):
-    _log('INFO', message)
-
-
-def _log_error(message):
-    _log('ERROR', message)
-
-
-def _safe_getattr(obj, name, default=None):
-    try:
-        if obj is None:
-            return default
-        if isinstance(obj, dict):
-            return obj.get(name, default)
-        return getattr(obj, name, default)
-    except Exception:
-        return default
-
-
-def _as_float(value, default=None):
-    try:
-        if value is None:
-            return default
-        return float(value)
-    except Exception:
-        return default
-
-
-def _normalize_caliber_mm(value):
-    caliber = _as_float(value)
-    if caliber is None or caliber <= 0:
-        return None
-    if caliber < 5:
-        caliber *= 1000.0
-    elif caliber < 80:
-        caliber *= 10.0
-    return round(caliber, 1)
-
-
-def _format_mm(values):
-    clean = []
-    for value in values:
-        mm = _as_float(value)
-        if mm is not None and mm > 0 and mm not in clean:
-            clean.append(mm)
-    clean.sort()
-    if not clean:
-        return u'? mm'
-    result = []
-    for mm in clean:
-        if abs(mm - int(mm)) < 0.01:
-            result.append(u'{} mm'.format(int(mm)))
-        else:
-            result.append(u'{:.1f} mm'.format(mm))
-    return u'/'.join(result)
-
-
-def _format_single_mm(value):
-    mm = _as_float(value)
-    if mm is None or mm <= 0:
-        return u'? mm'
-    if abs(mm - int(mm)) < 0.01:
-        return u'{} mm'.format(int(mm))
-    return u'{:.1f} mm'.format(mm)
-
-
-def _flatten_values(group):
-    values = []
-    if not group:
-        return values
-    if isinstance(group, list):
-        source = group
-    elif isinstance(group, dict):
-        source = []
-        for key in ('values', 'bow', 'stern', 'fore', 'aft', 'main'):
-            item = group.get(key)
-            if isinstance(item, list):
-                source += item
-            elif item is not None:
-                source.append(item)
-    else:
-        source = [group]
-    for item in source:
-        mm = _as_float(item)
-        if mm is not None and mm > 0 and mm not in values:
-            values.append(mm)
-    values.sort()
-    return values
-
-
-def _state_for_limit(values, limit_mm):
-    if not values or limit_mm is None:
-        return STATE_UNKNOWN
-    hits = [limit_mm >= value for value in values]
-    if all(hits):
-        return STATE_YES
-    if any(hits):
-        return STATE_PARTIAL
-    return STATE_NO
-
-
-class ArmorDatabase(object):
-    def __init__(self):
-        self.meta = {}
-        self.ships = {}
-        self.aliases = {}
-        self.loaded = False
-        self.load()
-
-    def load(self):
-        path = self._database_path()
-        try:
-            namespace = {}
-            try:
-                execfile(path, namespace)
-            except NameError:
-                with open(path, 'rb') as handle:
-                    code = handle.read()
-                exec(compile(code, path, 'exec'), namespace)
-            data = namespace.get('DATABASE', {})
-            self.meta = data.get('meta', {})
-            self.ships = data.get('ships', {})
-            self.aliases = {}
-            for key, ship in self.ships.items():
-                self.aliases[str(key)] = key
-                for alias in ship.get('aliases', []):
-                    self.aliases[self._normal_key(alias)] = key
-                if ship.get('name'):
-                    self.aliases[self._normal_key(ship.get('name'))] = key
-            self.loaded = True
-            _log_info('loaded armor database: {} ships'.format(len(self.ships)))
-        except Exception as exc:
-            self.loaded = False
-            _log_error('failed to load armor database: {}'.format(exc))
-
-    def _database_path(self):
-        try:
-            path = __file__
-            idx = max(path.rfind('/'), path.rfind('\\'))
-            base = path[:idx] if idx >= 0 else '.'
-        except Exception:
-            base = '.'
-        return base + '/data/armor_overmatch.py'
-
-    def _normal_key(self, value):
-        try:
-            return unicode(value).strip().lower()
-        except Exception:
-            try:
-                return str(value).strip().lower()
-            except Exception:
-                return ''
-
-    def find(self, vehicle):
-        keys = self._vehicle_keys(vehicle)
-        for key in keys:
-            skey = str(key)
-            if skey in self.ships:
-                return self.ships[skey]
-            nkey = self._normal_key(key)
-            if nkey in self.aliases:
-                return self.ships.get(self.aliases[nkey])
-        return None
-
-    def _vehicle_keys(self, vehicle):
-        keys = []
-        paths = (
-            ('shipConfig', 'shipId'),
-            ('shipConfig', 'id'),
-            ('shipConfig', 'name'),
-            ('shipConfig', 'index'),
-            ('shipConfig', 'typeinfo', 'name'),
-            ('typeDescriptor', 'type', 'name'),
-            ('typeDescriptor', 'type', 'id'),
-            ('publicInfo', 'name'),
-            ('name',),
-            ('id',),
-        )
-        for path in paths:
-            value = self._get_path(vehicle, path)
-            if value is not None and value not in keys:
-                keys.append(value)
-        return keys
-
-    def _get_path(self, obj, path):
-        cur = obj
-        for part in path:
-            cur = _safe_getattr(cur, part)
-            if cur is None:
-                return None
-        return cur
-
-
 class APOvermatchAssistant(object):
     def __init__(self):
-        self.db = None
-        self.entity_id = None
+        self.armor_db = None
+        self.payload_builder = OvermatchPayloadBuilder()
+        self.ui_entity_id = None
         self.camera = None
-        self.vary = None
+        self.update_task = None
         self.active = False
         self.last_payload = None
         self.runtime_loaded = False
@@ -324,9 +61,9 @@ class APOvermatchAssistant(object):
             events.onBattleStart(self.on_battle_start)
             events.onBattleQuit(self.on_battle_quit)
             self.events_registered = True
-            _log_info('registered battle lifecycle events')
+            log_info('registered battle lifecycle events')
         except Exception as exc:
-            _log_error('failed to register battle lifecycle events: {}'.format(exc))
+            log_error('failed to register battle lifecycle events: {}'.format(exc))
 
     def _load_runtime(self):
         global BigWorld, BWPersonality, ui, Vary
@@ -354,30 +91,30 @@ class APOvermatchAssistant(object):
             Vary = None
 
         self.runtime_loaded = bool(BigWorld and ui)
-        _log_info('runtime imports ui={} bigworld={} bwpersonality={} vary={}'.format(
+        log_info('runtime imports ui={} bigworld={} bwpersonality={} vary={}'.format(
             bool(ui), bool(BigWorld), bool(BWPersonality), bool(Vary)
         ))
         if not self.runtime_loaded:
-            _log_error('runtime not ready: ui and BigWorld are required')
+            log_error('runtime not ready: ui and BigWorld are required')
         return self.runtime_loaded
 
     def start(self, *args):
         try:
             if not self._load_runtime():
                 return
-            if self.entity_id is not None:
+            if self.ui_entity_id is not None:
                 self.stop()
             self.active = True
-            self.entity_id = ui.createUiElement()
-            payload = dict(DEFAULT_PAYLOAD)
-            ui.addDataComponentWithId(self.entity_id, COMPONENT_KEY, payload)
+            self.ui_entity_id = ui.createUiElement()
+            payload = default_payload()
+            ui.addDataComponentWithId(self.ui_entity_id, COMPONENT_KEY, payload)
             self.last_payload = payload
             self.camera = self._get_camera()
             self.update(0)
             self._start_loop()
-            _log_info('started entity_id={}'.format(self.entity_id))
+            log_info('started entity_id={}'.format(self.ui_entity_id))
         except Exception as exc:
-            _log_error('start failed: {}'.format(exc))
+            log_error('start failed: {}'.format(exc))
 
     def on_battle_start(self, *args):
         self.start(*args)
@@ -388,20 +125,20 @@ class APOvermatchAssistant(object):
     def stop(self, *args):
         self.active = False
         try:
-            if Vary and self.vary:
-                Vary.stop(self.vary)
-            self.vary = None
+            if Vary and self.update_task:
+                Vary.stop(self.update_task)
+            self.update_task = None
         except Exception:
             pass
         try:
-            if self.entity_id is not None:
-                ui.deleteUiElement(self.entity_id)
+            if ui and self.ui_entity_id is not None:
+                ui.deleteUiElement(self.ui_entity_id)
         except Exception:
             pass
-        self.entity_id = None
+        self.ui_entity_id = None
         self.camera = None
         self.last_payload = None
-        _log_info('stopped')
+        log_info('stopped')
 
     def on_battle_quit(self, *args):
         self.stop(*args)
@@ -414,12 +151,12 @@ class APOvermatchAssistant(object):
 
     def _start_loop(self):
         if Vary:
-            self.vary = Vary.start(UPDATE_INTERVAL, self.update)
-            _log_info('update loop started with Vary')
+            self.update_task = Vary.start(UPDATE_INTERVAL, self.update)
+            log_info('update loop started with Vary')
             return
         if BigWorld:
             BigWorld.callback(UPDATE_INTERVAL, self._callback_update)
-            _log_info('update loop started with BigWorld.callback')
+            log_info('update loop started with BigWorld.callback')
 
     def _callback_update(self):
         if not self.active:
@@ -434,70 +171,38 @@ class APOvermatchAssistant(object):
     def update(self, dt=0):
         try:
             payload = self._build_payload()
-            if payload != self.last_payload and self.entity_id is not None:
-                ui.updateUiElementData(self.entity_id, payload)
+            if payload != self.last_payload and self.ui_entity_id is not None:
+                ui.updateUiElementData(self.ui_entity_id, payload)
                 self.last_payload = payload
         except Exception as exc:
-            _log_error('update failed: {}'.format(exc))
+            log_error('update failed: {}'.format(exc))
 
     def _build_payload(self):
-        if self.db is None:
-            self.db = ArmorDatabase()
+        if self.armor_db is None:
+            self.armor_db = ArmorDatabase()
 
-        own = self._get_own_vehicle()
-        ammo_kind = self._get_ammo_kind(own)
+        own_vehicle = self._get_own_vehicle()
+        ammo_kind = self._get_ammo_kind(own_vehicle)
         if ammo_kind == AMMO_TORPEDO:
-            return dict(DEFAULT_PAYLOAD)
+            return default_payload()
 
-        target = self._get_target_vehicle()
-        if not self._is_enemy_vehicle(target):
-            return dict(DEFAULT_PAYLOAD)
+        target_vehicle = self._get_target_vehicle()
+        if not self._is_enemy_vehicle(target_vehicle):
+            return default_payload()
 
-        own_record = self.db.find(own) if own is not None else None
-        caliber = self._get_main_caliber(own, own_record)
-        limit = self._get_rule_limit(ammo_kind, caliber, own_record)
-        target_record = self.db.find(target)
+        own_record = self.armor_db.find(own_vehicle) if own_vehicle is not None else None
+        main_caliber = self._get_main_caliber(own_vehicle, own_record)
+        rule_limit = rule_limit_for_ammo(ammo_kind, main_caliber, own_record)
+        target_record = self.armor_db.find(target_vehicle)
+        target_name = self._display_ship_name(target_vehicle, target_record)
 
-        payload = dict(DEFAULT_PAYLOAD)
-        payload['visible'] = True
-        payload['targetName'] = self._display_ship_name(target, target_record)
-        payload['weaponText'] = self._weapon_text(ammo_kind, caliber, limit)
-        payload['caliberText'] = payload['weaponText']
-
-        armor = target_record.get('armor', {}) if target_record else {}
-        state_text = STATE_TEXT_OVERMATCH if ammo_kind == AMMO_AP else STATE_TEXT_PEN
-        self._apply_bow_stern(payload, armor.get('bowStern'), limit, state_text)
-        self._apply_simple(payload, 'deck', TXT_DECK, armor.get('deck'), limit, state_text)
-        self._apply_simple(payload, 'side', TXT_SIDE, armor.get('side'), limit, state_text)
-        self._apply_belt(payload, armor.get('extendedBowSternBelt'), limit, state_text)
-        return payload
-
-    def _get_rule_limit(self, ammo_kind, caliber, own_record):
-        if ammo_kind == AMMO_AP:
-            if caliber is None:
-                return None
-            return caliber / OVERMATCH_DIVISOR
-        if ammo_kind == AMMO_HE:
-            value = self._record_number(own_record, 'mainGunHePenMm')
-            if value is not None:
-                return value
-            if caliber is not None:
-                return int(caliber / 6.0)
-            return None
-        if ammo_kind == AMMO_SAP:
-            return self._record_number(own_record, 'mainGunSapPenMm')
-        return None
-
-    def _weapon_text(self, ammo_kind, caliber, limit):
-        if ammo_kind == AMMO_AP:
-            if caliber is None:
-                return u'AP ? mm'
-            return u'AP {} ({} {})'.format(_format_single_mm(caliber), TXT_OVERMATCH_LIMIT, _format_single_mm(limit))
-        if ammo_kind == AMMO_HE:
-            return u'HE {} {}'.format(_format_single_mm(limit), TXT_PENETRATION)
-        if ammo_kind == AMMO_SAP:
-            return u'SAP {} {}'.format(_format_single_mm(limit), TXT_PENETRATION)
-        return u'?'
+        return self.payload_builder.build_target_payload(
+            target_name,
+            target_record,
+            ammo_kind,
+            main_caliber,
+            rule_limit,
+        )
 
     def _get_camera(self):
         try:
@@ -528,20 +233,20 @@ class APOvermatchAssistant(object):
 
     def _is_enemy_vehicle(self, vehicle):
         try:
-            if not vehicle or _safe_getattr(vehicle, 'className') != 'Vehicle':
+            if not vehicle or safe_getattr(vehicle, 'className') != 'Vehicle':
                 return False
             player = BigWorld.player() if BigWorld else None
-            own_team = _safe_getattr(player, 'teamId')
-            if own_team != OBSERVER_TEAM_ID and own_team == _safe_getattr(vehicle, 'teamId'):
+            own_team = safe_getattr(player, 'teamId')
+            if own_team != OBSERVER_TEAM_ID and own_team == safe_getattr(vehicle, 'teamId'):
                 return False
             return True
         except Exception:
             return False
 
     def _get_main_caliber(self, vehicle, record=None):
-        caliber = self._record_number(record, 'mainGunCaliberMm')
+        caliber = record_number(record, 'mainGunCaliberMm')
         if caliber:
-            return _normalize_caliber_mm(caliber)
+            return normalize_caliber_mm(caliber)
 
         paths = (
             ('shipConfig', 'artillery', 'caliber'),
@@ -553,16 +258,11 @@ class APOvermatchAssistant(object):
             ('typeDescriptor', 'artillery', 'caliber'),
         )
         for path in paths:
-            value = self._get_path(vehicle, path)
-            caliber = _normalize_caliber_mm(value)
+            value = get_path(vehicle, path)
+            caliber = normalize_caliber_mm(value)
             if caliber:
                 return caliber
         return self._scan_for_caliber(vehicle)
-
-    def _record_number(self, record, name):
-        if not record:
-            return None
-        return _as_float(record.get(name))
 
     def _scan_for_caliber(self, obj, depth=0):
         if depth > 3 or obj is None:
@@ -573,15 +273,15 @@ class APOvermatchAssistant(object):
             items = list(enumerate(obj))
         else:
             for name in ('caliber', 'gunCaliber', 'mainGunCaliber', 'bulletDiameter', 'bulletDiametr'):
-                value = _safe_getattr(obj, name)
-                caliber = _normalize_caliber_mm(value)
+                value = safe_getattr(obj, name)
+                caliber = normalize_caliber_mm(value)
                 if caliber:
                     return caliber
             return None
         for key, value in items:
             key_text = str(key).lower()
             if 'caliber' in key_text or 'diametr' in key_text or 'diameter' in key_text:
-                caliber = _normalize_caliber_mm(value)
+                caliber = normalize_caliber_mm(value)
                 if caliber:
                     return caliber
         for key, value in items:
@@ -619,13 +319,13 @@ class APOvermatchAssistant(object):
             ('shipConfig', 'selectedAmmo'),
         )
         for path in paths:
-            value = self._get_path(vehicle, path)
+            value = get_path(vehicle, path)
             if value is not None:
                 return str(value)
         try:
             player = BigWorld.player() if BigWorld else None
             for attr in ('selectedAmmo', 'selectedAmmoType', 'ammoType', 'currentAmmo', 'currentShell'):
-                value = _safe_getattr(player, attr)
+                value = safe_getattr(player, attr)
                 if value is not None:
                     return str(value)
         except Exception:
@@ -646,87 +346,16 @@ class APOvermatchAssistant(object):
                 ('weaponController', 'weaponName'),
             )
             for path in candidates:
-                value = self._get_path(player, path)
+                value = get_path(player, path)
                 if value is not None:
                     return str(value)
         except Exception:
             pass
         return ''
 
-    def _get_path(self, obj, path):
-        cur = obj
-        for part in path:
-            cur = _safe_getattr(cur, part)
-            if cur is None:
-                return None
-        return cur
-
-    def _apply_bow_stern(self, payload, group, limit, state_text):
-        if isinstance(group, dict) and ('bow' in group or 'stern' in group):
-            bow = _flatten_values(group.get('bow') or group.get('fore') or group.get('values'))
-            stern = _flatten_values(group.get('stern') or group.get('aft') or group.get('values'))
-            bow_state = _state_for_limit(bow, limit)
-            stern_state = _state_for_limit(stern, limit)
-            state = self._merge_states([bow_state, stern_state])
-            payload['bowSternText'] = u'{}: {} {} / {} {} ({} / {})'.format(
-                TXT_BOW_STERN,
-                TXT_BOW,
-                state_text[bow_state],
-                TXT_STERN,
-                state_text[stern_state],
-                _format_mm(bow),
-                _format_mm(stern),
-            )
-            payload['bowSternColor'] = STATE_COLOR[state]
-            return
-        values = _flatten_values(group)
-        state = _state_for_limit(values, limit)
-        payload['bowSternText'] = u'{}: {} ({})'.format(TXT_BOW_STERN, state_text[state], _format_mm(values))
-        payload['bowSternColor'] = STATE_COLOR[state]
-
-    def _apply_simple(self, payload, key, label, group, limit, state_text):
-        values = _flatten_values(group)
-        state = _state_for_limit(values, limit)
-        payload[key + 'Text'] = u'{}: {} ({})'.format(label, state_text[state], _format_mm(values))
-        payload[key + 'Color'] = STATE_COLOR[state]
-
-    def _apply_belt(self, payload, group, limit, state_text):
-        present = True
-        if not group:
-            present = False
-        elif isinstance(group, dict) and 'present' in group:
-            present = bool(group.get('present'))
-
-        if not present:
-            payload['beltText'] = u'{}\uff1a{}\uff1a{}  {}\uff1a{}'.format(TXT_BELT, TXT_FRONT, TXT_NO_BELT, TXT_REAR, TXT_NO_BELT)
-            payload['beltColor'] = STATE_COLOR[STATE_YES]
-            return
-
-        bow = _flatten_values(group.get('bow') or group.get('fore')) if isinstance(group, dict) else []
-        stern = _flatten_values(group.get('stern') or group.get('aft')) if isinstance(group, dict) else []
-        if not bow and not stern:
-            bow = _flatten_values(group)
-        bow_state = _state_for_limit(bow, limit) if bow else STATE_YES
-        stern_state = _state_for_limit(stern, limit) if stern else STATE_YES
-        state = self._merge_states([bow_state, stern_state])
-        bow_text = state_text[bow_state] if bow else TXT_NO_BELT
-        stern_text = state_text[stern_state] if stern else TXT_NO_BELT
-        payload['beltText'] = u'{}\uff1a{}\uff1a{}  {}\uff1a{}'.format(TXT_BELT, TXT_FRONT, bow_text, TXT_REAR, stern_text)
-        payload['beltColor'] = STATE_COLOR[state]
-
-    def _merge_states(self, states):
-        filtered = [state for state in states if state != STATE_UNKNOWN]
-        if not filtered:
-            return STATE_UNKNOWN
-        if all(state == STATE_YES for state in filtered):
-            return STATE_YES
-        if all(state == STATE_NO for state in filtered):
-            return STATE_NO
-        return STATE_PARTIAL
-
     def _target_name(self, vehicle):
         for path in (('publicInfo', 'name'), ('shipConfig', 'name'), ('name',)):
-            value = self._get_path(vehicle, path)
+            value = get_path(vehicle, path)
             if value:
                 return value
         return TXT_TARGET
@@ -741,7 +370,7 @@ gAPOvermatchAssistant = APOvermatchAssistant()
 
 
 def init(*args):
-    _log_info('module init')
+    log_info('module init')
     gAPOvermatchAssistant.start(*args)
 
 

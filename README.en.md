@@ -12,7 +12,7 @@ The current release package is standalone. When installed through Aslain `Custom
 - HE / SAP: checks penetration with the current shell penetration value.
 - Battle-switchable display mode: `My gun` checks your current shell against the target, while `Enemy gun` checks whether the target ship's main guns can threaten your armor areas.
 - In `Enemy gun` mode, targets with SAP use target SAP penetration first. Without SAP, target main guns below `283 mm` use HE penetration, while `283 mm` and larger guns use AP overmatch.
-- The floating panel uses `Out` / `In` prefixes for outgoing and incoming checks. Incoming checks color safety: `×` is green, `√` is red.
+- The floating panel uses fixed white `ATK` / `DEF` prefixes for outgoing and incoming checks. Incoming checks color safety: `×` is green, `√` is red.
 - Each battle starts with the last saved display mode. Holding Alt temporarily flips to the other mode, then returns when Alt is released.
 - Shows separate checks for bow/stern, deck, side plating, and forward/aft extended belt.
 - Extended belt is split into forward and aft results, for example `Ext Bow √ Stern ×`.
@@ -64,7 +64,13 @@ After installation, start the game once. The bundled `ModsInstaller_4_3_1` will 
 
 ## Build
 
-Run the rule check first:
+Run the full test entrypoint when Python is available:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\test.ps1 -Build
+```
+
+Run the rule check directly when you only need the armor-rule regression suite:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\test-rule.ps1
@@ -144,7 +150,7 @@ If you find a wrong result, please open an issue with:
 src\
   res_mods\
     PnFMods\
-      APOvermatchAssistant\      # Main logic and armor database
+      APOvermatchAssistant\      # Loader entry, helper modules, and armor database
       ModsInstaller_4_3_1\       # UI patcher required for standalone install
     gui\
       unbound2\

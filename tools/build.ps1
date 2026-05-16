@@ -34,6 +34,13 @@ New-Item -ItemType Directory -Path $build | Out-Null
 
 Copy-Item -LiteralPath (Join-Path $src "res_mods") -Destination $build -Recurse
 
+Get-ChildItem -Path $build -Recurse -Force |
+    Where-Object { $_.PSIsContainer -and $_.Name -eq "__pycache__" } |
+    Remove-Item -Recurse -Force
+Get-ChildItem -Path $build -Recurse -Force |
+    Where-Object { -not $_.PSIsContainer -and ($_.Extension -eq ".pyc" -or $_.Extension -eq ".pyo") } |
+    Remove-Item -Force
+
 if (Test-Path $zip) {
     Remove-Item -LiteralPath $zip -Force
 }

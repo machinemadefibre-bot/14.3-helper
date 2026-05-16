@@ -3,6 +3,9 @@ dist/
 *.log
 *.tmp
 *.bak
+.tools/
+__pycache__/
+*.py[cod]
 
 # Local game/resource extraction caches can be very large.
 GameParams*.json

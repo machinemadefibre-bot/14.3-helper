@@ -3768,14 +3768,7 @@
 		(var relation:gfx = "_markerEntity && _markerEntity.hasComponent(CC.relation) ? _markerEntity.relation : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
 		(var isEnemy:bool = "relation && relation.value == SC.Battle.PLAYER_RELATION.ENEMY" (event "relation.evChanged"))
 		(var isAlive:bool = "_markerEntity && _markerEntity.hasComponent(CC.health) ? _markerEntity.health.isAlive : false" (event "_markerEntity.health.evIsAliveChanged"))
-		(var targetWorldVisible:bool = "_markerEntity && _markerEntity.hasComponent(CC.visibility) && _markerEntity.visibility.visible" (event "_markerEntity.visibility.evChanged"))
-		(var targetMapVisible:bool = "_markerEntity && _markerEntity.hasComponent(CC.visibility) && _markerEntity.visibility.mapVisible" (event "_markerEntity.visibility.evChanged"))
-		(var targetSpottedVisible:bool = "targetWorldVisible && targetMapVisible")
-
-		(var weaponController:gfx = "$datahub.getSingleComponent(CC.weaponController)")
-		(var activeWeaponType:number = "weaponController ? weaponController.selectedWeapon : -1" (event "weaponController.evSelectedWeaponChanged") (event "weaponController.evSelectedAmmoTypeChanged"))
-		(var isArtilleryActive:bool = "activeWeaponType == SC.Ships.SHIP_WEAPON_TYPES.ARTILLERY")
-		(var isTargetVisible:bool = "isTargetLocked && isArtilleryActive && isEnemy && isAlive && targetSpottedVisible")
+		(var isTargetVisible:bool = "isTargetLocked && isEnemy && isAlive")
 
 		(var targetAvatar:gfx = "_markerEntity ? _markerEntity.avatar : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
 		(var targetShip:gfx = "targetAvatar ? targetAvatar.ship.ref.ship : null")
@@ -3869,7 +3862,7 @@
 		(var selectedArmorRecord:dict = "isDefenseMode ? _ownRecord : _targetRecord")
 		(var selectedRuleDbKey:str = "isDefenseMode ? _targetDbKey : _ownDbKey")
 		(var selectedRuleCaliber:number = "isDefenseMode ? enemyCaliber : ownCaliber")
-		(var isPanelVisible:bool = "_isTargetVisible && isArtillerySlot && isSlotActive && (isDefenseMode || isSupportedAmmo)")
+		(var isPanelVisible:bool = "_isTargetVisible && isArtillerySlot && (isDefenseMode || (isSlotActive && isSupportedAmmo))")
 	)
 
 	(element OA_RulePanel
@@ -3894,11 +3887,11 @@
 	(scope
 		(var isChinese:bool = "_languageIndex == 1")
 		(var isDefenseMode:bool = "_displayMode == 1")
-		(var labelModePrefix:str = "isChinese ? (isDefenseMode ? '防 ' : '攻 ') : (isDefenseMode ? 'In ' : 'Out ')")
-		(var labelBowStern:str = "labelModePrefix + (isChinese ? '艏艉' : 'Bow/Stern')")
-		(var labelDeck:str = "labelModePrefix + (isChinese ? '甲板' : 'Deck')")
-		(var labelSide:str = "labelModePrefix + (isChinese ? '侧板' : 'Side')")
-		(var labelBelt:str = "labelModePrefix + (isChinese ? '延伸' : 'Ext')")
+		(var labelModePrefix:str = "isChinese ? (isDefenseMode ? '防' : '攻') : (isDefenseMode ? 'DEF' : 'ATK')")
+		(var labelBowStern:str = "isChinese ? '艏艉' : 'Bow/Stern'")
+		(var labelDeck:str = "isChinese ? '甲板' : 'Deck'")
+		(var labelSide:str = "isChinese ? '侧板' : 'Side'")
+		(var labelBelt:str = "isChinese ? '延伸' : 'Ext'")
 		(var labelBeltBow:str = "isChinese ? '前' : 'Bow'")
 		(var labelBeltStern:str = "isChinese ? '后' : 'Stern'")
 		(var textNoBelt:str = "isChinese ? '无' : 'NA'")
@@ -3907,7 +3900,7 @@
 
 		(var bowSternMinArmor:number = "hasTargetArmorRecord ? (_targetRecord.bmn <= _targetRecord.smn ? _targetRecord.bmn : _targetRecord.smn) : 0")
 		(var bowSternMaxArmor:number = "hasTargetArmorRecord ? (_targetRecord.bmx >= _targetRecord.smx ? _targetRecord.bmx : _targetRecord.smx) : 0")
-		(var bowSternSymbol:str = "!hasTargetArmorRecord || !hasRule || bowSternMaxArmor <= 0 ? '?' : _ruleLimit >= bowSternMaxArmor * _ruleScale ? '√' : _ruleLimit >= bowSternMinArmor * _ruleScale ? '▲' : '×'")
+		(var bowSternSymbol:str = "!hasTargetArmorRecord || !hasRule || bowSternMaxArmor <= 0 ? '?' : _ruleLimit >= bowSternMaxArmor * _ruleScale ? '√' : _ruleLimit >= bowSternMinArmor * _ruleScale ? '△' : '×'")
 		(var bowSternColor:number = "bowSternSymbol == '√' ? 0x76D672 : bowSternSymbol == '×' ? 0xFF6666 : bowSternSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
 		(var deckSymbol:str = "!hasTargetArmorRecord || !hasRule || _targetRecord.dmx <= 0 ? '?' : _ruleLimit >= _targetRecord.dmx * _ruleScale ? '√' : _ruleLimit >= _targetRecord.dmn * _ruleScale ? '△' : '×'")
@@ -3945,7 +3938,7 @@
 			(position = "absolute")
 			(bind left "_dragPosX")
 			(bind top "_dragPosY")
-			(width = 190)
+			(width = 230)
 			(bind height "diagVisible ? 110 : 92")
 			(bind scaleX "_scale")
 			(bind scaleY "_scale")
@@ -3974,10 +3967,10 @@
 				(hitTest = false)
 			)
 
-			(element OA_Row _text="bowSternText" _color="bowSternDisplayColor")
-			(element OA_Row _text="deckText" _color="deckDisplayColor")
-			(element OA_Row _text="sideText" _color="sideDisplayColor")
-			(element OA_BeltRow _labelText="labelBelt" _labelColor="beltLabelDisplayColor" _bowText="bowBeltText" _bowColor="bowBeltDisplayColor" _sternText="sternBeltText" _sternColor="sternBeltDisplayColor")
+			(element OA_Row _prefix="labelModePrefix" _text="bowSternText" _color="bowSternDisplayColor")
+			(element OA_Row _prefix="labelModePrefix" _text="deckText" _color="deckDisplayColor")
+			(element OA_Row _prefix="labelModePrefix" _text="sideText" _color="sideDisplayColor")
+			(element OA_BeltRow _prefix="labelModePrefix" _labelText="labelBelt" _labelColor="beltLabelDisplayColor" _bowText="bowBeltText" _bowColor="bowBeltDisplayColor" _sternText="sternBeltText" _sternColor="sternBeltDisplayColor")
 			(element OA_DiagRow _text="diagText" _visible="diagVisible")
 		)
 
@@ -3990,154 +3983,7 @@
 	)
 )
 
-(def element OA_TargetPanel(_markerEntity:gfx, _dragPosX:number, _dragPosY:number, _scale:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
-	(scope
-		(macro APOA_GET_USERPREF)
-		(macro APOA_GET_PREF_NUMBER _varName="'languageIndex'" _pref="APOA_LOCAL_PREFS.LANGUAGE")
-		(var target:gfx = "_markerEntity ? _markerEntity.target : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
-		(var targetFlags:number = "target ? target.flags : 0" (event "target.evChanged") (event "target.evFlagsChanged"))
-		(var isTargetLocked:bool = "(targetFlags & LOCKABLE_WEAPONS) > 0")
-
-		(var relation:gfx = "_markerEntity && _markerEntity.hasComponent(CC.relation) ? _markerEntity.relation : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
-		(var isEnemy:bool = "relation && relation.value == SC.Battle.PLAYER_RELATION.ENEMY" (event "relation.evChanged"))
-		(var isAlive:bool = "_markerEntity && _markerEntity.hasComponent(CC.health) ? _markerEntity.health.isAlive : false" (event "_markerEntity.health.evIsAliveChanged"))
-		(var isPanelVisible:bool = "isTargetLocked && isEnemy && isAlive")
-
-		(var targetAvatar:gfx = "_markerEntity ? _markerEntity.avatar : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
-		(var targetShip:gfx = "targetAvatar ? targetAvatar.ship.ref.ship : null")
-		(var targetShipName:str = "targetShip ? targetShip.nameUpper : ''")
-		(var targetShipId:str = "targetShip ? toString(targetShip.id) : ''")
-
-		(var playerEntity:gfx = "$datahub.getSingleEntity(CC.playerAvatar)")
-		(var ownVehicleId:str = "playerEntity && playerEntity.hasComponent(CC.vehicle) ? toString(playerEntity.vehicle.id) : ''" (event "playerEntity.evAdded")(event "playerEntity.evRemoved"))
-		(var ownVehicleInfo:gfx = "ownVehicleId != '' ? $datahub.getPrimaryEntity(CC.vehicleInfo, ownVehicleId) : null")
-		(var ownAvatar:gfx = "ownVehicleInfo ? ownVehicleInfo.avatar : null" (event "ownVehicleInfo.evAdded")(event "ownVehicleInfo.evRemoved"))
-		(var ownShip:gfx = "ownAvatar ? ownAvatar.ship.ref.ship : null")
-		(var ownShipId:str = "ownShip ? toString(ownShip.id) : ''")
-
-		(var ownRecord:dict = "ownShipId in OA_ARMOR_DB ? OA_ARMOR_DB[ownShipId] : null")
-		(var targetRecord:dict = "targetShipId in OA_ARMOR_DB ? OA_ARMOR_DB[targetShipId] : null")
-		(var hasOwnRecord:bool = "ownRecord && ownRecord.c > 0")
-		(var hasTargetRecord:bool = "targetRecord")
-		(var apLimit:number = "hasOwnRecord ? ownRecord.c / 14.3 : 0")
-		(var isChinese:bool = "languageIndex == 1")
-		(var textUnknown:str = "isChinese ? '未知' : 'Unknown'")
-		(var textYesOvermatch:str = "isChinese ? '可碾压' : 'Overmatch'")
-		(var textPartialOvermatch:str = "isChinese ? '部分可碾压' : 'Partial'")
-		(var textNoOvermatch:str = "isChinese ? '不可碾压' : 'No overmatch'")
-		(var textNone:str = "isChinese ? '无' : 'None'")
-		(var textPresent:str = "isChinese ? '有' : 'Present'")
-		(var labelPen:str = "isChinese ? '穿深' : 'pen'")
-		(var labelOvermatch:str = "isChinese ? '碾压' : 'overmatch'")
-		(var labelBowStern:str = "isChinese ? '头尾' : 'Bow/Stern'")
-		(var labelBow:str = "isChinese ? '艏' : 'Bow'")
-		(var labelStern:str = "isChinese ? '艉' : 'Stern'")
-		(var labelDeck:str = "isChinese ? '甲板' : 'Deck'")
-		(var labelSide:str = "isChinese ? '侧板' : 'Side'")
-		(var labelBelt:str = "isChinese ? '衍生带/破冰带' : 'Ext belt/Icebreaker'")
-		(var heText:str = "ownRecord && ownRecord.he > 0 ? ' HE ' + labelPen + ' ' + formatFloatingPoint(ownRecord.he, 0) + 'mm' : ''")
-		(var sapText:str = "ownRecord && ownRecord.sap > 0 ? ' SAP ' + labelPen + ' ' + formatFloatingPoint(ownRecord.sap, 0) + 'mm' : ''")
-
-		(var bowState:str = "!hasTargetRecord || !hasOwnRecord || targetRecord.bmx <= 0 ? textUnknown : apLimit >= targetRecord.bmx ? textYesOvermatch : apLimit >= targetRecord.bmn ? textPartialOvermatch : textNoOvermatch")
-		(var sternState:str = "!hasTargetRecord || !hasOwnRecord || targetRecord.smx <= 0 ? textUnknown : apLimit >= targetRecord.smx ? textYesOvermatch : apLimit >= targetRecord.smn ? textPartialOvermatch : textNoOvermatch")
-		(var bowSternColor:number = "bowState == textYesOvermatch && sternState == textYesOvermatch ? 0x76D672 : bowState == textNoOvermatch && sternState == textNoOvermatch ? 0xFF6666 : bowState == textUnknown || sternState == textUnknown ? 0xB8B8B8 : 0xFFCC66")
-
-		(var deckState:str = "!hasTargetRecord || !hasOwnRecord || targetRecord.dmx <= 0 ? textUnknown : apLimit >= targetRecord.dmx ? textYesOvermatch : apLimit >= targetRecord.dmn ? textPartialOvermatch : textNoOvermatch")
-		(var deckColor:number = "deckState == textYesOvermatch ? 0x76D672 : deckState == textNoOvermatch ? 0xFF6666 : deckState == textUnknown ? 0xB8B8B8 : 0xFFCC66")
-
-		(var sideState:str = "!hasTargetRecord || !hasOwnRecord || targetRecord.xmx <= 0 ? textUnknown : apLimit >= targetRecord.xmx ? textYesOvermatch : apLimit >= targetRecord.xmn ? textPartialOvermatch : textNoOvermatch")
-		(var sideColor:number = "sideState == textYesOvermatch ? 0x76D672 : sideState == textNoOvermatch ? 0xFF6666 : sideState == textUnknown ? 0xB8B8B8 : 0xFFCC66")
-
-		(var beltState:str = "!hasTargetRecord || !hasOwnRecord ? textUnknown : !targetRecord.bp ? textNone : targetRecord.blmx <= 0 ? textUnknown : apLimit >= targetRecord.blmx ? textYesOvermatch : apLimit >= targetRecord.blmn ? textPartialOvermatch : textNoOvermatch")
-		(var beltColor:number = "beltState == textNone || beltState == textYesOvermatch ? 0x76D672 : beltState == textNoOvermatch ? 0xFF6666 : beltState == textUnknown ? 0xB8B8B8 : 0xFFCC66")
-
-		(var titleText:str = "targetShipName + '  AP ' + (hasOwnRecord ? formatFloatingPoint(ownRecord.c, 0) + 'mm ' + labelOvermatch + ' ' + formatFloatingPoint(apLimit, 1) + 'mm' : '?') + heText + sapText")
-		(var bowSternText:str = "labelBowStern + ': ' + labelBow + ' ' + bowState + ' / ' + labelStern + ' ' + sternState + ' (' + (hasTargetRecord ? targetRecord.bt + ' / ' + targetRecord.st : '? mm') + ')'")
-		(var deckText:str = "labelDeck + ': ' + deckState + ' (' + (hasTargetRecord ? targetRecord.dt : '? mm') + ')'")
-		(var sideText:str = "labelSide + ': ' + sideState + ' (' + (hasTargetRecord ? targetRecord.xt : '? mm') + ')'")
-		(var beltText:str = "labelBelt + ': ' + (!hasTargetRecord ? textUnknown : !targetRecord.bp ? textNone : textPresent + ' - ' + beltState + ' (' + targetRecord.blt + ')')")
-	)
-
-	(bind visible "isPanelVisible")
-
-	(block
-		(style
-			(position = "absolute")
-			(bind left "_dragPosX")
-			(bind top "_dragPosY")
-			(width = 540px)
-			(height = 126px)
-			(bind scaleX "_scale")
-			(bind scaleY "_scale")
-		)
-
-		(controller $Instance renderer='APOA_DraggableElement'
-			(bind enabled "!_isPositionLocked")
-			(args
-				_elementName="OA_ELEMENT_NAME"
-				_defaultPosition="_defaultPos"
-			)
-		)
-
-		(mc contrast_panel
-			(class $FullsizeAbsolute)
-			(style
-				(bind alpha "_backgroundAlpha")
-				(hitTest = false)
-			)
-		)
-
-		(block
-			(style
-				(width = 100%)
-				(padding = [7, 9, 8, 9])
-				(hitTest = false)
-			)
-
-			(tf
-				(class $TextDefaultBold17NM)
-				(style
-					(textColor = 0xFFFFFF)
-					(noTranslate = true)
-					(marginBottom = 3px)
-					(width = 522px)
-				)
-				(bind text "titleText")
-			)
-
-			(element OA_Row _text="bowSternText" _color="bowSternColor")
-			(element OA_Row _text="deckText" _color="deckColor")
-			(element OA_Row _text="sideText" _color="sideColor")
-			(element OA_Row _text="beltText" _color="beltColor")
-		)
-
-		(element TT_ConfigButtonElement _modIndex="22" _tooltipAlign="outerTop|outerLeft"
-			(style
-				(left = -30px)
-				(top = 20px)
-			)
-		)
-	)
-)
-
-(def element OA_Row(_text:str, _color:number) layout=true
-	(style
-		(width = 100%)
-		(height = 22px)
-		(hitTest = false)
-	)
-	(tf
-		(class $TextDefaultBold17NM)
-		(style
-			(bind textColor "_color")
-			(noTranslate = true)
-			(width = 100%)
-		)
-		(bind text "_text")
-	)
-)
-
-(def element OA_BeltRow(_labelText:str, _labelColor:number, _bowText:str, _bowColor:number, _sternText:str, _sternColor:number) layout=true
+(def element OA_Row(_prefix:str, _text:str, _color:number) layout=true
 	(style
 		(width = 100%)
 		(height = 22px)
@@ -4148,9 +3994,50 @@
 		(style
 			(position = "absolute")
 			(left = 0px)
+			(textColor = 0xFFFFFF)
+			(noTranslate = true)
+			(width = 42px)
+		)
+		(bind text "_prefix")
+	)
+	(tf
+		(class $TextDefaultBold17NM)
+		(style
+			(position = "absolute")
+			(left = 44px)
+			(bind textColor "_color")
+			(noTranslate = true)
+			(width = 168px)
+		)
+		(bind text "_text")
+	)
+)
+
+(def element OA_BeltRow(_prefix:str, _labelText:str, _labelColor:number, _bowText:str, _bowColor:number, _sternText:str, _sternColor:number) layout=true
+	(style
+		(width = 100%)
+		(height = 22px)
+		(hitTest = false)
+	)
+	(tf
+		(class $TextDefaultBold17NM)
+		(style
+			(position = "absolute")
+			(left = 0px)
+			(textColor = 0xFFFFFF)
+			(noTranslate = true)
+			(width = 42px)
+		)
+		(bind text "_prefix")
+	)
+	(tf
+		(class $TextDefaultBold17NM)
+		(style
+			(position = "absolute")
+			(left = 44px)
 			(bind textColor "_labelColor")
 			(noTranslate = true)
-			(width = 50px)
+			(width = 42px)
 		)
 		(bind text "_labelText")
 	)
@@ -4158,10 +4045,10 @@
 		(class $TextDefaultBold17NM)
 		(style
 			(position = "absolute")
-			(left = 54px)
+			(left = 88px)
 			(bind textColor "_bowColor")
 			(noTranslate = true)
-			(width = 58px)
+			(width = 56px)
 		)
 		(bind text "_bowText")
 	)
@@ -4169,10 +4056,10 @@
 		(class $TextDefaultBold17NM)
 		(style
 			(position = "absolute")
-			(left = 112px)
+			(left = 146px)
 			(bind textColor "_sternColor")
 			(noTranslate = true)
-			(width = 86px)
+			(width = 66px)
 		)
 		(bind text "_sternText")
 	)
