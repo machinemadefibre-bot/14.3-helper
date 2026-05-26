@@ -2,7 +2,7 @@
 
 [English](README.en.md)
 
-`14.3-helper` 是一个给 World of Warships 使用的战斗内辅助 UI mod。它会根据你当前选中的弹种和正在瞄准的目标，显示这发炮弹对目标不同部位的碾压或击穿结果。
+`14.3-helper` 是一个战斗内辅助 UI mod。它会根据你当前选中的弹种和正在瞄准的目标，显示这发炮弹对目标不同部位的碾压或击穿结果。
 
 当前包是独立包：放进 Aslain 的 `Custom_mods` 后不需要额外安装 TTaro、PnFMods 或其他依赖 mod。
 
@@ -20,9 +20,9 @@
 - 支持中文和英文界面，语言选项显示为 `ZH` / `EN`。
 - 支持拖动、缩放、锁定位置、重置位置和调整背景透明度。
 
-这个 mod 只读取游戏内已有的当前目标、当前弹种和本地装甲数据，不提供自动瞄准、不读取隐藏敌人、不注入游戏进程。
+这个 mod 只读取已有的当前目标、当前弹种和本地装甲数据，不提供自动瞄准、不读取隐藏敌人、不注入进程。
 
-## 游戏内设置
+## 设置
 
 战斗中悬浮窗口左侧有一个小齿轮按钮，可以打开 `14.3-helper` 的设置页。
 
@@ -60,7 +60,7 @@ World of Warships\Aslain_Modpack\Custom_mods
 powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships\bin\<当前版本号>"
 ```
 
-安装后启动游戏一次，内置的 `ModsInstaller_4_3_1` 会把 battle UI 入口补进 `gui\battle_elements.xml`。
+安装后启动一次，内置的 `ModsInstaller_4_3_1` 会把 battle UI 入口补进 `gui\battle_elements.xml`。
 
 ## 构建
 
@@ -98,7 +98,7 @@ tools\update-armor-db-and-build.exe
 
 双击后会打开命令行窗口并执行完整流程：
 
-1. 从当前游戏版本生成候选数据库。
+1. 从当前版本生成候选数据库。
 2. 在窗口里列出新增、删除和变化的船只/字段。
 3. 等待输入 `Y` / `N` 确认。
 4. 输入 `Y` 后才覆盖当前数据库，并备份旧数据库到 `tools\armor_snapshots`。
