@@ -57,10 +57,12 @@ World of Warships\Aslain_Modpack\Custom_mods
 在仓库根目录运行：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships\bin\<当前版本号>"
+powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
 ```
 
-安装后启动一次，内置的 `ModsInstaller_4_3_1` 会把 battle UI 入口补进 `gui\battle_elements.xml`。
+脚本会复制到最新的数字版本目录 `bin\<版本号>\res_mods`。如果该目录下已经有
+`gui\battle_elements.xml`，脚本会直接补上 `OA_APOvermatchAssistant` battle UI
+入口；否则内置的 `ModsInstaller_4_3_1` 会在游戏启动时补入口。
 
 ## 构建
 
@@ -80,6 +82,12 @@ powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 
 ```text
 dist\14.3-helper_Aslain.zip
+```
+
+构建并直接把同一份 zip 放进 Aslain `Custom_mods`：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -AslainCustomModsDir "S:\SteamLibrary\steamapps\common\World of Warships\Aslain_Modpack\Custom_mods"
 ```
 
 ## 更新装甲数据

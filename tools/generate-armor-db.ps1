@@ -803,11 +803,16 @@ function Convert-RecordFromLines {
 
 function Get-Realm {
     param([string]$GameDir, [string]$ExplicitRealm)
-    if ($ExplicitRealm) { return $ExplicitRealm.ToUpperInvariant() }
+    if ($ExplicitRealm) {
+        $value = ($ExplicitRealm -replace "`0", "").Trim().ToUpperInvariant()
+        if ($value -match '^[A-Z0-9._-]+$') { return $value }
+        throw "Invalid realm value: $ExplicitRealm"
+    }
+
     $realmPath = Join-Path $GameDir "currentrealm.txt"
-    if (Test-Path $realmPath) {
-        $value = (Get-Content -LiteralPath $realmPath -Raw).Trim()
-        if ($value) { return $value.ToUpperInvariant() }
+    if (Test-Path -LiteralPath $realmPath) {
+        $value = ((Get-Content -LiteralPath $realmPath -Raw) -replace "`0", "").Trim().ToUpperInvariant()
+        if ($value -match '^[A-Z0-9._-]+$') { return $value }
     }
     return "ASIA"
 }
@@ -816,8 +821,31 @@ function Resolve-WowsUnpack {
     param([string]$ProjectRoot, [string]$Requested)
     if ($Requested) { return $Requested }
     $local = Join-Path $ProjectRoot "tools\wowsunpack-git\bin\wowsunpack.exe"
-    if (Test-Path $local) { return $local }
+    if (Test-Path -LiteralPath $local) { return $local }
     return "wowsunpack"
+}
+
+function Get-UsableNode {
+    $candidatePaths = @(
+        (Join-Path $ProjectRoot ".tools\node\node.exe"),
+        (Join-Path $ProjectRoot "tools\node\node.exe")
+    )
+    $candidatePaths += @(Get-Command node -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+
+    foreach ($candidatePath in ($candidatePaths | Where-Object { $_ } | Select-Object -Unique)) {
+        if (-not (Test-Path -LiteralPath $candidatePath)) { continue }
+        try {
+            & $candidatePath --version *> $null
+            if ($LASTEXITCODE -eq 0) { return $candidatePath }
+        } catch {
+            continue
+        }
+    }
+
+    if ($candidatePaths.Count -gt 0) {
+        Write-Host "Skipping Node fast generator: node is unavailable."
+    }
+    return ""
 }
 
 $buildDir = Get-LatestBuildDir $GameDir
@@ -837,13 +865,13 @@ if (-not $GameParamsJson) {
     $tmpBuildCandidate = "C:\tmp\GameParams_$($buildDir.Name)_$realmId.json"
     $localCandidate = Join-Path $work "GameParams_$realmId.json"
     $tmpCandidate = "C:\tmp\GameParams_$realmId.json"
-    if (Test-Path $localBuildCandidate) {
+    if (Test-Path -LiteralPath $localBuildCandidate) {
         $GameParamsJson = $localBuildCandidate
-    } elseif (Test-Path $tmpBuildCandidate) {
+    } elseif (Test-Path -LiteralPath $tmpBuildCandidate) {
         $GameParamsJson = $tmpBuildCandidate
-    } elseif (Test-Path $localCandidate) {
+    } elseif (Test-Path -LiteralPath $localCandidate) {
         $GameParamsJson = $localCandidate
-    } elseif (Test-Path $tmpCandidate) {
+    } elseif (Test-Path -LiteralPath $tmpCandidate) {
         $GameParamsJson = $tmpCandidate
     } elseif ($ExtractGameParams) {
         $GameParamsJson = $localBuildCandidate
@@ -852,7 +880,7 @@ if (-not $GameParamsJson) {
     }
 }
 
-if ($ExtractGameParams -and -not (Test-Path $GameParamsJson)) {
+if ($ExtractGameParams -and -not (Test-Path -LiteralPath $GameParamsJson)) {
     Write-Host "Extracting GameParams realm $realmId via wowsunpack..."
     & $WowsUnpack --game-dir $GameDir game-params --id $realmId $GameParamsJson
     if ($LASTEXITCODE -ne 0) {
@@ -860,13 +888,13 @@ if ($ExtractGameParams -and -not (Test-Path $GameParamsJson)) {
     }
 }
 
-if (-not (Test-Path $GameParamsJson)) {
+if (-not (Test-Path -LiteralPath $GameParamsJson)) {
     throw "GameParams JSON not found: $GameParamsJson"
 }
 
 $fastGenerator = Join-Path $PSScriptRoot "generate-armor-db-fast.mjs"
-$node = Get-Command node -ErrorAction SilentlyContinue
-if ($node -and (Test-Path $fastGenerator) -and -not $env:APOA_FORCE_PS_GENERATOR) {
+$node = Get-UsableNode
+if ($node -and (Test-Path -LiteralPath $fastGenerator) -and -not $env:APOA_FORCE_PS_GENERATOR) {
     $nodeArgs = @(
         $fastGenerator,
         "--game-dir", $GameDir,
@@ -879,7 +907,7 @@ if ($node -and (Test-Path $fastGenerator) -and -not $env:APOA_FORCE_PS_GENERATOR
     if ($ShipKeyFilter) { $nodeArgs += @("--ship-key-filter", $ShipKeyFilter) }
     if ($MaxShips -gt 0) { $nodeArgs += @("--max-ships", [string]$MaxShips) }
 
-    & $node.Source @nodeArgs
+    & $node @nodeArgs
     if ($LASTEXITCODE -ne 0) {
         throw "generate-armor-db-fast.mjs failed with exit code $LASTEXITCODE"
     }
@@ -938,7 +966,7 @@ finally {
     $reader.Close()
 }
 
-if (Test-Path $OverridePath) {
+if (Test-Path -LiteralPath $OverridePath) {
     Write-Host "Applying overrides from $OverridePath..."
     $overrides = Get-Content -LiteralPath $OverridePath -Raw | ConvertFrom-Json
     $overrideShips = Get-Prop $overrides "ships"

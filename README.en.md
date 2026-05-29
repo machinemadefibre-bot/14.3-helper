@@ -57,10 +57,13 @@ World of Warships\Aslain_Modpack\Custom_mods
 From the repository root:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships\bin\<current version>"
+powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
 ```
 
-After installation, start the game once. The bundled `ModsInstaller_4_3_1` will patch the battle UI entry into `gui\battle_elements.xml`.
+The script copies the files into the latest numeric `bin\<version>\res_mods`
+folder. If `gui\battle_elements.xml` already exists there, it also patches the
+`OA_APOvermatchAssistant` battle UI entry directly; otherwise the bundled
+`ModsInstaller_4_3_1` will patch it when the game starts.
 
 ## Build
 
@@ -86,6 +89,12 @@ The output is:
 
 ```text
 dist\14.3-helper_Aslain.zip
+```
+
+To build and put the exact package into Aslain `Custom_mods` in one step:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -AslainCustomModsDir "S:\SteamLibrary\steamapps\common\World of Warships\Aslain_Modpack\Custom_mods"
 ```
 
 ## Updating Armor Data

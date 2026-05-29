@@ -133,7 +133,7 @@
 )
 
 # BEGIN GENERATED ARMOR DB - run tools/generate-unbound-armor-db.mjs
-(def constant OA_ARMOR_DB_BUILD '12267945')
+(def constant OA_ARMOR_DB_BUILD '12506899')
 (def constant OA_ARMOR_DB {
   '3246831056': {n:'PRSS999_Tst_sub', c:0, he:0, sap:0, bmn:10, bmx:16, bt:'10 mm/13 mm/16 mm', smn:10, smx:16, st:'10 mm/13 mm/16 mm', dmn:10, dmx:16, dt:'10 mm/13 mm/16 mm', xmn:10, xmx:16, xt:'10 mm/13 mm/16 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3247355344': {n:'PRSC999_Seal', c:130, he:23, sap:0, bmn:6, bmx:6, bt:'6 mm', smn:6, smx:6, st:'6 mm', dmn:10, dmx:10, dt:'10 mm', xmn:88, xmx:88, xt:'88 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -163,6 +163,7 @@
   '3315513040': {n:'PJSC934_Zao_1944', c:203, he:34, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3319740208': {n:'PGSB930_Pinata_Schliefen', c:420, he:105, sap:0, bmn:27, bmx:30, bt:'27 mm/30 mm', smn:27, smx:50, st:'27 mm/30 mm/50 mm', dmn:50, dmx:50, dt:'50 mm', xmn:150, xmx:350, xt:'150 mm/350 mm', bp:true, bbp:true, bbmn:60, bbmx:100, bbt:'60 mm/100 mm', bsp:true, bsmn:150, bsmx:150, bst:'150 mm', blmn:60, blmx:150, blt:'60 mm/100 mm/150 mm'},
   '3319740400': {n:'PASB930_Black_Rhode_Island', c:356, he:59, sap:0, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3321837360': {n:'PGSB928_Hunt_Bismarck_1941', c:380, he:95, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:50, dmx:50, dt:'50 mm', xmn:160, xmx:160, xt:'160 mm', bp:true, bbp:true, bbmn:60, bbmx:60, bbt:'60 mm', bsp:true, bsmn:60, bsmx:60, bst:'60 mm', blmn:60, blmx:60, blt:'60 mm'},
   '3330159920': {n:'PWSD920_PostApoc_Smaland', c:120, he:20, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3330192848': {n:'PRSC920_PostApoc_Petropavlovsk', c:220, he:37, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:40, dmx:40, dt:'40 mm', xmn:40, xmx:40, xt:'40 mm', bp:true, bbp:true, bbmn:50, bbmx:180, bbt:'50 mm/180 mm', bsp:true, bsmn:50, bsmx:180, bst:'50 mm/180 mm', blmn:50, blmx:180, blt:'50 mm/180 mm'},
   '3330193200': {n:'PGSC920_Gold_Bremen', c:150, he:38, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', bp:true, bbp:true, bbmn:25, bbmx:40, bbt:'25 mm/40 mm', bsp:true, bsmn:90, bsmx:90, bst:'90 mm', blmn:25, blmx:90, blt:'25 mm/40 mm/90 mm'},
@@ -211,7 +212,7 @@
   '3341759952': {n:'PRSB909_East_Navarin', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:35, dmx:35, dt:'35 mm', xmn:75, xmx:75, xt:'75 mm', bp:true, bbp:true, bbmn:113, bbmx:181, bbt:'113 mm/125 mm/181 mm', bsp:true, bsmn:125, bsmx:125, bst:'125 mm', blmn:113, blmx:181, blt:'113 mm/125 mm/181 mm'},
   '3341760240': {n:'PISB909_Azur_Marco_Polo', c:406, he:0, sap:102.4, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:55, dmx:55, dt:'55 mm', xmn:60, xmx:70, xt:'60 mm/70 mm', bp:true, bbp:true, bbmn:130, bbmx:130, bbt:'130 mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:130, blmx:130, blt:'130 mm'},
   '3341760336': {n:'PFSB909_Pirate_Jean_Bart', c:380, he:63, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:32, dmx:32, dt:'32 mm', xmn:20, xmx:32, xt:'20 mm/32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '3341760496': {n:'PASB909_Pirate_Delaware', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:38, st:'32 mm/38 mm', dmn:19, dmx:38, dt:'19 mm/38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3341760496': {n:'PASB909_Pirate_Delaware', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:38, st:'32 mm/38 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3342775504': {n:'PZSC908_Pinata_Irian', c:152, he:30, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:27, dmx:27, dt:'27 mm', xmn:25, xmx:25, xt:'25 mm', bp:true, bbp:true, bbmn:25, bbmx:25, bbt:'25 mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:25, blmx:25, blt:'25 mm'},
   '3342776048': {n:'PISC908_East_Amalfi', c:203, he:0, sap:54.9, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:27, dmx:27, dt:'27 mm', xmn:27, xmx:30, xt:'27 mm/30 mm', bp:true, bbp:true, bbmn:50, bbmx:50, bbt:'50 mm', bsp:true, bsmn:50, bsmx:50, bst:'50 mm', blmn:50, blmx:50, blt:'50 mm'},
   '3342776112': {n:'PGSC908_Black_Schill', c:283, he:71, sap:0, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:30, dmx:30, dt:'30 mm', xmn:27, xmx:27, xt:'27 mm', bp:true, bbp:true, bbmn:30, bbmx:30, bbt:'30 mm', bsp:true, bsmn:80, bsmx:80, bst:'80 mm', blmn:30, blmx:80, blt:'30 mm/80 mm'},
@@ -314,6 +315,7 @@
   '3539908400': {n:'PGSC720_Bremen', c:150, he:38, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', bp:true, bbp:true, bbmn:25, bbmx:40, bbt:'25 mm/40 mm', bsp:true, bsmn:90, bsmx:90, bst:'90 mm', blmn:25, blmx:90, blt:'25 mm/40 mm/90 mm'},
   '3539908592': {n:'PASC720_Hawaii', c:127, he:21, sap:0, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:36, dmx:36, dt:'36 mm', xmn:28, xmx:28, xt:'28 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3539941072': {n:'PJSB720_Aki', c:460, he:77, sap:0, bmn:32, bmx:50, bt:'32 mm/50 mm', smn:32, smx:50, st:'32 mm/50 mm', dmn:57, dmx:57, dt:'57 mm', xmn:32, xmx:32, xt:'32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3539941104': {n:'PISB720_Conte_Verde', c:203, he:0, sap:54.9, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:200, xt:'32 mm/50 mm/100 mm/120 mm/150 mm/200 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3539941360': {n:'PASB720_Rhode_Island', c:356, he:59, sap:0, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3540923600': {n:'PZSD719_Nanning', c:130, he:22, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3540923696': {n:'PWSD719_Blyskawica_1952', c:100, he:30, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -373,6 +375,8 @@
   '3549870064': {n:'PASS710_Archerfish', c:127, he:0, sap:36, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550360880': {n:'PWSD710_Ragnar', c:152, he:30, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:25, st:'19 mm/25 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:25, xt:'19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550360912': {n:'PVSD710_La_Pampa', c:113, he:19, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3550361040': {n:'PRSD710_Peredovoy', c:130, he:22, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:25, xt:'19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3550361296': {n:'PJSD710_Fuyutsuki', c:100, he:30, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550361328': {n:'PISD710_Alberico_da_Barbiano', c:90, he:0, sap:26, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550361392': {n:'PGSD710_Georg_Hoffmann', c:150, he:38, sap:0, bmn:19, bmx:25, bt:'19 mm/25 mm', smn:19, smx:19, st:'19 mm', dmn:25, dmx:25, dt:'25 mm', xmn:25, xmx:25, xt:'25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550361424': {n:'PFSD710_Chateaurenault', c:105, he:26, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -397,6 +401,7 @@
   '3550459216': {n:'PVSA710_Independencia', c:0, he:0, sap:0, bmn:19, bmx:30, bt:'19 mm/30 mm', smn:19, smx:30, st:'19 mm/30 mm', dmn:30, dmx:30, dt:'30 mm', xmn:19, xmx:21, xt:'19 mm/21 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550459600': {n:'PJSA710_Shinano', c:0, he:0, sap:0, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:75, dmx:75, dt:'75 mm', xmn:30, xmx:30, xt:'30 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550459856': {n:'PBSA710_Ocean', c:0, he:0, sap:0, bmn:19, bmx:30, bt:'19 mm/30 mm', smn:19, smx:30, st:'19 mm/25 mm/30 mm', dmn:30, dmx:30, dt:'30 mm', xmn:19, xmx:21, xt:'19 mm/21 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3551409520': {n:'PUSD709_Cayuga', c:102, he:25, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3551409616': {n:'PRSD709_Pr_41_Neustrashimy', c:130, he:22, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3551409968': {n:'PGSD709_GM_ZF_6', c:128, he:32, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3551410160': {n:'PASD709_Black', c:127, he:21, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -752,11 +757,11 @@
   '4074714832': {n:'PJSB210_Bungo', c:457, he:77, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:32, xt:'32 mm', bp:true, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:true, bsmn:305, bsmx:305, bst:'305 mm', blmn:305, blmx:305, blt:'305 mm'},
   '4074714928': {n:'PGSB210_Schlieffen', c:420, he:105, sap:0, bmn:27, bmx:30, bt:'27 mm/30 mm', smn:27, smx:50, st:'27 mm/30 mm/50 mm', dmn:50, dmx:50, dt:'50 mm', xmn:150, xmx:350, xt:'150 mm/350 mm', bp:true, bbp:true, bbmn:60, bbmx:100, bbt:'60 mm/100 mm', bsp:true, bsmn:150, bsmx:150, bst:'150 mm', blmn:60, blmx:150, blt:'60 mm/100 mm/150 mm'},
   '4074715088': {n:'PBSB210_St_Vincent', c:457, he:76, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:40, dmx:40, dt:'40 mm', xmn:32, xmx:32, xt:'32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4074715120': {n:'PASB210_Louisiana', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:19, dmx:38, dt:'19 mm/38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4074715120': {n:'PASB210_Louisiana', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4074747856': {n:'PBSA210_Audacious', c:0, he:0, sap:0, bmn:21, bmx:25, bt:'21 mm/25 mm', smn:21, smx:25, st:'21 mm/25 mm', dmn:38, dmx:102, dt:'38 mm/102 mm', xmn:25, xmx:25, xt:'25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4075697456': {n:'PWSD209_Lambros_Katsonis', c:140, he:23, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4075697872': {n:'PJSD209_Yugumo', c:127, he:21, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:20, xt:'19 mm/20 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4075697968': {n:'PGSD209_Felix_Schultz', c:150, he:38, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:25, dmx:25, dt:'25 mm', xmn:25, xmx:25, xt:'25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4075697968': {n:'PGSD209_Felix_Schultz', c:150, he:38, sap:0, bmn:19, bmx:25, bt:'19 mm/25 mm', smn:19, smx:19, st:'19 mm', dmn:25, dmx:25, dt:'25 mm', xmn:25, xmx:25, xt:'25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4075730384': {n:'PRSC209_Riga', c:220, he:37, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:35, dmx:35, dt:'35 mm', xmn:35, xmx:35, xt:'35 mm', bp:true, bbp:true, bbmn:40, bbmx:40, bbt:'40 mm', bsp:true, bsmn:40, bsmx:130, bst:'40 mm/130 mm', blmn:40, blmx:130, blt:'40 mm/130 mm'},
   '4075730640': {n:'PJSC209_Takahashi', c:150, he:30, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:27, dmx:27, dt:'27 mm', xmn:25, xmx:25, xt:'25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4075730768': {n:'PFSC209_Brest', c:330, he:55, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:27, xmx:27, xt:'27 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -765,7 +770,7 @@
   '4075763408': {n:'PJSB209_Adatara', c:457, he:77, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:57, dt:'32 mm/57 mm', xmn:32, xmx:102, xt:'32 mm/102 mm', bp:true, bbp:true, bbmn:229, bbmx:229, bbt:'229 mm', bsp:true, bsmn:255, bsmx:255, bst:'255 mm', blmn:229, blmx:255, blt:'229 mm/255 mm'},
   '4075763504': {n:'PGSB209_Prinz_Rupprecht', c:406, he:102, sap:0, bmn:20, bmx:27, bt:'20 mm/27 mm', smn:20, smx:27, st:'20 mm/27 mm', dmn:32, dmx:32, dt:'32 mm', xmn:150, xmx:150, xt:'150 mm', bp:true, bbp:true, bbmn:30, bbmx:30, bbt:'30 mm', bsp:true, bsmn:100, bsmx:100, bst:'100 mm', blmn:30, blmx:100, blt:'30 mm/100 mm'},
   '4075763664': {n:'PBSB209_Duncan', c:419, he:70, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:32, xt:'32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4075763696': {n:'PASB209_Delaware', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:38, st:'32 mm/38 mm', dmn:19, dmx:38, dt:'19 mm/38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4075763696': {n:'PASB209_Delaware', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:38, st:'32 mm/38 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4076255024': {n:'PGSS208_U190', c:0, he:0, sap:0, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4076255216': {n:'PASS208_Salmon', c:0, he:0, sap:0, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4076745936': {n:'PZSD208_Siliwangi_1959', c:130, he:22, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -781,7 +786,7 @@
   '4076811984': {n:'PJSB208_Yumihari', c:410, he:68, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:32, xt:'32 mm', bp:true, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:true, bsmn:203, bsmx:203, bst:'203 mm', blmn:203, blmx:203, blt:'203 mm'},
   '4076812080': {n:'PGSB208_Zieten', c:406, he:102, sap:0, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:32, dmx:32, dt:'32 mm', xmn:170, xmx:170, xt:'170 mm', bp:true, bbp:true, bbmn:60, bbmx:60, bbt:'60 mm', bsp:true, bsmn:350, bsmx:350, bst:'350 mm', blmn:60, blmx:350, blt:'60 mm/350 mm'},
   '4076812240': {n:'PBSB208_Hawke', c:406, he:68, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:32, xt:'32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4076812272': {n:'PASB208_Nebraska', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:19, dmx:32, dt:'19 mm/32 mm', xmn:32, xmx:32, xt:'32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4076812272': {n:'PASB208_Nebraska', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:32, xt:'32 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4077303056': {n:'PXSS207_Lazarus_Centurio', c:0, he:0, sap:0, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4077794608': {n:'PWSD207_Grom', c:120, he:20, sap:0, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4077794768': {n:'PRSD207_Minsk', c:130, he:22, sap:0, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -838,7 +843,7 @@
   '4178556880': {n:'PBSA111_Eagle', c:0, he:0, sap:0, bmn:21, bmx:25, bt:'21 mm/25 mm', smn:21, smx:25, st:'21 mm/25 mm', dmn:38, dmx:102, dt:'38 mm/102 mm', xmn:25, xmx:25, xt:'25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4178556912': {n:'PASA111_United_States', c:0, he:0, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:38, dmx:38, dt:'38 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4179015120': {n:'PRSS110_K_type', c:100, he:0, sap:29, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4179015408': {n:'PISS110_Calvi', c:120, he:20, sap:0, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4179015408': {n:'PISS110_Calvi', c:120, he:0, sap:34.2, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4179015472': {n:'PGSS110_U_2501', c:0, he:0, sap:0, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4179015632': {n:'PBSS110_Thrasher', c:102, he:0, sap:29.5, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4179015664': {n:'PASS110_Balao', c:0, he:0, sap:0, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -892,7 +897,7 @@
   '4180621264': {n:'PBSB109_Lion', c:419, he:105, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:381, xt:'32 mm/381 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4180621296': {n:'PASB109_Minnesota', c:406, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', bp:true, bbp:true, bbmn:32, bbmx:273, bbt:'32 mm/273 mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:32, blmx:273, blt:'32 mm/273 mm'},
   '4181112272': {n:'PRSS108_L20', c:100, he:0, sap:29, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4181112560': {n:'PISS108_Pietro_Micca', c:120, he:20, sap:0, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4181112560': {n:'PISS108_Pietro_Micca', c:120, he:0, sap:34.2, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4181112624': {n:'PGSS108_U190', c:0, he:0, sap:0, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4181112784': {n:'PBSS108_Sturdy', c:0, he:0, sap:0, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4181112816': {n:'PASS108_Salmon', c:0, he:0, sap:0, bmn:6, bmx:25, bt:'6 mm/16 mm/19 mm/25 mm', smn:6, smx:25, st:'6 mm/16 mm/19 mm/25 mm', dmn:6, dmx:25, dt:'6 mm/16 mm/19 mm/25 mm', xmn:6, xmx:25, xt:'6 mm/16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -950,7 +955,7 @@
   '4182718288': {n:'PFSB107_Lyon', c:340, he:57, sap:0, bmn:12, bmx:26, bt:'12 mm/26 mm', smn:26, smx:30, st:'26 mm/30 mm', dmn:26, dmx:30, dt:'26 mm/30 mm', xmn:180, xmx:180, xt:'180 mm', bp:true, bbp:true, bbmn:180, bbmx:180, bbt:'180 mm', bsp:true, bsmn:120, bsmx:200, bst:'120 mm/200 mm', blmn:120, blmx:200, blt:'120 mm/180 mm/200 mm'},
   '4182718416': {n:'PBSB107_King_George_V', c:356, he:89, sap:0, bmn:26, bmx:26, bt:'26 mm', smn:26, smx:26, st:'26 mm', dmn:26, dmx:26, dt:'26 mm', xmn:26, xmx:381, xt:'26 mm/356 mm/381 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4183209424': {n:'PRSS106_S_1', c:100, he:0, sap:29, bmn:13, bmx:19, bt:'13 mm/16 mm/19 mm', smn:13, smx:19, st:'13 mm/16 mm/19 mm', dmn:13, dmx:19, dt:'13 mm/16 mm/19 mm', xmn:13, xmx:19, xt:'13 mm/16 mm/19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
-  '4183209712': {n:'PISS106_Foca', c:100, he:17, sap:0, bmn:10, bmx:16, bt:'10 mm/13 mm/16 mm', smn:10, smx:16, st:'10 mm/13 mm/16 mm', dmn:10, dmx:16, dt:'10 mm/13 mm/16 mm', xmn:10, xmx:16, xt:'10 mm/13 mm/16 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4183209712': {n:'PISS106_Foca', c:100, he:0, sap:29, bmn:10, bmx:16, bt:'10 mm/13 mm/16 mm', smn:10, smx:16, st:'10 mm/13 mm/16 mm', dmn:10, dmx:16, dt:'10 mm/13 mm/16 mm', xmn:10, xmx:16, xt:'10 mm/13 mm/16 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4183209776': {n:'PGSS106_U_69', c:0, he:0, sap:0, bmn:6, bmx:19, bt:'6 mm/13 mm/16 mm/19 mm', smn:6, smx:19, st:'6 mm/13 mm/16 mm/19 mm', dmn:6, dmx:19, dt:'6 mm/13 mm/16 mm/19 mm', xmn:6, xmx:19, xt:'6 mm/13 mm/16 mm/19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4183209936': {n:'PBSS106_Undine', c:0, he:0, sap:0, bmn:16, bmx:25, bt:'16 mm/19 mm/25 mm', smn:16, smx:25, st:'16 mm/19 mm/25 mm', dmn:16, dmx:25, dt:'16 mm/19 mm/25 mm', xmn:16, xmx:25, xt:'16 mm/19 mm/25 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4183209968': {n:'PASS106_Cachalot', c:0, he:0, sap:0, bmn:6, bmx:19, bt:'6 mm/13 mm/16 mm/19 mm', smn:6, smx:19, st:'6 mm/13 mm/16 mm/19 mm', dmn:6, dmx:19, dt:'6 mm/13 mm/16 mm/19 mm', xmn:6, xmx:19, xt:'6 mm/13 mm/16 mm/19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1134,6 +1139,7 @@
   '4271781136': {n:'PXSD022_Shimakaze_H2019', c:127, he:21, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4272829712': {n:'PXSD021_Kleber_PA', c:139, he:23, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4272830448': {n:'PASD021_Fletcher_1943', c:127, he:21, sap:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4272862928': {n:'PJSC021_Kurama', c:203, he:34, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:150, xt:'30 mm/70 mm/150 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4272895696': {n:'PJSB021_Izumo_1938', c:410, he:68, sap:0, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:57, dmx:57, dt:'57 mm', xmn:32, xmx:32, xt:'32 mm', bp:true, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:true, bsmn:305, bsmx:305, bst:'305 mm', blmn:305, blmx:305, blt:'305 mm'},
   '4273878288': {n:'PXSD020_Khabarovsk_PA', c:130, he:51, sap:0, bmn:19, bmx:50, bt:'19 mm/25 mm/50 mm', smn:19, smx:50, st:'19 mm/25 mm/50 mm', dmn:25, dmx:25, dt:'25 mm', xmn:50, xmx:50, xt:'50 mm', bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4273911760': {n:'PBSC020_Monmouth', c:234, he:0, sap:0, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', bp:true, bbp:true, bbmn:51, bbmx:51, bbt:'51 mm', bsp:true, bsmn:51, bsmx:51, bst:'51 mm', blmn:51, blmx:51, blt:'51 mm'},
@@ -2193,6 +2199,8 @@
   'PGSB918_Pirate_Brandenburg': '3332323120',
   'PGSB920': '3330225968',
   'PGSB920_Schlieffen': '3330225968',
+  'PGSB928': '3321837360',
+  'PGSB928_Hunt_Bismarck_1941': '3321837360',
   'PGSB930': '3319740208',
   'PGSB930_Pinata_Schliefen': '3319740208',
   'PGSB989': '3257874224',
@@ -2453,6 +2461,8 @@
   'PISB718_Marcantonio_Colonna': '3542038256',
   'PISB719': '3540989680',
   'PISB719_Olympian_Giuseppe_Verdi': '3540989680',
+  'PISB720': '3539941104',
+  'PISB720_Conte_Verde': '3539941104',
   'PISB805': '3450812144',
   'PISB805_TST_CESARE': '3450812144',
   'PISB810': '3445569264',
@@ -2699,6 +2709,8 @@
   'PJSC015_Tatsuta_1919': '4279154384',
   'PJSC018': '4276008656',
   'PJSC018_Tone': '4276008656',
+  'PJSC021': '4272862928',
+  'PJSC021_Kurama': '4272862928',
   'PJSC026': '4267620048',
   'PJSC026_Iwaki_1944': '4267620048',
   'PJSC034': '4259231440',
@@ -2853,6 +2865,8 @@
   'PJSD706_Shinonome': '3554555600',
   'PJSD708': '3552458448',
   'PJSD708_HSF_Harekaze': '3552458448',
+  'PJSD710': '3550361296',
+  'PJSD710_Fuyutsuki': '3550361296',
   'PJSD718': '3541972688',
   'PJSD718_AZUR_Yukikaze': '3541972688',
   'PJSD719': '3540924112',
@@ -3089,6 +3103,8 @@
   'PRSD517_Tashkent_1939': '3752736208',
   'PRSD709': '3551409616',
   'PRSD709_Pr_41_Neustrashimy': '3551409616',
+  'PRSD710': '3550361040',
+  'PRSD710_Peredovoy': '3550361040',
   'PRSD718': '3541972432',
   'PRSD718_Provorny': '3541972432',
   'PRSD810': '3445503440',
@@ -3187,6 +3203,8 @@
   'PUSD510_Vampire_2': '3760076144',
   'PUSD517': '3752736112',
   'PUSD517_Huron': '3752736112',
+  'PUSD709': '3551409520',
+  'PUSD709_Cayuga': '3551409520',
   'PVSA710': '3550459216',
   'PVSA710_Independencia': '3550459216',
   'PVSB010': '4284429648',
@@ -3680,6 +3698,7 @@
 })
 # END GENERATED ARMOR DB
 
+
 (def element OA_APOvermatchAssistant() layout=true
 	(bindcall externalCall 'inputMapping.onAction' "['createParamsForAllShipsInBattle', {}]" on='addedToStage')
 
@@ -3795,9 +3814,50 @@
 		(var targetRecord:dict = "targetDbKey != '' && targetDbKey in OA_ARMOR_DB ? OA_ARMOR_DB[targetDbKey] : null")
 		(var hasOwnRecord:bool = "ownRecord && ownRecord.c > 0")
 		(var hasTargetRecord:bool = "targetRecord")
-
 		(var weaponSlots:gfx = "$datahub.getCollection(CC.weaponSlot)")
 		(var weaponSlotsCount:number = "weaponSlots ? weaponSlots.items.length : 0" (event "weaponSlots.evAdded") (event "weaponSlots.evRemoved"))
+
+		(var selfVehicleWatcher:gfx = "$datahub.getFirstWatcher(CC.selfVehicle)")
+		(var selfVehicleEntity:gfx = "selfVehicleWatcher.entity" (event "selfVehicleWatcher.event"))
+		(var weaponController:gfx = "selfVehicleEntity ? selfVehicleEntity.weaponController : null" (event "selfVehicleEntity.evAdded") (event "selfVehicleEntity.evRemoved"))
+		(var selectedWeaponType:number = "weaponController ? weaponController.selectedWeapon : SC.Ships.SHIP_WEAPON_TYPES.NONE" (event "weaponController.evSelectedWeaponChanged"))
+		(var isFallbackArtillerySelected:bool = "selectedWeaponType == SC.Ships.SHIP_WEAPON_TYPES.ARTILLERY")
+		(var selectedAmmoText:str = "weaponController && weaponController.selectedAmmo ? toLower(toString(weaponController.selectedAmmo)) : ''" (event "weaponController.evSelectedAmmoTypeChanged") (event "weaponController.evSelectedWeaponChanged"))
+		(var fallbackIsSapAmmo:bool = "selectedAmmoText == 'cs' || selectedAmmoText == 'sap' || selectedAmmoText == 'ammo_cs' || selectedAmmoText == 'type_cs'")
+		(var fallbackIsHeAmmo:bool = "selectedAmmoText == 'he' || selectedAmmoText == 'ammo_he' || selectedAmmoText == 'type_he'")
+		(var fallbackIsApAmmo:bool = "!fallbackIsSapAmmo && !fallbackIsHeAmmo")
+		(var fallbackIsDefenseMode:bool = "_displayMode == 1")
+		(var fallbackEnemyCaliber:number = "targetRecord ? targetRecord.c : 0")
+		(var fallbackEnemyHePen:number = "targetRecord ? targetRecord.he : 0")
+		(var fallbackEnemySapPen:number = "targetRecord ? targetRecord.sap : 0")
+		(var fallbackOwnCaliber:number = "ownRecord ? ownRecord.c : 0")
+		(var fallbackOwnHePen:number = "ownRecord ? ownRecord.he : 0")
+		(var fallbackOwnSapPen:number = "ownRecord ? ownRecord.sap : 0")
+		(var fallbackIsDefenseSapMode:bool = "fallbackIsDefenseMode && fallbackEnemySapPen > 0")
+		(var fallbackIsDefenseHeMode:bool = "fallbackIsDefenseMode && !fallbackIsDefenseSapMode && fallbackEnemyCaliber > 0 && fallbackEnemyCaliber < 283")
+		(var fallbackRuleLimit:number = "fallbackIsDefenseSapMode ? fallbackEnemySapPen : fallbackIsDefenseHeMode ? fallbackEnemyHePen : fallbackIsDefenseMode ? fallbackEnemyCaliber * 10 : fallbackIsHeAmmo ? fallbackOwnHePen : fallbackIsSapAmmo ? fallbackOwnSapPen : fallbackOwnCaliber * 10")
+		(var fallbackRuleScale:number = "fallbackIsDefenseSapMode || fallbackIsDefenseHeMode ? 1 : fallbackIsDefenseMode || fallbackIsApAmmo ? 143 : 1")
+		(var fallbackArmorRecord:dict = "fallbackIsDefenseMode ? ownRecord : targetRecord")
+		(var fallbackRuleDbKey:str = "fallbackIsDefenseMode ? targetDbKey : ownDbKey")
+		(var fallbackRuleCaliber:number = "fallbackIsDefenseMode ? fallbackEnemyCaliber : fallbackOwnCaliber")
+		(var isFallbackPanelVisible:bool = "isTargetVisible && weaponSlotsCount == 0 && (fallbackIsDefenseMode || isFallbackArtillerySelected || fallbackOwnCaliber > 0)")
+	)
+
+	(element OA_RulePanel
+		_visible="isFallbackPanelVisible"
+		_ruleLimit="fallbackRuleLimit"
+		_ruleScale="fallbackRuleScale"
+		_displayMode="_displayMode"
+		_ownDbKey="fallbackRuleDbKey"
+		_ownCaliber="fallbackRuleCaliber"
+		_targetRecord="fallbackArmorRecord"
+		_dragPosX="_dragPosX"
+		_dragPosY="_dragPosY"
+		_scale="_scale"
+		_languageIndex="_languageIndex"
+		_backgroundAlpha="_backgroundAlpha"
+		_isPositionLocked="_isPositionLocked"
+		_defaultPos="_defaultPos"
 	)
 
 	(controller $Repeat renderer='OA_AmmoPanel'

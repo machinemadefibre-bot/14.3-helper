@@ -61,6 +61,19 @@ function Assert-TextMatches {
     return $Matches
 }
 
+function Assert-TextContains {
+    param(
+        [string]$Path,
+        [string]$Needle,
+        [string]$Description
+    )
+
+    $text = Get-Content -LiteralPath $Path -Raw
+    if (-not $text.Contains($Needle)) {
+        throw "$Description was not found in $Path"
+    }
+}
+
 function Test-ProjectInvariants {
     $requiredSourceFiles = @(
         "src\res_mods\PnFMods\APOvermatchAssistant\Main.py",
@@ -83,6 +96,7 @@ function Test-ProjectInvariants {
     $constantsPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\overmatch_constants.py"
     $installerPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\ModsInstaller_4_3_1\mods\APOvermatchAssistant.xml"
     $unboundPath = Join-Path $ProjectRoot "src\res_mods\gui\unbound2\PnFMods\APOvermatchAssistant.unbound"
+    $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
 
     $constantMatches = Assert-TextMatches -Path $constantsPath -Pattern "MOD_VERSION\s*=\s*'([^']+)'" -Description "MOD_VERSION"
     $constantVersion = $constantMatches[1]
@@ -92,13 +106,34 @@ function Test-ProjectInvariants {
     if ($constantVersion -ne $installerVersion) {
         throw "Version mismatch: overmatch_constants.py has $constantVersion but APOvermatchAssistant.xml has $installerVersion"
     }
+    if ($installerXml.code.target_File.file -ne "gui/battle_elements.xml") {
+        throw "APOvermatchAssistant.xml must patch gui/battle_elements.xml."
+    }
+    $battleElement = $installerXml.code.target_File.root_Node.find_Node.insert.element
+    if ($battleElement.elementName -ne "OA_APOvermatchAssistant") {
+        throw "APOvermatchAssistant.xml elementName must mount OA_APOvermatchAssistant."
+    }
+    if ($battleElement.name -ne "unbound2APOvermatchAssistant") {
+        throw "APOvermatchAssistant.xml element name must be unbound2APOvermatchAssistant."
+    }
+    $insertPosition = $installerXml.code.target_File.root_Node.find_Node.insert.attrs.position
+    if ($insertPosition.insert -ne "after_node" -or $insertPosition.value_1 -ne "MainHud") {
+        throw "APOvermatchAssistant.xml should insert the UI element after MainHud."
+    }
+    if (Test-Path -LiteralPath (Join-Path $ProjectRoot "src\res_mods\gui\battle_elements.xml")) {
+        throw "Source package must not include static gui\battle_elements.xml; ModsInstaller_4_3_1 should patch the live file."
+    }
 
     $requiredUnboundPatterns = @(
         "BEGIN GENERATED ARMOR DB",
         "END GENERATED ARMOR DB",
         "OA_ARMOR_DB_BUILD",
+        "\(def element OA_APOvermatchAssistant\(\)",
         "\(def element OA_AmmoPanel",
         "\(def element OA_RulePanel",
+        "getFirstWatcher\(CC\.selfVehicle\)",
+        "selfVehicleEntity \? selfVehicleEntity\.weaponController : null",
+        "weaponSlotsCount == 0",
         "isDefenseMode \|\| \(isSlotActive && isSupportedAmmo\)",
         "cameraEntity\.camera\.altVision",
         "\(width = 230\)",
@@ -115,6 +150,13 @@ function Test-ProjectInvariants {
     }
 
     $unboundText = Get-Content -LiteralPath $unboundPath -Raw
+    $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($unboundText -notmatch "OA_ARMOR_DB_BUILD\s+'([^']*)'") {
+        throw "APOvermatchAssistant.unbound must expose OA_ARMOR_DB_BUILD."
+    }
+    if ([string]$db.meta.gameBuild -ne $Matches[1]) {
+        throw "Unbound armor DB build $($Matches[1]) does not match JSON armor DB build $($db.meta.gameBuild). Run tools\generate-unbound-armor-db.mjs."
+    }
     if ($unboundText -match '\$datahub\.getSingleComponent\(CC\.weaponController\)') {
         throw "APOvermatchAssistant.unbound should not depend on the global CC.weaponController component."
     }
@@ -133,9 +175,39 @@ function Test-ProjectInvariants {
     }
 }
 
+function Test-ToolingInvariants {
+    $generatorPath = Join-Path $ProjectRoot "tools\generate-armor-db.ps1"
+    $updatePath = Join-Path $ProjectRoot "tools\update-armor-db.ps1"
+    $updateAndBuildPath = Join-Path $ProjectRoot "tools\update-armor-db-and-build.ps1"
+    $manualEditorPath = Join-Path $ProjectRoot "tools\manual-edit-armor-db.mjs"
+
+    Assert-TextContains -Path $generatorPath -Needle '-replace "`0", ""' -Description "Realm NUL-byte cleanup"
+    $null = Assert-TextMatches -Path $generatorPath -Pattern "\^\[A-Z0-9\._-\]\+\$" -Description "Realm safe-character validation"
+    Assert-TextContains -Path $generatorPath -Needle 'Test-Path -LiteralPath $localBuildCandidate' -Description "LiteralPath check for local GameParams candidate"
+    Assert-TextContains -Path $generatorPath -Needle 'Get-Command node -All' -Description "Node candidate enumeration"
+    Assert-TextContains -Path $generatorPath -Needle 'Skipping Node fast generator:' -Description "Node fast-generator fallback"
+    Assert-TextContains -Path $updatePath -Needle 'function Get-UsableNode' -Description "Node helper executable probe"
+    Assert-TextContains -Path $updatePath -Needle 'AllowUnrefinedDatabase' -Description "Explicit unrefined diagnostic mode"
+    Assert-TextContains -Path $updatePath -Needle 'Node.js is required for armor database normalization and geometry refinement.' -Description "Required Node guard"
+    Assert-TextContains -Path $updatePath -Needle 'function Resolve-GeneratedGameParamsJson' -Description "Generated GameParams refinement lookup"
+    Assert-PathExists $manualEditorPath
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'Manually edit armor database' -Description "Manual editor menu option"
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-ManualEditor' -Description "Manual editor launcher"
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-UnboundArmorDbGeneration' -Description "Unbound database sync after updates"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\build.ps1") -Needle 'generate-unbound-armor-db.mjs' -Description "Build syncs Unbound armor database"
+    Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
+    Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
+
+    $updateAndBuildText = Get-Content -LiteralPath $updateAndBuildPath -Raw
+    if ($updateAndBuildText -match 'Added ships /|Removed ships /|Changed ships /') {
+        throw "Console diff headings must stay English-only to avoid code-page mojibake."
+    }
+}
+
 Push-Location $ProjectRoot
 try {
     Test-ProjectInvariants
+    Test-ToolingInvariants
 
     if (-not $SkipPython) {
         $pythonArgs = @(Find-Python)
@@ -158,7 +230,10 @@ try {
     if ($Build) {
         & (Join-Path $ProjectRoot "tools\build.ps1")
 
-        $zip = Join-Path $ProjectRoot "dist\14.3-helper_Aslain.zip"
+        $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
+        $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        $safePatchVersion = ([string]$db.meta.gameBuild).Trim() -replace '[^A-Za-z0-9._-]+', '_'
+        $zip = Join-Path $ProjectRoot "dist\14.3-helper_Aslain-patch$safePatchVersion.zip"
         if (-not (Test-Path $zip)) {
             throw "Expected package was not built: $zip"
         }
@@ -186,6 +261,12 @@ try {
         }
 
         foreach ($entry in $zipEntries) {
+            if ($entry -and -not $entry.StartsWith("res_mods/")) {
+                throw "Aslain Custom_mods package entry must start with res_mods/: $entry"
+            }
+            if ($entry -eq "res_mods/gui/battle_elements.xml") {
+                throw "Package must not include static battle_elements.xml; ModsInstaller_4_3_1 should patch the current Aslain-generated file."
+            }
             if ($entry -match "__pycache__/|\.py[co]$") {
                 throw "Package contains Python cache output: $entry"
             }

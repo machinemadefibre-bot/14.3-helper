@@ -9,6 +9,7 @@ param(
     [int]$MaxShips = 0,
     [switch]$ExtractGameParams,
     [switch]$SkipGeometryRefine,
+    [switch]$AllowUnrefinedDatabase,
     [switch]$Apply
 )
 
@@ -16,7 +17,7 @@ $ErrorActionPreference = "Stop"
 
 function Read-JsonFile {
     param([string]$Path)
-    if (-not (Test-Path $Path)) { return $null }
+    if (-not (Test-Path -LiteralPath $Path)) { return $null }
     return Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
 }
 
@@ -149,6 +150,51 @@ function Write-MarkdownReport {
     [System.IO.File]::WriteAllLines($Path, $lines, [System.Text.Encoding]::UTF8)
 }
 
+function Get-UsableNode {
+    $candidatePaths = @(
+        (Join-Path $ProjectRoot ".tools\node\node.exe"),
+        (Join-Path $ProjectRoot "tools\node\node.exe")
+    )
+    $candidatePaths += @(Get-Command node -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+
+    foreach ($candidatePath in ($candidatePaths | Where-Object { $_ } | Select-Object -Unique)) {
+        if (-not (Test-Path -LiteralPath $candidatePath)) { continue }
+        try {
+            & $candidatePath --version *> $null
+            if ($LASTEXITCODE -eq 0) { return $candidatePath }
+        } catch {
+            continue
+        }
+    }
+
+    if ($candidatePaths.Count -gt 0) {
+        Write-Host "Skipping Node helper scripts: node is unavailable."
+    }
+
+    return ""
+}
+
+function Resolve-GeneratedGameParamsJson {
+    param($Database, [string]$ProjectRoot)
+
+    $build = Get-MetaValue $Database "gameBuild"
+    $realm = Get-MetaValue $Database "realm"
+    $candidatePaths = @()
+    if ($build -and $realm) {
+        $candidatePaths += Join-Path $ProjectRoot "build\gameparams\GameParams_$($build)_$($realm).json"
+    }
+    if ($realm) {
+        $candidatePaths += Join-Path $ProjectRoot "build\gameparams\GameParams_$($realm).json"
+        $candidatePaths += "C:\tmp\GameParams_$($realm).json"
+    }
+
+    foreach ($path in $candidatePaths) {
+        if ($path -and (Test-Path -LiteralPath $path)) { return $path }
+    }
+
+    return ""
+}
+
 $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
 $updateDir = Join-Path $ProjectRoot "build\armor-update"
 $snapshotDir = Join-Path $ProjectRoot "tools\armor_snapshots"
@@ -159,6 +205,11 @@ $diffMdPath = Join-Path $updateDir "armor_diff.$timestamp.md"
 
 New-Item -ItemType Directory -Force -Path $updateDir | Out-Null
 New-Item -ItemType Directory -Force -Path $snapshotDir | Out-Null
+
+$node = Get-UsableNode
+if (-not $node -and -not $AllowUnrefinedDatabase) {
+    throw "Node.js is required for armor database normalization and geometry refinement. Install Node.js or rerun with -AllowUnrefinedDatabase only for diagnostics."
+}
 
 $generateArgs = @(
     "-ExecutionPolicy", "Bypass",
@@ -181,13 +232,14 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 $normalizeScript = Join-Path $PSScriptRoot "normalize-deck-values.mjs"
-$node = Get-Command node -ErrorAction SilentlyContinue
-if ($node -and (Test-Path $normalizeScript)) {
+if ($node -and (Test-Path -LiteralPath $normalizeScript)) {
     Write-Host "Normalizing representative armor values..."
-    & $node.Source $normalizeScript $candidatePath
+    & $node $normalizeScript $candidatePath
     if ($LASTEXITCODE -ne 0) {
         throw "normalize-deck-values.mjs failed with exit code $LASTEXITCODE"
     }
+} else {
+    Write-Host "Skipping representative armor normalization; unrefined diagnostic mode is enabled."
 }
 
 $refineScript = Join-Path $PSScriptRoot "refine-side-from-geometry.mjs"
@@ -196,17 +248,22 @@ if (-not $GeometryDir) {
 }
 $refineGameParamsJson = $GameParamsJson
 if (-not $refineGameParamsJson) {
-    $defaultGameParamsJson = "C:\tmp\GameParams_ASIA.json"
-    if (Test-Path $defaultGameParamsJson) { $refineGameParamsJson = $defaultGameParamsJson }
+    $generatedDbForRefine = Read-JsonFile $candidatePath
+    if ($generatedDbForRefine) {
+        $refineGameParamsJson = Resolve-GeneratedGameParamsJson $generatedDbForRefine $ProjectRoot
+    }
 }
-if (-not $SkipGeometryRefine -and $node -and (Test-Path $refineScript) -and (Test-Path $refineGameParamsJson) -and (Test-Path $GeometryDir)) {
+if (-not $SkipGeometryRefine -and $node -and $refineGameParamsJson -and (Test-Path -LiteralPath $refineScript) -and (Test-Path -LiteralPath $refineGameParamsJson) -and (Test-Path -LiteralPath $GeometryDir)) {
     Write-Host "Refining armor values from geometry positions..."
-    & $node.Source $refineScript --db $candidatePath --game-params $refineGameParamsJson --geometry-dir $GeometryDir
+    & $node $refineScript --db $candidatePath --game-params $refineGameParamsJson --geometry-dir $GeometryDir
     if ($LASTEXITCODE -ne 0) {
         throw "refine-side-from-geometry.mjs failed with exit code $LASTEXITCODE"
     }
 } else {
-    Write-Host "Skipping geometry refinement; provide -GameParamsJson and -GeometryDir, or populate C:\tmp\GameParams_ASIA.json and build\scratch\ship_geometry_flat."
+    if (-not $SkipGeometryRefine -and -not $AllowUnrefinedDatabase) {
+        throw "Geometry refinement could not run. Provide -GameParamsJson and -GeometryDir, or rerun with -AllowUnrefinedDatabase only for diagnostics."
+    }
+    Write-Host "Skipping geometry refinement; unrefined diagnostic mode is enabled or -SkipGeometryRefine was specified."
 }
 
 $oldDb = Read-JsonFile $dataPath
@@ -278,7 +335,7 @@ Write-Host "  $diffMdPath"
 Write-Host "Summary: added=$($added.Count), removed=$($removed.Count), changed=$($changed.Count)"
 
 if ($Apply) {
-    if (Test-Path $dataPath) {
+    if (Test-Path -LiteralPath $dataPath) {
         $oldBuild = Get-MetaValue $oldDb "gameBuild"
         if (-not $oldBuild) { $oldBuild = "unknown-build" }
         $backupPath = Join-Path $snapshotDir "armor_overmatch.$oldBuild.$timestamp.json"
@@ -288,7 +345,7 @@ if ($Apply) {
     Copy-Item -LiteralPath $candidatePath -Destination $dataPath -Force
     $candidatePyPath = [System.IO.Path]::ChangeExtension($candidatePath, ".py")
     $dataPyPath = [System.IO.Path]::ChangeExtension($dataPath, ".py")
-    if (Test-Path $candidatePyPath) {
+    if (Test-Path -LiteralPath $candidatePyPath) {
         Copy-Item -LiteralPath $candidatePyPath -Destination $dataPyPath -Force
     }
     Write-Host "Applied candidate database to $dataPath"

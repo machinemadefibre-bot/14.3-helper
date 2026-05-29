@@ -32,12 +32,22 @@ function getLatestBuild(gameDir) {
     .sort((a, b) => Number(b) - Number(a))[0];
 }
 
+function normalizeRealm(value) {
+  const normalized = String(value ?? '').replace(/\0/g, '').trim().toUpperCase();
+  return /^[A-Z0-9._-]+$/.test(normalized) ? normalized : '';
+}
+
 function getRealm(gameDir, explicitRealm) {
-  if (explicitRealm) return explicitRealm.toUpperCase();
+  if (explicitRealm) {
+    const value = normalizeRealm(explicitRealm);
+    if (value) return value;
+    throw new Error(`Invalid realm value: ${explicitRealm}`);
+  }
+
   const realmPath = path.join(gameDir, 'currentrealm.txt');
   if (fs.existsSync(realmPath)) {
-    const value = fs.readFileSync(realmPath, 'utf8').trim();
-    if (value) return value.toUpperCase();
+    const value = normalizeRealm(fs.readFileSync(realmPath, 'utf8'));
+    if (value) return value;
   }
   return 'ASIA';
 }

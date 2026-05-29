@@ -1,7 +1,18 @@
 # APOvermatchAssistant Architecture
 
-The WoWS loader still enters through `src/res_mods/PnFMods/APOvermatchAssistant/Main.py`.
-Keep that file focused on game runtime integration:
+The in-battle visible panel is mounted by
+`src/res_mods/PnFMods/ModsInstaller_4_3_1/mods/APOvermatchAssistant.xml`.
+That XML patches `gui/battle_elements.xml` with a `lesta.unbound2.UbElement`
+whose `elementName` is `OA_APOvermatchAssistant`. The element implementation
+lives in `src/res_mods/gui/unbound2/PnFMods/APOvermatchAssistant.unbound`.
+
+The package must not include a static `gui/battle_elements.xml`; Aslain and other
+mods generate the live file, and `ModsInstaller_4_3_1` patches that current file
+when the game starts.
+
+The Python loader still enters through
+`src/res_mods/PnFMods/APOvermatchAssistant/Main.py`. Keep that file focused on
+game runtime integration:
 
 - battle lifecycle registration
 - lazy imports of WoWS runtime modules (`BigWorld`, `BWPersonality`, `ui`, `Vary`)
@@ -18,9 +29,17 @@ extra path setup:
 - `overmatch_utils.py`: defensive object access, numeric conversion, caliber normalization, and millimeter formatting.
 - `overmatch_logging.py`: WoWS log bridge with console fallback.
 
-The module boundary rule is: only `Main.py` should know about live WoWS objects. Helper
-modules should accept plain dicts, numbers, and strings whenever possible. This keeps
-the rules and payload behavior testable outside the game client.
+The module boundary rule is: only `Main.py` should know about live WoWS objects.
+Helper modules should accept plain dicts, numbers, and strings whenever possible.
+This keeps the rules and payload behavior testable outside the game client.
+
+The current unbound panel also reads battle data directly from `$datahub` for its
+display state. Keep the display chain consistent with TTaro/PnF-style mods:
+
+- install XML patches `battle_elements.xml`
+- `OA_APOvermatchAssistant` is the mounted root element
+- the root element owns target tracking and panel visibility
+- row renderers only format already-selected display state
 
 Generated armor data remains under `data/`. Do not hand-edit
 `data/armor_overmatch.py` or the generated armor block in

@@ -4,9 +4,9 @@ DATABASE = {
   "schema": 2,
   "meta": {
     "name": "14.3-helper",
-    "gameBuild": "12267945",
+    "gameBuild": "12506899",
     "realm": "ASIA",
-    "generatedAt": "2026-05-13T15:22:48",
+    "generatedAt": "2026-05-19T17:08:29",
     "source": "wowsunpack GameParams JSON, streamed per ship",
     "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS and filtered by the largest main-gun caliber. Extraction is opt-in to avoid high memory use."
   },
@@ -1584,7 +1584,6 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19,
             32
           ]
         },
@@ -1623,7 +1622,6 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19,
             38
           ]
         },
@@ -1661,7 +1659,6 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19,
             38
           ]
         },
@@ -2914,7 +2911,6 @@ DATABASE = {
         },
         "deck": {
           "values": [
-            19,
             38
           ]
         },
@@ -17461,6 +17457,49 @@ DATABASE = {
         }
       }
     },
+    "PGSB928_Hunt_Bismarck_1941": {
+      "name": "PGSB928_Hunt_Bismarck_1941",
+      "aliases": [
+        "PGSB928_Hunt_Bismarck_1941",
+        "PGSB928",
+        "3321837360"
+      ],
+      "mainGunCaliberMm": 380,
+      "mainGunHePenMm": 95,
+      "mainGunSapPenMm": None,
+      "armor": {
+        "bowStern": {
+          "bow": [
+            32
+          ],
+          "stern": [
+            32
+          ]
+        },
+        "deck": {
+          "values": [
+            50
+          ]
+        },
+        "side": {
+          "values": [
+            160
+          ]
+        },
+        "extendedBowSternBelt": {
+          "present": True,
+          "values": [
+            60
+          ],
+          "bow": [
+            60
+          ],
+          "stern": [
+            60
+          ]
+        }
+      }
+    },
     "PGSB930_Pinata_Schliefen": {
       "name": "PGSB930_Pinata_Schliefen",
       "aliases": [
@@ -19964,7 +20003,8 @@ DATABASE = {
       "armor": {
         "bowStern": {
           "bow": [
-            19
+            19,
+            25
           ],
           "stern": [
             19
@@ -22944,6 +22984,48 @@ DATABASE = {
         }
       }
     },
+    "PISB720_Conte_Verde": {
+      "name": "PISB720_Conte_Verde",
+      "aliases": [
+        "PISB720_Conte_Verde",
+        "PISB720",
+        "3539941104"
+      ],
+      "mainGunCaliberMm": 203,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": 54.9,
+      "armor": {
+        "bowStern": {
+          "bow": [
+            25
+          ],
+          "stern": [
+            25
+          ]
+        },
+        "deck": {
+          "values": [
+            32
+          ]
+        },
+        "side": {
+          "values": [
+            32,
+            50,
+            100,
+            120,
+            150,
+            200
+          ]
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
     "PISB805_TST_CESARE": {
       "name": "PISB805_TST_CESARE",
       "aliases": [
@@ -24795,8 +24877,8 @@ DATABASE = {
         "4183209712"
       ],
       "mainGunCaliberMm": 100,
-      "mainGunHePenMm": 17,
-      "mainGunSapPenMm": None,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": 29,
       "armor": {
         "bowStern": {
           "bow": [
@@ -24840,8 +24922,8 @@ DATABASE = {
         "4181112560"
       ],
       "mainGunCaliberMm": 120,
-      "mainGunHePenMm": 20,
-      "mainGunSapPenMm": None,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": 34.2,
       "armor": {
         "bowStern": {
           "bow": [
@@ -24885,8 +24967,8 @@ DATABASE = {
         "4179015408"
       ],
       "mainGunCaliberMm": 120,
-      "mainGunHePenMm": 20,
-      "mainGunSapPenMm": None,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": 34.2,
       "armor": {
         "bowStern": {
           "bow": [
@@ -27884,6 +27966,45 @@ DATABASE = {
         }
       }
     },
+    "PJSC021_Kurama": {
+      "name": "PJSC021_Kurama",
+      "aliases": [
+        "PJSC021_Kurama",
+        "PJSC021",
+        "4272862928"
+      ],
+      "mainGunCaliberMm": 203,
+      "mainGunHePenMm": 34,
+      "mainGunSapPenMm": None,
+      "armor": {
+        "bowStern": {
+          "bow": [
+            25
+          ],
+          "stern": [
+            25
+          ]
+        },
+        "deck": {
+          "values": [
+            30
+          ]
+        },
+        "side": {
+          "values": [
+            30,
+            70,
+            150
+          ]
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
     "PJSC026_Iwaki_1944": {
       "name": "PJSC026_Iwaki_1944",
       "aliases": [
@@ -30793,6 +30914,43 @@ DATABASE = {
       ],
       "mainGunCaliberMm": 127,
       "mainGunHePenMm": 21,
+      "mainGunSapPenMm": None,
+      "armor": {
+        "bowStern": {
+          "bow": [
+            19
+          ],
+          "stern": [
+            19
+          ]
+        },
+        "deck": {
+          "values": [
+            19
+          ]
+        },
+        "side": {
+          "values": [
+            19
+          ]
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PJSD710_Fuyutsuki": {
+      "name": "PJSD710_Fuyutsuki",
+      "aliases": [
+        "PJSD710_Fuyutsuki",
+        "PJSD710",
+        "3550361296"
+      ],
+      "mainGunCaliberMm": 100,
+      "mainGunHePenMm": 30,
       "mainGunSapPenMm": None,
       "armor": {
         "bowStern": {
@@ -35743,6 +35901,44 @@ DATABASE = {
         }
       }
     },
+    "PRSD710_Peredovoy": {
+      "name": "PRSD710_Peredovoy",
+      "aliases": [
+        "PRSD710_Peredovoy",
+        "PRSD710",
+        "3550361040"
+      ],
+      "mainGunCaliberMm": 130,
+      "mainGunHePenMm": 22,
+      "mainGunSapPenMm": None,
+      "armor": {
+        "bowStern": {
+          "bow": [
+            19
+          ],
+          "stern": [
+            19
+          ]
+        },
+        "deck": {
+          "values": [
+            19
+          ]
+        },
+        "side": {
+          "values": [
+            19,
+            25
+          ]
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
     "PRSD718_Provorny": {
       "name": "PRSD718_Provorny",
       "aliases": [
@@ -37697,6 +37893,43 @@ DATABASE = {
           ],
           "stern": [
             16,
+            19
+          ]
+        },
+        "deck": {
+          "values": [
+            19
+          ]
+        },
+        "side": {
+          "values": [
+            19
+          ]
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PUSD709_Cayuga": {
+      "name": "PUSD709_Cayuga",
+      "aliases": [
+        "PUSD709_Cayuga",
+        "PUSD709",
+        "3551409520"
+      ],
+      "mainGunCaliberMm": 102,
+      "mainGunHePenMm": 25,
+      "mainGunSapPenMm": None,
+      "armor": {
+        "bowStern": {
+          "bow": [
+            19
+          ],
+          "stern": [
             19
           ]
         },

@@ -12,8 +12,11 @@ param(
     [int]$MaxChangedFields = 0,
     [switch]$NoExtractGameParams,
     [switch]$SkipGeometryRefine,
+    [switch]$AllowUnrefinedDatabase,
     [switch]$NoPause,
-    [switch]$SelfTest
+    [switch]$SelfTest,
+    [ValidateSet("", "menu", "update", "edit")]
+    [string]$Mode = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -105,7 +108,7 @@ function Show-ShipList {
 function Show-ChangedShips {
     param($Changed)
     Write-Host ""
-    Write-Host "Changed ships / 变化" -ForegroundColor Yellow
+    Write-Host "Changed ships" -ForegroundColor Yellow
     $ships = As-Array $Changed
     if ($ships.Count -eq 0) {
         Write-Host "  none"
@@ -147,8 +150,8 @@ function Show-Diff {
     Write-Host ("Diff file: {0}" -f $DiffPath)
     Write-Host ("Candidate: {0}" -f $Diff.meta.candidatePath)
 
-    Show-ShipList "Added ships / 新增" $added Green "+"
-    Show-ShipList "Removed ships / 删除" $removed Red "-"
+    Show-ShipList "Added ships" $added Green "+"
+    Show-ShipList "Removed ships" $removed Red "-"
     Show-ChangedShips $changed
     Write-Host "================================================" -ForegroundColor Cyan
 }
@@ -161,6 +164,18 @@ function Read-Confirmation {
         if ($answer -match '^(N|NO)?$') { return $false }
         Write-Host "Please type Y or N."
     }
+}
+
+function Read-PatchVersionOrDefault {
+    param([string]$DefaultValue)
+
+    if ($PatchVersion) { return $PatchVersion }
+    if (-not [Console]::IsInputRedirected) {
+        Write-Host ""
+        $answer = (Read-Host "Patch version for zip suffix (Enter for $DefaultValue)").Trim()
+        if ($answer) { return $answer }
+    }
+    return $DefaultValue
 }
 
 function Apply-CandidateDatabase {
@@ -202,10 +217,123 @@ function Invoke-Checked {
     }
 }
 
+function Get-UsableNode {
+    $candidatePaths = @(
+        (Join-Path $ProjectRoot ".tools\node\node.exe"),
+        (Join-Path $ProjectRoot "tools\node\node.exe")
+    )
+    $candidatePaths += @(Get-Command node -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+
+    foreach ($candidatePath in ($candidatePaths | Where-Object { $_ } | Select-Object -Unique)) {
+        if (-not (Test-Path -LiteralPath $candidatePath)) { continue }
+        try {
+            & $candidatePath --version *> $null
+            if ($LASTEXITCODE -eq 0) { return $candidatePath }
+        } catch {
+            continue
+        }
+    }
+
+    return ""
+}
+
+function Read-ToolMode {
+    while ($true) {
+        Write-Host ""
+        Write-Host "AP Overmatch armor tool" -ForegroundColor Cyan
+        Write-Host "  1. Update armor database and build package"
+        Write-Host "  2. Manually edit armor database"
+        Write-Host "  3. Exit"
+        $answer = (Read-Host "Select option [1]").Trim()
+        if (-not $answer -or $answer -eq "1") { return "update" }
+        if ($answer -eq "2") { return "edit" }
+        if ($answer -eq "3" -or $answer -match '^(Q|QUIT|EXIT)$') { return "exit" }
+        Write-Host "Please select 1, 2, or 3."
+    }
+}
+
+function Get-CurrentDatabaseBuild {
+    $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
+    $db = Read-JsonFile $dataPath
+    $build = Get-MetaValue $db "gameBuild"
+    if ($build) { return $build }
+    return "manual"
+}
+
+function Invoke-BuildPackage {
+    param([string]$DefaultPatchVersion, [string]$BuildScript)
+
+    $packagePatchVersion = Read-PatchVersionOrDefault $DefaultPatchVersion
+    $packagePatchVersion = ConvertTo-SafeNamePart $packagePatchVersion
+    if (-not $packagePatchVersion) { throw "Unable to determine patch version for zip name." }
+
+    Write-Host ""
+    Write-Host ("Building Aslain package for patch {0}..." -f $packagePatchVersion)
+    Invoke-Checked "powershell" @(
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", $BuildScript,
+        "-ProjectRoot", $ProjectRoot,
+        "-PatchVersion", $packagePatchVersion
+    )
+
+    $zipPath = Join-Path (Join-Path $ProjectRoot "dist") "14.3-helper_Aslain-patch$packagePatchVersion.zip"
+    Write-Host ""
+    Write-Host ("Done: {0}" -f $zipPath) -ForegroundColor Green
+}
+
+function Invoke-UnboundArmorDbGeneration {
+    $script = Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs"
+    if (-not (Test-Path -LiteralPath $script)) {
+        throw "Unbound armor DB generator not found: $script"
+    }
+
+    $node = Get-UsableNode
+    if (-not $node) {
+        throw "Node.js is required to sync the Unbound armor database. Put node.exe under .tools\node or install Node.js."
+    }
+
+    & $node $script
+    if ($LASTEXITCODE -ne 0) {
+        throw "generate-unbound-armor-db.mjs failed with exit code $LASTEXITCODE"
+    }
+}
+
+function Invoke-ManualEditor {
+    param([string]$EditorScript, [string]$TestScript, [string]$BuildScript)
+
+    if (-not (Test-Path -LiteralPath $EditorScript)) {
+        throw "Manual editor script not found: $EditorScript"
+    }
+
+    $node = Get-UsableNode
+    if (-not $node) {
+        throw "Node.js is required for the manual editor. Put node.exe under .tools\node or install Node.js."
+    }
+
+    $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
+    & $node $EditorScript "--db" $dataPath
+    if ($LASTEXITCODE -ne 0) {
+        throw "manual-edit-armor-db.mjs failed with exit code $LASTEXITCODE"
+    }
+
+    Invoke-UnboundArmorDbGeneration
+
+    if (Read-Confirmation "Run rule tests and build package now?") {
+        Write-Host ""
+        Write-Host "Running rule tests..."
+        Invoke-Checked "powershell" @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $TestScript)
+        Invoke-BuildPackage (Get-CurrentDatabaseBuild) $BuildScript
+    } else {
+        Write-Host "Manual edit finished. Database was changed, package was not built."
+    }
+}
+
 $exitCode = 0
 try {
     $ProjectRoot = (Resolve-Path $ProjectRoot).Path
     $updateScript = Join-Path $PSScriptRoot "update-armor-db.ps1"
+    $manualEditorScript = Join-Path $PSScriptRoot "manual-edit-armor-db.mjs"
     $testScript = Join-Path $PSScriptRoot "test-rule.ps1"
     $buildScript = Join-Path $PSScriptRoot "build.ps1"
     $updateDir = Join-Path $ProjectRoot "build\armor-update"
@@ -219,6 +347,24 @@ try {
         Write-Host ("ProjectRoot: {0}" -f $ProjectRoot)
         Write-Host ("GameDir: {0}" -f $GameDir)
         Write-Host ("Update script: {0}" -f $updateScript)
+        Write-Host ("Manual editor: {0}" -f $manualEditorScript)
+        return
+    }
+
+    $selectedMode = $Mode
+    if (-not $selectedMode) {
+        if (-not [Console]::IsInputRedirected -and $PSBoundParameters.Count -eq 0) {
+            $selectedMode = Read-ToolMode
+        } else {
+            $selectedMode = "update"
+        }
+    } elseif ($selectedMode -eq "menu") {
+        $selectedMode = Read-ToolMode
+    }
+
+    if ($selectedMode -eq "exit") { return }
+    if ($selectedMode -eq "edit") {
+        Invoke-ManualEditor $manualEditorScript $testScript $buildScript
         return
     }
 
@@ -239,6 +385,7 @@ try {
     if ($MaxShips -gt 0) { $updateArgs += @("-MaxShips", [string]$MaxShips) }
     if (-not $NoExtractGameParams) { $updateArgs += "-ExtractGameParams" }
     if ($SkipGeometryRefine) { $updateArgs += "-SkipGeometryRefine" }
+    if ($AllowUnrefinedDatabase) { $updateArgs += "-AllowUnrefinedDatabase" }
 
     Invoke-Checked "powershell" $updateArgs
 
@@ -267,6 +414,7 @@ try {
 
     if ($hasChanges) {
         Apply-CandidateDatabase ([string]$diff.meta.candidatePath)
+        Invoke-UnboundArmorDbGeneration
     } else {
         Write-Host "Keeping current database."
     }
@@ -275,24 +423,7 @@ try {
     Write-Host "Running rule tests..."
     Invoke-Checked "powershell" @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $testScript)
 
-    $packagePatchVersion = $PatchVersion
-    if (-not $packagePatchVersion) { $packagePatchVersion = [string]$diff.meta.newBuild }
-    $packagePatchVersion = ConvertTo-SafeNamePart $packagePatchVersion
-    if (-not $packagePatchVersion) { throw "Unable to determine patch version for zip name." }
-
-    Write-Host ""
-    Write-Host ("Building Aslain package for patch {0}..." -f $packagePatchVersion)
-    Invoke-Checked "powershell" @(
-        "-NoProfile",
-        "-ExecutionPolicy", "Bypass",
-        "-File", $buildScript,
-        "-ProjectRoot", $ProjectRoot,
-        "-PatchVersion", $packagePatchVersion
-    )
-
-    $zipPath = Join-Path (Join-Path $ProjectRoot "dist") "14.3-helper_Aslain-patch$packagePatchVersion.zip"
-    Write-Host ""
-    Write-Host ("Done: {0}" -f $zipPath) -ForegroundColor Green
+    Invoke-BuildPackage ([string]$diff.meta.newBuild) $buildScript
 } catch {
     $exitCode = 1
     Write-Host ""
