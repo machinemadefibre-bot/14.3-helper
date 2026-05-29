@@ -8,7 +8,7 @@ DATABASE = {
     "realm": "ASIA",
     "generatedAt": "2026-05-29T02:36:44",
     "source": "wowsunpack GameParams JSON, streamed per ship",
-    "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side/mainBelt uses side belt-like materials as a first-pass main belt proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks."
+    "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side/mainBelt uses side belt-like materials as a first-pass main belt proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks."
   },
   "ships": {
     "PASA002_Bogue_1942": {
@@ -88,12 +88,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13
+            20
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -233,14 +238,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             152,
             178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -288,8 +297,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -333,11 +347,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            178,
+            193
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -385,8 +407,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -429,11 +456,20 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            102,
+            127
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -478,14 +514,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            40,
             102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -529,12 +568,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13
+            20
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -628,14 +672,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             152,
             178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -679,11 +727,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            178,
+            193
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -774,12 +830,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -823,14 +884,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            40,
             102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -880,8 +944,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -925,14 +994,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            40,
             102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -975,12 +1047,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1024,14 +1101,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            40,
             102
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1074,12 +1154,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1123,14 +1208,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            40,
             102
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1176,14 +1264,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             152,
             178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1231,8 +1323,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1276,11 +1373,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            178,
+            193
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1328,8 +1433,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1444,13 +1554,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            254
+            279,
+            305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1571,13 +1686,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            229,
             279
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 15,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1696,14 +1815,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            229,
-            280,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1822,12 +1944,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            203
+            203,
+            343
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -1946,15 +2074,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
+            165,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2069,13 +2200,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            229,
             279
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 15,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2194,13 +2329,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2315,15 +2455,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            181,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 22,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2438,12 +2581,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            203
+            203,
+            343
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2566,8 +2715,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2688,12 +2842,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2814,12 +2974,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            318
+            318,
+            406
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -2940,13 +3106,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            279
+            356,
+            432
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3061,15 +3232,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
+            165,
             305
           ],
           "inclinationDeg": {
+            "min": 11,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3185,14 +3359,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3307,13 +3485,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3429,12 +3612,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3554,12 +3743,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            203
+            203,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3678,12 +3873,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            203
+            203,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3802,13 +4003,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -3923,15 +4128,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            181,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 22,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4046,13 +4254,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4167,14 +4380,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            140,
-            213
+            213,
+            285
           ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4289,13 +4506,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4412,14 +4633,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            57,
-            254
+            254,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4534,12 +4759,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4658,13 +4889,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4779,15 +5014,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            57,
-            152,
-            178
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -4902,15 +5139,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            181,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5025,13 +5265,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5148,14 +5392,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            57,
-            254
+            254,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5270,14 +5518,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            229,
-            280,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5396,12 +5647,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5516,13 +5773,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5637,14 +5898,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            181,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5759,12 +6023,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -5879,13 +6149,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             310
           ],
           "inclinationDeg": {
+            "min": 18,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6000,14 +6274,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            181,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6122,14 +6399,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            181,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6244,15 +6524,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            181,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6367,15 +6650,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
+            165,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6490,13 +6776,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6611,13 +6902,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6732,13 +7027,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6855,14 +7155,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            57,
-            254
+            254,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -6979,13 +7283,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            279
+            356,
+            432
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7100,12 +7409,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7220,15 +7535,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
+            165,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7344,14 +7662,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7466,12 +7788,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            318
+            318,
+            406
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7590,13 +7918,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7711,13 +8044,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7832,15 +8169,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            181,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 22,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -7955,13 +8295,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8076,14 +8421,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            181,
             310
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8198,12 +8546,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            318
+            318,
+            406
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8322,12 +8676,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            203
+            203,
+            343
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8446,15 +8806,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
+            165,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8502,8 +8865,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8712,13 +9080,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13,
             102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8835,12 +9207,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15
+            76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -8954,11 +9331,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -9190,12 +9574,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            51,
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -9309,11 +9699,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76,
+            102
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -9431,11 +9829,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            127
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -9550,12 +9955,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            51,
+            127
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -9667,11 +10078,18 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            152
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -9906,12 +10324,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            152
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10026,12 +10449,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10
+            76
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10146,11 +10574,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10265,11 +10700,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10383,11 +10825,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76,
+            102
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10505,11 +10955,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            127
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10624,12 +11081,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10744,12 +11206,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10864,13 +11331,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             170
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 0.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -10984,11 +11455,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 0.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11102,11 +11580,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            127
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11220,11 +11706,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            127
+          ],
           "inclinationDeg": {
+            "min": 5.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11338,11 +11832,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            102
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11457,12 +11958,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            51,
+            127
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11578,13 +12085,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13,
             102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11699,11 +12210,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11818,12 +12336,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            100
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -11937,11 +12460,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76,
+            152
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12055,11 +12586,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            102
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 0.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12174,14 +12712,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12296,12 +12837,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12416,12 +12962,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            76,
+            152
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12536,14 +13088,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12658,12 +13213,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            76,
+            152
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12777,11 +13338,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -12895,11 +13463,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13013,11 +13588,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            127
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13132,14 +13715,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13254,14 +13840,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             216,
             254
           ],
           "inclinationDeg": {
+            "min": 16,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13375,11 +13965,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13494,12 +14091,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            76,
+            152
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13614,12 +14217,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            152
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13733,11 +14341,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            127
+          ],
           "inclinationDeg": {
+            "min": 5.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13852,12 +14468,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            76,
+            152
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -13972,14 +14594,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14094,14 +14719,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14221,9 +14849,14 @@ DATABASE = {
             191
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14266,12 +14899,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32
+            95
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14386,12 +15024,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            51,
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14506,14 +15150,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             216,
             254
           ],
           "inclinationDeg": {
+            "min": 16,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14628,14 +15276,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14749,11 +15400,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            127
+          ],
           "inclinationDeg": {
+            "min": 5.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14799,9 +15458,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -14919,9 +15583,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15039,9 +15708,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15159,9 +15833,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15279,9 +15958,14 @@ DATABASE = {
             21
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15402,9 +16086,14 @@ DATABASE = {
             15
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15525,9 +16214,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15645,9 +16339,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15766,9 +16465,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15886,9 +16590,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15935,8 +16644,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 30.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -15982,9 +16696,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16030,9 +16749,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16078,9 +16802,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16198,9 +16927,14 @@ DATABASE = {
             21
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16246,9 +16980,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16367,8 +17106,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16486,9 +17230,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16606,9 +17355,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16727,8 +17481,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16846,9 +17605,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 37.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -16966,9 +17730,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17087,8 +17856,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17206,9 +17980,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17254,9 +18033,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17377,9 +18161,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17498,8 +18287,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17617,9 +18411,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17665,9 +18464,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17785,9 +18589,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17905,9 +18714,14 @@ DATABASE = {
             21
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -17953,9 +18767,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -18073,9 +18892,14 @@ DATABASE = {
             21
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -18121,9 +18945,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -18241,9 +19070,14 @@ DATABASE = {
             21
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -18830,9 +19664,14 @@ DATABASE = {
             18
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19068,13 +19907,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
             76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19126,14 +19969,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            21,
-            38,
             114
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19179,13 +20025,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19229,14 +20079,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13,
-            16,
             76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19288,14 +20141,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            38,
             114
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19342,14 +20198,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            21,
-            38,
             114
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19394,14 +20253,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            21,
-            25,
             102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19445,15 +20307,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            19,
-            37,
             114
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19504,8 +20368,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19557,8 +20426,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19609,8 +20483,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19656,14 +20535,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            38,
             114
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19779,13 +20661,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            152
+            152,
+            330
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -19910,13 +20797,17 @@ DATABASE = {
         "mainBelt": {
           "values": [
             203,
-            229,
             254
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20047,8 +20938,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20173,16 +21069,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203,
             229,
             254,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20307,12 +21207,18 @@ DATABASE = {
         "mainBelt": {
           "values": [
             152,
-            267
+            267,
+            330
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20438,14 +21344,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             235,
-            260
+            260,
+            356,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20562,14 +21474,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             235,
-            260
+            260,
+            356,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20685,13 +21603,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            260
+            260,
+            381
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20807,14 +21730,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            57,
-            279
+            279,
+            406
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -20930,13 +21857,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            75
+            369,
+            432
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21058,13 +21990,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21186,19 +22122,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            25,
-            51,
-            76,
-            102,
             127,
             152,
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21318,18 +22254,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            51,
-            76,
-            102,
-            127,
-            152,
-            229
+            76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21452,14 +22387,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             51,
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21583,15 +22522,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             152,
-            178,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 24.5,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21712,15 +22654,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            51,
-            76
+            76,
+            305
           ],
           "inclinationDeg": {
+            "min": 24.5,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21835,19 +22780,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            76,
             102,
-            127,
-            152,
-            229,
-            305
+            305,
+            356
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -21962,19 +22907,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            51,
-            76,
-            102,
-            127,
-            152,
-            229,
-            305
+            102
           ],
           "inclinationDeg": {
+            "min": 18.5,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22093,9 +23036,14 @@ DATABASE = {
             279
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22225,8 +23173,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22348,19 +23301,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            76,
-            102,
-            127,
-            152,
-            178,
-            229,
-            305
+            75
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22485,14 +23436,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             229,
-            235
+            235,
+            343,
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22614,14 +23571,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            261
+            261,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22737,14 +23698,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            57,
-            279
+            279,
+            406
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22860,13 +23825,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32
+            330,
+            356
           ],
           "inclinationDeg": {
+            "min": 16.5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -22982,14 +23952,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             152,
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23115,14 +24089,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             235,
-            260
+            260,
+            356,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23238,14 +24218,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             152,
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23369,13 +24353,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            26
+            305,
+            318
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23490,14 +24479,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             51,
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23621,19 +24614,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            76,
             102,
-            127,
-            152,
-            229,
-            305
+            305,
+            356
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23750,14 +24743,18 @@ DATABASE = {
         "mainBelt": {
           "values": [
             102,
-            127,
             152,
             279
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 10,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -23882,14 +24879,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             235,
-            260
+            260,
+            356,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24005,13 +25008,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32
+            330,
+            356
           ],
           "inclinationDeg": {
+            "min": 16.5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24127,13 +25135,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32
+            330,
+            356
           ],
           "inclinationDeg": {
+            "min": 16.5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24248,13 +25261,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            152
+            26
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24382,14 +25399,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             235,
-            260
+            260,
+            356,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24504,14 +25527,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            261
+            261,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24627,14 +25654,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            57,
-            279
+            279,
+            406
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24749,19 +25780,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            51,
-            76,
-            102,
-            127,
-            152,
-            229,
-            305
+            102
           ],
           "inclinationDeg": {
+            "min": 18.5,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24876,12 +25905,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            152,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7.5,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -24934,9 +25969,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25166,11 +26206,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25294,11 +26342,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25425,12 +26481,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10
+            57,
+            76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25557,12 +26619,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25677,11 +26744,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25795,11 +26869,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -25915,12 +26996,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38
+            102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26035,12 +27121,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            101
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26156,13 +27247,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26277,14 +27372,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13,
-            16,
-            51
+            64,
+            76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26405,11 +27504,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26524,12 +27630,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            152
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26644,11 +27755,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            152
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26771,8 +27889,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -26895,9 +28018,14 @@ DATABASE = {
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27018,13 +28146,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            140
+            76
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27139,12 +28271,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10
+            114
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27259,11 +28396,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            152
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27382,11 +28526,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27500,11 +28651,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27618,11 +28776,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            83
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27739,11 +28904,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27857,11 +29029,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -27976,12 +29155,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28096,12 +29280,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            127
           ],
           "inclinationDeg": {
             "min": 0,
             "max": 0,
-            "estimated": True
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28216,11 +29405,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            152
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28339,12 +29535,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            152,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7.5,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28465,12 +29667,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10
+            114
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28584,11 +29791,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28703,12 +29917,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            100
           ],
           "inclinationDeg": {
+            "min": 4,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28822,11 +30041,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            83
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -28940,11 +30166,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29059,13 +30292,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            30
+            178,
+            229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 25,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29179,11 +30417,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29299,12 +30544,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38
+            102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29423,9 +30673,14 @@ DATABASE = {
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29546,11 +30801,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29836,9 +31098,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -29956,9 +31223,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30076,9 +31348,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30197,8 +31474,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30316,9 +31598,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30436,9 +31723,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30557,8 +31849,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30677,9 +31974,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30797,9 +32099,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -30917,9 +32224,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31037,9 +32349,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 36.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31157,9 +32474,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31277,9 +32599,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 36.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31400,9 +32727,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31521,8 +32853,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31640,9 +32977,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 36.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -31760,9 +33102,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32148,13 +33495,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
             83
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32282,9 +33633,14 @@ DATABASE = {
             250
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32409,17 +33765,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            142,
             160,
             175,
-            232,
             235,
             250
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32545,7 +33904,6 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            142,
             160,
             175,
             238,
@@ -32553,8 +33911,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 15,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32679,20 +34042,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            42,
-            72,
-            120,
-            150,
             180,
             190,
-            200,
             240,
             280
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32819,20 +34182,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            42,
-            72,
-            120,
-            150,
             180,
             190,
-            200,
             240,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -32957,14 +34320,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            100,
-            250
+            250,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33079,13 +34446,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
-            275
+            275,
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 19,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33200,13 +34572,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
-            120
+            350,
+            400
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 24.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33321,15 +34698,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            60,
-            90,
-            120
+            420
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 23,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33449,16 +34828,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            60,
-            120,
             175,
             225
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33574,16 +34955,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            60,
-            120,
             175,
             283
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33698,15 +35081,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            150,
             250,
             320
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33821,13 +35207,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
-            275
+            275,
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 19,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -33943,14 +35334,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            100,
-            250
+            250,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34065,14 +35460,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            150,
             240
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34187,13 +35585,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
-            275
+            275,
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 19,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34310,20 +35713,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            42,
-            72,
-            120,
-            150,
             180,
             190,
-            200,
             240,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34448,16 +35851,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            60,
-            120,
             175,
             225
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34573,14 +35978,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            100,
-            250
+            250,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34695,13 +36104,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
-            275
+            275,
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 19,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34817,14 +36231,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            100,
-            250
+            250,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -34940,14 +36358,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            100,
-            250
+            250,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35063,14 +36485,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            100,
-            250
+            250,
+            330
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35116,9 +36542,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35282,9 +36713,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35403,8 +36839,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35522,9 +36963,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35643,8 +37089,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35762,9 +37213,14 @@ DATABASE = {
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 4,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -35879,13 +37335,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             100
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36000,13 +37460,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             100
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 5.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36121,15 +37585,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             105,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36244,15 +37711,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            45,
             95,
             130
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36367,15 +37837,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            45,
             160,
             170
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36490,16 +37963,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            50,
-            120,
             180,
             190
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36615,18 +38090,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            30,
-            50,
-            90,
-            120,
             200,
             210
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 11.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36741,13 +38216,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36862,15 +38341,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50,
             160,
             170
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -36985,15 +38467,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             105,
             120
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37108,15 +38593,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
-            120,
             180
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37233,12 +38720,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50
+            80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6.5,
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37353,15 +38845,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            25,
-            30,
-            40
+            60
           ],
           "inclinationDeg": {
             "min": 0,
             "max": 0,
-            "estimated": True
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37476,15 +38970,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            50,
             160,
             170
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37599,15 +39096,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             105,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37726,8 +39226,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37842,16 +39347,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
             180,
             190
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -37970,15 +39477,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            30,
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38093,15 +39602,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             105,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38216,16 +39728,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
             180,
             190
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38344,8 +39858,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38464,8 +39983,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38583,9 +40107,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 43.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38704,8 +40233,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38824,8 +40358,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 29.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -38944,8 +40483,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39064,8 +40608,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 30.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39360,8 +40909,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39480,8 +41034,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39600,8 +41159,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39719,9 +41283,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39839,9 +41408,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -39959,9 +41533,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 37.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40080,8 +41659,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40200,8 +41784,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40320,8 +41909,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40439,9 +42033,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40559,9 +42158,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40800,8 +42404,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -40919,9 +42528,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41039,9 +42653,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41160,8 +42779,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41280,8 +42904,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41573,13 +43202,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41624,14 +43257,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10,
-            25,
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41741,15 +43377,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            145,
             150,
             175
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -41917,15 +43556,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            145,
             150,
             175
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42092,15 +43734,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            145,
             150,
             175
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42157,15 +43802,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            145,
             150,
             175
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42222,15 +43870,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            145,
             150,
             175
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42354,14 +44005,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            240,
-            315
+            240
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42488,13 +44142,17 @@ DATABASE = {
             200,
             210,
             240,
-            250,
             270
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42624,15 +44282,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            170,
-            200,
             265
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42757,15 +44417,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            170,
-            200,
             265
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -42889,15 +44551,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            170,
-            250,
             260
           ],
           "inclinationDeg": {
             "min": 0,
             "max": 0,
-            "estimated": True
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43022,15 +44686,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            60,
-            150,
             260
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43152,14 +44818,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43284,16 +44953,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            80,
-            145,
-            150,
-            235,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43420,15 +45090,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            75,
             150,
-            280
+            280,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 26,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43553,13 +45227,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            180
+            360
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 30.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43689,13 +45367,17 @@ DATABASE = {
           "values": [
             150,
             200,
-            225,
             250
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43830,8 +45512,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -43960,17 +45647,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
-            225,
-            235,
-            265,
-            270,
-            300
+            225
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44094,15 +45781,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
             225,
-            270,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44226,15 +45916,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
             225,
-            270,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44358,14 +46051,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            170,
-            250,
-            260
+            260,
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44489,16 +46186,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            150,
-            220,
             235,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44624,14 +46323,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            150,
-            315
+            315,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44758,15 +46461,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            75,
             150,
-            280
+            280,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 26,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -44890,15 +46597,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            170,
-            200,
             265
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45026,15 +46735,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
             225,
-            270,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45158,15 +46870,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            60,
-            150,
             260
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45288,16 +47002,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            140,
-            150,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45423,16 +47138,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            80,
-            145,
-            150,
-            235,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45556,15 +47272,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
             225,
-            270,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45688,12 +47407,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            145
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45817,16 +47541,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            170,
-            200,
-            250,
             260
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -45950,12 +47675,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            145
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46077,15 +47807,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            60,
-            150,
             260
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46207,14 +47939,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            240,
-            315
+            240
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46339,16 +48074,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            80,
-            145,
-            150,
-            235,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46474,13 +48210,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
             275
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 24,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46601,14 +48341,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46729,15 +48472,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            60,
-            150,
             260
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46859,14 +48604,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            240,
-            315
+            240
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -46987,17 +48735,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            45,
-            140,
-            150,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47119,14 +48867,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47247,14 +48998,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            170,
-            250,
-            260
+            260,
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47379,15 +49134,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            75,
             150,
-            280
+            280,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 26,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47510,12 +49269,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            145
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47641,14 +49405,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            150,
-            315
+            315,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47772,14 +49540,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -47904,14 +49675,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            150,
-            315
+            315,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48035,15 +49810,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
-            220,
             225,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48167,13 +49945,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            180
+            360
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 30.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48233,9 +50015,14 @@ DATABASE = {
             35
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48402,13 +50189,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
             200
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 33.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48524,13 +50315,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48656,13 +50451,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48786,13 +50585,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             120
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -48914,14 +50717,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            80,
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -49283,9 +51089,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -49407,14 +51218,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            25,
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -49540,9 +51354,14 @@ DATABASE = {
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -49661,13 +51480,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             80
           ],
           "inclinationDeg": {
+            "min": 14.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -49791,14 +51614,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             90,
             100
           ],
           "inclinationDeg": {
+            "min": 9.5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -49922,14 +51749,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            100,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16.5,
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 6.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50053,13 +51883,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             130
           ],
           "inclinationDeg": {
+            "min": 14.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50228,13 +52062,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 10,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50357,11 +52195,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            50
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50480,13 +52325,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             80
           ],
           "inclinationDeg": {
+            "min": 14.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50610,13 +52459,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50732,11 +52585,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            40,
+            50
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50861,9 +52722,14 @@ DATABASE = {
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -50982,13 +52848,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51110,13 +52980,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51231,14 +53105,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30,
             120
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51360,14 +53237,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            80,
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51482,13 +53362,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51610,13 +53494,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 10,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51743,15 +53631,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            30,
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51866,14 +53756,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            25,
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -51995,13 +53888,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52123,13 +54020,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             130
           ],
           "inclinationDeg": {
+            "min": 14.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52258,8 +54159,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52378,13 +54284,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             80
           ],
           "inclinationDeg": {
+            "min": 14,
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52508,14 +54418,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             90,
             100
           ],
           "inclinationDeg": {
+            "min": 9.5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52638,11 +54552,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            50
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52761,14 +54682,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            100,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16.5,
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 6.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -52892,13 +54816,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             130
           ],
           "inclinationDeg": {
+            "min": 14.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53022,13 +54950,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53143,14 +55075,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30,
             120
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53272,14 +55207,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            100,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16.5,
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 6.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53403,13 +55341,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             130
           ],
           "inclinationDeg": {
+            "min": 14.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53533,13 +55475,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53718,9 +55664,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 33.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53842,8 +55793,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -53964,9 +55920,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54084,9 +56045,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54204,9 +56170,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54324,9 +56295,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 44.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54444,9 +56420,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54564,9 +56545,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54684,9 +56670,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 41,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54805,9 +56796,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -54925,9 +56921,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55046,9 +57047,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55166,9 +57172,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 33.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55286,9 +57297,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55406,9 +57422,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55526,9 +57547,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55646,9 +57672,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55766,9 +57797,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -55887,8 +57923,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 33.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56006,9 +58047,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56126,9 +58172,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56247,8 +58298,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 33.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56367,9 +58423,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56487,9 +58548,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56607,9 +58673,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 37.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56728,9 +58799,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56848,9 +58924,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -56968,9 +59049,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -57088,9 +59174,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -57208,9 +59299,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 33.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -57741,19 +59837,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            76,
             102,
-            127,
-            152,
-            229,
-            305
+            305,
+            356
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -57869,16 +59965,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            30,
-            50,
-            60,
             90
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58000,11 +60097,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            50
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58128,8 +60232,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58179,9 +60288,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58345,9 +60459,14 @@ DATABASE = {
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58470,9 +60589,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58590,9 +60714,14 @@ DATABASE = {
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58714,17 +60843,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            20,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58854,17 +60983,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            20,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -58992,14 +61121,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            60,
             200
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59121,15 +61253,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            60,
             163,
             225
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59248,15 +61383,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            80,
-            163,
-            225
+            163
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59376,16 +61513,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59512,14 +61650,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            60,
             200
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59641,16 +61782,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59775,15 +61917,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            80,
-            163,
-            225
+            163
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -59902,15 +62046,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            80,
-            163,
-            225
+            163
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60030,16 +62176,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            30,
-            50,
-            60,
             90
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60163,16 +62310,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60295,15 +62443,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            80,
-            163,
-            225
+            163
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60423,16 +62573,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60559,8 +62710,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 29.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60681,8 +62837,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60789,8 +62950,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -60906,14 +63072,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            70
+            70,
+            420
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61029,14 +63199,17 @@ DATABASE = {
         "mainBelt": {
           "values": [
             100,
-            200,
-            250,
-            280
+            250
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61160,7 +63333,6 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
             130,
             210,
             220,
@@ -61168,8 +63340,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61298,24 +63475,21 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             70,
-            90,
-            100,
-            110,
-            120,
-            130,
             150,
             195,
-            210,
             220,
-            230,
-            250
+            230
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61443,16 +63617,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            100,
-            150,
             220,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61578,14 +63754,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
-            70,
-            100
+            375
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61705,12 +63884,17 @@ DATABASE = {
         "mainBelt": {
           "values": [
             70,
-            100
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61835,16 +64019,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
             70,
-            80,
-            100,
-            150
+            375
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -61966,7 +64152,6 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            85,
             130,
             210,
             220,
@@ -61974,8 +64159,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62101,14 +64291,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
-            70,
-            100
+            375
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62228,17 +64421,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             60,
             70,
-            100,
             320
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62358,17 +64553,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            100,
-            120,
-            150,
-            200
+            457
           ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62484,17 +64679,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             60,
             70,
-            100,
             320
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62613,14 +64810,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
-            70,
-            100
+            375
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62740,17 +64940,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             60,
             70,
-            100,
             320
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -62869,16 +65071,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
             70,
-            80,
-            100,
-            150
+            375
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63002,16 +65206,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            100,
-            150,
             220,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63137,17 +65343,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             60,
             70,
-            100,
             320
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63397,7 +65605,6 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            85,
             130,
             210,
             220,
@@ -63405,8 +65612,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63533,17 +65745,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            100,
-            120,
-            150,
-            200
+            457
           ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63661,16 +65873,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            100,
-            150,
             220,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63795,14 +66009,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
-            70,
-            100
+            375
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -63922,17 +66139,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             60,
             70,
-            100,
             320
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -64051,16 +66270,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
             70,
-            80,
-            100,
-            150
+            375
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -64399,9 +66620,14 @@ DATABASE = {
             24
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -64517,13 +66743,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             60
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -64637,11 +66867,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            70
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -64757,12 +66994,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -64878,13 +67120,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65006,13 +67252,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65138,14 +67388,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             40,
-            58
+            165
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65268,14 +67522,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             40,
             165
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65393,11 +67651,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            70
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65515,13 +67780,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65637,12 +67906,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65761,16 +68035,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
-            50,
             60,
             220
           ],
           "inclinationDeg": {
+            "min": 5.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65823,14 +68099,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             52
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -65946,16 +68225,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            50,
-            60,
-            100,
             200
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66070,16 +68350,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
-            50,
             60,
             220
           ],
           "inclinationDeg": {
+            "min": 5.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66201,12 +68483,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66253,14 +68540,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40,
             52
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66376,16 +68666,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            50,
-            60,
-            100,
             200
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66501,12 +68792,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            150
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66550,12 +68846,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66603,13 +68904,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66731,12 +69036,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66852,13 +69162,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            40
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -66980,14 +69294,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             40,
-            58
+            165
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67137,9 +69455,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 32.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67185,9 +69508,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67234,8 +69562,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67281,9 +69614,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 36,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67329,9 +69667,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67377,9 +69720,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 40,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67426,8 +69774,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67545,9 +69898,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67594,8 +69952,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67641,15 +70004,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10,
             19,
-            25,
             60
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 36.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67695,9 +70061,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67906,12 +70277,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13
+            20
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -67997,11 +70373,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            19,
+            25
+          ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68098,12 +70482,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            215
+            165
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 10.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 4.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68147,12 +70536,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            6
+            57,
+            165
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68195,14 +70590,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            19,
-            50
+            130
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68245,12 +70643,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13
+            20
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68292,11 +70695,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            19,
+            25
+          ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68340,12 +70751,18 @@ DATABASE = {
         "mainBelt": {
           "values": [
             90,
+            165,
             215
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68388,13 +70805,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            50
+            130
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68440,14 +70861,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50,
             150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 10,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68490,13 +70914,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
             152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68545,13 +70973,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
             152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68600,13 +71032,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
             152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68654,11 +71090,22 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            70,
+            85,
+            160,
+            200,
+            400
+          ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68702,12 +71149,18 @@ DATABASE = {
         "mainBelt": {
           "values": [
             90,
+            165,
             215
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68751,12 +71204,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            57,
+            165
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68799,13 +71258,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            50
+            130
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68847,11 +71310,22 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            70,
+            85,
+            160,
+            200,
+            400
+          ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -68967,14 +71441,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            152,
-            178
+            305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69095,14 +71572,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
-            178,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69224,16 +71704,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            76,
-            152,
-            203,
-            229,
             305
           ],
           "inclinationDeg": {
             "min": 0,
             "max": 0,
-            "estimated": True
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69359,13 +71840,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69492,8 +71977,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69615,14 +72105,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             229,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69747,9 +72241,14 @@ DATABASE = {
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -69876,13 +72375,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             254
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70003,14 +72506,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70125,12 +72634,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70254,14 +72768,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            168,
+            460
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70376,13 +72894,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             229
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70503,14 +73025,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             102,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70632,13 +73158,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            299
+            299,
+            343
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70759,14 +73290,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             229,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -70887,14 +73422,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             203,
             254
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71016,9 +73555,14 @@ DATABASE = {
             292
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 13,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71139,14 +73683,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71263,14 +73811,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71386,17 +73940,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            76,
-            100,
-            149,
-            199,
-            200,
-            299
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 13,
+            "max": 18,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71512,13 +74066,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            127
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71640,18 +74198,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            76,
-            100,
-            149,
-            199,
-            200,
-            299
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 13,
+            "max": 18,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71767,13 +74324,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            127
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -71894,14 +74455,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             127,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72020,13 +74585,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            127
+            305
           ],
           "inclinationDeg": {
+            "min": 11,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72146,13 +74715,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            127
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72275,14 +74848,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72398,13 +74977,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72526,13 +75109,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72654,13 +75241,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72782,13 +75373,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -72911,14 +75506,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73034,13 +75635,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73163,14 +75768,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             102,
             305
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73294,14 +75903,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73454,13 +76069,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             254
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73579,13 +76198,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             254
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73709,14 +76332,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            168,
+            460
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73832,18 +76459,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            76,
-            100,
-            149,
-            199,
-            200,
-            299
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 13,
+            "max": 18,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -73959,18 +76585,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            76,
-            100,
-            149,
-            199,
-            200,
-            299
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 13,
+            "max": 18,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74087,14 +76712,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74211,14 +76842,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74338,14 +76975,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            168,
+            460
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74455,11 +77096,18 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74574,12 +77222,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6.5,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74694,12 +77347,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            76
           ],
           "inclinationDeg": {
+            "min": 6.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74814,12 +77472,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -74935,13 +77598,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30
+            65,
+            100,
+            140
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75057,13 +77726,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30
+            100,
+            140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 16,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75173,11 +77847,18 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            65
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75291,11 +77972,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            65
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 0.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75405,11 +78093,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            63
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75525,11 +78221,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100,
+            145
+          ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75766,12 +78470,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10
+            51,
+            63
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 1,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75886,12 +78596,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100,
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -75985,9 +78701,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76102,12 +78823,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            102,
+            127
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76221,11 +78948,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            60
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76339,11 +79073,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76457,11 +79198,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76576,12 +79324,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            100,
+            140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 20,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76696,12 +79450,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            105
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76816,12 +79575,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            110
           ],
           "inclinationDeg": {
+            "min": 21.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -76935,11 +79699,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            10
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77053,11 +79824,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            60
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77172,13 +79950,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             76
           ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77293,13 +80075,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            27
+            96,
+            144,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77424,12 +80212,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102,
+            127
           ],
           "inclinationDeg": {
+            "min": 11.5,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77544,13 +80338,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            27
+            96,
+            144,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77675,13 +80475,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30
+            96,
+            144,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77806,13 +80612,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30
+            96,
+            144,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77937,12 +80749,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            102,
+            127
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -77984,11 +80802,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            65
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 0.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78103,12 +80928,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78223,12 +81053,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78343,12 +81178,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            102,
+            127
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78463,12 +81304,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78583,12 +81429,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100,
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78703,12 +81555,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78823,12 +81680,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            102,
+            127
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -78944,11 +81807,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100,
+            145
+          ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79063,12 +81934,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            105
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79183,12 +82059,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79304,11 +82185,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100,
+            145
+          ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79423,12 +82312,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
+            "min": 6,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79544,13 +82438,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30
+            65,
+            100,
+            140
           ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79666,13 +82566,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30
+            65,
+            100,
+            140
           ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79788,13 +82694,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30
+            65,
+            100,
+            140
           ],
           "inclinationDeg": {
+            "min": 17,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -79909,12 +82821,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100,
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80029,12 +82947,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            105
           ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80149,13 +83072,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            27
+            96,
+            144,
+            178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 14,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80280,12 +83209,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100,
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80400,12 +83335,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            76
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6.5,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80521,11 +83461,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100,
+            145
+          ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80641,11 +83589,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100,
+            145
+          ],
           "inclinationDeg": {
+            "min": 20,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80760,12 +83716,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100,
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -80932,9 +83894,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81055,9 +84022,14 @@ DATABASE = {
             14
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81179,9 +84151,14 @@ DATABASE = {
             14
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81301,9 +84278,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81424,8 +84406,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81545,9 +84532,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81667,9 +84659,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -81788,8 +84785,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82032,8 +85034,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82152,9 +85159,14 @@ DATABASE = {
             12
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82277,8 +85289,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82401,8 +85418,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82524,9 +85546,14 @@ DATABASE = {
             14
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82644,9 +85671,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82761,13 +85793,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             16
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -82883,13 +85919,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            20
+            19
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 37.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83007,9 +86047,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83128,8 +86173,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83244,13 +86294,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             16
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83369,8 +86423,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83486,13 +86545,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            20
+            19
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83611,8 +86674,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83731,8 +86799,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83850,9 +86923,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 30.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -83971,8 +87049,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84091,8 +87174,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 45,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84211,8 +87299,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84327,13 +87420,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             16
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84452,8 +87549,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 45,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84568,13 +87670,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             16
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84693,8 +87799,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -84933,8 +88044,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -85053,8 +88169,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 45,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -85170,13 +88291,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
-            20
+            19
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -85295,8 +88420,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -85415,8 +88545,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -85534,9 +88669,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -85655,8 +88795,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86043,12 +89188,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16
+            75,
+            100
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86092,15 +89243,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50,
             100,
             125
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86143,13 +89297,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50
+            125,
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86205,15 +89364,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            25,
-            50,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86264,15 +89425,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            25,
-            50,
             100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 3.5,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86319,13 +89482,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50
+            125,
+            150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86455,8 +89623,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86587,8 +89760,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86714,14 +89892,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             125,
             225
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86856,8 +90038,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -86984,14 +90171,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             100,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 26.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87123,14 +90314,17 @@ DATABASE = {
           "values": [
             75,
             100,
-            125,
-            200,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 15.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87256,12 +90450,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            200
+            290,
+            370
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87385,12 +90585,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60
+            375
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87516,13 +90721,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            150
+            410,
+            430
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87649,15 +90859,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            80,
-            150,
-            300
+            300,
+            425,
+            450
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87787,15 +91001,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
             125,
             225
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 10.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -87922,12 +91139,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            200
+            290,
+            370
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88048,13 +91271,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            75
+            75,
+            340
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 13.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88179,13 +91407,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            150
+            350,
+            370
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88311,7 +91544,6 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            85,
             130,
             210,
             220,
@@ -88319,8 +91551,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88449,15 +91686,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            55,
-            60,
-            150
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88580,16 +91819,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50,
             95,
-            190,
             220
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88717,15 +91958,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            55,
-            60,
-            150
+            350
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88851,12 +92094,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60
+            375
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -88982,13 +92230,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            150
+            410,
+            430
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 20,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -89115,13 +92368,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
-            152
+            26
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -89247,12 +92504,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            254
+            345,
+            406
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -89373,16 +92636,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            50,
             95,
-            190,
             220
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -89507,12 +92772,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            254
+            345,
+            406
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -89633,13 +92904,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            75
+            75,
+            340
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 13.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -89926,11 +93202,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90021,9 +93304,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90311,11 +93599,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            75
+          ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90438,11 +93733,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            50
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90557,12 +93859,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20
+            115
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90678,12 +93985,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20
+            75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90798,12 +94110,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -90922,14 +94239,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            60,
             100
           ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91050,15 +94370,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            30,
-            50,
             155
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91181,16 +94503,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            35,
-            50,
             155,
             210
           ],
           "inclinationDeg": {
+            "min": 14,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91316,13 +94640,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             80
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91444,14 +94772,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            35,
             140
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91574,15 +94905,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
-            60,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91702,11 +95035,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            35
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -91826,8 +95166,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92076,12 +95421,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            10
+            75
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92204,11 +95554,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            70
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92322,11 +95679,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92446,14 +95810,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            63,
             230
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92572,17 +95939,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            38,
             45,
-            50,
             115,
             180
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92822,11 +96191,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            35
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -92941,12 +96317,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93065,17 +96446,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            38,
             45,
-            50,
             115,
             180
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93314,11 +96697,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            50
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93433,12 +96823,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93554,12 +96949,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16
+            70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93674,14 +97074,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             152
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93803,14 +97206,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             152
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -93931,11 +97337,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94054,12 +97467,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94178,14 +97596,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            25,
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94308,12 +97729,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16
+            70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 19.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94428,17 +97854,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            40,
-            50,
             95,
-            190,
             220
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14.5,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94564,13 +97991,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            63,
             230
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94689,14 +98120,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            60,
             100
           ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94818,14 +98252,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            50,
-            75
+            115
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -94939,11 +98376,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95062,15 +98506,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            30,
-            50,
             155
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95198,8 +98644,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95323,15 +98774,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
-            60,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95457,8 +98910,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95585,9 +99043,14 @@ DATABASE = {
             88
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95708,8 +99171,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 40,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95755,9 +99223,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 29.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -95878,8 +99351,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 36.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96002,8 +99480,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96126,8 +99609,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 40,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96247,9 +99735,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96367,9 +99860,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 4,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96487,9 +99985,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 3.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96609,9 +100112,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96734,9 +100242,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96859,9 +100372,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -96982,9 +100500,14 @@ DATABASE = {
             13
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97104,8 +100627,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 40,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97223,9 +100751,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 31,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97343,9 +100876,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97460,13 +100998,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             19
           ],
           "inclinationDeg": {
+            "min": 6.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97584,9 +101126,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97704,9 +101251,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 3.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97824,9 +101376,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
+            "min": 4.5,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -97947,9 +101504,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98068,8 +101630,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98187,9 +101754,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 3.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98307,9 +101879,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 8.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98550,9 +102127,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98667,13 +102249,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             50
           ],
           "inclinationDeg": {
+            "min": 3.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98791,9 +102377,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 8.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -98908,13 +102499,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             19
           ],
           "inclinationDeg": {
+            "min": 6.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -99032,9 +102627,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 3.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -99427,14 +103027,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60,
-            70,
-            100
+            375
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -99526,11 +103129,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            50,
+            75
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -99656,11 +103267,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 3.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -99779,11 +103397,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -99907,11 +103533,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100038,13 +103672,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             51
           ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100160,12 +103798,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            150
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 15.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100287,12 +103930,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            150
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100414,15 +104062,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30,
             40,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100543,15 +104194,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             40,
-            50,
             150
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100674,13 +104328,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             51
           ],
           "inclinationDeg": {
+            "min": 9,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100795,12 +104453,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            127
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -100916,15 +104579,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
-            30,
             40,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101048,9 +104714,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101167,14 +104838,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             235,
-            260
+            260,
+            356,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101289,14 +104966,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            32,
-            261
+            261,
+            381
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101343,9 +105024,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101461,14 +105147,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
             152,
             203
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8.5,
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101626,11 +105316,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101754,11 +105452,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -101885,12 +105591,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102007,12 +105718,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            37
+            100
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 5.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102127,11 +105843,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102246,11 +105969,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            152
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102368,11 +106098,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            152
+          ],
           "inclinationDeg": {
+            "min": 7,
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102489,12 +106226,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            37
+            100
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 5.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102610,13 +106352,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             114
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102731,12 +106477,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            101
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102851,11 +106602,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -102970,13 +106728,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
             120
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 7,
+            "max": 27,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103091,11 +106853,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103210,12 +106979,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            101
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103330,11 +107104,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 21.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103452,9 +107233,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103575,9 +107361,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103696,8 +107487,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103818,9 +107614,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -103991,8 +107792,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104107,13 +107913,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            51,
-            102
+            406
           ],
           "inclinationDeg": {
+            "min": 27.5,
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104229,13 +108039,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            51,
-            305
+            305,
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 29.5,
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 6,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104351,14 +108166,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            51,
-            152,
-            292
+            292,
+            381
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 25.5,
+            "max": 26,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104481,8 +108300,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104605,16 +108429,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
             152,
             280,
-            305
+            305,
+            356
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104744,12 +108572,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            273
+            273,
+            343
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 13,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -104872,14 +108706,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             229,
-            235
+            235,
+            343,
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105001,13 +108841,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            51,
-            102
+            406
           ],
           "inclinationDeg": {
+            "min": 27.5,
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105122,13 +108966,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            51,
-            102
+            381
           ],
           "inclinationDeg": {
+            "min": 27.5,
+            "max": 27.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105408,11 +109256,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            76
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 3.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105531,11 +109386,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            57,
+            76
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105663,13 +109526,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            59
+            69
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105785,12 +109652,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12.5,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -105909,11 +109781,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            114
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106028,12 +109907,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106148,12 +110032,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 1,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106268,12 +110157,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            127
           ],
           "inclinationDeg": {
             "min": 0,
             "max": 0,
-            "estimated": True
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106433,11 +110327,19 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            51,
+            127
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106553,16 +110455,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
-            50,
-            60,
             75
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106689,14 +110592,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
-            60,
             200
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 14.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106820,9 +110726,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -106940,9 +110851,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 30,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107057,12 +110973,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            70
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 10.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107194,8 +111115,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107328,8 +111254,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 15,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107468,8 +111399,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107593,15 +111529,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            150,
             225,
-            270,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107726,14 +111665,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            50,
-            220,
             280
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 13.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107857,14 +111799,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            70,
-            220,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -107991,8 +111936,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 15,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108127,17 +112077,21 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            100,
             150,
             220,
             255,
-            275
+            275,
+            330
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108262,20 +112216,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            42,
-            72,
-            120,
-            150,
             180,
             190,
-            200,
             240,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108399,15 +112353,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
             152,
-            178,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 24.5,
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108530,17 +112487,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            40,
-            150,
-            220,
             235,
             300
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108663,17 +112621,21 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            100,
             150,
             220,
             255,
-            275
+            275,
+            330
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108846,13 +112808,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            40,
             70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -108969,12 +112935,17 @@ DATABASE = {
         "mainBelt": {
           "values": [
             25,
-            30
+            70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 43,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109090,13 +113061,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            40
+            102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109382,9 +113357,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 28,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109502,9 +113482,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109622,9 +113607,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 29.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109742,9 +113732,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109862,9 +113857,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -109982,9 +113982,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110103,8 +114108,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110222,9 +114232,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110270,9 +114285,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 26.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110319,8 +114339,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110366,9 +114391,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110414,9 +114444,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 29,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110462,9 +114497,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 32.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110511,8 +114551,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110630,9 +114675,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110750,9 +114800,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 25.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110870,9 +114925,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -110991,8 +115051,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 29.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111110,9 +115175,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111231,8 +115301,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111350,9 +115425,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 34,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111470,9 +115550,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111593,9 +115678,14 @@ DATABASE = {
             25
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 32.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111714,8 +115804,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 41.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111833,9 +115928,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -111881,9 +115981,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 28.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112002,8 +116107,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112122,8 +116232,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112242,8 +116357,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 22,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112365,14 +116485,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            21,
             152,
             178
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112416,12 +116540,18 @@ DATABASE = {
         "mainBelt": {
           "values": [
             90,
+            165,
             215
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 8,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112464,14 +116594,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            16,
-            19,
-            50
+            130
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 11,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112515,14 +116648,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            40,
             102
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 20,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112741,13 +116877,17 @@ DATABASE = {
             200,
             210,
             240,
-            250,
             270
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -112881,8 +117021,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113130,14 +117275,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            240,
-            315
+            240
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 17.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113258,14 +117406,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            160,
-            245,
-            320
+            245
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 12.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113386,13 +117537,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
-            120
+            350,
+            400
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 24.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113510,15 +117666,19 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            75,
             150,
-            280
+            280,
+            380
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 26,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113641,15 +117801,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            120,
+            165,
             305
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113766,14 +117929,20 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            50,
-            75
+            80,
+            140,
+            200,
+            410
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 19,
+            "max": 23.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -113888,13 +118057,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
-            120
+            350,
+            400
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 24.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -114009,13 +118183,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            178
+            259,
+            409
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 15.5,
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -114348,15 +118527,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            60,
-            150,
             260
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 16,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -115495,13 +119676,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            13,
             102
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 9.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -115616,13 +119801,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             100
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -115737,12 +119926,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -115861,12 +120055,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27
+            152
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -115981,12 +120180,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            100,
+            152
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 31.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -116101,12 +120306,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            101
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5.5,
+            "max": 18,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -116221,14 +120431,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            30,
-            75
+            155
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -116474,14 +120687,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             100,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -116605,14 +120822,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            28,
-            178,
-            229
+            178
           ],
           "inclinationDeg": {
+            "min": 10,
+            "max": 18.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -116727,14 +120947,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
             100,
             110
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 6,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -116858,15 +121082,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25,
-            30,
             105,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 21,
+            "max": 21,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -117967,12 +122194,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            152
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118101,12 +122333,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            900
           ],
           "inclinationDeg": {
             "min": 0,
             "max": 0,
-            "estimated": True
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118225,9 +122462,14 @@ DATABASE = {
             12
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118345,9 +122587,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118466,8 +122713,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 34.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118582,13 +122834,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             21
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118706,9 +122962,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118874,9 +123135,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 44.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -118994,9 +123260,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119042,9 +123313,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119087,13 +123363,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19,
             21
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 38,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119140,8 +123420,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119259,9 +123544,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119379,9 +123669,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119424,13 +123719,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             19
           ],
           "inclinationDeg": {
+            "min": 6.5,
+            "max": 38.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119549,8 +123848,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119647,8 +123951,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119767,8 +124076,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 2.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119819,9 +124133,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -119940,8 +124259,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 25,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -120060,8 +124384,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 44,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -120162,9 +124491,14 @@ DATABASE = {
             50
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 4.5,
+            "max": 39,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -120325,13 +124659,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            15,
             16
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 42,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -122629,11 +126967,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            16
+          ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -122676,12 +127021,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            25
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -122796,12 +127146,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            152
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 12,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -122920,13 +127275,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            100,
-            275
+            275,
+            350
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 18.5,
+            "max": 19,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123044,12 +127404,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60
+            375
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123176,13 +127541,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32,
-            260
+            260,
+            381
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123299,16 +127669,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            26,
             100,
-            125,
-            200,
             300
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 8.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123431,15 +127803,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            38,
-            51,
-            181,
-            307
+            163,
+            297
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 22,
+            "max": 23,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123555,13 +127930,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            45,
-            127
+            356
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 13.5,
+            "max": 15,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 9.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123682,12 +128061,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            200
+            290,
+            370
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 12.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123811,12 +128196,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            60
+            375
           ],
           "inclinationDeg": {
+            "min": 5,
+            "max": 14,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123874,8 +128264,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -123992,12 +128387,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            70
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124114,11 +128514,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124232,11 +128639,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            89
+          ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 4.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124350,11 +128764,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124469,12 +128890,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32
+            95
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124589,12 +129015,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            32
+            95
           ],
           "inclinationDeg": {
+            "min": 2,
+            "max": 8.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124706,11 +129137,19 @@ DATABASE = {
           "values": []
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            25,
+            76
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 16.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124826,12 +129265,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            19
+            70
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 10,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -124945,11 +129389,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125067,11 +129518,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125186,13 +129644,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            27,
             100
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 7.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125307,13 +129769,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            90,
             190
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2,
+            "max": 32,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1,
+            "max": 9,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125428,12 +129894,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30
+            152
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 11.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125548,12 +130019,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20
+            115
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 5,
+            "max": 17,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 5.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125667,11 +130143,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            83
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125786,14 +130269,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            35,
             140
           ],
           "inclinationDeg": {
+            "min": 12.5,
+            "max": 14.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -125917,18 +130403,18 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            20,
-            30,
-            50,
-            90,
-            120,
             200,
             210
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 1.5,
+            "max": 11.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126043,14 +130529,17 @@ DATABASE = {
         },
         "mainBelt": {
           "values": [
-            30,
-            60,
             140
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9,
+            "max": 12,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126170,11 +130659,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 9.5,
+            "max": 11,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 7.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126292,11 +130788,18 @@ DATABASE = {
           ]
         },
         "mainBelt": {
-          "values": [],
+          "values": [
+            100
+          ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 1.5,
+            "max": 20.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126591,8 +131094,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 39.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126710,9 +131218,14 @@ DATABASE = {
             10
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 2.5,
+            "max": 45.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 3,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126833,8 +131346,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 40,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -126952,9 +131470,14 @@ DATABASE = {
             16
           ],
           "inclinationDeg": {
-            "min": 0,
-            "max": 0,
-            "estimated": True
+            "min": 0.5,
+            "max": 37,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 1.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127075,8 +131598,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 35.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127194,9 +131722,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127314,9 +131847,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 0.5,
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127434,9 +131972,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1,
+            "max": 35,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127554,9 +132097,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 3,
+            "max": 42.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 4.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127676,8 +132224,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 40,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127795,9 +132348,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 41,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -127915,9 +132473,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 8.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -128036,8 +132599,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -128155,9 +132723,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 2.5,
+            "max": 41,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -128275,9 +132848,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 1.5,
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -128396,8 +132974,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 33,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 4,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -128516,8 +133099,13 @@ DATABASE = {
           ],
           "inclinationDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 24.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 3.5,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {
@@ -128635,9 +133223,14 @@ DATABASE = {
             19
           ],
           "inclinationDeg": {
+            "min": 8.5,
+            "max": 40.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
             "min": 0,
-            "max": 0,
-            "estimated": True
+            "max": 2,
+            "estimated": False
           }
         },
         "extendedBowSternBelt": {

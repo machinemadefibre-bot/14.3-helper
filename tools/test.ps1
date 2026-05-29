@@ -152,6 +152,7 @@ function Test-ProjectInvariants {
         "selfVehicleEntity \? selfVehicleEntity\.weaponController : null",
         "aimAssist\.distance",
         "targetBeltObliquityDeg",
+        "mainBeltHeadingMaxDeg",
         "weaponSlotsCount == 0",
         "isDefenseMode \|\| \(isSlotActive && isSupportedAmmo\)",
         "cameraEntity\.camera\.altVision",
@@ -190,6 +191,20 @@ function Test-ProjectInvariants {
             throw "Invalid AP penetration sample for $($ship.name)."
         }
     }
+    $yamato = $db.ships.PSObject.Properties["PJSB018_Yamato_1944"].Value
+    $yamatoMainBelt = $yamato.armor.mainBelt
+    if (-not (@($yamatoMainBelt.values) -contains 410)) {
+        throw "Yamato main belt extraction should include the 410 mm citadel belt."
+    }
+    if ([bool]$yamatoMainBelt.inclinationDeg.estimated -or [bool]$yamatoMainBelt.headingAngleDeg.estimated) {
+        throw "Yamato main belt extraction should have measured inclination and heading-angle ranges."
+    }
+    if ([double]$yamatoMainBelt.inclinationDeg.min -lt 15 -or [double]$yamatoMainBelt.inclinationDeg.max -gt 30) {
+        throw "Yamato main belt inclination range is outside the expected geometry-derived range."
+    }
+    if ([double]$yamatoMainBelt.headingAngleDeg.max -lt 1 -or [double]$yamatoMainBelt.headingAngleDeg.max -gt 12) {
+        throw "Yamato main belt heading-angle range is outside the expected geometry-derived range."
+    }
     if ($unboundText -match '\$datahub\.getSingleComponent\(CC\.weaponController\)') {
         throw "APOvermatchAssistant.unbound should not depend on the global CC.weaponController component."
     }
@@ -225,13 +240,17 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path $updatePath -Needle 'function Resolve-GeneratedGameParamsJson' -Description "Generated GameParams refinement lookup"
     Assert-PathExists $manualEditorPath
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Manually edit armor database' -Description "Manual editor menu option"
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'Extract main belt geometry' -Description "Main belt extraction menu option"
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-ManualEditor' -Description "Manual editor launcher"
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-MainBeltExtraction' -Description "Main belt extraction launcher"
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-UnboundArmorDbGeneration' -Description "Unbound database sync after updates"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\build.ps1") -Needle 'generate-unbound-armor-db.mjs' -Description "Build syncs Unbound armor database"
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'mainGunAp' -Description "Fast generator extracts AP shell data"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'apv:' -Description "Unbound database embeds AP penetration tables"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'hmx:' -Description "Unbound database embeds main belt heading-angle ranges"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'main-belt-only' -Description "Geometry refiner supports main belt only extraction"
 
     $updateAndBuildText = Get-Content -LiteralPath $updateAndBuildPath -Raw
     if ($updateAndBuildText -match 'Added ships /|Removed ships /|Changed ships /') {

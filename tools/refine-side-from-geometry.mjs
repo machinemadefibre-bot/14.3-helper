@@ -156,6 +156,8 @@ function newSurfaceBounds() {
     area: 0,
     min: [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
     max: [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY],
+    inclinationHistogram: [],
+    headingHistogram: [],
   };
 }
 
@@ -177,6 +179,16 @@ function mergeSurfaceBounds(target, source) {
   if (source.count) {
     includePoint(target, source.min);
     includePoint(target, source.max);
+  }
+  for (let index = 0; index < (source.inclinationHistogram || []).length; index++) {
+    const value = source.inclinationHistogram[index] || 0;
+    if (!value) continue;
+    target.inclinationHistogram[index] = (target.inclinationHistogram[index] || 0) + value;
+  }
+  for (let index = 0; index < (source.headingHistogram || []).length; index++) {
+    const value = source.headingHistogram[index] || 0;
+    if (!value) continue;
+    target.headingHistogram[index] = (target.headingHistogram[index] || 0) + value;
   }
 }
 
@@ -207,18 +219,38 @@ function triangleMetrics(vertices) {
   ];
   const length = Math.hypot(normal[0], normal[1], normal[2]);
   const safeLength = length || 1;
+  const nx = Math.abs(normal[0]) / safeLength;
+  const ny = Math.abs(normal[1]) / safeLength;
+  const nz = Math.abs(normal[2]) / safeLength;
+  const horizontalNormal = Math.hypot(nx, nz);
   return {
     area: length / 2,
-    nx: Math.abs(normal[0]) / safeLength,
-    ny: Math.abs(normal[1]) / safeLength,
-    nz: Math.abs(normal[2]) / safeLength,
+    nx,
+    ny,
+    nz,
+    inclinationDeg: Math.atan2(ny, Math.max(horizontalNormal, 0.000001)) * 180 / Math.PI,
+    headingAngleDeg: Math.atan2(nz, Math.max(nx, 0.000001)) * 180 / Math.PI,
   };
 }
 
-function addSurfaceTriangle(bounds, vertices, area) {
+function addInclinationSample(bounds, angleDeg, area) {
+  if (!Number.isFinite(angleDeg) || !Number.isFinite(area) || area <= 0) return;
+  const bucket = Math.max(0, Math.min(180, Math.round(angleDeg * 2)));
+  bounds.inclinationHistogram[bucket] = (bounds.inclinationHistogram[bucket] || 0) + area;
+}
+
+function addHeadingSample(bounds, angleDeg, area) {
+  if (!Number.isFinite(angleDeg) || !Number.isFinite(area) || area <= 0) return;
+  const bucket = Math.max(0, Math.min(180, Math.round(angleDeg * 2)));
+  bounds.headingHistogram[bucket] = (bounds.headingHistogram[bucket] || 0) + area;
+}
+
+function addSurfaceTriangle(bounds, vertices, area, inclinationDeg = null, headingAngleDeg = null) {
   bounds.count++;
   bounds.area += area;
   for (const vertex of vertices) includePoint(bounds, vertex);
+  addInclinationSample(bounds, inclinationDeg, area);
+  addHeadingSample(bounds, headingAngleDeg, area);
 }
 
 function parseArmorData(data) {
@@ -254,7 +286,9 @@ function parseArmorData(data) {
       const metrics = triangleMetrics(vertices);
       bounds.area += metrics.area;
       if (metrics.ny >= 0.85) addSurfaceTriangle(bounds.horizontal, vertices, metrics.area);
-      if (metrics.nx >= 0.70) addSurfaceTriangle(bounds.side, vertices, metrics.area);
+      if (metrics.nx >= 0.70) {
+        addSurfaceTriangle(bounds.side, vertices, metrics.area, metrics.inclinationDeg, metrics.headingAngleDeg);
+      }
       if (metrics.nz >= 0.70) addSurfaceTriangle(bounds.trans, vertices, metrics.area);
     }
     groups.set(key, bounds);
@@ -450,6 +484,19 @@ function submarineArmorFromHull(hull) {
     stern: values,
     deck: values,
     side: values,
+    mainBelt: {
+      values: [],
+      inclinationDeg: {
+        min: 0,
+        max: 0,
+        estimated: true,
+      },
+      headingAngleDeg: {
+        min: 0,
+        max: 0,
+        estimated: true,
+      },
+    },
     extendedBelt: {
       present: false,
       values: [],
@@ -617,6 +664,124 @@ function extendedBeltFromEntries(entries, bowValues, sternValues) {
   };
 }
 
+function isPrimaryMainBeltMaterial(materialName) {
+  const bowOrStern = isBowMaterial(materialName) || isSternMaterial(materialName);
+  return !bowOrStern &&
+    /(^|_)Cit_Belt$|(^|_)OCit_Belt$|Dual_Cit_Cas_Belt|Dual_Cit_SSC_Belt|SideCit|^Belt$/.test(materialName) &&
+    !/Bow|St_|St$|Trans|Deck|Bottom|Bulge|Tur|Art|Bridge|Funnel|Kdp|Rudder|SS_|SSC_|SideSS|Inclin/.test(materialName);
+}
+
+function isFallbackMainBeltMaterial(materialName) {
+  const bowOrStern = isBowMaterial(materialName) || isSternMaterial(materialName);
+  return !bowOrStern &&
+    /Belt/.test(materialName) &&
+    !/Bow|St_|St$|Trans|Deck|Bottom|Bulge|Tur|Art|Bridge|Funnel|Kdp|Rudder|SS_|SideSS|Inclin/.test(materialName);
+}
+
+function hasMainBeltSurface(entry) {
+  const side = sideSurface(entry);
+  if (!side || side.area <= 0) return false;
+  if (sideTransArea(entry) > side.area * 0.35) return false;
+  return side.max[1] >= -0.85;
+}
+
+function weightedPercentileFromHistogram(histogram, percentile) {
+  const total = (histogram || []).reduce((sum, area) => sum + (area || 0), 0);
+  if (total <= 0) return null;
+  const threshold = total * percentile;
+  let running = 0;
+  for (let index = 0; index < histogram.length; index++) {
+    running += histogram[index] || 0;
+    if (running >= threshold) return index / 2;
+  }
+  return (histogram.length - 1) / 2;
+}
+
+function inclinationRangeFromEntries(entries) {
+  const histogram = [];
+  for (const entry of entries) {
+    const side = sideSurface(entry);
+    for (let index = 0; index < (side?.inclinationHistogram || []).length; index++) {
+      const area = side.inclinationHistogram[index] || 0;
+      if (!area) continue;
+      histogram[index] = (histogram[index] || 0) + area;
+    }
+  }
+
+  const min = weightedPercentileFromHistogram(histogram, 0.10);
+  const max = weightedPercentileFromHistogram(histogram, 0.90);
+  if (min == null || max == null) {
+    return { min: 0, max: 0, estimated: true };
+  }
+
+  return {
+    min: Math.round(Math.min(min, max) * 10) / 10,
+    max: Math.round(Math.max(min, max) * 10) / 10,
+    estimated: false,
+  };
+}
+
+function headingAngleRangeFromEntries(entries) {
+  const histogram = [];
+  for (const entry of entries) {
+    const side = sideSurface(entry);
+    for (let index = 0; index < (side?.headingHistogram || []).length; index++) {
+      const area = side.headingHistogram[index] || 0;
+      if (!area) continue;
+      histogram[index] = (histogram[index] || 0) + area;
+    }
+  }
+
+  const min = weightedPercentileFromHistogram(histogram, 0.10);
+  const max = weightedPercentileFromHistogram(histogram, 0.90);
+  if (min == null || max == null) {
+    return { min: 0, max: 0, estimated: true };
+  }
+
+  return {
+    min: Math.round(Math.min(min, max) * 10) / 10,
+    max: Math.round(Math.max(min, max) * 10) / 10,
+    estimated: false,
+  };
+}
+
+function mainBeltFromEntries(entries, shipKey) {
+  if (isSubmarineKey(shipKey)) {
+    return {
+      values: [],
+      inclinationDeg: { min: 0, max: 0, estimated: true },
+      headingAngleDeg: { min: 0, max: 0, estimated: true },
+    };
+  }
+
+  let candidates = filterBroadSideLayers(entries.filter((entry) => (
+    isPrimaryMainBeltMaterial(entry.materialName) &&
+    hasMainBeltSurface(entry)
+  )));
+  if (!candidates.length) {
+    candidates = filterBroadSideLayers(entries.filter((entry) => (
+      isFallbackMainBeltMaterial(entry.materialName) &&
+      hasMainBeltSurface(entry)
+    )));
+  }
+  if (!candidates.length) {
+    return {
+      values: [],
+      inclinationDeg: { min: 0, max: 0, estimated: true },
+      headingAngleDeg: { min: 0, max: 0, estimated: true },
+    };
+  }
+
+  const strongest = Math.max(...candidates.map((entry) => entry.thickness));
+  const floor = strongest >= 100 ? Math.max(40, strongest * 0.15) : 0;
+  const selected = candidates.filter((entry) => entry.thickness >= floor);
+  return {
+    values: sideValues(selected),
+    inclinationDeg: inclinationRangeFromEntries(selected),
+    headingAngleDeg: headingAngleRangeFromEntries(selected),
+  };
+}
+
 function armorValuesFromHull(shipKey, hull, materialNames, geometryIndex) {
   if (isSubmarineKey(shipKey)) return submarineArmorFromHull(hull);
   const entries = armorEntriesFromHull(hull, materialNames, geometryIndex);
@@ -629,6 +794,7 @@ function armorValuesFromHull(shipKey, hull, materialNames, geometryIndex) {
     deck: deckValuesFromEntries(entries, shipKey),
     side: sideValuesFromEntries(entries, shipKey),
     extendedBelt: extendedBeltFromEntries(entries, bow, stern),
+    mainBelt: mainBeltFromEntries(entries, shipKey),
   };
 }
 
@@ -673,6 +839,18 @@ function intersectExisting(candidateValues, currentValues) {
   return sortUnique(candidateValues.filter((value) => currentSet.has(value)));
 }
 
+function sameInclination(left = {}, right = {}) {
+  return Number(left.min || 0) === Number(right.min || 0) &&
+    Number(left.max || 0) === Number(right.max || 0) &&
+    Boolean(left.estimated) === Boolean(right.estimated);
+}
+
+function sameMainBelt(left = {}, right = {}) {
+  return sameValues(sortUnique(left.values || []), sortUnique(right.values || [])) &&
+    sameInclination(left.inclinationDeg || {}, right.inclinationDeg || {}) &&
+    sameInclination(left.headingAngleDeg || {}, right.headingAngleDeg || {});
+}
+
 async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, options = {}) {
   const shipKeys = new Set(Object.keys(db.ships || {}));
   const stream = fs.createReadStream(gameParamsPath, { encoding: 'utf8' });
@@ -685,6 +863,7 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
   let changedBowStern = 0;
   let changedDeck = 0;
   let changedExtendedBelt = 0;
+  let changedMainBelt = 0;
   let inspected = 0;
   let missingGeometry = 0;
   let protectedDestroyers = 0;
@@ -716,7 +895,7 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
       const geometryArmor = armorValuesFromHull(entryName, selectedHull, materialNames, geometryIndex);
       if (geometryArmor === null) {
         missingGeometry++;
-        if (!isSubmarineKey(entryName) && dbShip?.armor?.extendedBowSternBelt?.present) {
+        if (!options.mainBeltOnly && !isSubmarineKey(entryName) && dbShip?.armor?.extendedBowSternBelt?.present) {
           dbShip.armor.extendedBowSternBelt = {
             present: false,
             values: [],
@@ -729,6 +908,21 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
         const armor = dbShip.armor;
         const bowStern = armor.bowStern || {};
         const isSubmarine = isSubmarineKey(entryName);
+
+        if (options.updateMainBelt && geometryArmor.mainBelt?.values?.length) {
+          const currentMainBelt = armor.mainBelt || {};
+          if (!sameMainBelt(currentMainBelt, geometryArmor.mainBelt)) {
+            armor.mainBelt = geometryArmor.mainBelt;
+            changedMainBelt++;
+          }
+        }
+
+        if (options.mainBeltOnly) {
+          capturing = false;
+          entryName = null;
+          lines = [];
+          continue;
+        }
 
         const currentBow = sortUnique(bowStern.bow || []);
         if (isSubmarine && geometryArmor.bow.length) {
@@ -838,6 +1032,7 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
     changedBowStern,
     changedDeck,
     changedExtendedBelt,
+    changedMainBelt,
     inspected,
     missingGeometry,
     protectedDestroyers,
@@ -855,10 +1050,12 @@ const materialNames = loadMaterialNames();
 const geometryIndex = buildGeometryIndex(geometryDir);
 const result = await refineDatabase(db, gameParamsPath, materialNames, geometryIndex, {
   updateDeck: args['no-update-deck'] ? false : true,
+  updateMainBelt: args['no-update-main-belt'] ? false : true,
+  mainBeltOnly: Boolean(args['main-belt-only']),
 });
 
 if (db.meta) {
-  const note = 'Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor.';
+  const note = 'Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor.';
   db.meta.notes = db.meta.notes && !db.meta.notes.includes(note)
     ? `${note} ${db.meta.notes}`
     : (db.meta.notes || note);
@@ -871,6 +1068,7 @@ console.log(`Geometry side refinement changed ${result.changed} ships.`);
 console.log(`Geometry bow/stern refinement changed ${result.changedBowStern} field(s).`);
 console.log(`Geometry deck refinement changed ${result.changedDeck} ship(s).`);
 console.log(`Geometry extended belt refinement changed ${result.changedExtendedBelt} ship(s).`);
+console.log(`Geometry main belt extraction changed ${result.changedMainBelt} ship(s).`);
 console.log(`Geometry side refinement missing geometry for ${result.missingGeometry} ships.`);
 console.log(`Geometry side refinement protected ${result.protectedDestroyers} destroyer side value(s).`);
 console.log(`Geometry side refinement changed ${result.carrierSideChanged} carrier side value(s).`);

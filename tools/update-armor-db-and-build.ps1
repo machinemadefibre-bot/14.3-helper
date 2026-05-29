@@ -15,7 +15,7 @@ param(
     [switch]$AllowUnrefinedDatabase,
     [switch]$NoPause,
     [switch]$SelfTest,
-    [ValidateSet("", "menu", "update", "edit")]
+    [ValidateSet("", "menu", "update", "edit", "mainbelt")]
     [string]$Mode = ""
 )
 
@@ -243,12 +243,14 @@ function Read-ToolMode {
         Write-Host "AP Overmatch armor tool" -ForegroundColor Cyan
         Write-Host "  1. Update armor database and build package"
         Write-Host "  2. Manually edit armor database"
-        Write-Host "  3. Exit"
+        Write-Host "  3. Extract main belt geometry"
+        Write-Host "  4. Exit"
         $answer = (Read-Host "Select option [1]").Trim()
         if (-not $answer -or $answer -eq "1") { return "update" }
         if ($answer -eq "2") { return "edit" }
-        if ($answer -eq "3" -or $answer -match '^(Q|QUIT|EXIT)$') { return "exit" }
-        Write-Host "Please select 1, 2, or 3."
+        if ($answer -eq "3") { return "mainbelt" }
+        if ($answer -eq "4" -or $answer -match '^(Q|QUIT|EXIT)$') { return "exit" }
+        Write-Host "Please select 1, 2, 3, or 4."
     }
 }
 
@@ -296,6 +298,83 @@ function Invoke-UnboundArmorDbGeneration {
     & $node $script
     if ($LASTEXITCODE -ne 0) {
         throw "generate-unbound-armor-db.mjs failed with exit code $LASTEXITCODE"
+    }
+}
+
+function Resolve-CurrentGameParamsJson {
+    if ($GameParamsJson) {
+        if (-not (Test-Path -LiteralPath $GameParamsJson)) { throw "GameParams JSON not found: $GameParamsJson" }
+        return (Resolve-Path $GameParamsJson).Path
+    }
+
+    $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
+    $db = Read-JsonFile $dataPath
+    $build = Get-MetaValue $db "gameBuild"
+    $dbRealm = Get-MetaValue $db "realm"
+    $realmName = if ($Realm) { $Realm } elseif ($dbRealm) { $dbRealm } else { "ASIA" }
+    $candidates = @()
+    if ($build -and $realmName) { $candidates += Join-Path $ProjectRoot "build\gameparams\GameParams_$($build)_$($realmName).json" }
+    if ($build) { $candidates += Join-Path $ProjectRoot "build\gameparams\GameParams_$($build).json" }
+    if ($realmName) { $candidates += Join-Path $ProjectRoot "build\gameparams\GameParams_$($realmName).json" }
+
+    foreach ($candidate in $candidates) {
+        if (Test-Path -LiteralPath $candidate) { return (Resolve-Path $candidate).Path }
+    }
+    throw "GameParams JSON not found. Provide -GameParamsJson or run option 1 first."
+}
+
+function Invoke-MainBeltExtraction {
+    param([string]$TestScript, [string]$BuildScript)
+
+    $node = Get-UsableNode
+    if (-not $node) {
+        throw "Node.js is required for main belt extraction. Put node.exe under .tools\node or install Node.js."
+    }
+
+    $script = Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs"
+    if (-not (Test-Path -LiteralPath $script)) {
+        throw "Main belt extraction script not found: $script"
+    }
+
+    $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
+    $gameParamsPath = Resolve-CurrentGameParamsJson
+    $resolvedGeometryDir = if ($GeometryDir) { $GeometryDir } else { Join-Path $ProjectRoot "build\scratch\ship_geometry_flat" }
+    if (-not (Test-Path -LiteralPath $resolvedGeometryDir)) {
+        throw "Geometry directory not found: $resolvedGeometryDir"
+    }
+
+    $snapshotDir = Join-Path $ProjectRoot "tools\armor_snapshots"
+    New-Item -ItemType Directory -Force -Path $snapshotDir | Out-Null
+    $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+    $backupPath = Join-Path $snapshotDir ("armor_overmatch.mainbelt.{0}.json" -f $timestamp)
+    Copy-Item -LiteralPath $dataPath -Destination $backupPath -Force
+    Write-Host ("Backed up old database: {0}" -f $backupPath)
+
+    Write-Host "Extracting main belt geometry..."
+    & $node $script "--db" $dataPath "--game-params" $gameParamsPath "--geometry-dir" $resolvedGeometryDir "--main-belt-only"
+    if ($LASTEXITCODE -ne 0) {
+        throw "refine-side-from-geometry.mjs failed with exit code $LASTEXITCODE"
+    }
+
+    Invoke-UnboundArmorDbGeneration
+
+    $db = Read-JsonFile $dataPath
+    $yamato = if ($db.ships) { $db.ships.PSObject.Properties["PJSB018_Yamato_1944"].Value } else { $null }
+    if ($yamato -and $yamato.armor -and $yamato.armor.mainBelt) {
+        $belt = $yamato.armor.mainBelt
+        Write-Host ("Yamato main belt: {0} mm, inclination {1}-{2} deg, heading angle {3}-{4} deg" -f `
+            ((As-Array $belt.values) -join "/"), `
+            $belt.inclinationDeg.min, $belt.inclinationDeg.max, `
+            $belt.headingAngleDeg.min, $belt.headingAngleDeg.max)
+    }
+
+    if (Read-Confirmation "Run rule tests and build package now?") {
+        Write-Host ""
+        Write-Host "Running rule tests..."
+        Invoke-Checked "powershell" @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $TestScript)
+        Invoke-BuildPackage (Get-CurrentDatabaseBuild) $BuildScript
+    } else {
+        Write-Host "Main belt extraction finished. Database was changed, package was not built."
     }
 }
 
@@ -365,6 +444,10 @@ try {
     if ($selectedMode -eq "exit") { return }
     if ($selectedMode -eq "edit") {
         Invoke-ManualEditor $manualEditorScript $testScript $buildScript
+        return
+    }
+    if ($selectedMode -eq "mainbelt") {
+        Invoke-MainBeltExtraction $testScript $buildScript
         return
     }
 

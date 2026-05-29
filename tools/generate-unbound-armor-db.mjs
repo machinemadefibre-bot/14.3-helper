@@ -73,6 +73,7 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
   const mainBelt = armor.mainBelt || {};
   const mainBeltSection = section(flatten(mainBelt.values || mainBelt || armor.side));
   const inclination = mainBelt.inclinationDeg || {};
+  const headingAngle = mainBelt.headingAngleDeg || {};
   const ap = ship.mainGunAp || {};
   const apTable = Array.isArray(ap.table) ? ap.table : [];
   const apVerticalPen = apTable.map((row) => row.verticalPenetrationMm);
@@ -126,6 +127,9 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     imn: numeric(inclination.min),
     imx: numeric(inclination.max),
     ie: Boolean(inclination.estimated),
+    hmn: numeric(headingAngle.min),
+    hmx: numeric(headingAngle.max),
+    hie: Boolean(headingAngle.estimated),
     bp: beltPresent,
     bbp: beltBowPresent,
     bbmn: beltBow.min,
@@ -154,6 +158,7 @@ for (const [id, rec] of Object.entries(records).sort((a, b) => Number(a[0]) - Nu
     `bmn:${rec.bmn}, bmx:${rec.bmx}, bt:${literalString(rec.bt)}, smn:${rec.smn}, smx:${rec.smx}, st:${literalString(rec.st)}, ` +
     `dmn:${rec.dmn}, dmx:${rec.dmx}, dt:${literalString(rec.dt)}, xmn:${rec.xmn}, xmx:${rec.xmx}, xt:${literalString(rec.xt)}, ` +
     `mbmn:${rec.mbmn}, mbmx:${rec.mbmx}, mbt:${literalString(rec.mbt)}, imn:${rec.imn}, imx:${rec.imx}, ie:${rec.ie ? 'true' : 'false'}, ` +
+    `hmn:${rec.hmn}, hmx:${rec.hmx}, hie:${rec.hie ? 'true' : 'false'}, ` +
     `bp:${rec.bp ? 'true' : 'false'}, bbp:${rec.bbp ? 'true' : 'false'}, bbmn:${rec.bbmn}, bbmx:${rec.bbmx}, bbt:${literalString(rec.bbt)}, ` +
     `bsp:${rec.bsp ? 'true' : 'false'}, bsmn:${rec.bsmn}, bsmx:${rec.bsmx}, bst:${literalString(rec.bst)}, ` +
     `blmn:${rec.blmn}, blmx:${rec.blmx}, blt:${literalString(rec.blt)}},`
