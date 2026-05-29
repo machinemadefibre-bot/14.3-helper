@@ -193,8 +193,9 @@ function Test-ProjectInvariants {
     }
     $yamato = $db.ships.PSObject.Properties["PJSB018_Yamato_1944"].Value
     $yamatoMainBelt = $yamato.armor.mainBelt
-    if (-not (@($yamatoMainBelt.values) -contains 410)) {
-        throw "Yamato main belt extraction should include the 410 mm citadel belt."
+    $yamatoMainBeltText = @($yamatoMainBelt.values) -join "/"
+    if ($yamatoMainBeltText -ne "410") {
+        throw "Yamato main belt extraction should use only the 410 mm primary belt, actual=$yamatoMainBeltText."
     }
     if ([bool]$yamatoMainBelt.inclinationDeg.estimated -or [bool]$yamatoMainBelt.headingAngleDeg.estimated) {
         throw "Yamato main belt extraction should have measured inclination and heading-angle ranges."

@@ -773,8 +773,7 @@ function mainBeltFromEntries(entries, shipKey) {
   }
 
   const strongest = Math.max(...candidates.map((entry) => entry.thickness));
-  const floor = strongest >= 100 ? Math.max(40, strongest * 0.15) : 0;
-  const selected = candidates.filter((entry) => entry.thickness >= floor);
+  const selected = candidates.filter((entry) => entry.thickness === strongest);
   return {
     values: sideValues(selected),
     inclinationDeg: inclinationRangeFromEntries(selected),
