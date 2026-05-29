@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 
 $src = Join-Path $ProjectRoot "src"
 $dist = Join-Path $ProjectRoot "dist"
-$buildRoot = Join-Path $ProjectRoot "build"
+$buildRoot = Join-Path ([System.IO.Path]::GetTempPath()) "14.3-helper-build"
 $build = Join-Path $buildRoot ("package_" + [System.Guid]::NewGuid().ToString("N"))
 
 function ConvertTo-SafeNamePart {

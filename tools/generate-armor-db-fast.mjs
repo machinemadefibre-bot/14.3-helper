@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
+import { normalizeApShell } from './ap-penetration.mjs';
 
 function parseArgs(argv) {
   const args = {};
@@ -215,6 +216,21 @@ function projectileRecord(entryName, lines) {
   let hePen = null;
   let sapPen = null;
   let caliber = null;
+  const ap = {
+    shellName: entryName,
+    caliberM: null,
+    caliberMm: null,
+    massKg: null,
+    muzzleVelocityMps: null,
+    krupp: null,
+    airDrag: null,
+    ricochetAtDeg: null,
+    alwaysRicochetAtDeg: null,
+    normalizationDeg: null,
+    hasCap: false,
+    detonatorThresholdMm: null,
+    detonatorSec: null,
+  };
   for (const line of lines) {
     let m = line.match(/"ammoType": "([^"]+)"/);
     if (m) ammoType = m[1];
@@ -223,17 +239,49 @@ function projectileRecord(entryName, lines) {
     m = line.match(/"alphaPiercingCS": ([0-9.]+)/);
     if (m) sapPen = Number(m[1]);
     m = line.match(/"bulletDiametr": ([0-9.]+)/);
-    if (m) caliber = normalizeCaliber(m[1]);
+    if (m) {
+      ap.caliberM = Number(m[1]);
+      caliber = normalizeCaliber(m[1]);
+      ap.caliberMm = caliber;
+    }
+    m = line.match(/"bulletMass": ([0-9.]+)/);
+    if (m) ap.massKg = Number(m[1]);
+    m = line.match(/"bulletSpeed": ([0-9.]+)/);
+    if (m) ap.muzzleVelocityMps = Number(m[1]);
+    m = line.match(/"bulletKrupp": ([0-9.]+)/);
+    if (m) ap.krupp = Number(m[1]);
+    m = line.match(/"bulletAirDrag": ([0-9.]+)/);
+    if (m) ap.airDrag = Number(m[1]);
+    m = line.match(/"bulletRicochetAt": ([0-9.]+)/);
+    if (m) ap.ricochetAtDeg = Number(m[1]);
+    m = line.match(/"bulletAlwaysRicochetAt": ([0-9.]+)/);
+    if (m) ap.alwaysRicochetAtDeg = Number(m[1]);
+    m = line.match(/"bulletCapNormalizeMaxAngle": ([0-9.]+)/);
+    if (m) ap.normalizationDeg = Number(m[1]);
+    m = line.match(/"bulletCap": (true|false)/);
+    if (m) ap.hasCap = m[1] === 'true';
+    m = line.match(/"bulletDetonatorThreshold": ([0-9.]+)/);
+    if (m) ap.detonatorThresholdMm = Number(m[1]);
+    m = line.match(/"bulletDetonator": ([0-9.]+)/);
+    if (m) ap.detonatorSec = Number(m[1]);
   }
+  const record = {
+    name: entryName,
+    ammoType,
+    caliberMm: caliber,
+  };
+  if (ammoType === 'AP') {
+    const shell = normalizeApShell(ap);
+    return shell ? { ...record, ap: shell } : null;
+  }
+
   let penetration = null;
   if (ammoType === 'HE' && hePen > 0) penetration = hePen;
   else if (ammoType === 'CS' && sapPen > 0) penetration = sapPen;
   else return null;
   return {
-    name: entryName,
-    ammoType,
+    ...record,
     penetrationMm: Math.round(penetration * 10) / 10,
-    caliberMm: caliber,
   };
 }
 
@@ -253,6 +301,29 @@ function findMainGunPen(ammoNames, projectileMap, caliber, ammoType) {
     }
   }
   return values.length ? sortUnique(values).at(-1) : null;
+}
+
+function findMainGunAp(ammoNames, projectileMap, caliber) {
+  const candidates = [];
+  for (const name of [...new Set(ammoNames)]) {
+    const projectile = projectileMap.get(name);
+    if (!projectile || projectile.ammoType !== 'AP' || !projectile.ap) continue;
+    if (caliber && projectile.caliberMm && Math.abs(projectile.caliberMm - caliber) > 2) continue;
+    candidates.push(projectile.ap);
+  }
+  if (!candidates.length && caliber) {
+    for (const name of [...new Set(ammoNames)]) {
+      const projectile = projectileMap.get(name);
+      if (projectile && projectile.ammoType === 'AP' && projectile.ap) candidates.push(projectile.ap);
+    }
+  }
+  if (!candidates.length) return null;
+  candidates.sort((a, b) => {
+    const aPen = a.table?.[0]?.verticalPenetrationMm || 0;
+    const bPen = b.table?.[0]?.verticalPenetrationMm || 0;
+    return bPen - aPen;
+  });
+  return candidates[0];
 }
 
 function collectMainGunStats(lines) {
@@ -467,6 +538,7 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
     mainGunCaliberMm: maxCaliber,
     mainGunHePenMm: findMainGunPen(ammoNames, projectileMap, maxCaliber, 'HE'),
     mainGunSapPenMm: findMainGunPen(ammoNames, projectileMap, maxCaliber, 'CS'),
+    mainGunAp: findMainGunAp(ammoNames, projectileMap, maxCaliber),
     _originShipName: originShipName,
     _unpeculiarShip: unpeculiarShip,
     _shipModel: shipModel,
@@ -477,6 +549,14 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
       },
       deck: { values: selectPrimaryDeck(selectedGroups.deck, selectedGroups.bow, selectedGroups.stern, sideValues) },
       side: { values: sideValues },
+      mainBelt: {
+        values: sideValues,
+        inclinationDeg: {
+          min: 0,
+          max: 0,
+          estimated: true,
+        },
+      },
       extendedBowSternBelt: {
         present: extendedBelt.values.length > 0,
         values: extendedBelt.values,
@@ -494,7 +574,7 @@ function hasMainGunStats(ship) {
 function copyMissingMainGunStats(target, source) {
   if (!target || !source || !hasMainGunStats(source)) return false;
   let changed = false;
-  for (const field of ['mainGunCaliberMm', 'mainGunHePenMm', 'mainGunSapPenMm']) {
+  for (const field of ['mainGunCaliberMm', 'mainGunHePenMm', 'mainGunSapPenMm', 'mainGunAp']) {
     if (target[field] == null && source[field] != null) {
       target[field] = source[field];
       changed = true;
@@ -517,6 +597,7 @@ function resolveDerivedShipMainGuns(ships) {
       mainGunCaliberMm: ship.mainGunCaliberMm,
       mainGunHePenMm: ship.mainGunHePenMm,
       mainGunSapPenMm: ship.mainGunSapPenMm,
+      mainGunAp: ship.mainGunAp,
     };
     const signature = JSON.stringify(stats);
     if (!modelStats.has(ship._shipModel)) modelStats.set(ship._shipModel, new Map());
@@ -670,7 +751,7 @@ async function main() {
 
   console.log(`Streaming ${gameParamsJson} with fast Node parser...`);
   const projectileMap = await collectProjectilePenetration(gameParamsJson);
-  console.log(`Collected ${projectileMap.size} HE/SAP projectile penetration records.`);
+  console.log(`Collected ${projectileMap.size} projectile records.`);
   const ships = await collectShips(
     gameParamsJson,
     projectileMap,
@@ -681,14 +762,14 @@ async function main() {
   applyOverrides(ships, args['override-path']);
 
   const database = {
-    schema: 2,
+    schema: 3,
     meta: {
       name: '14.3-helper',
       gameBuild: build,
       realm,
       generatedAt: new Date().toISOString().slice(0, 19),
       source: 'wowsunpack GameParams JSON, streamed per ship',
-      notes: 'Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS and filtered by the largest main-gun caliber. Extraction is opt-in to avoid high memory use.',
+      notes: 'Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side/mainBelt uses side belt-like materials as a first-pass main belt proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks.',
     },
     ships,
   };

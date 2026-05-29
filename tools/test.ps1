@@ -27,6 +27,20 @@ function Find-Python {
     return $null
 }
 
+function Find-Node {
+    $bundledNode = Join-Path $ProjectRoot ".tools\node\node.exe"
+    if (Test-Path -LiteralPath $bundledNode) {
+        return $bundledNode
+    }
+
+    $nodeCommand = Get-Command node -ErrorAction SilentlyContinue
+    if ($nodeCommand) {
+        return $nodeCommand.Source
+    }
+
+    return $null
+}
+
 function Invoke-Checked {
     param(
         [string]$FilePath,
@@ -86,7 +100,9 @@ function Test-ProjectInvariants {
         "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.py",
         "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json",
         "src\res_mods\gui\unbound2\PnFMods\APOvermatchAssistant.unbound",
-        "src\res_mods\PnFMods\ModsInstaller_4_3_1\mods\APOvermatchAssistant.xml"
+        "src\res_mods\PnFMods\ModsInstaller_4_3_1\mods\APOvermatchAssistant.xml",
+        "tools\ap-penetration.mjs",
+        "tools\diagnose-ap-penetration.mjs"
     )
 
     foreach ($relativePath in $requiredSourceFiles) {
@@ -131,8 +147,11 @@ function Test-ProjectInvariants {
         "\(def element OA_APOvermatchAssistant\(\)",
         "\(def element OA_AmmoPanel",
         "\(def element OA_RulePanel",
+        "\(def element OA_MainBeltRow",
         "getFirstWatcher\(CC\.selfVehicle\)",
         "selfVehicleEntity \? selfVehicleEntity\.weaponController : null",
+        "aimAssist\.distance",
+        "targetBeltObliquityDeg",
         "weaponSlotsCount == 0",
         "isDefenseMode \|\| \(isSlotActive && isSupportedAmmo\)",
         "cameraEntity\.camera\.altVision",
@@ -156,6 +175,20 @@ function Test-ProjectInvariants {
     }
     if ([string]$db.meta.gameBuild -ne $Matches[1]) {
         throw "Unbound armor DB build $($Matches[1]) does not match JSON armor DB build $($db.meta.gameBuild). Run tools\generate-unbound-armor-db.mjs."
+    }
+    if ([int]$db.schema -lt 3) {
+        throw "Armor database schema must include AP penetration fields."
+    }
+    $shipsWithMainGuns = @($db.ships.PSObject.Properties.Value | Where-Object { [double]($_.mainGunCaliberMm) -gt 0 })
+    $shipsWithApTables = @($shipsWithMainGuns | Where-Object { $_.mainGunAp -and $_.mainGunAp.table -and $_.mainGunAp.table.Count -ge 7 })
+    if ($shipsWithMainGuns.Count -gt 0 -and ($shipsWithApTables.Count / [double]$shipsWithMainGuns.Count) -lt 0.40) {
+        throw "AP table coverage is unexpectedly low: $($shipsWithApTables.Count)/$($shipsWithMainGuns.Count)."
+    }
+    foreach ($ship in $shipsWithApTables | Select-Object -First 10) {
+        $sample = $ship.mainGunAp.table[0]
+        if ([double]$sample.verticalPenetrationMm -le 0 -or [double]$sample.velocityMps -le 0) {
+            throw "Invalid AP penetration sample for $($ship.name)."
+        }
     }
     if ($unboundText -match '\$datahub\.getSingleComponent\(CC\.weaponController\)') {
         throw "APOvermatchAssistant.unbound should not depend on the global CC.weaponController component."
@@ -197,6 +230,8 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\build.ps1") -Needle 'generate-unbound-armor-db.mjs' -Description "Build syncs Unbound armor database"
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'mainGunAp' -Description "Fast generator extracts AP shell data"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'apv:' -Description "Unbound database embeds AP penetration tables"
 
     $updateAndBuildText = Get-Content -LiteralPath $updateAndBuildPath -Raw
     if ($updateAndBuildText -match 'Added ships /|Removed ships /|Changed ships /') {
@@ -208,6 +243,12 @@ Push-Location $ProjectRoot
 try {
     Test-ProjectInvariants
     Test-ToolingInvariants
+
+    $nodeExe = Find-Node
+    if (-not $nodeExe) {
+        throw "Node.js was not found. Install Node.js or keep .tools\node\node.exe for AP penetration diagnostics."
+    }
+    Invoke-Checked -FilePath $nodeExe -Arguments @((Join-Path $ProjectRoot "tools\diagnose-ap-penetration.mjs"), "--self-test")
 
     if (-not $SkipPython) {
         $pythonArgs = @(Find-Python)

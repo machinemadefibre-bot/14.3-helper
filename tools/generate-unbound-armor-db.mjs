@@ -54,6 +54,10 @@ function numeric(value) {
   return Number.isFinite(num) ? Number(num.toFixed(3)) : 0;
 }
 
+function numericArray(values) {
+  return `[${(values || []).map(numeric).join(',')}]`;
+}
+
 const records = {};
 const aliases = {};
 for (const [name, ship] of Object.entries(db.ships || {})) {
@@ -66,6 +70,13 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
   const stern = section(flatten(bowStern.stern || bowStern.aft || bowStern.values || bowStern));
   const deck = section(flatten(armor.deck));
   const side = section(flatten(armor.side));
+  const mainBelt = armor.mainBelt || {};
+  const mainBeltSection = section(flatten(mainBelt.values || mainBelt || armor.side));
+  const inclination = mainBelt.inclinationDeg || {};
+  const ap = ship.mainGunAp || {};
+  const apTable = Array.isArray(ap.table) ? ap.table : [];
+  const apVerticalPen = apTable.map((row) => row.verticalPenetrationMm);
+  const apImpactAngle = apTable.map((row) => row.impactAngleDeg);
 
   const beltGroup = armor.extendedBowSternBelt || {};
   const beltBowValues = flatten(beltGroup.bow || beltGroup.fore || []);
@@ -92,6 +103,11 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     c: numeric(ship.mainGunCaliberMm),
     he: numeric(ship.mainGunHePenMm),
     sap: numeric(ship.mainGunSapPenMm),
+    apv: apVerticalPen,
+    api: apImpactAngle,
+    ar: numeric(ap.ricochetAtDeg),
+    aa: numeric(ap.alwaysRicochetAtDeg),
+    an: numeric(ap.normalizationDeg),
     bmn: bow.min,
     bmx: bow.max,
     bt: bow.text,
@@ -104,6 +120,12 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     xmn: side.min,
     xmx: side.max,
     xt: side.text,
+    mbmn: mainBeltSection.min,
+    mbmx: mainBeltSection.max,
+    mbt: mainBeltSection.text,
+    imn: numeric(inclination.min),
+    imx: numeric(inclination.max),
+    ie: Boolean(inclination.estimated),
     bp: beltPresent,
     bbp: beltBowPresent,
     bbmn: beltBow.min,
@@ -128,8 +150,10 @@ const lines = [
 for (const [id, rec] of Object.entries(records).sort((a, b) => Number(a[0]) - Number(b[0]))) {
   lines.push(
     `  '${id}': {n:${literalString(rec.n)}, c:${rec.c}, he:${rec.he}, sap:${rec.sap}, ` +
+    `apv:${numericArray(rec.apv)}, api:${numericArray(rec.api)}, ar:${rec.ar}, aa:${rec.aa}, an:${rec.an}, ` +
     `bmn:${rec.bmn}, bmx:${rec.bmx}, bt:${literalString(rec.bt)}, smn:${rec.smn}, smx:${rec.smx}, st:${literalString(rec.st)}, ` +
     `dmn:${rec.dmn}, dmx:${rec.dmx}, dt:${literalString(rec.dt)}, xmn:${rec.xmn}, xmx:${rec.xmx}, xt:${literalString(rec.xt)}, ` +
+    `mbmn:${rec.mbmn}, mbmx:${rec.mbmx}, mbt:${literalString(rec.mbt)}, imn:${rec.imn}, imx:${rec.imx}, ie:${rec.ie ? 'true' : 'false'}, ` +
     `bp:${rec.bp ? 'true' : 'false'}, bbp:${rec.bbp ? 'true' : 'false'}, bbmn:${rec.bbmn}, bbmx:${rec.bbmx}, bbt:${literalString(rec.bbt)}, ` +
     `bsp:${rec.bsp ? 'true' : 'false'}, bsmn:${rec.bsmn}, bsmx:${rec.bsmx}, bst:${literalString(rec.bst)}, ` +
     `blmn:${rec.blmn}, blmx:${rec.blmx}, blt:${literalString(rec.blt)}},`
