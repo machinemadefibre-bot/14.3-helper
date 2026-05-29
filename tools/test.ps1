@@ -157,6 +157,8 @@ function Test-ProjectInvariants {
         "apDeckSideOnly",
         "apMainBeltOnly",
         "apOvermatchRows",
+        "apPenetrationMm \* 1\.1",
+        "apHorizontalPenetrationMm \* 1\.1",
         "visibleRuleRowsHeight",
         "weaponSlotsCount == 0",
         "isDefenseMode \|\| \(isSlotActive && isSupportedAmmo\)",

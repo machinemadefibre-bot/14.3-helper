@@ -4034,7 +4034,7 @@
 		(var mainBeltAnyRicochet:bool = "hasApTable && _shellRecord.ar > 0 && normalizedBeltObliquityMaxDeg >= _shellRecord.ar")
 		(var mainBeltOvermatchFull:bool = "hasRule && mainBeltMaxArmor > 0 && _ruleLimit >= mainBeltMaxArmor * _ruleScale")
 		(var mainBeltOvermatchPartial:bool = "hasRule && mainBeltMinArmor > 0 && _ruleLimit >= mainBeltMinArmor * _ruleScale")
-		(var mainBeltSymbol:str = "!hasTargetArmorRecord || !isApRule || mainBeltMaxArmor <= 0 ? '?' : mainBeltOvermatchFull ? '√' : mainBeltOvermatchPartial ? '△' : mainBeltAllRicochet ? '×' : apPenetrationMm * 0.9 >= mainBeltEffectiveMax && !mainBeltAnyRicochet ? '√' : apPenetrationMm >= mainBeltEffectiveMin ? '△' : '×'")
+		(var mainBeltSymbol:str = "!hasTargetArmorRecord || !isApRule || mainBeltMaxArmor <= 0 ? '?' : mainBeltOvermatchFull ? '√' : mainBeltOvermatchPartial ? '△' : mainBeltAllRicochet ? '×' : apPenetrationMm * 0.9 >= mainBeltEffectiveMax && !mainBeltAnyRicochet ? '√' : apPenetrationMm * 1.1 >= mainBeltEffectiveMin ? '△' : '×'")
 		(var mainBeltColor:number = "mainBeltSymbol == '√' ? 0x76D672 : mainBeltSymbol == '×' ? 0xFF6666 : mainBeltSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
 		(var bowSternMinArmor:number = "hasTargetArmorRecord ? (_targetRecord.bmn <= _targetRecord.smn ? _targetRecord.bmn : _targetRecord.smn) : 0")
@@ -4044,14 +4044,14 @@
 		(var bowSternColor:number = "bowSternSymbol == '√' ? 0x76D672 : bowSternSymbol == '×' ? 0xFF6666 : bowSternSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
 		(var deckOvermatchSymbol:str = "!hasTargetArmorRecord || !hasRule || _targetRecord.dmx <= 0 ? '?' : _ruleLimit >= _targetRecord.dmx * _ruleScale ? '√' : _ruleLimit >= _targetRecord.dmn * _ruleScale ? '△' : '×'")
-		(var apDeckSymbol:str = "!hasTargetArmorRecord || !isApRule || _targetRecord.dmx <= 0 ? '?' : deckOvermatchSymbol == '√' ? '√' : deckOvermatchSymbol == '△' ? '△' : !hasApHorizontalTable ? '?' : apHorizontalPenetrationMm * 0.9 >= _targetRecord.dmx ? '√' : apHorizontalPenetrationMm >= _targetRecord.dmn ? '△' : '×'")
+		(var apDeckSymbol:str = "!hasTargetArmorRecord || !isApRule || _targetRecord.dmx <= 0 ? '?' : deckOvermatchSymbol == '√' ? '√' : deckOvermatchSymbol == '△' ? '△' : !hasApHorizontalTable ? '?' : apHorizontalPenetrationMm * 0.9 >= _targetRecord.dmx ? '√' : apHorizontalPenetrationMm * 1.1 >= _targetRecord.dmn ? '△' : '×'")
 		(var deckSymbol:str = "!isApRule ? deckOvermatchSymbol : apOvermatchRows ? deckOvermatchSymbol : apDeckSymbol")
 		(var deckColor:number = "deckSymbol == '√' ? 0x76D672 : deckSymbol == '×' ? 0xFF6666 : deckSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
 		(var sideOvermatchSymbol:str = "!hasTargetArmorRecord || !hasRule || _targetRecord.xmx <= 0 ? '?' : _ruleLimit >= _targetRecord.xmx * _ruleScale ? '√' : _ruleLimit >= _targetRecord.xmn * _ruleScale ? '△' : '×'")
 		(var apSideAllRicochet:bool = "isApRule && apRelativeHeadingDeg <= apAlwaysRicochetHeadingDeg")
 		(var apSideAnyRicochet:bool = "isApRule && apRelativeHeadingDeg < apNoRicochetHeadingDeg")
-		(var apSideSymbol:str = "!hasTargetArmorRecord || !isApRule || _targetRecord.xmx <= 0 ? '?' : sideOvermatchSymbol == '√' ? '√' : sideOvermatchSymbol == '△' ? '△' : apSideAllRicochet ? '×' : apPenetrationMm * 0.9 >= _targetRecord.xmx && !apSideAnyRicochet ? '√' : apPenetrationMm >= _targetRecord.xmn ? '△' : '×'")
+		(var apSideSymbol:str = "!hasTargetArmorRecord || !isApRule || _targetRecord.xmx <= 0 ? '?' : sideOvermatchSymbol == '√' ? '√' : sideOvermatchSymbol == '△' ? '△' : apSideAllRicochet ? '×' : apPenetrationMm * 0.9 >= _targetRecord.xmx && !apSideAnyRicochet ? '√' : apPenetrationMm * 1.1 >= _targetRecord.xmn ? '△' : '×'")
 		(var sideSymbol:str = "!isApRule ? sideOvermatchSymbol : apOvermatchRows ? sideOvermatchSymbol : apSideSymbol")
 		(var sideColor:number = "sideSymbol == '√' ? 0x76D672 : sideSymbol == '×' ? 0xFF6666 : sideSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
