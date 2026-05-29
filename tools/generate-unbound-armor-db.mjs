@@ -77,6 +77,7 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
   const ap = ship.mainGunAp || {};
   const apTable = Array.isArray(ap.table) ? ap.table : [];
   const apVerticalPen = apTable.map((row) => row.verticalPenetrationMm);
+  const apHorizontalPen = apTable.map((row) => row.horizontalPenetrationMm);
   const apImpactAngle = apTable.map((row) => row.impactAngleDeg);
 
   const beltGroup = armor.extendedBowSternBelt || {};
@@ -105,6 +106,7 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     he: numeric(ship.mainGunHePenMm),
     sap: numeric(ship.mainGunSapPenMm),
     apv: apVerticalPen,
+    aph: apHorizontalPen,
     api: apImpactAngle,
     ar: numeric(ap.ricochetAtDeg),
     aa: numeric(ap.alwaysRicochetAtDeg),
@@ -154,7 +156,7 @@ const lines = [
 for (const [id, rec] of Object.entries(records).sort((a, b) => Number(a[0]) - Number(b[0]))) {
   lines.push(
     `  '${id}': {n:${literalString(rec.n)}, c:${rec.c}, he:${rec.he}, sap:${rec.sap}, ` +
-    `apv:${numericArray(rec.apv)}, api:${numericArray(rec.api)}, ar:${rec.ar}, aa:${rec.aa}, an:${rec.an}, ` +
+    `apv:${numericArray(rec.apv)}, aph:${numericArray(rec.aph)}, api:${numericArray(rec.api)}, ar:${rec.ar}, aa:${rec.aa}, an:${rec.an}, ` +
     `bmn:${rec.bmn}, bmx:${rec.bmx}, bt:${literalString(rec.bt)}, smn:${rec.smn}, smx:${rec.smx}, st:${literalString(rec.st)}, ` +
     `dmn:${rec.dmn}, dmx:${rec.dmx}, dt:${literalString(rec.dt)}, xmn:${rec.xmn}, xmx:${rec.xmx}, xt:${literalString(rec.xt)}, ` +
     `mbmn:${rec.mbmn}, mbmx:${rec.mbmx}, mbt:${literalString(rec.mbt)}, imn:${rec.imn}, imx:${rec.imx}, ie:${rec.ie ? 'true' : 'false'}, ` +
