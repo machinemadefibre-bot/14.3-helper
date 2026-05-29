@@ -746,7 +746,7 @@ function headingAngleRangeFromEntries(entries) {
 }
 
 function mainBeltFromEntries(entries, shipKey) {
-  if (isSubmarineKey(shipKey)) {
+  if (isDestroyerKey(shipKey) || isSubmarineKey(shipKey)) {
     return {
       values: [],
       inclinationDeg: { min: 0, max: 0, estimated: true },
@@ -908,7 +908,7 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
         const bowStern = armor.bowStern || {};
         const isSubmarine = isSubmarineKey(entryName);
 
-        if (options.updateMainBelt && geometryArmor.mainBelt?.values?.length) {
+        if (options.updateMainBelt && (geometryArmor.mainBelt?.values?.length || isDestroyerKey(entryName) || isSubmarine)) {
           const currentMainBelt = armor.mainBelt || {};
           if (!sameMainBelt(currentMainBelt, geometryArmor.mainBelt)) {
             armor.mainBelt = geometryArmor.mainBelt;
