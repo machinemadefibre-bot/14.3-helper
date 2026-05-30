@@ -153,14 +153,13 @@ function Test-ProjectInvariants {
         "aimAssist\.distance",
         "targetBeltObliquityDeg",
         "mainBeltHeadingMaxDeg",
-        "isDestroyerArmorRecord",
         "!isTargetSubmarine",
         "apHorizontalPenetrationMm",
         "apDeckSideOnly",
         "apMainBeltOnly",
         "apOvermatchRows",
-        "apPenetrationMm \* 1\.1",
-        "apHorizontalPenetrationMm \* 1\.1",
+        "apPenetrationMm \* 1\.05",
+        "apHorizontalPenetrationMm \* 1\.05",
         "visibleRuleRowsHeight",
         "weaponSlotsCount == 0",
         "isDefenseMode \|\| \(isSlotActive && isSupportedAmmo\)",
@@ -260,12 +259,12 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'mainGunAp' -Description "Fast generator extracts AP shell data"
-    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'isDestroyerKey(entryName) ? [] : sideValues' -Description "Fast generator does not synthesize destroyer main belts"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'const mainBeltValues = sideValues' -Description "Fast generator uses side values as the first-pass main belt proxy"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'apv:' -Description "Unbound database embeds AP penetration tables"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle "ty:" -Description "Unbound database embeds ship type codes"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'hmx:' -Description "Unbound database embeds main belt heading-angle ranges"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'main-belt-only' -Description "Geometry refiner supports main belt only extraction"
-    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'isDestroyerKey(shipKey) || isSubmarineKey(shipKey)' -Description "Geometry refiner does not synthesize destroyer main belts"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'if (isSubmarineKey(shipKey))' -Description "Geometry refiner suppresses submarine main belts"
 
     $updateAndBuildText = Get-Content -LiteralPath $updateAndBuildPath -Raw
     if ($updateAndBuildText -match 'Added ships /|Removed ships /|Changed ships /') {

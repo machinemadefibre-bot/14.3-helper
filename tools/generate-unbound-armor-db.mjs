@@ -77,7 +77,7 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
   const deck = section(flatten(armor.deck));
   const side = section(flatten(armor.side));
   const mainBelt = armor.mainBelt || {};
-  const mainBeltSource = typeCode === 'D' ? [] : (mainBelt.values || mainBelt || armor.side);
+  const mainBeltSource = mainBelt.values || mainBelt || armor.side;
   const mainBeltSection = section(flatten(mainBeltSource));
   const inclination = mainBelt.inclinationDeg || {};
   const headingAngle = mainBelt.headingAngleDeg || {};

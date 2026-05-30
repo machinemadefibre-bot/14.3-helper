@@ -97,7 +97,7 @@ export function mainBeltVerdict(shell, target) {
 
   const effectiveAngle = Math.min(80, normalizedObliquity + slopeDeg);
   const effectiveBeltMm = beltMm / Math.max(0.18, Math.cos(effectiveAngle * Math.PI / 180));
-  if (bucket.verticalPenetrationMm * 0.9 >= effectiveBeltMm) return 'yes';
-  if (bucket.verticalPenetrationMm * 1.1 >= effectiveBeltMm) return 'partial';
+  if (bucket.verticalPenetrationMm * 0.95 >= effectiveBeltMm) return 'yes';
+  if (bucket.verticalPenetrationMm * 1.05 >= effectiveBeltMm) return 'partial';
   return 'no';
 }

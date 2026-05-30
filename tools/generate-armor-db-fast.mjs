@@ -38,10 +38,6 @@ function normalizeRealm(value) {
   return /^[A-Z0-9._-]+$/.test(normalized) ? normalized : '';
 }
 
-function isDestroyerKey(shipKey) {
-  return /^P[A-Z]SD/.test(String(shipKey || ''));
-}
-
 function getRealm(gameDir, explicitRealm) {
   if (explicitRealm) {
     const value = normalizeRealm(explicitRealm);
@@ -535,7 +531,7 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
     selectedGroups.stern,
   );
   const sideValues = selectPrimarySide(selectedGroups.side, selectedGroups.belt);
-  const mainBeltValues = isDestroyerKey(entryName) ? [] : sideValues;
+  const mainBeltValues = sideValues;
 
   return {
     name: String(name),
