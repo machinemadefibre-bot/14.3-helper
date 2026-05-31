@@ -2,7 +2,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mainBeltVerdict, normalizeApShell, usnRawPenetrationMm } from './ap-penetration.mjs';
+import {
+  mainBeltVerdict,
+  normalizeApShell,
+  trajectoryArmorEffectiveMm,
+  usnRawPenetrationMm,
+  verticalObliquityToSlopeRangeDeg,
+} from './ap-penetration.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const defaultDbPath = path.join(projectRoot, 'src', 'res_mods', 'PnFMods', 'APOvermatchAssistant', 'data', 'armor_overmatch.json');
@@ -73,6 +79,8 @@ function runSelfTest() {
   assert.equal(baltimore.table[3].rangeKm, 15);
   assert.ok(Math.abs(baltimore.table[3].verticalPenetrationMm - 274.6) < 0.8);
   assert.ok(Math.abs(baltimore.table[3].impactAngleDeg - 10.0) < 0.8);
+  assert.ok(Math.abs(trajectoryArmorEffectiveMm(400, 30, 10) - 469) < 2);
+  assert.deepEqual(verticalObliquityToSlopeRangeDeg(12, 8, 16), { min: 0, max: 4 });
   assert.equal(mainBeltVerdict(baltimore, { beltMm: 200, rangeKm: 10, obliquityDeg: 10, slopeDeg: 0 }), 'yes');
   assert.equal(mainBeltVerdict(baltimore, { beltMm: 200, rangeKm: 15, obliquityDeg: 75, slopeDeg: 0 }), 'no');
   assert.equal(mainBeltVerdict(null, { beltMm: 200, rangeKm: 10, obliquityDeg: 10, slopeDeg: 0 }), 'unknown');

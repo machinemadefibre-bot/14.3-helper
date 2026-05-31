@@ -14,6 +14,32 @@ function round(value, digits = 1) {
   return Math.round(value * scale) / scale;
 }
 
+function degToRad(value) {
+  return value * Math.PI / 180;
+}
+
+export function trajectoryArmorEffectiveMm(armorMm, horizontalObliquityDeg = 0, verticalObliquityDeg = 0) {
+  const armor = num(armorMm);
+  if (!armor) return null;
+  const horizontal = Math.min(80, Math.max(0, num(horizontalObliquityDeg) ?? 0));
+  const vertical = Math.min(80, Math.max(0, num(verticalObliquityDeg) ?? 0));
+  const trajectoryCos = Math.cos(degToRad(horizontal)) * Math.cos(degToRad(vertical));
+  return armor / Math.max(0.18, trajectoryCos);
+}
+
+export function verticalObliquityToSlopeRangeDeg(impactAngleDeg, slopeMinDeg = 0, slopeMaxDeg = slopeMinDeg) {
+  const impact = Math.max(0, num(impactAngleDeg) ?? 0);
+  const slopeMin = Math.max(0, num(slopeMinDeg) ?? 0);
+  const slopeMax = Math.max(slopeMin, num(slopeMaxDeg) ?? slopeMin);
+  const min = impact < slopeMin ? slopeMin - impact : impact > slopeMax ? impact - slopeMax : 0;
+  const lowEdge = Math.abs(impact - slopeMin);
+  const highEdge = Math.abs(impact - slopeMax);
+  return {
+    min,
+    max: Math.max(lowEdge, highEdge),
+  };
+}
+
 export function usnRawPenetrationMm(shell, velocityMps = shell.muzzleVelocityMps) {
   const massKg = num(shell.massKg);
   const caliberM = num(shell.caliberM);
@@ -92,12 +118,17 @@ export function mainBeltVerdict(shell, target) {
   const bucket = shell.table.reduce((best, row) => (
     Math.abs(row.rangeKm - rangeKm) < Math.abs(best.rangeKm - rangeKm) ? row : best
   ), shell.table[0]);
-  const normalizedObliquity = Math.max(0, obliquityDeg - (num(shell.normalizationDeg) ?? 0));
-  if (normalizedObliquity >= (num(shell.alwaysRicochetAtDeg) ?? 90)) return 'no';
+  const impactAngleDeg = num(bucket.impactAngleDeg) ?? 0;
+  const verticalObliquity = verticalObliquityToSlopeRangeDeg(impactAngleDeg, slopeDeg, slopeDeg);
+  const rawTrajectoryCos = Math.cos(degToRad(Math.min(80, obliquityDeg)))
+    * Math.cos(degToRad(Math.min(80, verticalObliquity.min)));
+  const alwaysRicochetAtDeg = num(shell.alwaysRicochetAtDeg) ?? 90;
+  if (rawTrajectoryCos <= Math.cos(degToRad(alwaysRicochetAtDeg))) return 'no';
 
-  const effectiveAngle = Math.min(80, normalizedObliquity + slopeDeg);
-  const effectiveBeltMm = beltMm / Math.max(0.18, Math.cos(effectiveAngle * Math.PI / 180));
-  if (bucket.verticalPenetrationMm * 0.95 >= effectiveBeltMm) return 'yes';
-  if (bucket.verticalPenetrationMm * 1.05 >= effectiveBeltMm) return 'partial';
+  const normalizedObliquity = Math.max(0, obliquityDeg - (num(shell.normalizationDeg) ?? 0));
+  const effectiveBeltMm = trajectoryArmorEffectiveMm(beltMm, normalizedObliquity, verticalObliquity.min);
+  const trajectoryPenetrationMm = num(bucket.trajectoryPenetrationMm) ?? bucket.verticalPenetrationMm;
+  if (trajectoryPenetrationMm * 0.95 >= effectiveBeltMm) return 'yes';
+  if (trajectoryPenetrationMm * 1.05 >= effectiveBeltMm) return 'partial';
   return 'no';
 }

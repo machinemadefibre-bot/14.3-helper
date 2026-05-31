@@ -162,11 +162,17 @@ function Test-ProjectInvariants {
         "yawHeelDeg",
         "mainBeltHeadingMaxDeg",
         "!isTargetSubmarine",
+        "apTrajectoryPenetrationMm",
+        "mainBeltTrajectoryCosMin",
+        "mainBeltTrajectoryCosMax",
+        "mainBeltRicochetCosMin",
+        "sideTrajectoryCos",
+        "sideEffectiveMax",
         "apHorizontalPenetrationMm",
         "apDeckSideOnly",
         "apMainBeltOnly",
         "apOvermatchRows",
-        "apPenetrationMm \* 1\.05",
+        "apTrajectoryPenetrationMm \* 1\.05",
         "apHorizontalPenetrationMm \* 1\.05",
         "visibleRuleRowsHeight",
         "weaponSlotsCount == 0",
@@ -194,6 +200,12 @@ function Test-ProjectInvariants {
     }
     if ($unboundText -match 'var targetDiffSpeedRawKnots') {
         throw "Runtime differential speed must be latched from the motion event, not recomputed after previous-sample state is updated."
+    }
+    if ($unboundText -match 'normalizedBeltObliquityMinDeg \+ mainBeltDynamicSlopeMinDeg') {
+        throw "Main belt AP checks must use trajectory armor effective thickness, not additive 2D obliquity."
+    }
+    if ($unboundText -match 'apPenetrationMm \* 1\.05 >= mainBeltEffectiveMin') {
+        throw "Main belt AP checks must compare trajectory penetration against trajectory effective armor."
     }
     $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($unboundText -notmatch "OA_ARMOR_DB_BUILD\s+'([^']*)'") {
