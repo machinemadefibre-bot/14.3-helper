@@ -169,6 +169,8 @@ function Test-ProjectInvariants {
         "sideTrajectoryCos",
         "sideEffectiveMax",
         "apHorizontalPenetrationMm",
+        "apDeckAllRicochet",
+        "apDeckAnyRicochet",
         "apDeckSideOnly",
         "apMainBeltOnly",
         "apOvermatchRows",
@@ -206,6 +208,15 @@ function Test-ProjectInvariants {
     }
     if ($unboundText -match 'apPenetrationMm \* 1\.05 >= mainBeltEffectiveMin') {
         throw "Main belt AP checks must compare trajectory penetration against trajectory effective armor."
+    }
+    if ($unboundText -notmatch 'mainBeltOvermatchFull.*mainBeltOvermatchPartial.*mainBeltAllRicochet.*apTrajectoryPenetrationMm \* 0\.95') {
+        throw "Main belt AP display order must be overmatch, ricochet, then penetration."
+    }
+    if ($unboundText -notmatch 'sideOvermatchSymbol.*apSideAllRicochet.*apTrajectoryPenetrationMm \* 0\.95') {
+        throw "Side AP display order must be overmatch, ricochet, then penetration."
+    }
+    if ($unboundText -notmatch 'deckOvermatchSymbol.*apDeckAllRicochet.*apHorizontalPenetrationMm \* 0\.95') {
+        throw "Deck AP display order must be overmatch, ricochet, then penetration."
     }
     $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($unboundText -notmatch "OA_ARMOR_DB_BUILD\s+'([^']*)'") {

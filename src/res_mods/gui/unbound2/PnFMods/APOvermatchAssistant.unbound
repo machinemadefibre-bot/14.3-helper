@@ -4165,7 +4165,10 @@
 		(var bowSternColor:number = "bowSternSymbol == '√' ? 0x76D672 : bowSternSymbol == '×' ? 0xFF6666 : bowSternSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
 		(var deckOvermatchSymbol:str = "!hasTargetArmorRecord || !hasRule || _targetRecord.dmx <= 0 ? '?' : _ruleLimit >= _targetRecord.dmx * _ruleScale ? '√' : _ruleLimit >= _targetRecord.dmn * _ruleScale ? '△' : '×'")
-		(var apDeckSymbol:str = "!hasTargetArmorRecord || !isApRule || _targetRecord.dmx <= 0 ? '?' : deckOvermatchSymbol == '√' ? '√' : deckOvermatchSymbol == '△' ? '△' : !hasApHorizontalTable ? '?' : apHorizontalPenetrationMm * 0.95 >= _targetRecord.dmx ? '√' : apHorizontalPenetrationMm * 1.05 >= _targetRecord.dmn ? '△' : '×'")
+		(var deckImpactObliquityDeg:number = "max(0, 90 - apImpactAngleDeg)")
+		(var apDeckAllRicochet:bool = "isApRule && hasApTable && _shellRecord.aa > 0 && deckImpactObliquityDeg >= _shellRecord.aa")
+		(var apDeckAnyRicochet:bool = "isApRule && hasApTable && _shellRecord.ar > 0 && deckImpactObliquityDeg >= _shellRecord.ar")
+		(var apDeckSymbol:str = "!hasTargetArmorRecord || !isApRule || _targetRecord.dmx <= 0 ? '?' : deckOvermatchSymbol == '√' ? '√' : deckOvermatchSymbol == '△' ? '△' : apDeckAllRicochet ? '×' : !hasApHorizontalTable ? '?' : apHorizontalPenetrationMm * 0.95 >= _targetRecord.dmx && !apDeckAnyRicochet ? '√' : apHorizontalPenetrationMm * 1.05 >= _targetRecord.dmn ? '△' : '×'")
 		(var deckSymbol:str = "!isApRule ? deckOvermatchSymbol : apOvermatchRows ? deckOvermatchSymbol : apDeckSymbol")
 		(var deckColor:number = "deckSymbol == '√' ? 0x76D672 : deckSymbol == '×' ? 0xFF6666 : deckSymbol == '?' ? 0xB8B8B8 : 0xFFCC66")
 
