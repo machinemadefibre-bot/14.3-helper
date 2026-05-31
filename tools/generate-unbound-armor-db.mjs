@@ -45,6 +45,15 @@ function section(values) {
   };
 }
 
+function completeAngleRange(range, fallbackEstimated) {
+  const estimated = fallbackEstimated || range?.estimated !== false;
+  return {
+    min: estimated ? 0 : numeric(range?.min),
+    max: estimated ? 0 : numeric(range?.max),
+    estimated,
+  };
+}
+
 function literalString(value) {
   return `'${String(value ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 }
@@ -77,15 +86,18 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
   const deck = section(flatten(armor.deck));
   const side = section(flatten(armor.side));
   const mainBelt = armor.mainBelt || {};
-  const mainBeltSource = mainBelt.values || mainBelt || armor.side;
-  const mainBeltSection = section(flatten(mainBeltSource));
-  const inclination = mainBelt.inclinationDeg || {};
-  const headingAngle = mainBelt.headingAngleDeg || {};
+  const explicitMainBeltValues = flatten(mainBelt.values || []);
+  const sideFallbackMainBeltValues = flatten(armor.side);
+  const mainBeltUsesFallback = explicitMainBeltValues.length === 0 && sideFallbackMainBeltValues.length > 0;
+  const mainBeltSection = section(mainBeltUsesFallback ? sideFallbackMainBeltValues : explicitMainBeltValues);
+  const inclination = completeAngleRange(mainBelt.inclinationDeg || {}, mainBeltUsesFallback);
+  const headingAngle = completeAngleRange(mainBelt.headingAngleDeg || {}, mainBeltUsesFallback);
   const ap = ship.mainGunAp || {};
   const apTable = Array.isArray(ap.table) ? ap.table : [];
   const apVerticalPen = apTable.map((row) => row.verticalPenetrationMm);
   const apHorizontalPen = apTable.map((row) => row.horizontalPenetrationMm);
   const apImpactAngle = apTable.map((row) => row.impactAngleDeg);
+  const apFlightTime = apTable.map((row) => row.flightTimeSec);
 
   const beltGroup = armor.extendedBowSternBelt || {};
   const beltBowValues = flatten(beltGroup.bow || beltGroup.fore || []);
@@ -116,6 +128,7 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     apv: apVerticalPen,
     aph: apHorizontalPen,
     api: apImpactAngle,
+    apt: apFlightTime,
     ar: numeric(ap.ricochetAtDeg),
     aa: numeric(ap.alwaysRicochetAtDeg),
     an: numeric(ap.normalizationDeg),
@@ -134,12 +147,12 @@ for (const [name, ship] of Object.entries(db.ships || {})) {
     mbmn: mainBeltSection.min,
     mbmx: mainBeltSection.max,
     mbt: mainBeltSection.text,
-    imn: numeric(inclination.min),
-    imx: numeric(inclination.max),
-    ie: Boolean(inclination.estimated),
-    hmn: numeric(headingAngle.min),
-    hmx: numeric(headingAngle.max),
-    hie: Boolean(headingAngle.estimated),
+    imn: inclination.min,
+    imx: inclination.max,
+    ie: inclination.estimated,
+    hmn: headingAngle.min,
+    hmx: headingAngle.max,
+    hie: headingAngle.estimated,
     bp: beltPresent,
     bbp: beltBowPresent,
     bbmn: beltBow.min,
@@ -164,7 +177,7 @@ const lines = [
 for (const [id, rec] of Object.entries(records).sort((a, b) => Number(a[0]) - Number(b[0]))) {
   lines.push(
     `  '${id}': {n:${literalString(rec.n)}, ty:${literalString(rec.ty)}, c:${rec.c}, he:${rec.he}, sap:${rec.sap}, ` +
-    `apv:${numericArray(rec.apv)}, aph:${numericArray(rec.aph)}, api:${numericArray(rec.api)}, ar:${rec.ar}, aa:${rec.aa}, an:${rec.an}, ` +
+    `apv:${numericArray(rec.apv)}, aph:${numericArray(rec.aph)}, api:${numericArray(rec.api)}, apt:${numericArray(rec.apt)}, ar:${rec.ar}, aa:${rec.aa}, an:${rec.an}, ` +
     `bmn:${rec.bmn}, bmx:${rec.bmx}, bt:${literalString(rec.bt)}, smn:${rec.smn}, smx:${rec.smx}, st:${literalString(rec.st)}, ` +
     `dmn:${rec.dmn}, dmx:${rec.dmx}, dt:${literalString(rec.dt)}, xmn:${rec.xmn}, xmx:${rec.xmx}, xt:${literalString(rec.xt)}, ` +
     `mbmn:${rec.mbmn}, mbmx:${rec.mbmx}, mbt:${literalString(rec.mbt)}, imn:${rec.imn}, imx:${rec.imx}, ie:${rec.ie ? 'true' : 'false'}, ` +

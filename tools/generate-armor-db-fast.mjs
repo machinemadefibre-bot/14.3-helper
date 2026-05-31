@@ -142,6 +142,33 @@ function maxValue(values) {
   return clean.length ? clean[clean.length - 1] : 0;
 }
 
+function strongestValue(values) {
+  const max = maxValue(values);
+  return max ? [max] : [];
+}
+
+function isPrimaryMainBeltMaterial(materialName) {
+  const bowOrStern = isBowMaterial(materialName) || isSternMaterial(materialName);
+  return !bowOrStern &&
+    /(^|_)Cit_Belt$|(^|_)OCit_Belt$|Dual_Cit_Cas_Belt|Dual_Cit_SSC_Belt|SideCit|^Belt$/.test(materialName) &&
+    !/Bow|St_|St$|Trans|Deck|Bottom|Bulge|Tur|Art|Bridge|Funnel|Kdp|Rudder|SS_|SSC_|SideSS|Inclin/.test(materialName);
+}
+
+function isFallbackMainBeltMaterial(materialName) {
+  const bowOrStern = isBowMaterial(materialName) || isSternMaterial(materialName);
+  return !bowOrStern &&
+    /Belt/.test(materialName) &&
+    !/Bow|St_|St$|Trans|Deck|Bottom|Bulge|Tur|Art|Bridge|Funnel|Kdp|Rudder|SS_|SideSS|Inclin/.test(materialName);
+}
+
+function selectMainBelt(primaryValues, fallbackValues, sideValues) {
+  const primary = strongestValue(primaryValues);
+  if (primary.length) return primary;
+  const fallback = strongestValue(fallbackValues);
+  if (fallback.length) return fallback;
+  return strongestValue(sideValues);
+}
+
 function selectExtendedBowSternBelt(bowBeltValues, sternBeltValues, bowValues, sternValues) {
   const bow = selectPrimary(bowBeltValues);
   const stern = selectPrimary(sternBeltValues);
@@ -158,6 +185,8 @@ function newArmorGroups() {
     stern: [],
     deck: [],
     side: [],
+    mainBeltPrimary: [],
+    mainBeltFallback: [],
     belt: [],
     bowBelt: [],
     sternBelt: [],
@@ -188,6 +217,12 @@ function addClassifiedArmor(groups, material, mm) {
     addUnique(groups.belt, mm);
     if (isBow) addUnique(groups.bowBelt, mm);
     if (isStern) addUnique(groups.sternBelt, mm);
+  }
+
+  if (!isBowOrStern && isPrimaryMainBeltMaterial(material)) {
+    addUnique(groups.mainBeltPrimary, mm);
+  } else if (!isBowOrStern && isFallbackMainBeltMaterial(material)) {
+    addUnique(groups.mainBeltFallback, mm);
   }
 
   const bowSternPlating = /ConstrSide|Deck|Fdck|SideBow|DeckBow|SideStern|DeckStern/.test(material);
@@ -531,7 +566,11 @@ function shipRecord(entryName, lines, projectileMap, materialNames) {
     selectedGroups.stern,
   );
   const sideValues = selectPrimarySide(selectedGroups.side, selectedGroups.belt);
-  const mainBeltValues = sideValues;
+  const mainBeltValues = selectMainBelt(
+    selectedGroups.mainBeltPrimary,
+    selectedGroups.mainBeltFallback,
+    sideValues,
+  );
 
   return {
     name: String(name),
@@ -775,7 +814,7 @@ async function main() {
       realm,
       generatedAt: new Date().toISOString().slice(0, 19),
       source: 'wowsunpack GameParams JSON, streamed per ship',
-      notes: 'Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side/mainBelt uses side belt-like materials as a first-pass main belt proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks.',
+      notes: 'Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Main belt uses citadel belt materials first, then separated belt materials, then strongest side armor as a first-pass proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks.',
     },
     ships,
   };

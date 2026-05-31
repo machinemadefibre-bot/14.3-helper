@@ -57,6 +57,11 @@ function maxValue(values) {
   return values.length ? values[values.length - 1] : 0;
 }
 
+function strongestValue(values) {
+  const clean = selectPrimary(values);
+  return clean.length ? [clean[clean.length - 1]] : [];
+}
+
 function loadMaterialNames() {
   const psPath = path.join(projectRoot, 'tools', 'generate-armor-db.ps1');
   const text = fs.readFileSync(psPath, 'utf8');
@@ -449,6 +454,10 @@ function sideValues(entries) {
   return primaryVisible(entries.map((entry) => entry.thickness));
 }
 
+function mainBeltValues(entries) {
+  return sortUnique(entries.map((entry) => entry.thickness));
+}
+
 function armorEntriesFromHull(hull, materialNames, geometryIndex) {
   const geometryGroups = geometryGroupsForModel(hull.model, geometryIndex);
   if (!geometryGroups) return null;
@@ -535,6 +544,35 @@ function sideValuesFromEntries(entries, shipKey) {
   }
 
   return [];
+}
+
+function zeroEstimatedAngleRange() {
+  return { min: 0, max: 0, estimated: true };
+}
+
+function normalizeAngleRange(range) {
+  const min = Number(range?.min);
+  const max = Number(range?.max);
+  const hasMeasuredRange = range?.estimated === false && Number.isFinite(min) && Number.isFinite(max);
+  if (!hasMeasuredRange) return zeroEstimatedAngleRange();
+  return {
+    min,
+    max,
+    estimated: false,
+  };
+}
+
+function normalizeMainBelt(mainBelt = {}, sideValues = []) {
+  const values = sortUnique(mainBelt.values || []);
+  const hasMeasuredGeometry = values.length > 0 &&
+    mainBelt.inclinationDeg?.estimated === false &&
+    mainBelt.headingAngleDeg?.estimated === false;
+  const fallbackValues = hasMeasuredGeometry ? values : strongestValue(values.length ? values : sideValues);
+  return {
+    values: fallbackValues,
+    inclinationDeg: hasMeasuredGeometry ? normalizeAngleRange(mainBelt.inclinationDeg) : zeroEstimatedAngleRange(),
+    headingAngleDeg: hasMeasuredGeometry ? normalizeAngleRange(mainBelt.headingAngleDeg) : zeroEstimatedAngleRange(),
+  };
 }
 
 function bowSternValuesFromEntries(entries, side) {
@@ -678,6 +716,32 @@ function isFallbackMainBeltMaterial(materialName) {
     !/Bow|St_|St$|Trans|Deck|Bottom|Bulge|Tur|Art|Bridge|Funnel|Kdp|Rudder|SS_|SideSS|Inclin/.test(materialName);
 }
 
+function rawMainBeltValuesFromHull(hull, materialNames) {
+  const primary = [];
+  const fallback = [];
+  for (const [rawKey, thickness] of Object.entries(hull?.armor || {})) {
+    const mm = Number(thickness);
+    if (!Number.isFinite(mm) || mm <= 0) continue;
+    const encoded = Number(rawKey);
+    const materialId = encoded % 65536;
+    const materialName = materialNames[materialId] || `unknown_${materialId}`;
+    if (isPrimaryMainBeltMaterial(materialName)) primary.push(mm);
+    else if (isFallbackMainBeltMaterial(materialName)) fallback.push(mm);
+  }
+
+  const primaryValue = strongestValue(primary);
+  if (primaryValue.length) return primaryValue;
+  return strongestValue(fallback);
+}
+
+function estimatedMainBelt(values) {
+  return {
+    values: strongestValue(values),
+    inclinationDeg: zeroEstimatedAngleRange(),
+    headingAngleDeg: zeroEstimatedAngleRange(),
+  };
+}
+
 function hasMainBeltSurface(entry) {
   const side = sideSurface(entry);
   if (!side || side.area <= 0) return false;
@@ -765,6 +829,12 @@ function mainBeltFromEntries(entries, shipKey) {
     )));
   }
   if (!candidates.length) {
+    candidates = filterBroadSideLayers(entries.filter((entry) => (
+      isCentralShellSideMaterial(entry.materialName) &&
+      hasMainBeltSurface(entry)
+    )));
+  }
+  if (!candidates.length) {
     return {
       values: [],
       inclinationDeg: { min: 0, max: 0, estimated: true },
@@ -775,7 +845,7 @@ function mainBeltFromEntries(entries, shipKey) {
   const strongest = Math.max(...candidates.map((entry) => entry.thickness));
   const selected = candidates.filter((entry) => entry.thickness === strongest);
   return {
-    values: sideValues(selected),
+    values: mainBeltValues(selected),
     inclinationDeg: inclinationRangeFromEntries(selected),
     headingAngleDeg: headingAngleRangeFromEntries(selected),
   };
@@ -894,6 +964,17 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
       const geometryArmor = armorValuesFromHull(entryName, selectedHull, materialNames, geometryIndex);
       if (geometryArmor === null) {
         missingGeometry++;
+        if (options.updateMainBelt && !isSubmarineKey(entryName)) {
+          const currentMainBelt = dbShip.armor.mainBelt || {};
+          const rawMainBeltValues = rawMainBeltValuesFromHull(selectedHull, materialNames);
+          const nextMainBelt = rawMainBeltValues.length
+            ? estimatedMainBelt(rawMainBeltValues)
+            : normalizeMainBelt(currentMainBelt, dbShip.armor.side?.values || []);
+          if (!sameMainBelt(currentMainBelt, nextMainBelt)) {
+            dbShip.armor.mainBelt = nextMainBelt;
+            changedMainBelt++;
+          }
+        }
         if (!options.mainBeltOnly && !isSubmarineKey(entryName) && dbShip?.armor?.extendedBowSternBelt?.present) {
           dbShip.armor.extendedBowSternBelt = {
             present: false,
@@ -912,6 +993,16 @@ async function refineDatabase(db, gameParamsPath, materialNames, geometryIndex, 
           const currentMainBelt = armor.mainBelt || {};
           if (!sameMainBelt(currentMainBelt, geometryArmor.mainBelt)) {
             armor.mainBelt = geometryArmor.mainBelt;
+            changedMainBelt++;
+          }
+        } else if (options.updateMainBelt && !isSubmarine) {
+          const currentMainBelt = armor.mainBelt || {};
+          const rawMainBeltValues = rawMainBeltValuesFromHull(selectedHull, materialNames);
+          const nextMainBelt = rawMainBeltValues.length
+            ? estimatedMainBelt(rawMainBeltValues)
+            : normalizeMainBelt(currentMainBelt, armor.side?.values || geometryArmor.side || []);
+          if (!sameMainBelt(currentMainBelt, nextMainBelt)) {
+            armor.mainBelt = nextMainBelt;
             changedMainBelt++;
           }
         }
@@ -1054,7 +1145,7 @@ const result = await refineDatabase(db, gameParamsPath, materialNames, geometryI
 });
 
 if (db.meta) {
-  const note = 'Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor.';
+  const note = 'Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges; when measured main belt geometry is unavailable, the existing belt value or side armor fallback uses a complete 0 degree estimated angle range, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor.';
   db.meta.notes = db.meta.notes && !db.meta.notes.includes(note)
     ? `${note} ${db.meta.notes}`
     : (db.meta.notes || note);

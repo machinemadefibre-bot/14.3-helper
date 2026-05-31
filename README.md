@@ -2,57 +2,62 @@
 
 [English](README.en.md)
 
-`14.3-helper` 是一个战斗内辅助 UI mod。它会根据你当前选中的弹种和正在瞄准的目标，显示这发炮弹对目标不同部位的碾压或击穿结果。
+`14.3-helper` 是一个 World of Warships 战斗内辅助 UI mod。它会读取你当前选中的弹种、锁定目标、双方舰船数据和本地装甲数据库，显示这发炮弹对目标关键装甲区域的碾压或击穿判断。
 
-当前包是独立包：放进 Aslain 的 `Custom_mods` 后不需要额外安装 TTaro、PnFMods 或其他依赖 mod。
+当前发布包是独立包。把 zip 放进 Aslain 的 `Custom_mods` 后，不需要额外安装 TTaro、PnFMods 或其他前置 mod。
 
 ## 功能
 
-- AP：按 `口径 / 14.3` 判断是否可以碾压目标装甲。
-- HE / SAP：按当前炮弹的穿深判断是否可以击穿目标装甲。
-- 可在战斗中切换显示模式：`My gun` 显示我方当前炮弹打目标，`Enemy gun` 显示目标主炮能否伤到我的装甲部位。
-- `Enemy gun` 模式下，目标有 SAP 时优先显示目标 SAP 穿深；没有 SAP 时，目标主炮口径小于 `283 mm` 显示 HE 穿深，`283 mm` 及以上显示 AP 碾压。
-- 悬浮窗用固定白色 `攻` / `防` / `ATK` / `DEF` 前缀区分当前视角；防御视角下颜色按安全性显示，`×` 为绿色，`√` 为红色。
-- 进战斗默认使用上一次保存的显示模式；按住 Alt 时临时切换到另一种模式，松开后恢复。
-- 分开显示舰艏/舰艉、甲板、侧板、前后延伸装甲带。
-- 延伸装甲带分别显示前后结果，例如 `Ext Bow √ Stern ×` / `延伸 前√ 后×`。
-- 结果颜色按部位单独显示：可穿为绿色，不可穿为红色，临界或混合结果为黄色，无数据为灰色。
-- 支持中文和英文界面，语言选项显示为 `ZH` / `EN`。
+- AP 碾压：先按 `口径 / 14.3` 判断是否可以碾压。能碾压就视为可以击穿。
+- AP 穿深：不能碾压时，使用本地 AP 弹参数和预计算穿深表，结合当前距离、落弹角、相对航向角、装甲倾角和主装横向弯曲角，判断是否能击穿。
+- 主装判断：目标可见且锁定时，实时读取己方和目标 `mapPosition.position/yaw` 计算相对航向角，再换算主装入射角。
+- 主装数据：战列舰、巡洋舰、航母等使用提取出的主装带厚度和倾角范围；缺失时会回退侧板作为估算。驱逐舰没有独立主装带时，使用侧板作为主装参与 AP 判断。
+- 潜艇目标：目标是潜艇时不显示面板。
+- HE / SAP：按当前炮弹穿深判断是否可以击穿目标装甲。
+- `My gun` / `Enemy gun`：`My gun` 显示我方当前弹种打目标；`Enemy gun` 显示目标主炮能否威胁我方装甲。
+- `Enemy gun` 模式规则：目标有 SAP 时优先显示 SAP 穿深；没有 SAP 时，目标主炮口径小于 `283 mm` 显示 HE 穿深，`283 mm` 及以上显示 AP 碾压。
+- AP 显示规则：根据落弹角和相对航向角，只显示当前最相关的甲板/侧板、主装，或艏艉/延伸带碾压结果。
+- 结果符号：`√` 表示可以击穿，`×` 表示不能击穿，`△` 表示临界或部分可击穿，`?` 表示缺少数据。
+- AP 临界区：穿深判断保留约 `5%` 误差余量，避免把经验公式边界值显示得过于绝对。
+- 面板文本：主文本保持固定白色，用 `ATK` / `DEF` 区分攻击和防御视角；结果符号使用紧凑颜色区分。
+- 支持中文和英文 UI，语言选项显示为 `ZH` / `EN`。
 - 支持拖动、缩放、锁定位置、重置位置和调整背景透明度。
 
-这个 mod 只读取已有的当前目标、当前弹种和本地装甲数据，不提供自动瞄准、不读取隐藏敌人、不注入进程。
+这个 mod 只读取当前战斗目标、当前弹种和本地数据库。不提供自动瞄准，不显示隐藏敌人，不注入游戏进程。
 
 ## 设置
 
-战斗中悬浮窗口左侧有一个小齿轮按钮，可以打开 `14.3-helper` 的设置页。
+战斗中悬浮窗口左侧有一个小齿轮按钮，可以打开 `14.3-helper` 设置页。
 
-可调项目包括：
+可调项目：
 
 - 语言：`ZH` / `EN`
 - 显示模式：`My gun` / `Enemy gun`
-- Alt 临时切换：按住 Alt 反转当前显示模式，不会改写保存的默认模式
+- Alt 临时切换：按住 Alt 反转当前显示模式，松开后恢复，不会改写保存的默认模式
 - 界面缩放
 - 是否锁定拖动
 - 重置窗口位置
 - 背景透明度
 
-如果左上角的 TTaro 设置面板可见，也可以从里面选择 `14.3-helper`。
+如果左上角 TTaro 设置面板可见，也可以从里面选择 `14.3-helper`。
 
 ## 安装
 
 ### Aslain Custom Mods
 
-1. 下载 release 里的 `14.3-helper_Aslain.zip`。
-2. 放到：
+1. 下载 GitHub Releases 里的 Aslain zip，例如 `14.3-helper_Aslain-patch15.4.zip`。
+2. 把这个 zip 原样放进：
 
 ```text
 World of Warships\Aslain_Modpack\Custom_mods
 ```
 
 3. 运行 Aslain Modpack 安装器。
-4. 进战斗测试悬浮窗口和设置按钮。
+4. 进战斗测试悬浮窗口、设置按钮和目标锁定后的显示。
 
-### 本地测试
+zip 内部结构从 `res_mods\...` 开始，直接放入 `Custom_mods` 即可一次安装正确。
+
+### 本地测试安装
 
 在仓库根目录运行：
 
@@ -60,90 +65,106 @@ World of Warships\Aslain_Modpack\Custom_mods
 powershell -ExecutionPolicy Bypass -File .\tools\install-local.ps1 -GameDir "S:\SteamLibrary\steamapps\common\World of Warships"
 ```
 
-脚本会复制到最新的数字版本目录 `bin\<版本号>\res_mods`。如果该目录下已经有
-`gui\battle_elements.xml`，脚本会直接补上 `OA_APOvermatchAssistant` battle UI
-入口；否则内置的 `ModsInstaller_4_3_1` 会在游戏启动时补入口。
+脚本会复制到最新的数字版本目录 `bin\<版本号>\res_mods`。如果该目录下已经有 `gui\battle_elements.xml`，脚本会直接补上 `OA_APOvermatchAssistant` battle UI 入口；否则内置的 `ModsInstaller_4_3_1` 会在游戏启动时补入口。
 
 ## 构建
 
-先运行规则检查：
+完整检查：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\test.ps1
+```
+
+只跑规则回归：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\test-rule.ps1
 ```
 
-然后构建 Aslain 包：
+构建 Aslain 包：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-构建产物会生成在：
-
-```text
-dist\14.3-helper_Aslain.zip
-```
-
-构建并直接把同一份 zip 放进 Aslain `Custom_mods`：
+构建时会提示输入游戏 patch 版本；直接回车会从数据库 `gameBuild` 自动生成后缀。也可以显式指定：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -AslainCustomModsDir "S:\SteamLibrary\steamapps\common\World of Warships\Aslain_Modpack\Custom_mods"
+powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
 ```
 
-## 更新装甲数据
+输出示例：
 
-装甲数据在：
+```text
+dist\14.3-helper_Aslain-patch15.4.zip
+```
+
+构建并直接复制到 Aslain `Custom_mods`：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4 -AslainCustomModsDir "S:\SteamLibrary\steamapps\common\World of Warships\Aslain_Modpack\Custom_mods"
+```
+
+## 更新装甲数据库
+
+装甲数据库在：
 
 ```text
 src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json
 ```
 
-推荐使用一键更新入口：
+普通更新推荐使用统一入口：
 
 ```text
 tools\update-armor-db-and-build.exe
 ```
 
-双击后会打开命令行窗口并执行完整流程：
+双击后会打开命令行窗口，菜单包含：
 
-1. 从当前版本生成候选数据库。
-2. 在窗口里列出新增、删除和变化的船只/字段。
-3. 等待输入 `Y` / `N` 确认。
-4. 输入 `Y` 后才覆盖当前数据库，并备份旧数据库到 `tools\armor_snapshots`。
-5. 自动运行规则测试。
-6. 自动打包到 `dist`。
+- 更新数据库并构建 zip
+- 手动编辑装甲数据
+- 提取并分析主装带
+- 退出
 
-输出 zip 会带游戏版本后缀：
+更新流程会：
 
-```text
-dist\14.3-helper_Aslain-patch<游戏版本>.zip
-```
+1. 从当前游戏版本生成候选数据库。
+2. 提取 AP 弹参数、HE/SAP 穿深、装甲厚度、主装倾角和横向角范围。
+3. 列出新增、删除和变化的船只字段。
+4. 等待 `Y` / `N` 确认。
+5. 输入 `Y` 后覆盖当前数据库，并把旧数据库备份到 `tools\armor_snapshots`。
+6. 同步 Python 数据库和 Unbound 内嵌数据库。
+7. 运行测试。
+8. 构建 zip 到 `dist`。
 
-如果只想生成 diff、不覆盖数据库，可以输入 `N` 退出。候选文件和 diff 会保留在：
+如果只想看 diff、不覆盖数据库，输入 `N` 退出。候选文件和 diff 会保留在：
 
 ```text
 build\armor-update
 ```
 
-需要传自定义参数时，可以直接运行底层脚本。例如使用已有的 GameParams JSON：
+需要自定义参数时，可以直接运行 PowerShell 脚本。例如复用已有 GameParams JSON：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -GameParamsJson "C:\tmp\GameParams_ASIA.json"
 ```
 
-底层报告脚本是 `tools\update-armor-db.ps1`。不加 `-Apply` 时只生成报告；加 `-Apply` 才会覆盖数据库。`-ExtractGameParams` 会从游戏文件重新提取数据，比较吃内存，只建议在同步新游戏版本时使用。
+底层报告脚本是 `tools\update-armor-db.ps1`。不加 `-Apply` 时只生成报告；加 `-Apply` 才会覆盖数据库。`-ExtractGameParams` 会从游戏文件重新提取数据，内存占用较高，建议只在同步新游戏版本时使用。
 
 ## 准确性说明
 
-整个程序是 vibe-coded。它经过了手动测试，但没有覆盖所有船、所有装甲块和所有版本变化，因此不承诺 100% 准确。
+AP 穿深使用解包 AP 弹参数和经验公式生成的近似穿深表，用于游戏内快速判断，不是官方逐像素弹道系统复刻。
 
-装甲数据库结合了自动提取、位置筛选和人工修正规则。但是对于复杂船体，尤其是分段装甲带延伸、局部甲板、水下无效装甲和航母多重侧板，仍然可能出现误判。
+装甲数据库结合了自动提取、几何筛选、主装倾角分析和人工修正规则。复杂船体仍可能误判，尤其是多段主装、弯曲装甲带、穹甲、内层装甲、炮塔、局部甲板、水线以下命中路径和航母多层侧板。
 
-如果你发现错误，请带上以下信息提交 issue：
+当前 AP 主装判断只判断目标主装甲带，不处理穹甲、甲板下内层装甲、炮塔和复杂水下弹道。
 
-- 舰名和服务器语言
-- 弹种和炮口径
-- 游戏中实际显示的装甲截图
+如果你发现错误，请提交 issue 并带上：
+
+- 船名和游戏客户端语言
+- 弹种、炮口径和距离
+- 目标相对角度或截图
+- 游戏内装甲截图
 - mod 显示的结果
 
 ## 仓库结构
@@ -152,12 +173,12 @@ powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -
 src\
   res_mods\
     PnFMods\
-      APOvermatchAssistant\      # 主逻辑和装甲数据库
-      ModsInstaller_4_3_1\       # 独立安装所需的 UI patcher
+      APOvermatchAssistant\      # 主逻辑、辅助模块和装甲数据库
+      ModsInstaller_4_3_1\       # 独立安装所需 UI patcher
     gui\
       unbound2\
         PnFMods\                 # 悬浮窗口和设置面板
         mods\                    # 拖动组件
-tools\                           # 构建、安装和装甲数据脚本
+tools\                           # 构建、安装、数据库更新和主装分析工具
 dist\                            # 本地发布产物，不提交
 ```

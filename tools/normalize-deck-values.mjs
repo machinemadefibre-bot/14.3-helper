@@ -22,6 +22,22 @@ function sortUnique(values) {
     .sort((a, b) => a - b);
 }
 
+function zeroEstimatedAngleRange() {
+  return { min: 0, max: 0, estimated: true };
+}
+
+function normalizeAngleRange(range) {
+  const min = Number(range?.min);
+  const max = Number(range?.max);
+  const hasMeasuredRange = range?.estimated === false && Number.isFinite(min) && Number.isFinite(max);
+  if (!hasMeasuredRange) return zeroEstimatedAngleRange();
+  return {
+    min,
+    max,
+    estimated: false,
+  };
+}
+
 function selectPrimary(values) {
   const all = sortUnique(values);
   const primary = all.filter((value) => value >= 10);
@@ -61,6 +77,11 @@ function maxValue(values) {
   return primary.length ? primary[primary.length - 1] : 0;
 }
 
+function strongestValue(values) {
+  const max = maxValue(values);
+  return max ? [max] : [];
+}
+
 function selectExtendedBowSternBelt(bowBeltValues, sternBeltValues, bowValues, sternValues) {
   const bow = selectPrimary(bowBeltValues);
   const stern = selectPrimary(sternBeltValues);
@@ -89,6 +110,31 @@ const SIDE_VALUE_OVERRIDES = {
 
 function sameValues(left, right) {
   return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function sameAngleRange(left = {}, right = {}) {
+  return Number(left.min || 0) === Number(right.min || 0) &&
+    Number(left.max || 0) === Number(right.max || 0) &&
+    Boolean(left.estimated) === Boolean(right.estimated);
+}
+
+function sameMainBelt(left = {}, right = {}) {
+  return sameValues(sortUnique(left.values || []), sortUnique(right.values || [])) &&
+    sameAngleRange(left.inclinationDeg || {}, right.inclinationDeg || {}) &&
+    sameAngleRange(left.headingAngleDeg || {}, right.headingAngleDeg || {});
+}
+
+function normalizeMainBelt(mainBelt = {}, sideValues = []) {
+  const values = sortUnique(mainBelt.values || []);
+  const hasMeasuredGeometry = values.length > 0 &&
+    mainBelt.inclinationDeg?.estimated === false &&
+    mainBelt.headingAngleDeg?.estimated === false;
+  const fallbackValues = hasMeasuredGeometry ? values : strongestValue(values.length ? values : sideValues);
+  return {
+    values: fallbackValues,
+    inclinationDeg: hasMeasuredGeometry ? normalizeAngleRange(mainBelt.inclinationDeg) : zeroEstimatedAngleRange(),
+    headingAngleDeg: hasMeasuredGeometry ? normalizeAngleRange(mainBelt.headingAngleDeg) : zeroEstimatedAngleRange(),
+  };
 }
 
 function pythonLiteral(value, depth = 0) {
@@ -128,6 +174,7 @@ const db = readJsonFile(jsonPath);
 let changedDeck = 0;
 let changedSide = 0;
 let changedBelt = 0;
+let changedMainBelt = 0;
 
 for (const [shipKey, ship] of Object.entries(db.ships || {})) {
   const armor = ship.armor || {};
@@ -141,6 +188,13 @@ for (const [shipKey, ship] of Object.entries(db.ships || {})) {
     armor.side = side;
     ship.armor = armor;
     changedSide++;
+  }
+
+  const nextMainBelt = normalizeMainBelt(armor.mainBelt || {}, armor.side?.values || []);
+  if (!sameMainBelt(armor.mainBelt || {}, nextMainBelt)) {
+    armor.mainBelt = nextMainBelt;
+    ship.armor = armor;
+    changedMainBelt++;
   }
 
   const nextBelt = selectExtendedBowSternBelt(
@@ -185,7 +239,7 @@ for (const [shipKey, ship] of Object.entries(db.ships || {})) {
 }
 
 if (db.meta) {
-  const note = 'Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups.';
+  const note = 'Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main belt records without measured geometry keep a complete 0 degree estimated angle range, and ships with side armor but no main belt fall back to side armor. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups.';
   db.meta.notes = db.meta.notes && !db.meta.notes.includes(note)
     ? `${note} ${db.meta.notes}`
     : (db.meta.notes || note);
@@ -201,6 +255,7 @@ const azurPrinzHeinrich = db.ships?.PGSB517_AZUR_Prinz_Heinrich?.armor?.side?.va
 console.log(`Normalized deck values for ${changedDeck} ships.`);
 console.log(`Normalized side values for ${changedSide} ships.`);
 console.log(`Normalized extended belt values for ${changedBelt} ships.`);
+console.log(`Normalized main belt fallback geometry for ${changedMainBelt} ships.`);
 console.log(`PGSC110_Hindenburg deck: ${hindenburg.join('/') || '?'}`);
 console.log(`PGSB207_Prinz_Heinrich side: ${prinzHeinrich.join('/') || '?'}`);
 console.log(`PGSB517_AZUR_Prinz_Heinrich side: ${azurPrinzHeinrich.join('/') || '?'}`);

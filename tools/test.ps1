@@ -152,6 +152,14 @@ function Test-ProjectInvariants {
         "selfVehicleEntity \? selfVehicleEntity\.weaponController : null",
         "aimAssist\.distance",
         "targetBeltObliquityDeg",
+        "timerEntity\.timer\.evFrequent",
+        'bind targetSampleDx "\$event\.targetDx"',
+        "targetYawRateDegPerSec",
+        'bind targetYawRateDegPerSec "\$event\.targetYawRateDegPerSec"',
+        'bind targetDiffSpeedKnots "\$event\.targetDiffSpeedKnots"',
+        "predictedBeltObliquityDeg",
+        "apFlightTimeSec",
+        "yawHeelDeg",
         "mainBeltHeadingMaxDeg",
         "!isTargetSubmarine",
         "apHorizontalPenetrationMm",
@@ -168,6 +176,7 @@ function Test-ProjectInvariants {
         "\(def element OA_Row\(_visible:bool, _prefix:str, _text:str, _color:number\)",
         "\(def element OA_BeltRow\(_visible:bool, _prefix:str, _labelText:str, _labelColor:number, _bowText:str, _bowColor:number, _sternText:str, _sternColor:number\)",
         "aph:",
+        "apt:",
         "ty:",
         "'DEF' : 'ATK'",
         "\(textColor = 0xFFFFFF\)\s*\r?\n\s*\(noTranslate = true\)\s*\r?\n\s*\(width = 42px\)",
@@ -180,6 +189,12 @@ function Test-ProjectInvariants {
     }
 
     $unboundText = Get-Content -LiteralPath $unboundPath -Raw
+    if ($unboundText -match 'var targetYawRateDegPerSec:number = "targetMotionValid') {
+        throw "Runtime yaw-rate must be latched from the motion event, not recomputed after previous-sample state is updated."
+    }
+    if ($unboundText -match 'var targetDiffSpeedRawKnots') {
+        throw "Runtime differential speed must be latched from the motion event, not recomputed after previous-sample state is updated."
+    }
     $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($unboundText -notmatch "OA_ARMOR_DB_BUILD\s+'([^']*)'") {
         throw "APOvermatchAssistant.unbound must expose OA_ARMOR_DB_BUILD."
@@ -216,6 +231,59 @@ function Test-ProjectInvariants {
     if ([double]$yamatoMainBelt.headingAngleDeg.max -lt 1 -or [double]$yamatoMainBelt.headingAngleDeg.max -gt 12) {
         throw "Yamato main belt heading-angle range is outside the expected geometry-derived range."
     }
+    $conteVerde = $db.ships.PSObject.Properties["PISB720_Conte_Verde"].Value
+    $conteVerdeMainBeltText = @($conteVerde.armor.mainBelt.values) -join "/"
+    if ($conteVerdeMainBeltText -ne "457") {
+        throw "Conte Verde main belt should fall back to the 457 mm Cit_Belt when geometry is unavailable, actual=$conteVerdeMainBeltText."
+    }
+    $geometryMainBeltExpectations = @{
+        "PASC002_Chester_1908" = "38"
+        "PGSC104_Karlsruhe" = "60"
+        "PJSC035_Chikuma_1912" = "19"
+        "PFSD102_Enseigne_Gabolde" = "9"
+        "PGSD102_V_25" = "9"
+    }
+    foreach ($shipKey in $geometryMainBeltExpectations.Keys) {
+        $ship = $db.ships.PSObject.Properties[$shipKey].Value
+        $mainBeltText = @($ship.armor.mainBelt.values) -join "/"
+        if ($mainBeltText -ne $geometryMainBeltExpectations[$shipKey]) {
+            throw "$shipKey geometry-derived main belt expected=$($geometryMainBeltExpectations[$shipKey]) actual=$mainBeltText."
+        }
+        if ([bool]$ship.armor.mainBelt.inclinationDeg.estimated -or [bool]$ship.armor.mainBelt.headingAngleDeg.estimated) {
+            throw "$shipKey should have geometry-derived main belt angle ranges."
+        }
+    }
+    foreach ($shipProp in $db.ships.PSObject.Properties) {
+        $shipKey = [string]$shipProp.Name
+        if ($shipKey -match '^P[A-Z]SS') { continue }
+        $ship = $shipProp.Value
+        $sideValues = @($ship.armor.side.values)
+        $mainBelt = $ship.armor.mainBelt
+        $mainBeltValues = @($mainBelt.values)
+        if ($sideValues.Count -gt 0 -and $mainBeltValues.Count -eq 0) {
+            throw "$shipKey has side armor but no main belt fallback."
+        }
+        if ($mainBeltValues.Count -gt 0) {
+            if (([bool]$mainBelt.inclinationDeg.estimated -or [bool]$mainBelt.headingAngleDeg.estimated) -and $mainBeltValues.Count -gt 1) {
+                throw "$shipKey estimated main belt fallback must be a single strongest thickness, actual=$($mainBeltValues -join '/')."
+            }
+            if ($null -eq $mainBelt.inclinationDeg -or $null -eq $mainBelt.headingAngleDeg) {
+                throw "$shipKey main belt must include complete inclination and heading-angle ranges."
+            }
+            foreach ($rangeName in @("inclinationDeg", "headingAngleDeg")) {
+                $range = $mainBelt.$rangeName
+                if ($null -eq $range.min -or $null -eq $range.max -or $null -eq $range.estimated) {
+                    throw "$shipKey main belt $rangeName must include min, max, and estimated."
+                }
+                $null = [double]$range.min
+                $null = [double]$range.max
+                $null = [bool]$range.estimated
+                if ([bool]$range.estimated -and ([double]$range.min -ne 0 -or [double]$range.max -ne 0)) {
+                    throw "$shipKey estimated $rangeName must use the 0 degree side/fallback angle."
+                }
+            }
+        }
+    }
     if ($unboundText -match '\$datahub\.getSingleComponent\(CC\.weaponController\)') {
         throw "APOvermatchAssistant.unbound should not depend on the global CC.weaponController component."
     }
@@ -239,6 +307,7 @@ function Test-ToolingInvariants {
     $updatePath = Join-Path $ProjectRoot "tools\update-armor-db.ps1"
     $updateAndBuildPath = Join-Path $ProjectRoot "tools\update-armor-db-and-build.ps1"
     $manualEditorPath = Join-Path $ProjectRoot "tools\manual-edit-armor-db.mjs"
+    $heelAnalyzerPath = Join-Path $ProjectRoot "tools\analyze-replay-heel.mjs"
 
     Assert-TextContains -Path $generatorPath -Needle '-replace "`0", ""' -Description "Realm NUL-byte cleanup"
     $null = Assert-TextMatches -Path $generatorPath -Pattern "\^\[A-Z0-9\._-\]\+\$" -Description "Realm safe-character validation"
@@ -259,12 +328,23 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'mainGunAp' -Description "Fast generator extracts AP shell data"
-    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'const mainBeltValues = sideValues' -Description "Fast generator uses side values as the first-pass main belt proxy"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'isPrimaryMainBeltMaterial' -Description "Fast generator extracts raw citadel-belt main armor candidates"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-armor-db-fast.mjs") -Needle 'selectMainBelt' -Description "Fast generator selects a first-pass main belt value"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\normalize-deck-values.mjs") -Needle 'normalizeMainBelt' -Description "Normalizer completes main belt side fallback geometry"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'apv:' -Description "Unbound database embeds AP penetration tables"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'apt:' -Description "Unbound database embeds AP flight-time tables"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle "ty:" -Description "Unbound database embeds ship type codes"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'hmx:' -Description "Unbound database embeds main belt heading-angle ranges"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\generate-unbound-armor-db.mjs") -Needle 'mainBeltUsesFallback' -Description "Unbound generator falls back empty main belts to side armor"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'main-belt-only' -Description "Geometry refiner supports main belt only extraction"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'isCentralShellSideMaterial' -Description "Geometry refiner can use central shell side geometry for low-tier main belts"
+    Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'mainBeltValues' -Description "Geometry refiner preserves sub-10 mm main belt candidates"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\refine-side-from-geometry.mjs") -Needle 'if (isSubmarineKey(shipKey))' -Description "Geometry refiner suppresses submarine main belts"
+    Assert-PathExists $heelAnalyzerPath
+    Assert-TextContains -Path $heelAnalyzerPath -Needle "serverSpeedRaw" -Description "Replay heel analyzer decodes server speed"
+    Assert-TextContains -Path $heelAnalyzerPath -Needle "if (current.hasDecodedProperties)" -Description "Replay heel analyzer prefers decoded properties"
+    Assert-TextContains -Path $heelAnalyzerPath -Needle "if (!Number.isFinite(current.serverSpeedKnots)) continue;" -Description "Replay heel analyzer rejects missing server speed when decoded"
+    Assert-TextContains -Path $heelAnalyzerPath -Needle "speedKnots = current.serverSpeedKnots;" -Description "Replay heel analyzer uses server speed for decoded analysis"
 
     $updateAndBuildText = Get-Content -LiteralPath $updateAndBuildPath -Raw
     if ($updateAndBuildText -match 'Added ships /|Removed ships /|Changed ships /') {
