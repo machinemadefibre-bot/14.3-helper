@@ -46,7 +46,8 @@ Generated armor data remains under `data/`. Do not hand-edit
 `src/res_mods/gui/unbound2/PnFMods/APOvermatchAssistant.unbound`; use the generation
 tools instead.
 
-For Python-side changes, run the module tests when Python is available:
+For Python-side changes, run the module tests with the local machine Python on
+`PATH`:
 
 ```powershell
 python .\tests\overmatch_python_module_tests.py
@@ -58,7 +59,9 @@ The unified test entrypoint is:
 powershell -ExecutionPolicy Bypass -File .\tools\test.ps1 -Build
 ```
 
-Use `-SkipPython` only on machines that do not have Python installed. The repo-level
+The repository does not use a bundled or managed Python runtime. `tools\test.ps1`
+uses `python` from `PATH`, or an explicit `-Python <path>` value. Use
+`-SkipPython` only on machines that do not have Python installed. The repo-level
 rule and package checks are:
 
 ```powershell

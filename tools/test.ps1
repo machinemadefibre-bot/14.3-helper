@@ -14,14 +14,14 @@ function Find-Python {
         return @((Resolve-Path -LiteralPath $Python).Path)
     }
 
+    $bundledPython = Join-Path $ProjectRoot ".tools\python\python.exe"
+    if (Test-Path -LiteralPath $bundledPython) {
+        return @($bundledPython)
+    }
+
     $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
     if ($pythonCommand) {
         return @($pythonCommand.Source)
-    }
-
-    $pyCommand = Get-Command py -ErrorAction SilentlyContinue
-    if ($pyCommand) {
-        return @($pyCommand.Source, "-3")
     }
 
     return $null
@@ -406,7 +406,7 @@ try {
     if (-not $SkipPython) {
         $pythonArgs = @(Find-Python)
         if (-not $pythonArgs) {
-            throw "Python was not found. Install Python or rerun with -SkipPython to run only PowerShell checks."
+            throw "Python was not found on PATH. Install Python, pass -Python <path>, or rerun with -SkipPython to run only PowerShell checks."
         }
 
         $pythonExe = $pythonArgs[0]
