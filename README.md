@@ -21,13 +21,13 @@
 - AP 临界区：穿深判断保留约 `5%` 误差余量，避免把经验公式边界值显示得过于绝对。
 - 面板文本：主文本保持固定白色，用 `ATK` / `DEF` 区分攻击和防御视角；结果符号使用紧凑颜色区分。
 - 支持中文和英文 UI，语言选项显示为 `ZH` / `EN`。
-- 支持拖动、缩放、锁定位置、重置位置和调整背景透明度。
+- 支持拖动、缩放、锁定位置、重置位置、调整背景透明度和默认关闭的加载诊断指示器。
 
 这个 mod 只读取当前战斗目标、当前弹种和本地数据库。不提供自动瞄准，不显示隐藏敌人，不注入游戏进程。
 
 ## 设置
 
-战斗中悬浮窗口左侧有一个小齿轮按钮，可以打开 `14.3-helper` 设置页。
+战斗中悬浮窗口左侧有一个 `CFG` 小按钮，可以打开 `14.3-helper` 自带设置页。这个入口不依赖 TTaro，TTaro 文件缺失或被其他 mod 覆盖时，主面板仍应照常显示。
 
 可调项目：
 
@@ -38,6 +38,7 @@
 - 是否锁定拖动
 - 重置窗口位置
 - 背景透明度
+- 加载诊断指示器：默认关闭，排查“mod 未加载”与“没有可用目标”时再打开
 
 如果左上角 TTaro 设置面板可见，也可以从里面选择 `14.3-helper`。
 
@@ -45,7 +46,7 @@
 
 ### Aslain Custom Mods
 
-1. 下载 GitHub Releases 里的 Aslain zip，例如 `14.3-helper_v0.5.0_Aslain-patch15.4.zip`。
+1. 下载 GitHub Releases 里的 Aslain zip，例如 `14.3-helper_v0.5.1_Aslain-patch15.4.zip`。
 2. 把这个 zip 原样放进：
 
 ```text
@@ -56,6 +57,8 @@ World of Warships\Aslain_Modpack\Custom_mods
 4. 进战斗测试悬浮窗口、设置按钮和目标锁定后的显示。
 
 zip 内部结构从 `res_mods\...` 开始，直接放入 `Custom_mods` 即可一次安装正确。
+
+如果旧版本已安装但战斗中没有浮窗，安装 `0.5.1` 会强制 ModsInstaller 重新补 UI 入口。快速排查可以检查游戏目录下的 `res_mods\gui\battle_elements.xml` 是否包含 `elementName="OA_APOvermatchAssistant"`。
 
 ### 本地测试安装
 
@@ -96,7 +99,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
 输出示例：
 
 ```text
-dist\14.3-helper_v0.5.0_Aslain-patch15.4.zip
+dist\14.3-helper_v0.5.1_Aslain-patch15.4.zip
 ```
 
 构建并直接复制到 Aslain `Custom_mods`：

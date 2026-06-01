@@ -21,13 +21,13 @@ The current release package is standalone. When installed through Aslain `Custom
 - AP uncertainty band: penetration checks keep about a `5%` margin so fitted formula edge cases are not shown as overly certain.
 - Panel text: main text stays fixed white, with `ATK` / `DEF` for outgoing and incoming views. Result symbols remain compact and color-coded.
 - Chinese and English UI text. The language setting is shown as `ZH` / `EN`.
-- Supports dragging, scale, position lock, position reset, and background opacity.
+- Supports dragging, scale, position lock, position reset, background opacity, and an off-by-default loaded/debug indicator.
 
 The mod only reads current in-battle target data, current shell data, and a local database. It does not provide aim assist, does not reveal hidden enemies, and does not inject into the game process.
 
 ## In-Game Settings
 
-In battle, the floating helper has a small gear button on its left side. Click it to open the `14.3-helper` settings page.
+In battle, the floating helper has a small `CFG` button on its left side. Click it to open the built-in `14.3-helper` settings page. This entry does not depend on TTaro, so the main panel should still render if TTaro files are missing or overwritten by another mod.
 
 Available settings:
 
@@ -38,6 +38,7 @@ Available settings:
 - Drag lock
 - Reset position
 - Background opacity
+- Loaded/debug indicator: off by default, useful only when diagnosing "mod not loaded" versus "no usable target"
 
 If the top-left TTaro settings panel is visible, `14.3-helper` can also be selected there.
 
@@ -45,7 +46,7 @@ If the top-left TTaro settings panel is visible, `14.3-helper` can also be selec
 
 ### Aslain Custom Mods
 
-1. Download the Aslain zip from GitHub Releases, for example `14.3-helper_Aslain-patch15.4.zip`.
+1. Download the Aslain zip from GitHub Releases, for example `14.3-helper_v0.5.1_Aslain-patch15.4.zip`.
 2. Put the zip file directly into:
 
 ```text
@@ -56,6 +57,8 @@ World of Warships\Aslain_Modpack\Custom_mods
 4. Enter a battle and check the floating panel, settings button, and target-lock display.
 
 The zip starts at `res_mods\...`, so placing it in `Custom_mods` is enough for a one-pass install.
+
+If an older same-name install skipped the UI patch, installing `0.5.1` forces ModsInstaller to run the patch again. To diagnose a missing battle panel, check whether `res_mods\gui\battle_elements.xml` contains `elementName="OA_APOvermatchAssistant"`.
 
 ### Local Test Install
 
@@ -87,7 +90,7 @@ Build the Aslain package:
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-The build script prompts for the game patch suffix. Press Enter to use the database `gameBuild` fallback, or pass it explicitly:
+The build script prompts for the game patch suffix. Press Enter to use the project target game version `15.4`, or pass it explicitly:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
@@ -96,7 +99,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
 Example output:
 
 ```text
-dist\14.3-helper_Aslain-patch15.4.zip
+dist\14.3-helper_v0.5.1_Aslain-patch15.4.zip
 ```
 
 To build and copy the exact package into Aslain `Custom_mods` in one step:

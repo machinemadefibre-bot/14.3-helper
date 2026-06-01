@@ -118,6 +118,12 @@ function Test-ProjectInvariants {
     $constantVersion = $constantMatches[1]
     $targetGameVersionMatches = Assert-TextMatches -Path $constantsPath -Pattern "TARGET_GAME_VERSION\s*=\s*'([^']+)'" -Description "TARGET_GAME_VERSION"
     $targetGameVersion = $targetGameVersionMatches[1]
+    if ($constantVersion -ne "0.5.1") {
+        throw "MOD_VERSION must be 0.5.1 for the UI display-risk repair release, actual=$constantVersion."
+    }
+    if ($targetGameVersion -ne "15.4") {
+        throw "TARGET_GAME_VERSION must remain 15.4, actual=$targetGameVersion."
+    }
 
     [xml]$installerXml = Get-Content -LiteralPath $installerPath -Raw
     $installerVersion = $installerXml.code.check.version
@@ -147,6 +153,10 @@ function Test-ProjectInvariants {
         "END GENERATED ARMOR DB",
         "OA_ARMOR_DB_BUILD",
         "\(def element OA_APOvermatchAssistant\(\)",
+        "\(def element OA_SettingsButton",
+        "\(def element OA_SettingsPanel",
+        "\(def element OA_LoadedIndicator",
+        "apOvermatchAssistantDebugLoaded",
         "\(def element OA_AmmoPanel",
         "\(def element OA_RulePanel",
         "\(def element OA_MainBeltRow",
@@ -327,6 +337,12 @@ function Test-ProjectInvariants {
     if ($unboundText -match '\$datahub\.getSingleComponent\(CC\.weaponController\)') {
         throw "APOvermatchAssistant.unbound should not depend on the global CC.weaponController component."
     }
+    if ($unboundText -match 'TT_ConfigButtonElement') {
+        throw "APOvermatchAssistant.unbound must not reference TTaro's TT_ConfigButtonElement; the main panel must stay independent."
+    }
+    if ($unboundText -match '_modIndex\s*=\s*"22"') {
+        throw "APOvermatchAssistant.unbound must not hard-code a TTaro mod index."
+    }
     if ($unboundText -match "\(def element OA_TargetPanel\(") {
         throw "Unused legacy OA_TargetPanel should not be kept in APOvermatchAssistant.unbound."
     }
@@ -339,6 +355,13 @@ function Test-ProjectInvariants {
     $beltRightEdge = 146 + 66
     if ($rowRightEdge -gt $rulePanelContentWidth -or $beltRightEdge -gt $rulePanelContentWidth) {
         throw "Rule-panel text columns exceed the available content width."
+    }
+
+    $expectedZipName = "14.3-helper_v${constantVersion}_Aslain-patch$targetGameVersion.zip"
+    foreach ($readmeRelativePath in @("README.md", "README.en.md")) {
+        $readmePath = Join-Path $ProjectRoot $readmeRelativePath
+        Assert-TextContains -Path $readmePath -Needle $expectedZipName -Description "$readmeRelativePath expected package name"
+        Assert-TextContains -Path $readmePath -Needle 'elementName="OA_APOvermatchAssistant"' -Description "$readmeRelativePath battle_elements troubleshooting note"
     }
 }
 
