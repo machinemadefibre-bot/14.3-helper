@@ -3,6 +3,7 @@
 API_VERSION = 'API_v1.0'
 MOD_NAME = '14.3-helper'
 MOD_VERSION = '0.5.0'
+TARGET_GAME_VERSION = '15.4'
 
 COMPONENT_KEY = 'modOvermatchAssistant'
 UPDATE_INTERVAL = 0.2

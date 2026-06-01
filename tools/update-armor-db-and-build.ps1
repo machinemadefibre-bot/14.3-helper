@@ -74,6 +74,28 @@ function ConvertTo-SafeNamePart {
     return $safe.Trim("_")
 }
 
+function Get-ConstantValue {
+    param([string]$Name)
+    $constantsPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\overmatch_constants.py"
+    if (-not (Test-Path -LiteralPath $constantsPath)) { return "" }
+    $text = Get-Content -LiteralPath $constantsPath -Raw -Encoding UTF8
+    if ($text -match "(?m)^\s*$([regex]::Escape($Name))\s*=\s*'([^']*)'") {
+        return $Matches[1]
+    }
+    return ""
+}
+
+function Get-ModVersionNamePart {
+    $version = Get-ConstantValue "MOD_VERSION"
+    if (-not $version) { return "" }
+    if ($version.StartsWith("v", [System.StringComparison]::OrdinalIgnoreCase)) { return $version }
+    return "v$version"
+}
+
+function Get-TargetGameVersion {
+    return Get-ConstantValue "TARGET_GAME_VERSION"
+}
+
 function Get-LatestDiffFile {
     param([string]$UpdateDir, [datetime]$RunStart)
     $recent = @(
@@ -255,6 +277,9 @@ function Read-ToolMode {
 }
 
 function Get-CurrentDatabaseBuild {
+    $targetVersion = Get-TargetGameVersion
+    if ($targetVersion) { return $targetVersion }
+
     $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
     $db = Read-JsonFile $dataPath
     $build = Get-MetaValue $db "gameBuild"
@@ -279,7 +304,9 @@ function Invoke-BuildPackage {
         "-PatchVersion", $packagePatchVersion
     )
 
-    $zipPath = Join-Path (Join-Path $ProjectRoot "dist") "14.3-helper_Aslain-patch$packagePatchVersion.zip"
+    $modVersionNamePart = ConvertTo-SafeNamePart (Get-ModVersionNamePart)
+    $packageNamePrefix = if ($modVersionNamePart) { "14.3-helper_$modVersionNamePart" } else { "14.3-helper" }
+    $zipPath = Join-Path (Join-Path $ProjectRoot "dist") "${packageNamePrefix}_Aslain-patch$packagePatchVersion.zip"
     Write-Host ""
     Write-Host ("Done: {0}" -f $zipPath) -ForegroundColor Green
 }

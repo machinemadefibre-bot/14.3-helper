@@ -116,6 +116,8 @@ function Test-ProjectInvariants {
 
     $constantMatches = Assert-TextMatches -Path $constantsPath -Pattern "MOD_VERSION\s*=\s*'([^']+)'" -Description "MOD_VERSION"
     $constantVersion = $constantMatches[1]
+    $targetGameVersionMatches = Assert-TextMatches -Path $constantsPath -Pattern "TARGET_GAME_VERSION\s*=\s*'([^']+)'" -Description "TARGET_GAME_VERSION"
+    $targetGameVersion = $targetGameVersionMatches[1]
 
     [xml]$installerXml = Get-Content -LiteralPath $installerPath -Raw
     $installerVersion = $installerXml.code.check.version
@@ -422,10 +424,17 @@ try {
     if ($Build) {
         & (Join-Path $ProjectRoot "tools\build.ps1")
 
-        $dataPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
-        $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
-        $safePatchVersion = ([string]$db.meta.gameBuild).Trim() -replace '[^A-Za-z0-9._-]+', '_'
-        $zip = Join-Path $ProjectRoot "dist\14.3-helper_Aslain-patch$safePatchVersion.zip"
+        $constantsText = Get-Content -LiteralPath (Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\overmatch_constants.py") -Raw -Encoding UTF8
+        if ($constantsText -notmatch "MOD_VERSION\s*=\s*'([^']+)'" -or -not $Matches[1]) {
+            throw "Unable to determine MOD_VERSION for expected package name."
+        }
+        $modVersionNamePart = if ($Matches[1] -match '^[vV]') { $Matches[1] } else { "v$($Matches[1])" }
+        if ($constantsText -notmatch "TARGET_GAME_VERSION\s*=\s*'([^']+)'" -or -not $Matches[1]) {
+            throw "Unable to determine TARGET_GAME_VERSION for expected package name."
+        }
+        $safePatchVersion = ([string]$Matches[1]).Trim() -replace '[^A-Za-z0-9._-]+', '_'
+        $safeModVersion = ([string]$modVersionNamePart).Trim() -replace '[^A-Za-z0-9._-]+', '_'
+        $zip = Join-Path $ProjectRoot "dist\14.3-helper_${safeModVersion}_Aslain-patch$safePatchVersion.zip"
         if (-not (Test-Path $zip)) {
             throw "Expected package was not built: $zip"
         }

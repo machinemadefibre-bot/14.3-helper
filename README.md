@@ -45,7 +45,7 @@
 
 ### Aslain Custom Mods
 
-1. 下载 GitHub Releases 里的 Aslain zip，例如 `14.3-helper_Aslain-patch15.4.zip`。
+1. 下载 GitHub Releases 里的 Aslain zip，例如 `14.3-helper_v0.5.0_Aslain-patch15.4.zip`。
 2. 把这个 zip 原样放进：
 
 ```text
@@ -87,7 +87,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\test-rule.ps1
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-构建时会提示输入游戏 patch 版本；直接回车会从数据库 `gameBuild` 自动生成后缀。也可以显式指定：
+构建时会提示输入游戏 patch 版本；直接回车会使用项目里的 target 游戏版本 `15.4`。也可以显式指定：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
@@ -96,7 +96,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
 输出示例：
 
 ```text
-dist\14.3-helper_Aslain-patch15.4.zip
+dist\14.3-helper_v0.5.0_Aslain-patch15.4.zip
 ```
 
 构建并直接复制到 Aslain `Custom_mods`：

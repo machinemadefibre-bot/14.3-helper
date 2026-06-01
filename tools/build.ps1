@@ -19,6 +19,9 @@ function ConvertTo-SafeNamePart {
 }
 
 function Get-DefaultPatchVersion {
+    $targetVersion = Get-TargetGameVersion
+    if ($targetVersion) { return $targetVersion }
+
     $dbPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\data\armor_overmatch.json"
     if (-not (Test-Path -LiteralPath $dbPath)) { return "" }
 
@@ -30,6 +33,28 @@ function Get-DefaultPatchVersion {
     }
 
     return ""
+}
+
+function Get-ConstantValue {
+    param([string]$Name)
+    $constantsPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\overmatch_constants.py"
+    if (-not (Test-Path -LiteralPath $constantsPath)) { return "" }
+    $text = Get-Content -LiteralPath $constantsPath -Raw -Encoding UTF8
+    if ($text -match "(?m)^\s*$([regex]::Escape($Name))\s*=\s*'([^']*)'") {
+        return $Matches[1]
+    }
+    return ""
+}
+
+function Get-ModVersionNamePart {
+    $version = Get-ConstantValue "MOD_VERSION"
+    if (-not $version) { return "" }
+    if ($version.StartsWith("v", [System.StringComparison]::OrdinalIgnoreCase)) { return $version }
+    return "v$version"
+}
+
+function Get-TargetGameVersion {
+    return Get-ConstantValue "TARGET_GAME_VERSION"
 }
 
 function Read-PatchVersionOrDefault {
@@ -94,13 +119,15 @@ function Invoke-UnboundArmorDbGeneration {
 }
 
 if (-not $ZipName) {
+    $modVersionNamePart = ConvertTo-SafeNamePart (Get-ModVersionNamePart)
+    $packageNamePrefix = if ($modVersionNamePart) { "14.3-helper_$modVersionNamePart" } else { "14.3-helper" }
     $resolvedPatchVersion = Read-PatchVersionOrDefault (Get-DefaultPatchVersion)
     if ($resolvedPatchVersion) {
         $safePatchVersion = ConvertTo-SafeNamePart $resolvedPatchVersion
         if (-not $safePatchVersion) { throw "PatchVersion produced an empty zip suffix." }
-        $ZipName = "14.3-helper_Aslain-patch$safePatchVersion.zip"
+        $ZipName = "${packageNamePrefix}_Aslain-patch$safePatchVersion.zip"
     } else {
-        $ZipName = "14.3-helper_Aslain.zip"
+        $ZipName = "${packageNamePrefix}_Aslain.zip"
     }
 }
 if (-not $ZipName.EndsWith(".zip", [System.StringComparison]::OrdinalIgnoreCase)) {
