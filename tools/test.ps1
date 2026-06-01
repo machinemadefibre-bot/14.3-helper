@@ -172,6 +172,12 @@ function Test-ProjectInvariants {
         "apDeckAllRicochet",
         "apDeckAnyRicochet",
         "apDeckSideOnly",
+        "apRawMainBeltOnly",
+        "apRawOvermatchRows",
+        "evOAModeFlapState",
+        "apModeNextSwitchCount",
+        "apOvermatchHoldUntilTick",
+        "apOvermatchModeHoldActive",
         "apMainBeltOnly",
         "apOvermatchRows",
         "apTrajectoryPenetrationMm \* 1\.05",
@@ -217,6 +223,15 @@ function Test-ProjectInvariants {
     }
     if ($unboundText -notmatch 'deckOvermatchSymbol.*apDeckAllRicochet.*apHorizontalPenetrationMm \* 0\.95') {
         throw "Deck AP display order must be overmatch, ricochet, then penetration."
+    }
+    if ($unboundText -notmatch 'apModeNextSwitchCount >= 3 \? apModeTick \+ 60') {
+        throw "AP main-belt/overmatch flap guard must hold overmatch mode after repeated short-window switches."
+    }
+    if ($unboundText -notmatch 'var apMainBeltOnly:bool = "apRawMainBeltOnly && !apOvermatchModeHoldActive"') {
+        throw "AP main-belt mode must be suppressed while overmatch hold is active."
+    }
+    if ($unboundText -notmatch 'var apOvermatchRows:bool = "isApRule && !apDeckSideOnly && \(apRawOvermatchRows \|\| apOvermatchModeHoldActive\)"') {
+        throw "AP overmatch rows must remain visible while overmatch hold is active."
     }
     $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($unboundText -notmatch "OA_ARMOR_DB_BUILD\s+'([^']*)'") {
