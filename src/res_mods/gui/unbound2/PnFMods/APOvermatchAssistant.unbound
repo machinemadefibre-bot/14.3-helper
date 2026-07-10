@@ -8,7 +8,6 @@
 	SCALE: {min: 0.7, max: 1.5, step: 0.1, key: 'apOvermatchAssistantScale', default: 1},
 	DISABLE_DRAGDROP: {key: 'apOvermatchAssistantDisableDragDrop', default: false},
 	BACKGROUND_ALPHA: {min: 0, max: 1, step: 0.1, key: 'apOvermatchAssistantBackgroundOpacity', default: 0.78},
-	DEBUG_LOADED: {key: 'apOvermatchAssistantDebugLoaded', default: false},
 })
 
 (def macro APOA_GET_USERPREF()
@@ -134,7 +133,7 @@
 )
 
 # BEGIN GENERATED ARMOR DB - run tools/generate-unbound-armor-db.mjs
-(def constant OA_ARMOR_DB_BUILD '12506899')
+(def constant OA_ARMOR_DB_BUILD '12668706')
 (def constant OA_ARMOR_DB {
   '3246831056': {n:'PRSS999_Tst_sub', ty:'S', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:10, bmx:16, bt:'10 mm/13 mm/16 mm', smn:10, smx:16, st:'10 mm/13 mm/16 mm', dmn:10, dmx:16, dt:'10 mm/13 mm/16 mm', xmn:10, xmx:16, xt:'10 mm/13 mm/16 mm', mbmn:10, mbmx:16, mbt:'10 mm/13 mm/16 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3247355344': {n:'PRSC999_Seal', ty:'C', c:130, he:23, sap:0, apv:[437,362.3,300.3,248.9,206.3,171,141.7], aph:[0,4.8,9.7,14.7,19.5,24.2,28.5], api:[0,0.8,1.9,3.4,5.4,8.1,11.6], apt:[0,3.56,7.57,12.01,16.87,22.12,27.74], ar:45, aa:60, an:8.5, bmn:6, bmx:6, bt:'6 mm', smn:6, smx:6, st:'6 mm', dmn:10, dmx:10, dt:'10 mm', xmn:88, xmx:88, xt:'88 mm', mbmn:88, mbmx:88, mbt:'88 mm', imn:7.5, imx:34, ie:false, hmn:0.5, hmx:7, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -161,6 +160,7 @@
   '3257874224': {n:'PGSB989_Prinz_Sigismund', ty:'B', c:380, he:95, sap:0, apv:[729.4,626.3,537.7,461.6,396.3,340.3,292.1], aph:[0,26.9,54,80.6,105.5,127,142.8], api:[0,2.5,5.8,10.1,15.4,21.9,29.3], apt:[0,6.43,13.54,21.3,29.7,38.7,48.29], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:32, dmx:32, dt:'32 mm', xmn:150, xmx:150, xt:'150 mm', mbmn:300, mbmx:300, mbt:'300 mm', imn:0, imx:13, ie:false, hmn:1.5, hmx:9.5, hie:false, bp:true, bbp:true, bbmn:32, bbmx:32, bbt:'32 mm', bsp:true, bsmn:100, bsmx:100, bst:'100 mm', blmn:32, blmx:100, blt:'32 mm/100 mm'},
   '3258890000': {n:'PHSC988_Admiraal', ty:'C', c:128, he:32, sap:0, apv:[210.6,185.5,163.4,143.9,126.7,111.6,98.3], aph:[0,5.7,11.4,17.1,22.7,27.9,32.6], api:[0,1.7,4,6.8,10.3,14.5,19.4], apt:[0,5.45,11.37,17.77,24.62,31.93,39.66], ar:45, aa:60, an:10, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:50, xt:'16 mm/50 mm', mbmn:75, mbmx:75, mbt:'75 mm', imn:1.5, imx:31.5, ie:false, hmn:0.5, hmx:6.5, hie:false, bp:true, bbp:true, bbmn:16, bbmx:50, bbt:'16 mm/50 mm', bsp:true, bsmn:16, bsmx:16, bst:'16 mm', blmn:16, blmx:50, blt:'16 mm/50 mm'},
   '3267278288': {n:'PRSC980_Vladimir_Monomakh', ty:'C', c:180, he:30, sap:0, apv:[489.2,427.8,374.1,327.1,286.1,250.2,218.8], aph:[0,12.1,24.4,36.6,48.6,59.9,70.1], api:[0,1.6,3.7,6.4,9.8,13.9,18.7], apt:[0,5.24,10.97,17.17,23.84,30.96,38.51], ar:45, aa:60, an:7, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:25, xmx:25, xt:'25 mm', mbmn:140, mbmx:140, mbt:'140 mm', imn:9, imx:12, ie:false, hmn:0.5, hmx:7, hie:false, bp:true, bbp:true, bbmn:50, bbmx:50, bbt:'50 mm', bsp:true, bsmn:50, bsmx:50, bst:'50 mm', blmn:50, blmx:50, blt:'50 mm'},
+  '3309254640': {n:'PASB940_250TH_Wisconsin', ty:'B', c:406, he:68, sap:0, apv:[800.5,682.1,581.2,495.2,422,359.5,306.4], aph:[0,34.2,68.6,101.9,132.2,156.5,171.9], api:[0,2.9,6.8,11.9,18.3,25.8,34.1], apt:[0,6.94,14.64,23.08,32.23,42.06,52.54], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', mbmn:297, mbmx:297, mbt:'297 mm', imn:15, imx:22.5, ie:false, hmn:0.5, hmx:8, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3315513040': {n:'PJSC934_Zao_1944', ty:'C', c:203, he:34, sap:0, apv:[542.9,450.7,374.2,310.7,257.9,214.2,177.8], aph:[0,15.9,32.1,47.9,62.8,75.5,84.5], api:[0,2,4.9,8.9,14.1,20.6,28.4], apt:[0,5.8,12.33,19.56,27.46,36,45.12], ar:45, aa:60, an:7, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', mbmn:152, mbmx:152, mbt:'152 mm', imn:21, imx:39, ie:false, hmn:3, hmx:7, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3319740208': {n:'PGSB930_Pinata_Schliefen', ty:'B', c:420, he:105, sap:0, apv:[761,665.1,581.3,508.1,444,388.1,339.2], aph:[0,27,54.3,81.2,106.8,129.8,148.5], api:[0,2.3,5.4,9.2,13.9,19.5,26], apt:[0,6.28,13.14,20.58,28.57,37.1,46.16], ar:45, aa:60, an:6, bmn:27, bmx:30, bt:'27 mm/30 mm', smn:27, smx:50, st:'27 mm/30 mm/50 mm', dmn:50, dmx:50, dt:'50 mm', xmn:150, xmx:350, xt:'150 mm/350 mm', mbmn:380, mbmx:380, mbt:'380 mm', imn:0.5, imx:18, ie:false, hmn:0.5, hmx:8.5, hie:false, bp:true, bbp:true, bbmn:60, bbmx:100, bbt:'60 mm/100 mm', bsp:true, bsmn:150, bsmx:150, bst:'150 mm', blmn:60, blmx:150, blt:'60 mm/100 mm/150 mm'},
   '3319740400': {n:'PASB930_Black_Rhode_Island', ty:'B', c:356, he:59, sap:0, apv:[774.3,661.6,565.3,483,412.7,352.6,301.3], aph:[0,28.3,56.9,85,111.1,133.4,149.6], api:[0,2.5,5.8,10.1,15.6,22.2,29.8], apt:[0,6.42,13.53,21.31,29.75,38.81,48.45], ar:50, aa:65, an:6, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', mbmn:310, mbmx:310, mbt:'310 mm', imn:20, imx:20.5, ie:false, hmn:0, hmx:7.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -208,6 +208,7 @@
   '3340744688': {n:'PASA910_Essex', ty:'A', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:64, st:'19 mm/64 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:24, ie:false, hmn:0, hmx:4.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3341694416': {n:'PRSD909_Black_Neustrashimy', ty:'D', c:130, he:22, sap:0, apv:[244,207.5,176.4,150,127.5,108.4,92.1], aph:[0,6.7,13.5,20.2,26.7,32.5,37.3], api:[0,1.9,4.4,7.8,12.1,17.5,23.8], apt:[0,5.57,11.76,18.55,25.92,33.84,42.28], ar:45, aa:60, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:8.5, imx:40.5, ie:false, hmn:0, hmx:2, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3341727696': {n:'PBSC909_Pirate_Neptune', ty:'C', c:152, he:0, sap:0, apv:[320,264.2,218.1,180,148.6,122.6,101.2], aph:[0,13.5,27,40,51.4,59.6,63.3], api:[0,2.9,7.1,12.8,20.2,29.1,38.7], apt:[0,6.96,14.82,23.55,33.1,43.43,54.47], ar:60, aa:75, an:8.5, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:76, st:'16 mm/76 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:102, mbmx:102, mbt:'102 mm', imn:4.5, imx:18, ie:false, hmn:1, hmx:8, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3341727728': {n:'PASC909_250TH_Fort_Worth', ty:'C', c:254, he:42, sap:0, apv:[593.1,514.4,446.1,386.9,335.5,291,252.4], aph:[0,17.2,34.6,51.8,68.5,83.8,96.8], api:[0,1.9,4.4,7.7,11.8,16.7,22.5], apt:[0,5.68,11.92,18.71,26.02,33.85,42.16], ar:60, aa:67.5, an:6, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:27, dmx:27, dt:'27 mm', xmn:28, xmx:191, xt:'28 mm/191 mm', mbmn:191, mbmx:191, mbt:'191 mm', imn:0, imx:9, ie:false, hmn:0.5, hmx:6.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3341759696': {n:'PZSB909_Xuan_Ming', ty:'B', c:457, he:76, sap:0, apv:[857.2,744.2,646.2,561,487.1,422.9,367.2], aph:[0,33.2,66.6,99.4,130.2,156.9,177.3], api:[0,2.6,5.9,10.2,15.5,21.8,28.9], apt:[0,6.57,13.78,21.61,30.05,39.08,48.67], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:60, st:'32 mm/40 mm/60 mm', dmn:60, dmx:60, dt:'60 mm', xmn:60, xmx:375, xt:'60 mm/375 mm', mbmn:375, mbmx:375, mbt:'375 mm', imn:5, imx:14, ie:false, hmn:0, hmx:3, hie:false, bp:true, bbp:true, bbmn:220, bbmx:420, bbt:'220 mm/420 mm', bsp:true, bsmn:180, bsmx:375, bst:'180 mm/375 mm', blmn:180, blmx:420, blt:'180 mm/220 mm/375 mm/420 mm'},
   '3341759792': {n:'PWSB909_Black_Karl_XIV_Johan', ty:'B', c:305, he:51, sap:0, apv:[631.7,541.3,463.8,397.4,340.6,291.8,250.1], aph:[0,20.9,42.1,62.9,82.7,100,113.5], api:[0,2.2,5.2,9.1,14,20,27], apt:[0,6.1,12.85,20.23,28.21,36.78,45.91], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:32, dmx:32, dt:'32 mm', xmn:150, xmx:220, xt:'150 mm/220 mm', mbmn:330, mbmx:330, mbt:'330 mm', imn:0.5, imx:15, ie:false, hmn:1.5, hmx:9, hie:false, bp:true, bbp:true, bbmn:35, bbmx:35, bbt:'35 mm', bsp:true, bsmn:95, bsmx:95, bst:'95 mm', blmn:35, blmx:95, blt:'35 mm/95 mm'},
   '3341759952': {n:'PRSB909_East_Navarin', ty:'B', c:406, he:68, sap:0, apv:[766.5,653.4,557.1,474.9,404.9,345.2,294.3], aph:[0,30.2,60.7,90.4,117.7,140.4,155.8], api:[0,2.7,6.3,11,16.9,24,32], apt:[0,6.67,14.06,22.16,30.95,40.39,50.45], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:35, dmx:35, dt:'35 mm', xmn:75, xmx:75, xt:'75 mm', mbmn:340, mbmx:340, mbt:'340 mm', imn:2.5, imx:11.5, ie:false, hmn:0.5, hmx:12.5, hie:false, bp:true, bbp:true, bbmn:113, bbmx:181, bbt:'113 mm/125 mm/181 mm', bsp:true, bsmn:125, bsmx:125, bst:'125 mm', blmn:113, blmx:181, blt:'113 mm/125 mm/181 mm'},
@@ -384,6 +385,7 @@
   '3550361584': {n:'PASD710_Laffey', ty:'D', c:127, he:21, sap:0, apv:[218,180,148.6,122.7,101.3,83.6,69.1], aph:[0,8.6,17.3,25.7,33.1,38.7,41.5], api:[0,2.7,6.7,12.1,19.1,27.6,36.9], apt:[0,6.75,14.37,22.83,32.09,42.1,52.8], ar:45, aa:60, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0.5, imx:23.5, ie:false, hmn:0, hmx:3.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550393552': {n:'PZSC710_Incheon', ty:'C', c:203, he:34, sap:0, apv:[488.4,401.3,329.7,270.9,222.5,182.8,150.2], aph:[0,20.9,41.9,62,79.3,91.4,96.3], api:[0,3,7.3,13.2,20.9,30,39.9], apt:[0,7.03,14.98,23.83,33.53,44.02,55.24], ar:60, aa:67.5, an:7, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', mbmn:152, mbmx:152, mbt:'152 mm', imn:0, imx:11.5, ie:false, hmn:0.5, hmx:5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550393648': {n:'PWSC710_Svea', ty:'C', c:152, he:30, sap:0, apv:[279.6,238.4,203.4,173.4,147.9,126.1,107.6], aph:[0,8.6,17.2,25.8,33.9,41.1,46.8], api:[0,2.1,4.9,8.5,13.3,19,25.8], apt:[0,5.88,12.39,19.52,27.26,35.57,44.43], ar:45, aa:60, an:8.5, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:25, xmx:30, xt:'25 mm/30 mm', mbmn:70, mbmx:70, mbt:'70 mm', imn:0.5, imx:18.5, ie:false, hmn:0.5, hmx:7, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '3550393680': {n:'PVSC710_Almirante_Irizar', ty:'C', c:152, he:30, sap:0, apv:[288,245.6,209.4,178.6,152.3,129.9,110.8], aph:[0,8.8,17.7,26.6,34.9,42.4,48.2], api:[0,2.1,4.9,8.5,13.3,19,25.8], apt:[0,5.88,12.39,19.52,27.26,35.57,44.43], ar:45, aa:60, an:8.5, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:31, st:'25 mm/31 mm', dmn:30, dmx:30, dt:'30 mm', xmn:25, xmx:25, xt:'25 mm', mbmn:88, mbmx:88, mbt:'88 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550393712': {n:'PUSC710_Pioneer', ty:'C', c:152, he:30, sap:0, apv:[320,266.8,222.4,185.4,154.5,128.8,107.4], aph:[0,11.2,22.6,33.7,43.8,52.1,57.3], api:[0,2.4,5.8,10.5,16.5,23.8,32.3], apt:[0,6.34,13.45,21.32,29.91,39.19,49.09], ar:45, aa:60, an:8.5, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:25, xmx:25, xt:'25 mm', mbmn:120, mbmx:120, mbt:'120 mm', imn:7, imx:27, ie:false, hmn:0.5, hmx:7.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3550393808': {n:'PRSC710_Sevastopol', ty:'C', c:380, he:63, sap:0, apv:[729.4,646,572.2,506.7,448.8,397.5,352], aph:[0,26.8,53.9,80.6,106.2,129.4,148.9], api:[0,2.4,5.4,9.2,13.7,19,25], apt:[0,6.37,13.27,20.69,28.64,37.09,46.03], ar:50, aa:65, an:6, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:230, xt:'30 mm/230 mm', mbmn:230, mbmx:230, mbt:'230 mm', imn:4.5, imx:40.5, ie:false, hmn:0.5, hmx:11, hie:false, bp:true, bbp:true, bbmn:25, bbmx:25, bbt:'25 mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:25, blmx:25, blt:'25 mm'},
   '3550394064': {n:'PJSC710_Yari', ty:'C', c:203, he:34, sap:0, apv:[542.9,450.7,374.2,310.7,257.9,214.2,177.8], aph:[0,15.9,32.1,47.9,62.8,75.5,84.5], api:[0,2,4.9,8.9,14.1,20.6,28.4], apt:[0,5.8,12.33,19.56,27.46,36,45.12], ar:45, aa:60, an:7, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', mbmn:152, mbmx:152, mbt:'152 mm', imn:21, imx:39, ie:false, hmn:3, hmx:7, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -409,6 +411,7 @@
   '3551442384': {n:'PRSC709_Vyazma', ty:'C', c:406, he:68, sap:0, apv:[893.4,729.6,595.8,486.5,397.3,324.5,265], aph:[0,32.2,64.8,96.2,124.2,145.3,156], api:[0,2.5,6.2,11.4,18.2,26.6,36.1], apt:[0,6.47,13.8,21.99,30.97,40.7,51.11], ar:45, aa:60, an:6, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:40, dmx:40, dt:'40 mm', xmn:40, xmx:40, xt:'40 mm', mbmn:220, mbmx:220, mbt:'220 mm', imn:14.5, imx:15.5, ie:false, hmn:0.5, hmx:6.5, hie:false, bp:true, bbp:true, bbmn:50, bbmx:100, bbt:'50 mm/100 mm', bsp:true, bsmn:50, bsmx:200, bst:'50 mm/200 mm', blmn:50, blmx:200, blt:'50 mm/100 mm/200 mm'},
   '3551442640': {n:'PJSC709_Haguro', ty:'C', c:203, he:34, sap:0, apv:[414.7,344.3,285.9,237.3,197,163.6,135.8], aph:[0,14.6,29.3,43.7,56.8,67.3,73.8], api:[0,2.4,5.9,10.6,16.8,24.3,32.9], apt:[0,6.35,13.5,21.42,30.08,39.43,49.42], ar:45, aa:60, an:7, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:32, dmx:32, dt:'32 mm', xmn:25, xmx:25, xt:'25 mm', mbmn:102, mbmx:102, mbt:'102 mm', imn:6, imx:16, ie:false, hmn:0, hmx:5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3551474896': {n:'PZSB709_Taihang', ty:'B', c:406, he:68, sap:0, apv:[862.7,752.7,656.8,573.1,500,436.3,380.7], aph:[0,31,62.3,93.1,122.5,148.6,169.6], api:[0,2.4,5.4,9.4,14.2,19.9,26.5], apt:[0,6.32,13.23,20.73,28.8,37.41,46.55], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:45, xt:'32 mm/45 mm', mbmn:356, mbmx:356, mbt:'356 mm', imn:13.5, imx:15, ie:false, hmn:1.5, hmx:9.5, hie:false, bp:true, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:true, bsmn:229, bsmx:356, bst:'229 mm/356 mm', blmn:229, blmx:356, blt:'229 mm/356 mm'},
+  '3551475120': {n:'PSSB709_Triunfante', ty:'B', c:406, he:68, sap:0, apv:[841.5,702.2,586,489,408.1,340.5,284.2], aph:[0,29.9,60.1,89.5,116.5,138.4,152.4], api:[0,2.4,5.9,10.5,16.6,24,32.4], apt:[0,6.37,13.52,21.43,30.06,39.37,49.32], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:40, dmx:40, dt:'40 mm', xmn:32, xmx:305, xt:'32 mm/51 mm/76 mm/102 mm/127 mm/152 mm/229 mm/305 mm', mbmn:102, mbmx:102, mbt:'102 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '3551475152': {n:'PRSB709_AZUR_Sov_Russia', ty:'B', c:406, he:68, sap:0, apv:[812.2,708.7,618.4,539.5,470.8,410.8,358.4], aph:[0,29.2,58.6,87.7,115.3,139.9,159.7], api:[0,2.4,5.4,9.4,14.2,19.9,26.5], apt:[0,6.32,13.23,20.73,28.8,37.41,46.55], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:60, st:'32 mm/40 mm/60 mm', dmn:60, dmx:60, dt:'60 mm', xmn:60, xmx:375, xt:'60 mm/375 mm', mbmn:375, mbmx:375, mbt:'375 mm', imn:5, imx:14, ie:false, hmn:0, hmx:3, hie:false, bp:true, bbp:true, bbmn:220, bbmx:420, bbt:'220 mm/420 mm', bsp:true, bsmn:180, bsmx:375, bst:'180 mm/375 mm', blmn:180, blmx:420, blt:'180 mm/220 mm/375 mm/420 mm'},
   '3551475440': {n:'PISB709_Olympian_Marco_Polo', ty:'B', c:406, he:0, sap:102.4, apv:[836.2,729.2,635.9,554.5,483.6,421.7,367.8], aph:[0,29.6,59.5,89,117.1,142.1,162.4], api:[0,2.3,5.4,9.2,14,19.7,26.2], apt:[0,6.28,13.14,20.59,28.61,37.17,46.26], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:55, dmx:55, dt:'55 mm', xmn:60, xmx:70, xt:'60 mm/70 mm', mbmn:320, mbmx:320, mbt:'320 mm', imn:13.5, imx:16.5, ie:false, hmn:0.5, hmx:9, hie:false, bp:true, bbp:true, bbmn:130, bbmx:130, bbt:'130 mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:130, blmx:130, blt:'130 mm'},
   '3551475536': {n:'PFSB709_Roussillon', ty:'B', c:406, he:68, sap:0, apv:[916.9,811.2,717.7,635,561.8,497.1,439.8], aph:[0,31.4,63.1,94.5,124.7,152.4,176.1], api:[0,2.2,5,8.6,12.8,17.9,23.6], apt:[0,6.14,12.81,19.98,27.66,35.83,44.47], ar:45, aa:60, an:6, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:32, dmx:32, dt:'32 mm', xmn:32, xmx:32, xt:'32 mm', mbmn:350, mbmx:350, mbt:'350 mm', imn:18.5, imx:19, ie:false, hmn:0.5, hmx:8, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1147,6 +1150,7 @@
   '4273911792': {n:'PASC020_Des_Moines_1948', ty:'C', c:203, he:34, sap:0, apv:[488.4,401.3,329.7,270.9,222.5,182.8,150.2], aph:[0,20.9,41.9,62,79.3,91.4,96.3], api:[0,3,7.3,13.2,20.9,30,39.9], apt:[0,7.03,14.98,23.83,33.53,44.02,55.24], ar:60, aa:67.5, an:7, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', mbmn:152, mbmx:152, mbt:'152 mm', imn:1.5, imx:10, ie:false, hmn:0, hmx:6.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4273977328': {n:'PASA020_Essex', ty:'A', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:64, st:'19 mm/64 mm', dmn:30, dmx:30, dt:'30 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:24, ie:false, hmn:0, hmx:4.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4274926864': {n:'PXSD019_Daring_PA', ty:'D', c:113, he:19, sap:0, apv:[140.1,116.8,97.3,81.1,67.6,56.4,47], aph:[0,6.2,12.5,18.5,23.8,27.6,29.4], api:[0,3.1,7.4,13.2,20.6,29.3,38.7], apt:[0,7.14,15.16,24.03,33.72,44.17,55.34], ar:60, aa:67.5, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:32, ie:false, hmn:0.5, hmx:2.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4274926928': {n:'PVSD019_Nueva_Esparta', ty:'D', c:113, he:0, sap:0, apv:[189.1,167.6,148.5,131.6,116.6,103.3,91.5], aph:[0,8.4,16.8,25.1,32.8,39.6,44.9], api:[0,2.9,6.5,11,16.4,22.5,29.3], apt:[0,7,14.58,22.74,31.46,40.74,50.55], ar:60, aa:67.5, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4274927440': {n:'PFSD019_Orage', ty:'D', c:127, he:21, sap:0, apv:[227.4,186.9,153.6,126.3,103.8,85.3,70.1], aph:[0,8.7,17.4,25.8,33.3,38.9,41.7], api:[0,2.7,6.5,11.8,18.7,27.1,36.5], apt:[0,6.63,14.12,22.46,31.6,41.49,52.06], ar:45, aa:60, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:30.5, ie:false, hmn:0.5, hmx:3, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4274927600': {n:'PASD019_Clemson_1920', ty:'D', c:102, he:17, sap:0, apv:[125.7,104.8,87.3,72.8,60.7,50.6,42.2], aph:[0,4,8,12,15.7,18.8,20.9], api:[0,2.2,5.3,9.5,15,21.8,29.8], apt:[0,6.03,12.8,20.28,28.46,37.29,46.71], ar:45, aa:60, an:10, bmn:10, bmx:13, bt:'10 mm/13 mm', smn:10, smx:13, st:'10 mm/13 mm', dmn:13, dmx:13, dt:'13 mm', xmn:13, xmx:13, xt:'13 mm', mbmn:13, mbmx:13, mbt:'13 mm', imn:1, imx:9, ie:false, hmn:0.5, hmx:2.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4274959728': {n:'PUSC019_Encounter', ty:'C', c:203, he:34, sap:0, apv:[434.4,378.4,329.6,287.1,250.1,217.9,189.8], aph:[0,15.2,30.6,45.7,60.1,73,83.4], api:[0,2.3,5.3,9.2,13.9,19.6,26.1], apt:[0,6.24,13.08,20.49,28.48,37.01,46.06], ar:45, aa:60, an:7, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:25, st:'25 mm', dmn:27, dmx:27, dt:'27 mm', xmn:27, xmx:27, xt:'27 mm', mbmn:152, mbmx:152, mbt:'152 mm', imn:7, imx:9, ie:false, hmn:0, hmx:1.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1156,6 +1160,7 @@
   '4274992432': {n:'PWSB019_Gustav_den_Store', ty:'B', c:381, he:64, sap:0, apv:[743.6,630.8,535.1,454,385.1,326.7,277.1], aph:[0,32.8,65.7,97.6,126.1,148.4,161.7], api:[0,3,7.1,12.4,19.1,27,35.7], apt:[0,7.06,14.92,23.54,32.91,42.98,53.72], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:40, dmx:40, dt:'40 mm', xmn:70, xmx:70, xt:'70 mm', mbmn:300, mbmx:300, mbt:'300 mm', imn:0.5, imx:25.5, ie:false, hmn:1, hmx:10, hie:false, bp:true, bbp:true, bbmn:32, bbmx:32, bbt:'32 mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:32, blmx:32, blt:'32 mm'},
   '4274992464': {n:'PVSB019_Los_Andes', ty:'B', c:381, he:64, sap:0, apv:[740,621.4,521.9,438.3,368.1,309.1,259.6], aph:[0,28.4,57.1,84.9,110.3,130.6,143.3], api:[0,2.6,6.3,11.2,17.4,25,33.5], apt:[0,6.61,14,22.16,31.04,40.61,50.83], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:51, dmx:51, dt:'51 mm', xmn:51, xmx:330, xt:'51 mm/330 mm', mbmn:381, mbmx:381, mbt:'381 mm', imn:25.5, imx:26, ie:false, hmn:0.5, hmx:7.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4275975440': {n:'PXSD018_Harugumo_PA', ty:'D', c:100, he:51, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:24.5, ie:false, hmn:0, hmx:3.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4275975504': {n:'PVSD018_Cuauhtemoc', ty:'D', c:127, he:0, sap:0, apv:[198.6,174.1,152.6,133.8,117.2,102.8,90.1], aph:[0,7.8,15.7,23.5,30.8,37.2,42.3], api:[0,2.6,5.9,10.1,15.2,21.2,28], apt:[0,6.61,13.83,21.63,30.02,38.96,48.44], ar:60, aa:67.5, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:20, st:'19 mm/20 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4275976016': {n:'PFSD018_L_Aventurier', ty:'D', c:130, he:22, sap:0, apv:[207,166.5,133.9,107.6,86.6,69.6,56], aph:[0,8,16.2,23.9,30.5,34.9,36.4], api:[0,2.8,6.9,12.8,20.6,30.1,40.5], apt:[0,6.74,14.46,23.11,32.65,42.99,54.05], ar:45, aa:60, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:42.5, ie:false, hmn:0.5, hmx:3, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4276008304': {n:'PUSC018_Auckland', ty:'C', c:203, he:34, sap:0, apv:[434.4,378.4,329.6,287.1,250.1,217.9,189.8], aph:[0,15.2,30.6,45.7,60.1,73,83.4], api:[0,2.3,5.3,9.2,13.9,19.6,26.1], apt:[0,6.24,13.08,20.49,28.48,37.01,46.06], ar:45, aa:60, an:7, bmn:25, bmx:25, bt:'25 mm', smn:25, smx:76, st:'25 mm/76 mm', dmn:27, dmx:27, dt:'27 mm', xmn:27, xmx:27, xt:'27 mm', mbmn:152, mbmx:152, mbt:'152 mm', imn:6, imx:17, ie:false, hmn:0.5, hmx:6, hie:false, bp:true, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:true, bsmn:102, bsmx:102, bst:'102 mm', blmn:102, blmx:102, blt:'102 mm'},
   '4276008656': {n:'PJSC018_Tone', ty:'C', c:203, he:34, sap:0, apv:[414.7,344.3,285.9,237.3,197,163.6,135.8], aph:[0,14.6,29.3,43.7,56.8,67.3,73.8], api:[0,2.4,5.9,10.6,16.8,24.3,32.9], apt:[0,6.35,13.5,21.42,30.08,39.43,49.42], ar:45, aa:60, an:7, bmn:25, bmx:27, bt:'25 mm/27 mm', smn:25, smx:27, st:'25 mm/27 mm', dmn:27, dmx:27, dt:'27 mm', xmn:27, xmx:27, xt:'27 mm', mbmn:145, mbmx:145, mbt:'145 mm', imn:20.5, imx:20.5, ie:false, hmn:3, hmx:8, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1167,6 +1172,7 @@
   '4276041712': {n:'PASB018_Iowa_1944', ty:'B', c:406, he:68, sap:0, apv:[847.6,697.9,574.7,473.2,389.6,320.8,264.2], aph:[0,36.3,72.7,107.6,137.8,159.1,168.1], api:[0,3,7.3,13.1,20.7,29.7,39.5], apt:[0,7.02,14.96,23.78,33.45,43.9,55.08], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:38, dmx:38, dt:'38 mm', xmn:38, xmx:38, xt:'38 mm', mbmn:297, mbmx:297, mbt:'297 mm', imn:23, imx:23, ie:false, hmn:0.5, hmx:8, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4276368656': {n:'PXSX017_Caboteur_de_35_metres', ty:'', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:0, bmx:0, bt:'? mm', smn:0, smx:0, st:'? mm', dmn:6, dmx:6, dt:'6 mm', xmn:6, xmx:6, xt:'6 mm', mbmn:6, mbmx:6, mbt:'6 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4277024016': {n:'PXSD017_Gearing_PA', ty:'D', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:21, xt:'19 mm/21 mm', mbmn:21, mbmx:21, mbt:'21 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4277024080': {n:'PVSD017_Marcilio_Dias', ty:'D', c:127, he:0, sap:0, apv:[198.6,174.1,152.6,133.8,117.2,102.8,90.1], aph:[0,7.8,15.7,23.5,30.8,37.2,42.3], api:[0,2.6,5.9,10.1,15.2,21.2,28], apt:[0,6.61,13.83,21.63,30.02,38.96,48.44], ar:60, aa:67.5, an:10, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:16, mbmx:16, mbt:'16 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4277024464': {n:'PJSD017_Kamikaze_1930', ty:'D', c:120, he:20, sap:0, apv:[143,119.1,99.2,82.6,68.8,57.3,47.8], aph:[0,5.2,10.5,15.6,20.3,24,26.3], api:[0,2.5,6.1,10.9,17.1,24.7,33.4], apt:[0,6.46,13.72,21.75,30.52,39.98,50.09], ar:45, aa:60, an:10, bmn:10, bmx:14, bt:'10 mm/14 mm', smn:10, smx:14, st:'10 mm/12 mm/14 mm', dmn:14, dmx:14, dt:'14 mm', xmn:14, xmx:14, xt:'14 mm', mbmn:14, mbmx:14, mbt:'14 mm', imn:0, imx:9, ie:false, hmn:0, hmx:3, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4277024592': {n:'PFSD017_Le_Hardi', ty:'D', c:130, he:22, sap:0, apv:[207,166.5,133.9,107.6,86.6,69.6,56], aph:[0,8,16.2,23.9,30.5,34.9,36.4], api:[0,2.8,6.9,12.8,20.6,30.1,40.5], apt:[0,6.74,14.46,23.11,32.65,42.99,54.05], ar:45, aa:60, an:10, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:16, mbmx:16, mbt:'16 mm', imn:0, imx:29.5, ie:false, hmn:0.5, hmx:3.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4277056880': {n:'PUSC017_Uganda', ty:'C', c:152, he:25, sap:0, apv:[314.4,269.4,230.8,197.8,169.4,145.2,124.4], aph:[0,11,22.2,33.1,43.4,52.3,59], api:[0,2.3,5.5,9.6,14.8,21.1,28.3], apt:[0,6.28,13.22,20.8,29.02,37.84,47.23], ar:45, aa:60, an:8.5, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:38, st:'16 mm/38 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:114, mbmx:114, mbt:'114 mm', imn:1, imx:18.5, ie:false, hmn:1.5, hmx:7, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1178,6 +1184,7 @@
   '4277122768': {n:'PJSA017_Hakuryu_1942', ty:'A', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:95, dmx:95, dt:'95 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:130, mbmx:130, mbt:'130 mm', imn:11, imx:18, ie:false, hmn:0.5, hmx:5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4277417232': {n:'PXSX016_Goliath', ty:'', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:0, bmx:0, bt:'? mm', smn:0, smx:0, st:'? mm', dmn:6, dmx:6, dt:'6 mm', xmn:6, xmx:6, xt:'6 mm', mbmn:6, mbmx:6, mbt:'6 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4278072592': {n:'PXSD016_Shimakaze_PA', ty:'D', c:127, he:21, sap:0, apv:[219,182.2,151.5,126,104.8,87.1,72.5], aph:[0,6.5,13.1,19.6,25.6,30.8,34.5], api:[0,2,5,8.9,14.1,20.7,28.4], apt:[0,5.83,12.38,19.64,27.56,36.12,45.27], ar:45, aa:60, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:44, ie:false, hmn:0, hmx:6, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4278072656': {n:'PVSD016_Cervantes', ty:'D', c:120, he:0, sap:0, apv:[176.5,154.6,135.4,118.6,103.9,91,79.7], aph:[0,6,12.2,18.2,24,29.2,33.5], api:[0,2.2,5.1,8.8,13.3,18.7,24.9], apt:[0,6.16,12.89,20.17,27.99,36.34,45.18], ar:60, aa:67.5, an:10, bmn:16, bmx:16, bt:'16 mm', smn:13, smx:16, st:'13 mm/16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:16, mbmx:16, mbt:'16 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4278073168': {n:'PFSD016_Duchaffault', ty:'D', c:120, he:20, sap:0, apv:[235.4,185.9,146.8,115.9,91.5,72.2,57], aph:[0,6.5,13.1,19.5,25.2,29.6,31.8], api:[0,2,5.1,9.7,16,24.2,33.8], apt:[0,5.71,12.31,19.76,27.99,36.94,46.51], ar:45, aa:60, an:10, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:16, mbmx:16, mbt:'16 mm', imn:0, imx:35.5, ie:false, hmn:0.5, hmx:3, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4278105360': {n:'PXSC016_Monster_Cruiser', ty:'C', c:152, he:51, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:30, bmx:30, bt:'30 mm', smn:20, smx:20, st:'20 mm', dmn:30, dmx:30, dt:'30 mm', xmn:0, xmx:0, xt:'? mm', mbmn:0, mbmx:0, mbt:'? mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4278105456': {n:'PUSC016_Hobart', ty:'C', c:152, he:25, sap:0, apv:[314.4,269.4,230.8,197.8,169.4,145.2,124.4], aph:[0,11,22.2,33.1,43.4,52.3,59], api:[0,2.3,5.5,9.6,14.8,21.1,28.3], apt:[0,6.28,13.22,20.8,29.02,37.84,47.23], ar:45, aa:60, an:8.5, bmn:16, bmx:16, bt:'16 mm', smn:16, smx:16, st:'16 mm', dmn:25, dmx:32, dt:'25 mm/32 mm', xmn:16, xmx:100, xt:'16 mm/100 mm', mbmn:100, mbmx:100, mbt:'100 mm', imn:2, imx:5.5, ie:false, hmn:0, hmx:2.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1186,6 +1193,7 @@
   '4278138128': {n:'PXSB016_France_Borg_V1', ty:'B', c:431, he:0, sap:0, apv:[675.9,560.9,465.5,386.3,320.5,266,220.7], aph:[0,9.2,18.6,28,37.2,45.9,53.8], api:[0,0.9,2.3,4.2,6.7,9.9,14.1], apt:[0,3.95,8.4,13.33,18.72,24.55,30.77], ar:70, aa:80, an:60, bmn:30, bmx:30, bt:'30 mm', smn:30, smx:30, st:'30 mm', dmn:30, dmx:30, dt:'30 mm', xmn:100, xmx:120, xt:'100 mm/120 mm', mbmn:30, mbmx:30, mbt:'30 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4278138160': {n:'PWSB016_Laudon', ty:'B', c:350, he:58, sap:0, apv:[712.7,591.7,491.3,407.9,338.6,281.2,233.4], aph:[0,27.7,55.5,82.5,106.7,125.3,135.7], api:[0,2.7,6.5,11.7,18.4,26.5,35.5], apt:[0,6.67,14.17,22.49,31.58,41.4,51.89], ar:45, aa:60, an:6, bmn:26, bmx:26, bt:'26 mm', smn:26, smx:26, st:'26 mm', dmn:36, dmx:36, dt:'36 mm', xmn:150, xmx:150, xt:'150 mm', mbmn:310, mbmx:310, mbt:'310 mm', imn:0.5, imx:5, ie:false, hmn:0.5, hmx:9.5, hie:false, bp:true, bbp:true, bbmn:40, bbmx:140, bbt:'40 mm/140 mm', bsp:true, bsmn:200, bsmx:200, bst:'200 mm', blmn:40, blmx:200, blt:'40 mm/140 mm/200 mm'},
   '4279121168': {n:'PXSD015_Grozovoy_PA', ty:'D', c:130, he:51, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:6.5, imx:38.5, ie:false, hmn:0, hmx:2, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4279121232': {n:'PVSD015_Antioquia', ty:'D', c:120, he:0, sap:0, apv:[158.2,137,118.6,102.6,88.8,76.9,66.6], aph:[0,5.9,11.9,17.7,23.3,28.1,31.7], api:[0,2.5,5.8,10,15.2,21.4,28.5], apt:[0,6.46,13.56,21.29,29.63,38.56,48.05], ar:60, aa:67.5, an:10, bmn:10, bmx:10, bt:'10 mm', smn:10, smx:10, st:'10 mm', dmn:10, dmx:10, dt:'10 mm', xmn:10, xmx:10, xt:'10 mm', mbmn:10, mbmx:10, mbt:'10 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4279121744': {n:'PFSD015_L_Adroit', ty:'D', c:130, he:22, sap:0, apv:[155,137,121.1,107.1,94.7,83.7,74], aph:[0,7.3,14.6,21.7,28.3,34,38.2], api:[0,3,6.9,11.7,17.4,24,31.1], apt:[0,7.2,15.02,23.45,32.46,42.06,52.21], ar:45, aa:60, an:10, bmn:10, bmx:10, bt:'10 mm', smn:10, smx:10, st:'10 mm', dmn:10, dmx:10, dt:'10 mm', xmn:10, xmx:10, xt:'10 mm', mbmn:10, mbmx:10, mbt:'10 mm', imn:1, imx:43.5, ie:false, hmn:0, hmx:3, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4279154032': {n:'PUSC015_Delhi', ty:'C', c:152, he:25, sap:0, apv:[314.4,269.4,230.8,197.8,169.4,145.2,124.4], aph:[0,11,22.2,33.1,43.4,52.3,59], api:[0,2.3,5.5,9.6,14.8,21.1,28.3], apt:[0,6.28,13.22,20.8,29.02,37.84,47.23], ar:45, aa:60, an:8.5, bmn:13, bmx:13, bt:'13 mm', smn:13, smx:13, st:'13 mm', dmn:16, dmx:16, dt:'16 mm', xmn:16, xmx:16, xt:'16 mm', mbmn:100, mbmx:100, mbt:'100 mm', imn:0.5, imx:6.5, ie:false, hmn:0.5, hmx:2.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4279154384': {n:'PJSC015_Tatsuta_1919', ty:'C', c:140, he:23, sap:0, apv:[199.6,165.4,137.1,113.7,94.2,78.1,64.7], aph:[0,6.9,13.8,20.6,26.7,31.7,34.8], api:[0,2.4,5.8,10.4,16.5,24,32.6], apt:[0,6.28,13.35,21.2,29.78,39.04,48.94], ar:45, aa:60, an:8.5, bmn:6, bmx:6, bt:'6 mm', smn:6, smx:6, st:'6 mm', dmn:0, dmx:0, dt:'? mm', xmn:0, xmx:0, xt:'? mm', mbmn:63, mbmx:63, mbt:'63 mm', imn:0, imx:1, ie:false, hmn:0.5, hmx:1.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
@@ -1225,6 +1233,7 @@
   '4283381488': {n:'PISB011_Affondatore', ty:'B', c:406, he:0, sap:102.4, apv:[836.2,729.2,635.9,554.5,483.6,421.7,367.8], aph:[0,29.6,59.5,89,117.1,142.1,162.4], api:[0,2.3,5.4,9.2,14,19.7,26.2], apt:[0,6.28,13.14,20.59,28.61,37.17,46.26], ar:45, aa:60, an:6, bmn:32, bmx:32, bt:'32 mm', smn:32, smx:32, st:'32 mm', dmn:50, dmx:50, dt:'50 mm', xmn:50, xmx:70, xt:'50 mm/70 mm', mbmn:420, mbmx:420, mbt:'420 mm', imn:11, imx:11, ie:false, hmn:1, hmx:9, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4283414224': {n:'PJSA011_Hiryu_1942', ty:'A', c:0, he:0, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:67, bt:'19 mm/67 mm', smn:19, smx:67, st:'19 mm/67 mm', dmn:67, dmx:67, dt:'67 mm', xmn:19, xmx:40, xt:'19 mm/40 mm', mbmn:46, mbmx:46, mbt:'46 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4284364048': {n:'PXSD010_Blue_Aster2', ty:'D', c:128, he:21, sap:0, apv:[], aph:[], api:[], apt:[], ar:0, aa:0, an:0, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:1.5, imx:24.5, ie:false, hmn:0, hmx:3.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
+  '4284364112': {n:'PVSD010_20_de_Julio', ty:'D', c:120, he:0, sap:0, apv:[204.5,181.8,161.6,143.7,127.7,113.6,101], aph:[0,7.4,14.9,22.3,29.4,35.9,41.5], api:[0,2.3,5.3,8.9,13.3,18.5,24.3], apt:[0,6.32,13.15,20.49,28.34,36.66,45.47], ar:60, aa:67.5, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:0, ie:true, hmn:0, hmx:0, hie:true, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4284364496': {n:'PJSD010_Kagero_1943', ty:'D', c:127, he:21, sap:0, apv:[219,182.2,151.5,126,104.8,87.1,72.5], aph:[0,6.5,13.1,19.6,25.6,30.8,34.5], api:[0,2,5,8.9,14.1,20.7,28.4], apt:[0,5.83,12.38,19.64,27.56,36.12,45.27], ar:45, aa:60, an:10, bmn:15, bmx:19, bt:'15 mm/19 mm', smn:15, smx:19, st:'15 mm/19 mm', dmn:15, dmx:15, dt:'15 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:2.5, imx:33, ie:false, hmn:0.5, hmx:5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4284364624': {n:'PFSD010_Cassard', ty:'D', c:127, he:21, sap:0, apv:[227.4,186.9,153.6,126.3,103.8,85.3,70.1], aph:[0,8.7,17.4,25.8,33.3,38.9,41.7], api:[0,2.7,6.5,11.8,18.7,27.1,36.5], apt:[0,6.63,14.12,22.46,31.6,41.49,52.06], ar:45, aa:60, an:10, bmn:19, bmx:19, bt:'19 mm', smn:19, smx:19, st:'19 mm', dmn:19, dmx:19, dt:'19 mm', xmn:19, xmx:19, xt:'19 mm', mbmn:19, mbmx:19, mbt:'19 mm', imn:0, imx:39.5, ie:false, hmn:0, hmx:1.5, hie:false, bp:false, bbp:false, bbmn:0, bbmx:0, bbt:'? mm', bsp:false, bsmn:0, bsmx:0, bst:'? mm', blmn:0, blmx:0, blt:'? mm'},
   '4284396816': {n:'PXSC010_Hinden_Apr2019', ty:'C', c:203, he:51, sap:0, apv:[452.6,384,325.9,276.6,234.7,199.2,169], aph:[0,13.1,26.4,39.6,52.1,63.2,72], api:[0,2,4.6,8.2,12.8,18.5,25.2], apt:[0,5.73,12.09,19.08,26.67,34.84,43.54], ar:45, aa:60, an:7, bmn:27, bmx:27, bt:'27 mm', smn:27, smx:27, st:'27 mm', dmn:30, dmx:30, dt:'30 mm', xmn:30, xmx:30, xt:'30 mm', mbmn:110, mbmx:110, mbt:'110 mm', imn:0.5, imx:16, ie:false, hmn:2.5, hmx:8.5, hie:false, bp:true, bbp:true, bbmn:27, bbmx:40, bbt:'27 mm/40 mm', bsp:true, bsmn:90, bsmx:90, bst:'90 mm', blmn:27, blmx:90, blt:'27 mm/40 mm/90 mm'},
@@ -1488,6 +1497,8 @@
   'PASB920_Montana_2': '3330226160',
   'PASB930': '3319740400',
   'PASB930_Black_Rhode_Island': '3319740400',
+  'PASB940': '3309254640',
+  'PASB940_250TH_Wisconsin': '3309254640',
   'PASB990': '3256825840',
   'PASB990_Utah': '3256825840',
   'PASB997': '3249485808',
@@ -1598,6 +1609,8 @@
   'PASC810_Austin': '3445536752',
   'PASC891': '3360602096',
   'PASC891_Jacksonville_PLUS': '3360602096',
+  'PASC909': '3341727728',
+  'PASC909_250TH_Fort_Worth': '3341727728',
   'PASC910': '3340679152',
   'PASC910_Black_Puerto_Rico': '3340679152',
   'PASC920': '3330193392',
@@ -3126,6 +3139,8 @@
   'PRSS508_S_189': '3761681872',
   'PRSS999': '3246831056',
   'PRSS999_Tst_sub': '3246831056',
+  'PSSB709': '3551475120',
+  'PSSB709_Triunfante': '3551475120',
   'PSSB719': '3540989360',
   'PSSB719_Victoria': '3540989360',
   'PSSC101': '4188976560',
@@ -3254,6 +3269,20 @@
   'PVSC508_Almirante_Grau': '3762206032',
   'PVSC708': '3552490832',
   'PVSC708_Comandante_Aguirre': '3552490832',
+  'PVSC710': '3550393680',
+  'PVSC710_Almirante_Irizar': '3550393680',
+  'PVSD010': '4284364112',
+  'PVSD010_20_de_Julio': '4284364112',
+  'PVSD015': '4279121232',
+  'PVSD015_Antioquia': '4279121232',
+  'PVSD016': '4278072656',
+  'PVSD016_Cervantes': '4278072656',
+  'PVSD017': '4277024080',
+  'PVSD017_Marcilio_Dias': '4277024080',
+  'PVSD018': '4275975504',
+  'PVSD018_Cuauhtemoc': '4275975504',
+  'PVSD019': '4274926928',
+  'PVSD019_Nueva_Esparta': '4274926928',
   'PVSD506': '3764270416',
   'PVSD506_Jurua': '3764270416',
   'PVSD710': '3550360912',
@@ -3700,6 +3729,7 @@
 # END GENERATED ARMOR DB
 
 
+
 (def element OA_APOvermatchAssistant() layout=true
 	(bindcall externalCall 'inputMapping.onAction' "['createParamsForAllShipsInBattle', {}]" on='addedToStage')
 
@@ -3712,7 +3742,6 @@
 		(macro APOA_GET_PREF_NUMBER _varName="'scale'" _pref="APOA_LOCAL_PREFS.SCALE")
 		(macro APOA_GET_PREF_NUMBER _varName="'backgroundAlpha'" _pref="APOA_LOCAL_PREFS.BACKGROUND_ALPHA")
 		(macro APOA_GET_PREF_BOOL _varName="'isPositionLocked'" _pref="APOA_LOCAL_PREFS.DISABLE_DRAGDROP")
-		(macro APOA_GET_PREF_BOOL _varName="'debugLoadedEnabled'" _pref="APOA_LOCAL_PREFS.DEBUG_LOADED")
 
 		(var cameraEntity:gfx = "$datahub.getSingleEntity(CC.camera)")
 		(var isAltVision:bool = "cameraEntity && cameraEntity.camera ? cameraEntity.camera.altVision : false" (event "cameraEntity.camera.evAltVisionChanged"))
@@ -3751,16 +3780,7 @@
 		_displayMode="effectiveDisplayMode"
 		_backgroundAlpha="backgroundAlpha"
 		_isPositionLocked="isPositionLocked"
-		_debugLoadedEnabled="debugLoadedEnabled"
 		_defaultPos="defaultPos"
-	)
-
-	(element OA_LoadedIndicator
-		_visible="debugLoadedEnabled"
-		_stageWidth="stageWidth"
-		_stageHeight="stageHeight"
-		_vehicleCount="vehicleCount"
-		_targetId="currentTargetId"
 	)
 )
 
@@ -3789,7 +3809,7 @@
 	)
 )
 
-(def element OA_TargetPanelV2(_markerEntity:gfx, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _displayMode:number, _backgroundAlpha:number, _isPositionLocked:bool, _debugLoadedEnabled:bool, _defaultPos:dict) layout=true
+(def element OA_TargetPanelV2(_markerEntity:gfx, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _displayMode:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var target:gfx = "_markerEntity && _markerEntity.hasComponent(CC.target) ? _markerEntity.target : null" (event "_markerEntity.evAdded") (event "_markerEntity.evRemoved"))
 		(var targetFlags:number = "target ? target.flags : 0" (event "target.evChanged") (event "target.evFlagsChanged"))
@@ -3988,7 +4008,6 @@
 		_languageIndex="_languageIndex"
 		_backgroundAlpha="_backgroundAlpha"
 		_isPositionLocked="_isPositionLocked"
-		_debugLoadedEnabled="_debugLoadedEnabled"
 		_defaultPos="_defaultPos"
 	)
 
@@ -4025,13 +4044,12 @@
 			_displayMode="_displayMode"
 			_backgroundAlpha="_backgroundAlpha"
 			_isPositionLocked="_isPositionLocked"
-			_debugLoadedEnabled="_debugLoadedEnabled"
 			_defaultPos="_defaultPos"
 		)
 	)
 )
 
-(def element OA_AmmoPanel(_slot:gfx, _isTargetVisible:bool, _ownRecord:dict, _targetRecord:dict, _hasOwnRecord:bool, _hasTargetRecord:bool, _ownShipId:str, _ownShipNameKey:str, _ownShipIndexKey:str, _ownDbKey:str, _targetShipId:str, _targetShipNameKey:str, _targetShipIndexKey:str, _targetDbKey:str, _rangeKm:number, _targetBeltObliquityDeg:number, _ownBeltObliquityDeg:number, _targetBeltAngleDeg:number, _ownBeltAngleDeg:number, _targetYawRateDegPerSec:number, _ownYawRateDegPerSec:number, _targetDiffSpeedKnots:number, _ownDiffSpeedKnots:number, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _displayMode:number, _backgroundAlpha:number, _isPositionLocked:bool, _debugLoadedEnabled:bool, _defaultPos:dict) layout=true
+(def element OA_AmmoPanel(_slot:gfx, _isTargetVisible:bool, _ownRecord:dict, _targetRecord:dict, _hasOwnRecord:bool, _hasTargetRecord:bool, _ownShipId:str, _ownShipNameKey:str, _ownShipIndexKey:str, _ownDbKey:str, _targetShipId:str, _targetShipNameKey:str, _targetShipIndexKey:str, _targetDbKey:str, _rangeKm:number, _targetBeltObliquityDeg:number, _ownBeltObliquityDeg:number, _targetBeltAngleDeg:number, _ownBeltAngleDeg:number, _targetYawRateDegPerSec:number, _ownYawRateDegPerSec:number, _targetDiffSpeedKnots:number, _ownDiffSpeedKnots:number, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _displayMode:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
 		(var slotWeapon:gfx = "_slot ? _slot.weaponSlot : null" (event "_slot.evAdded") (event "_slot.evRemoved"))
 		(var slotType:number = "slotWeapon ? slotWeapon.type : -1")
@@ -4093,18 +4111,12 @@
 		_languageIndex="_languageIndex"
 		_backgroundAlpha="_backgroundAlpha"
 		_isPositionLocked="_isPositionLocked"
-		_debugLoadedEnabled="_debugLoadedEnabled"
 		_defaultPos="_defaultPos"
 	)
 )
 
-(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _shellRecord:dict, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _rangeKm:number, _beltObliquityDeg:number, _beltAngleDeg:number, _yawRateDegPerSec:number, _diffSpeedKnots:number, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _debugLoadedEnabled:bool, _defaultPos:dict) layout=true
+(def element OA_RulePanel(_visible:bool, _ruleLimit:number, _ruleScale:number, _displayMode:number, _shellRecord:dict, _ownDbKey:str, _ownCaliber:number, _targetRecord:dict, _rangeKm:number, _beltObliquityDeg:number, _beltAngleDeg:number, _yawRateDegPerSec:number, _diffSpeedKnots:number, _dragPosX:number, _dragPosY:number, _scale:number, _languageIndex:number, _backgroundAlpha:number, _isPositionLocked:bool, _defaultPos:dict) layout=true
 	(scope
-		(event evOASettingsToggle)
-		(var settingsOpen:bool = "false" watch=false)
-		(bind settingsOpen "!settingsOpen" init=false watch=false (event "evOASettingsToggle"))
-		(var mouse:gfx = "$datahub.getSingleComponent(CC.mouse)")
-		(var isMouseActive:bool = "mouse.active" (event "mouse.evActiveChanged"))
 		(var isChinese:bool = "_languageIndex == 1")
 		(var isDefenseMode:bool = "_displayMode == 1")
 		(var labelModePrefix:str = "isChinese ? (isDefenseMode ? '防' : '攻') : (isDefenseMode ? 'DEF' : 'ATK')")
@@ -4136,10 +4148,9 @@
 		(var apRelativeHeadingDeg:number = "max(0, 90 - predictedBeltObliquityDeg)")
 		(var apNoRicochetHeadingDeg:number = "hasApTable ? max(0, 90 - _shellRecord.ar) : 0")
 		(var apAlwaysRicochetHeadingDeg:number = "hasApTable ? max(0, 90 - _shellRecord.aa) : 0")
-		(var apDeckNoRicochetFallDeg:number = "hasApTable ? max(0, 90 - _shellRecord.ar) : 90")
-		(var apDeckSideOnly:bool = "isApRule && apImpactAngleDeg > apDeckNoRicochetFallDeg")
-		(var apRawMainBeltOnly:bool = "isApRule && !apDeckSideOnly && apRelativeHeadingDeg >= apAlwaysRicochetHeadingDeg")
-		(var apRawOvermatchRows:bool = "isApRule && !apDeckSideOnly && !apRawMainBeltOnly")
+		(var apProbabilityRicochetHeadingDeg:number = "apAlwaysRicochetHeadingDeg")
+		(var apRawMainBeltOnly:bool = "isApRule && apRelativeHeadingDeg > apProbabilityRicochetHeadingDeg")
+		(var apRawOvermatchRows:bool = "isApRule && !apRawMainBeltOnly")
 		(var apRawModeCode:number = "apRawMainBeltOnly ? 1 : apRawOvermatchRows ? 0 : -1")
 		(var timerEntity:gfx = "$datahub.getSingleEntity(CC.timer)")
 		(var apModeTick:number = "0" watch=false)
@@ -4153,19 +4164,19 @@
 		(bind apModeWindowStartTick "$event.windowStartTick" init=false watch=false (event "evOAModeFlapState"))
 		(var apOvermatchHoldUntilTick:number = "0" watch=false)
 		(bind apOvermatchHoldUntilTick "$event.holdUntilTick" init=false watch=false (event "evOAModeFlapState"))
-		(var apModeComparable:bool = "_visible && isApRule && !apDeckSideOnly && apRawModeCode >= 0")
+		(var apModeComparable:bool = "_visible && isApRule && apRawModeCode >= 0")
 		(var apModeSwitched:bool = "apModeComparable && apLastModeCode >= 0 && apRawModeCode != apLastModeCode")
 		(var apModeWindowExpired:bool = "apModeTick - apModeWindowStartTick > 40")
 		(var apModeNextSwitchCount:number = "!apModeComparable ? 0 : apModeSwitched ? (apModeWindowExpired ? 1 : apModeSwitchCount + 1) : apModeWindowExpired ? 0 : apModeSwitchCount")
 		(var apModeNextWindowStartTick:number = "!apModeComparable ? apModeTick : apModeWindowExpired ? apModeTick : apModeWindowStartTick")
 		(var apModeNextHoldUntilTick:number = "!apModeComparable ? 0 : apModeSwitched && apModeNextSwitchCount >= 3 ? apModeTick + 60 : apOvermatchHoldUntilTick > apModeTick ? apOvermatchHoldUntilTick : 0")
 		(dispatch evOAModeFlapState args = "{lastModeCode: apModeComparable ? apRawModeCode : -1, switchCount: apModeNextSwitchCount, windowStartTick: apModeNextWindowStartTick, holdUntilTick: apModeNextHoldUntilTick}" watch=false (event "timerEntity.timer.evFrequent"))
-		(var apOvermatchModeHoldActive:bool = "isApRule && !apDeckSideOnly && apModeTick < apOvermatchHoldUntilTick")
+		(var apOvermatchModeHoldActive:bool = "isApRule && apModeTick < apOvermatchHoldUntilTick")
 		(var apMainBeltOnly:bool = "apRawMainBeltOnly && !apOvermatchModeHoldActive")
-		(var apOvermatchRows:bool = "isApRule && !apDeckSideOnly && (apRawOvermatchRows || apOvermatchModeHoldActive)")
+		(var apOvermatchRows:bool = "isApRule && (apRawOvermatchRows || apOvermatchModeHoldActive)")
 		(var showBowSternRow:bool = "!isApRule || apOvermatchRows")
-		(var showDeckRow:bool = "!isApRule || apDeckSideOnly || apOvermatchRows")
-		(var showSideRow:bool = "!isApRule || apDeckSideOnly || apOvermatchRows")
+		(var showDeckRow:bool = "!isApRule || apOvermatchRows || apMainBeltOnly")
+		(var showSideRow:bool = "!isApRule || apOvermatchRows || apMainBeltOnly")
 		(var showMainBeltRow:bool = "isApRule && apMainBeltOnly")
 		(var showBeltRow:bool = "!isApRule || apOvermatchRows")
 		(var mainBeltMinArmor:number = "hasTargetArmorRecord ? (_targetRecord.mbmn > 0 ? _targetRecord.mbmn : _targetRecord.xmn) : 0")
@@ -4297,293 +4308,13 @@
 			(element OA_DiagRow _text="diagText" _visible="diagVisible")
 		)
 
-		(element OA_SettingsButton _visible="isMouseActive" _isOpen="settingsOpen"
+		(element TT_ConfigButtonElement _modIndex="22" _tooltipAlign="outerTop|outerLeft"
 			(style
 				(left = -30px)
 				(top = 20px)
 			)
 		)
-		(element OA_SettingsPanel
-			_visible="settingsOpen && isMouseActive"
-			_languageIndex="_languageIndex"
-			_displayMode="_displayMode"
-			_scale="_scale"
-			_backgroundAlpha="_backgroundAlpha"
-			_isPositionLocked="_isPositionLocked"
-			_debugLoadedEnabled="_debugLoadedEnabled"
-		)
 	)
-)
-
-(def element OA_LoadedIndicator(_visible:bool, _stageWidth:number, _stageHeight:number, _vehicleCount:number, _targetId:number) layout=true
-	(bind visible "_visible")
-
-	(block
-		(style
-			(position = "absolute")
-			(left = 14px)
-			(top = 118px)
-			(width = 248px)
-			(height = 24px)
-			(hitTest = false)
-		)
-
-		(mc contrast_panel
-			(class $FullsizeAbsolute)
-			(style
-				(alpha = 0.82)
-			)
-		)
-
-		(tf
-			(class $TextDefaultBold12NM)
-			(style
-				(position = "absolute")
-				(left = 8px)
-				(top = 3px)
-				(textColor = 0xFFFFFF)
-				(noTranslate = true)
-				(width = 232px)
-			)
-			(bind text "'AP UI loaded | ships ' + toString(_vehicleCount) + ' | target ' + (_targetId > 0 ? toString(_targetId) : 'none')")
-		)
-	)
-)
-
-(def element OA_SettingsButton(_visible:bool, _isOpen:bool) layout=true
-	(bind visible "_visible")
-
-	(style
-		(position = "absolute")
-		(width = 26px)
-		(height = 26px)
-		(align = "middle|center")
-		(hitTest = true)
-	)
-
-	(mc contrast_panel
-		(class $FullsizeAbsolute)
-		(style
-			(bind alpha "_isOpen ? 1.0 : 0.62")
-		)
-	)
-
-	(tf
-		(class $TextDefaultBold12NM)
-		(style
-			(position = "absolute")
-			(top = 5px)
-			(textColor = 0xFFFFFF)
-			(textAlign = "center")
-			(noTranslate = true)
-			(width = 26px)
-		)
-		(text = "CFG")
-	)
-
-	(dispatch evOASettingsToggle args="{}" dir="EventDirection.UP" on='mouseDown')
-)
-
-(def element OA_SettingsPanel(_visible:bool, _languageIndex:number, _displayMode:number, _scale:number, _backgroundAlpha:number, _isPositionLocked:bool, _debugLoadedEnabled:bool) layout=true
-	(scope
-		(var scaleIndex:number = "round((_scale - APOA_LOCAL_PREFS.SCALE.min) / APOA_LOCAL_PREFS.SCALE.step)")
-		(var scaleMinusIndex:number = "max(0, scaleIndex - 1)")
-		(var scalePlusIndex:number = "min(round((APOA_LOCAL_PREFS.SCALE.max - APOA_LOCAL_PREFS.SCALE.min) / APOA_LOCAL_PREFS.SCALE.step), scaleIndex + 1)")
-		(var alphaIndex:number = "round((_backgroundAlpha - APOA_LOCAL_PREFS.BACKGROUND_ALPHA.min) / APOA_LOCAL_PREFS.BACKGROUND_ALPHA.step)")
-		(var alphaMinusIndex:number = "max(0, alphaIndex - 1)")
-		(var alphaPlusIndex:number = "min(round((APOA_LOCAL_PREFS.BACKGROUND_ALPHA.max - APOA_LOCAL_PREFS.BACKGROUND_ALPHA.min) / APOA_LOCAL_PREFS.BACKGROUND_ALPHA.step), alphaIndex + 1)")
-	)
-
-	(bind visible "_visible")
-
-	(block
-		(style
-			(position = "absolute")
-			(left = -198px)
-			(top = 52px)
-			(width = 190px)
-			(height = 192px)
-			(hitTest = true)
-		)
-
-		(mc contrast_panel
-			(class $FullsizeAbsolute)
-			(style
-				(alpha = 0.94)
-			)
-		)
-
-		(vblock
-			(style
-				(width = 100%)
-				(padding = [8, 8, 8, 8])
-			)
-			(element OA_SettingsToggleRow _label="'Lang'" _valueText="_languageIndex == 1 ? 'ZH' : 'EN'" _prefKey="APOA_LOCAL_PREFS.LANGUAGE.key" _nextValue="_languageIndex == 1 ? 0 : 1")
-			(element OA_SettingsToggleRow _label="'Mode'" _valueText="_displayMode == 1 ? 'Enemy' : 'My'" _prefKey="APOA_LOCAL_PREFS.MODE.key" _nextValue="_displayMode == 1 ? 0 : 1")
-			(element OA_SettingsStepRow _label="'Scale'" _valueText="toString(round(_scale * 10) / 10) + 'x'" _prefKey="APOA_LOCAL_PREFS.SCALE.key" _minusValue="scaleMinusIndex" _plusValue="scalePlusIndex")
-			(element OA_SettingsToggleRow _label="'Lock'" _valueText="_isPositionLocked ? 'ON' : 'OFF'" _prefKey="APOA_LOCAL_PREFS.DISABLE_DRAGDROP.key" _nextValue="_isPositionLocked ? 0 : 1")
-			(element OA_SettingsStepRow _label="'Alpha'" _valueText="toString(round(_backgroundAlpha * 100)) + '%'" _prefKey="APOA_LOCAL_PREFS.BACKGROUND_ALPHA.key" _minusValue="alphaMinusIndex" _plusValue="alphaPlusIndex")
-			(element OA_SettingsToggleRow _label="'Debug'" _valueText="_debugLoadedEnabled ? 'ON' : 'OFF'" _prefKey="APOA_LOCAL_PREFS.DEBUG_LOADED.key" _nextValue="_debugLoadedEnabled ? 0 : 1")
-			(element OA_SettingsResetRow)
-		)
-	)
-)
-
-(def element OA_SettingsToggleRow(_label:str, _valueText:str, _prefKey:str, _nextValue:number) layout=true
-	(scope
-		(event evOASettingClicked)
-	)
-
-	(bindcall externalCall 'inputMapping.onAction' "['setUserPref', {'value': _nextValue + 0.00001, 'name': 'chatBoxWidth', 'subName': _prefKey}]" init=false watch=false (event "evOASettingClicked"))
-
-	(hblock
-		(style
-			(width = 100%)
-			(height = 24px)
-			(align = "left|middle")
-		)
-		(element OA_SettingsLabel _text="_label")
-		(element OA_SettingsValueButton _text="_valueText")
-	)
-)
-
-(def element OA_SettingsStepRow(_label:str, _valueText:str, _prefKey:str, _minusValue:number, _plusValue:number) layout=true
-	(scope
-		(event evOASettingMinus)
-		(event evOASettingPlus)
-	)
-
-	(bindcall externalCall 'inputMapping.onAction' "['setUserPref', {'value': _minusValue + 0.00001, 'name': 'chatBoxWidth', 'subName': _prefKey}]" init=false watch=false (event "evOASettingMinus"))
-	(bindcall externalCall 'inputMapping.onAction' "['setUserPref', {'value': _plusValue + 0.00001, 'name': 'chatBoxWidth', 'subName': _prefKey}]" init=false watch=false (event "evOASettingPlus"))
-
-	(hblock
-		(style
-			(width = 100%)
-			(height = 24px)
-			(align = "left|middle")
-		)
-		(element OA_SettingsLabel _text="_label")
-		(element OA_SettingsMinusButton)
-		(element OA_SettingsReadout _text="_valueText")
-		(element OA_SettingsPlusButton)
-	)
-)
-
-(def element OA_SettingsResetRow() layout=true
-	(scope
-		(event evOASettingClicked)
-	)
-
-	(bindcall externalCall 'inputMapping.onAction' "['clearUserPref', {'name': 'chatBoxWidth', 'subName': 'apOvermatchAssistant_positionX'}]" init=false watch=false (event "evOASettingClicked"))
-	(bindcall externalCall 'inputMapping.onAction' "['clearUserPref', {'name': 'chatBoxWidth', 'subName': 'apOvermatchAssistant_positionY'}]" init=false watch=false (event "evOASettingClicked"))
-
-	(hblock
-		(style
-			(width = 100%)
-			(height = 24px)
-			(align = "left|middle")
-		)
-		(element OA_SettingsLabel _text="'Reset'")
-		(element OA_SettingsValueButton _text="'Position'")
-	)
-)
-
-(def element OA_SettingsLabel(_text:str) layout=true
-	(style
-		(width = 58px)
-		(height = 22px)
-		(hitTest = false)
-	)
-	(tf
-		(class $TextDefaultBold12NM)
-		(style
-			(textColor = 0xFFFFFF)
-			(noTranslate = true)
-			(width = 58px)
-		)
-		(bind text "_text")
-	)
-)
-
-(def element OA_SettingsReadout(_text:str) layout=true
-	(style
-		(width = 54px)
-		(height = 20px)
-		(hitTest = false)
-	)
-	(tf
-		(class $TextDefaultBold12NM)
-		(style
-			(textColor = 0xFFFFFF)
-			(textAlign = "center")
-			(noTranslate = true)
-			(width = 54px)
-		)
-		(bind text "_text")
-	)
-)
-
-(def element OA_SettingsValueButton(_text:str) layout=true
-	(style
-		(width = 94px)
-		(height = 20px)
-		(align = "middle|center")
-		(backgroundColor = 0x01000000)
-		(hitTest = true)
-	)
-	(tf
-		(class $TextDefaultBold12NM)
-		(style
-			(textColor = 0xFFFFFF)
-			(textAlign = "center")
-			(noTranslate = true)
-			(width = 94px)
-		)
-		(bind text "_text")
-	)
-	(dispatch evOASettingClicked args="{}" dir="EventDirection.UP" on='mouseDown')
-)
-
-(def element OA_SettingsMinusButton() layout=true
-	(style
-		(width = 26px)
-		(height = 20px)
-		(align = "middle|center")
-		(backgroundColor = 0x01000000)
-		(hitTest = true)
-	)
-	(tf
-		(class $TextDefaultBold12NM)
-		(style
-			(textColor = 0xFFFFFF)
-			(textAlign = "center")
-			(noTranslate = true)
-			(width = 26px)
-		)
-		(text = "-")
-	)
-	(dispatch evOASettingMinus args="{}" dir="EventDirection.UP" on='mouseDown')
-)
-
-(def element OA_SettingsPlusButton() layout=true
-	(style
-		(width = 26px)
-		(height = 20px)
-		(align = "middle|center")
-		(backgroundColor = 0x01000000)
-		(hitTest = true)
-	)
-	(tf
-		(class $TextDefaultBold12NM)
-		(style
-			(textColor = 0xFFFFFF)
-			(textAlign = "center")
-			(noTranslate = true)
-			(width = 26px)
-		)
-		(text = "+")
-	)
-	(dispatch evOASettingPlus args="{}" dir="EventDirection.UP" on='mouseDown')
 )
 
 (def element OA_Row(_visible:bool, _prefix:str, _text:str, _color:number) layout=true

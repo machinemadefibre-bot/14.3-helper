@@ -46,7 +46,7 @@ If the top-left TTaro settings panel is visible, `14.3-helper` can also be selec
 
 ### Aslain Custom Mods
 
-1. Download the Aslain zip from GitHub Releases, for example `14.3-helper_v0.5.1_Aslain-patch15.4.zip`.
+1. Download the Aslain zip from GitHub Releases, for example `14.3-helper_v0.5.1_Aslain-patch15.5.zip`.
 2. Put the zip file directly into:
 
 ```text
@@ -90,22 +90,22 @@ Build the Aslain package:
 powershell -ExecutionPolicy Bypass -File .\tools\build.ps1
 ```
 
-The build script prompts for the game patch suffix. Press Enter to use the project target game version `15.4`, or pass it explicitly:
+The build script prompts for the game patch suffix. Press Enter to use the project target game version `15.5`, or pass it explicitly:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4
+powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.5
 ```
 
 Example output:
 
 ```text
-dist\14.3-helper_v0.5.1_Aslain-patch15.4.zip
+dist\14.3-helper_v0.5.1_Aslain-patch15.5.zip
 ```
 
 To build and copy the exact package into Aslain `Custom_mods` in one step:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.4 -AslainCustomModsDir "S:\SteamLibrary\steamapps\common\World of Warships\Aslain_Modpack\Custom_mods"
+powershell -ExecutionPolicy Bypass -File .\tools\build.ps1 -PatchVersion 15.5 -AslainCustomModsDir "S:\SteamLibrary\steamapps\common\World of Warships\Aslain_Modpack\Custom_mods"
 ```
 
 ## Updating Armor Data

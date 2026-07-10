@@ -121,8 +121,8 @@ function Test-ProjectInvariants {
     if ($constantVersion -ne "0.5.1") {
         throw "MOD_VERSION must be 0.5.1 for the UI display-risk repair release, actual=$constantVersion."
     }
-    if ($targetGameVersion -ne "15.4") {
-        throw "TARGET_GAME_VERSION must remain 15.4, actual=$targetGameVersion."
+    if ($targetGameVersion -ne "15.5") {
+        throw "TARGET_GAME_VERSION must remain 15.5, actual=$targetGameVersion."
     }
 
     [xml]$installerXml = Get-Content -LiteralPath $installerPath -Raw
@@ -153,10 +153,8 @@ function Test-ProjectInvariants {
         "END GENERATED ARMOR DB",
         "OA_ARMOR_DB_BUILD",
         "\(def element OA_APOvermatchAssistant\(\)",
-        "\(def element OA_SettingsButton",
-        "\(def element OA_SettingsPanel",
-        "\(def element OA_LoadedIndicator",
-        "apOvermatchAssistantDebugLoaded",
+        "TT_ConfigButtonElement",
+        '_modIndex="22"',
         "\(def element OA_AmmoPanel",
         "\(def element OA_RulePanel",
         "\(def element OA_MainBeltRow",
@@ -183,7 +181,7 @@ function Test-ProjectInvariants {
         "apHorizontalPenetrationMm",
         "apDeckAllRicochet",
         "apDeckAnyRicochet",
-        "apDeckSideOnly",
+        "apProbabilityRicochetHeadingDeg",
         "apRawMainBeltOnly",
         "apRawOvermatchRows",
         "evOAModeFlapState",
@@ -242,8 +240,18 @@ function Test-ProjectInvariants {
     if ($unboundText -notmatch 'var apMainBeltOnly:bool = "apRawMainBeltOnly && !apOvermatchModeHoldActive"') {
         throw "AP main-belt mode must be suppressed while overmatch hold is active."
     }
-    if ($unboundText -notmatch 'var apOvermatchRows:bool = "isApRule && !apDeckSideOnly && \(apRawOvermatchRows \|\| apOvermatchModeHoldActive\)"') {
+    if ($unboundText -match 'apDeckSideOnly') {
+        throw "AP display rules must not use deck-side-only mode; high-heading AP should show main belt, side, and deck together."
+    }
+    if ($unboundText -notmatch 'var apRawMainBeltOnly:bool = "isApRule && apRelativeHeadingDeg > apProbabilityRicochetHeadingDeg"') {
+        throw "AP main-belt mode must start above the probability ricochet heading threshold."
+    }
+    if ($unboundText -notmatch 'var apOvermatchRows:bool = "isApRule && \(apRawOvermatchRows \|\| apOvermatchModeHoldActive\)"') {
         throw "AP overmatch rows must remain visible while overmatch hold is active."
+    }
+    if ($unboundText -notmatch 'var showDeckRow:bool = "!isApRule \|\| apOvermatchRows \|\| apMainBeltOnly"' -or
+        $unboundText -notmatch 'var showSideRow:bool = "!isApRule \|\| apOvermatchRows \|\| apMainBeltOnly"') {
+        throw "AP main-belt mode must also show deck and side AP penetration rows."
     }
     $db = Get-Content -LiteralPath $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($unboundText -notmatch "OA_ARMOR_DB_BUILD\s+'([^']*)'") {
@@ -337,11 +345,14 @@ function Test-ProjectInvariants {
     if ($unboundText -match '\$datahub\.getSingleComponent\(CC\.weaponController\)') {
         throw "APOvermatchAssistant.unbound should not depend on the global CC.weaponController component."
     }
-    if ($unboundText -match 'TT_ConfigButtonElement') {
-        throw "APOvermatchAssistant.unbound must not reference TTaro's TT_ConfigButtonElement; the main panel must stay independent."
+    if ($unboundText -notmatch 'TT_ConfigButtonElement') {
+        throw "APOvermatchAssistant.unbound must include the TTaro config button element used by the stable in-game settings path."
     }
-    if ($unboundText -match '_modIndex\s*=\s*"22"') {
-        throw "APOvermatchAssistant.unbound must not hard-code a TTaro mod index."
+    if ($unboundText -notmatch '_modIndex\s*=\s*"22"') {
+        throw "APOvermatchAssistant.unbound must keep the stable TTaro mod index used by the bundled config entry."
+    }
+    if ($unboundText -match 'OA_SettingsButton|OA_SettingsPanel|OA_LoadedIndicator|apOvermatchAssistantDebugLoaded') {
+        throw "APOvermatchAssistant.unbound must not include the self-settings/debug indicator UI that can trigger critical errors."
     }
     if ($unboundText -match "\(def element OA_TargetPanel\(") {
         throw "Unused legacy OA_TargetPanel should not be kept in APOvermatchAssistant.unbound."

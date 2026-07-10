@@ -4,11 +4,11 @@ DATABASE = {
   "schema": 3,
   "meta": {
     "name": "14.3-helper",
-    "gameBuild": "12506899",
+    "gameBuild": "12668706",
     "realm": "ASIA",
-    "generatedAt": "2026-05-29T02:36:44",
+    "generatedAt": "2026-06-18T05:09:21",
     "source": "wowsunpack GameParams JSON, streamed per ship",
-    "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges; when measured main belt geometry is unavailable, the existing belt value or side armor fallback uses a complete 0 degree estimated angle range, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main belt records without measured geometry keep a complete 0 degree estimated angle range, and ships with side armor but no main belt fall back to side armor. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Side/mainBelt uses side belt-like materials as a first-pass main belt proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks."
+    "notes": "Armor groups are refined from armor geometry where available: deck uses broad outer horizontal deck surfaces (carriers use the highest flight deck), side uses longitudinal side surfaces from visible side or casemate armor while excluding transverse bulkheads, local superstructure/turret faces, and lower belt extensions, mainBelt is extracted from central citadel belt geometry and stores both vertical inclination and horizontal heading-relative angle ranges; when measured main belt geometry is unavailable, the existing belt value or side armor fallback uses a complete 0 degree estimated angle range, submarines use all positive final-hull armor values for hull armor because positional geometry is not useful there, bow/stern values conservatively remove values not visible in end plating positions, extended belt separately keeps near-waterline Bow_Belt and St_Belt plates as fore and aft armor belt groups, and destroyers preserve their strongest original side value because their thickest main hull plating counts as outer side armor. Deck uses a representative weather-deck thickness rather than every deck-like material. Side means upper side plating above the main armor belt. Main belt records without measured geometry keep a complete 0 degree estimated angle range, and ships with side armor but no main belt fall back to side armor. Known armor-viewer corrections are applied for ships whose side material is not separable from client collision material groups. Armor groups are classified from collision material IDs. Deck uses a representative weather-deck thickness rather than every deck-like material. Main belt uses citadel belt materials first, then separated belt materials, then strongest side armor as a first-pass proxy. Main-gun HE/SAP penetration is resolved from projectile alphaPiercingHE/alphaPiercingCS. Main-gun AP stores unpacked shell parameters and a deterministic approximate penetration table for in-battle main-belt checks."
   },
   "ships": {
     "PASA002_Bogue_1942": {
@@ -8425,6 +8425,131 @@ DATABASE = {
         }
       }
     },
+    "PASB940_250TH_Wisconsin": {
+      "name": "PASB940_250TH_Wisconsin",
+      "aliases": [
+        "PASB940_250TH_Wisconsin",
+        "PASB940",
+        "3309254640"
+      ],
+      "mainGunCaliberMm": 406,
+      "mainGunHePenMm": 68,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PAPA164_406MM_AP_WISCONSIN",
+        "caliberMm": 406,
+        "caliberM": 0.406,
+        "massKg": 1225,
+        "muzzleVelocityMps": 762,
+        "krupp": 2380,
+        "airDrag": 0.29,
+        "ricochetAtDeg": 45,
+        "alwaysRicochetAtDeg": 60,
+        "normalizationDeg": 6,
+        "hasCap": True,
+        "detonatorThresholdMm": 68,
+        "detonatorSec": 0.033,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 800.5,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 762
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 682.1,
+            "horizontalPenetrationMm": 34.2,
+            "impactAngleDeg": 2.9,
+            "flightTimeSec": 6.94,
+            "velocityMps": 678.5
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 581.2,
+            "horizontalPenetrationMm": 68.6,
+            "impactAngleDeg": 6.8,
+            "flightTimeSec": 14.64,
+            "velocityMps": 604.2
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 495.2,
+            "horizontalPenetrationMm": 101.9,
+            "impactAngleDeg": 11.9,
+            "flightTimeSec": 23.08,
+            "velocityMps": 538
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 422,
+            "horizontalPenetrationMm": 132.2,
+            "impactAngleDeg": 18.3,
+            "flightTimeSec": 32.23,
+            "velocityMps": 479.1
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 359.5,
+            "horizontalPenetrationMm": 156.5,
+            "impactAngleDeg": 25.8,
+            "flightTimeSec": 42.06,
+            "velocityMps": 426.6
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 306.4,
+            "horizontalPenetrationMm": 171.9,
+            "impactAngleDeg": 34.1,
+            "flightTimeSec": 52.54,
+            "velocityMps": 379.9
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            32
+          ],
+          "stern": [
+            32
+          ]
+        },
+        "deck": {
+          "values": [
+            38
+          ]
+        },
+        "side": {
+          "values": [
+            38
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            297
+          ],
+          "inclinationDeg": {
+            "min": 15,
+            "max": 22.5,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 8,
+            "estimated": False
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
     "PASB990_Utah": {
       "name": "PASB990_Utah",
       "aliases": [
@@ -15023,6 +15148,132 @@ DATABASE = {
           "headingAngleDeg": {
             "min": 0.5,
             "max": 7.5,
+            "estimated": False
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PASC909_250TH_Fort_Worth": {
+      "name": "PASC909_250TH_Fort_Worth",
+      "aliases": [
+        "PASC909_250TH_Fort_Worth",
+        "PASC909",
+        "3341727728"
+      ],
+      "mainGunCaliberMm": 254,
+      "mainGunHePenMm": 42,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PAPA249_254MM_AP_FORT_WORTH",
+        "caliberMm": 254,
+        "caliberM": 0.254,
+        "massKg": 231.4,
+        "muzzleVelocityMps": 925,
+        "krupp": 2580,
+        "airDrag": 0.258,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 6,
+        "hasCap": True,
+        "detonatorThresholdMm": 42,
+        "detonatorSec": 0.033,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 593.1,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 925
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 514.4,
+            "horizontalPenetrationMm": 17.2,
+            "impactAngleDeg": 1.9,
+            "flightTimeSec": 5.68,
+            "velocityMps": 834.3
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 446.1,
+            "horizontalPenetrationMm": 34.6,
+            "impactAngleDeg": 4.4,
+            "flightTimeSec": 11.92,
+            "velocityMps": 752.5
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 386.9,
+            "horizontalPenetrationMm": 51.8,
+            "impactAngleDeg": 7.7,
+            "flightTimeSec": 18.71,
+            "velocityMps": 678.7
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 335.5,
+            "horizontalPenetrationMm": 68.5,
+            "impactAngleDeg": 11.8,
+            "flightTimeSec": 26.02,
+            "velocityMps": 612.2
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 291,
+            "horizontalPenetrationMm": 83.8,
+            "impactAngleDeg": 16.7,
+            "flightTimeSec": 33.85,
+            "velocityMps": 552.1
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 252.4,
+            "horizontalPenetrationMm": 96.8,
+            "impactAngleDeg": 22.5,
+            "flightTimeSec": 42.16,
+            "velocityMps": 498
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            27
+          ],
+          "stern": [
+            27
+          ]
+        },
+        "deck": {
+          "values": [
+            27
+          ]
+        },
+        "side": {
+          "values": [
+            28,
+            191
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            191
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 9,
+            "estimated": False
+          },
+          "headingAngleDeg": {
+            "min": 0.5,
+            "max": 6.5,
             "estimated": False
           }
         },
@@ -102958,6 +103209,138 @@ DATABASE = {
         }
       }
     },
+    "PSSB709_Triunfante": {
+      "name": "PSSB709_Triunfante",
+      "aliases": [
+        "PSSB709_Triunfante",
+        "PSSB709",
+        "3551475120"
+      ],
+      "mainGunCaliberMm": 406,
+      "mainGunHePenMm": 68,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PSPA038_406MM_1940_AP_TRIUNFANTE",
+        "caliberMm": 406,
+        "caliberM": 0.406,
+        "massKg": 990,
+        "muzzleVelocityMps": 836,
+        "krupp": 2550,
+        "airDrag": 0.3278,
+        "ricochetAtDeg": 45,
+        "alwaysRicochetAtDeg": 60,
+        "normalizationDeg": 6,
+        "hasCap": True,
+        "detonatorThresholdMm": 68,
+        "detonatorSec": 0.033,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 841.5,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 836
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 702.2,
+            "horizontalPenetrationMm": 29.9,
+            "impactAngleDeg": 2.4,
+            "flightTimeSec": 6.37,
+            "velocityMps": 733.3
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 586,
+            "horizontalPenetrationMm": 60.1,
+            "impactAngleDeg": 5.9,
+            "flightTimeSec": 13.52,
+            "velocityMps": 643.2
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 489,
+            "horizontalPenetrationMm": 89.5,
+            "impactAngleDeg": 10.5,
+            "flightTimeSec": 21.43,
+            "velocityMps": 564.1
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 408.1,
+            "horizontalPenetrationMm": 116.5,
+            "impactAngleDeg": 16.6,
+            "flightTimeSec": 30.06,
+            "velocityMps": 494.8
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 340.5,
+            "horizontalPenetrationMm": 138.4,
+            "impactAngleDeg": 24,
+            "flightTimeSec": 39.37,
+            "velocityMps": 434
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 284.2,
+            "horizontalPenetrationMm": 152.4,
+            "impactAngleDeg": 32.4,
+            "flightTimeSec": 49.32,
+            "velocityMps": 380.7
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            32
+          ],
+          "stern": [
+            32
+          ]
+        },
+        "deck": {
+          "values": [
+            40
+          ]
+        },
+        "side": {
+          "values": [
+            32,
+            51,
+            76,
+            102,
+            127,
+            152,
+            229,
+            305
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            102
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
     "PSSB719_Victoria": {
       "name": "PSSB719_Victoria",
       "aliases": [
@@ -110661,6 +111044,884 @@ DATABASE = {
           "stern": [
             50
           ]
+        }
+      }
+    },
+    "PVSC710_Almirante_Irizar": {
+      "name": "PVSC710_Almirante_Irizar",
+      "aliases": [
+        "PVSC710_Almirante_Irizar",
+        "PVSC710",
+        "3550393680"
+      ],
+      "mainGunCaliberMm": 152,
+      "mainGunHePenMm": 30,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA043_152MM_AP_ALMIRANTE_IRIZAR",
+        "caliberMm": 152,
+        "caliberM": 0.152,
+        "massKg": 45.3,
+        "muzzleVelocityMps": 900,
+        "krupp": 2314,
+        "airDrag": 0.2884,
+        "ricochetAtDeg": 45,
+        "alwaysRicochetAtDeg": 60,
+        "normalizationDeg": 8.5,
+        "hasCap": True,
+        "detonatorThresholdMm": 25,
+        "detonatorSec": 0.025,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 288,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 900
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 245.6,
+            "horizontalPenetrationMm": 8.8,
+            "impactAngleDeg": 2.1,
+            "flightTimeSec": 5.88,
+            "velocityMps": 801.9
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 209.4,
+            "horizontalPenetrationMm": 17.7,
+            "impactAngleDeg": 4.9,
+            "flightTimeSec": 12.39,
+            "velocityMps": 714.6
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 178.6,
+            "horizontalPenetrationMm": 26.6,
+            "impactAngleDeg": 8.5,
+            "flightTimeSec": 19.52,
+            "velocityMps": 636.7
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 152.3,
+            "horizontalPenetrationMm": 34.9,
+            "impactAngleDeg": 13.3,
+            "flightTimeSec": 27.26,
+            "velocityMps": 567.3
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 129.9,
+            "horizontalPenetrationMm": 42.4,
+            "impactAngleDeg": 19,
+            "flightTimeSec": 35.57,
+            "velocityMps": 505.5
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 110.8,
+            "horizontalPenetrationMm": 48.2,
+            "impactAngleDeg": 25.8,
+            "flightTimeSec": 44.43,
+            "velocityMps": 450.4
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            25
+          ],
+          "stern": [
+            25,
+            31
+          ]
+        },
+        "deck": {
+          "values": [
+            30
+          ]
+        },
+        "side": {
+          "values": [
+            25
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            88
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PVSD010_20_de_Julio": {
+      "name": "PVSD010_20_de_Julio",
+      "aliases": [
+        "PVSD010_20_de_Julio",
+        "PVSD010",
+        "4284364112"
+      ],
+      "mainGunCaliberMm": 120,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA055_120_AP_50_M50",
+        "caliberMm": 120,
+        "caliberM": 0.12,
+        "massKg": 23.8,
+        "muzzleVelocityMps": 825,
+        "krupp": 2243,
+        "airDrag": 0.2131,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 10,
+        "hasCap": True,
+        "detonatorThresholdMm": 32,
+        "detonatorSec": 0.01,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 204.5,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 825
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 181.8,
+            "horizontalPenetrationMm": 7.4,
+            "impactAngleDeg": 2.3,
+            "flightTimeSec": 6.32,
+            "velocityMps": 757.6
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 161.6,
+            "horizontalPenetrationMm": 14.9,
+            "impactAngleDeg": 5.3,
+            "flightTimeSec": 13.15,
+            "velocityMps": 695.7
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 143.7,
+            "horizontalPenetrationMm": 22.3,
+            "impactAngleDeg": 8.9,
+            "flightTimeSec": 20.49,
+            "velocityMps": 638.8
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 127.7,
+            "horizontalPenetrationMm": 29.4,
+            "impactAngleDeg": 13.3,
+            "flightTimeSec": 28.34,
+            "velocityMps": 586.6
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 113.6,
+            "horizontalPenetrationMm": 35.9,
+            "impactAngleDeg": 18.5,
+            "flightTimeSec": 36.66,
+            "velocityMps": 538.7
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 101,
+            "horizontalPenetrationMm": 41.5,
+            "impactAngleDeg": 24.3,
+            "flightTimeSec": 45.47,
+            "velocityMps": 494.7
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            19
+          ],
+          "stern": [
+            19
+          ]
+        },
+        "deck": {
+          "values": [
+            19
+          ]
+        },
+        "side": {
+          "values": [
+            19
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            19
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PVSD015_Antioquia": {
+      "name": "PVSD015_Antioquia",
+      "aliases": [
+        "PVSD015_Antioquia",
+        "PVSD015",
+        "4279121232"
+      ],
+      "mainGunCaliberMm": 120,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA063_120MM_45_AP_1926",
+        "caliberMm": 120,
+        "caliberM": 0.12,
+        "massKg": 24.1,
+        "muzzleVelocityMps": 814,
+        "krupp": 1753,
+        "airDrag": 0.2614,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 10,
+        "hasCap": True,
+        "detonatorThresholdMm": 32,
+        "detonatorSec": 0.03,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 158.2,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 814
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 137,
+            "horizontalPenetrationMm": 5.9,
+            "impactAngleDeg": 2.5,
+            "flightTimeSec": 6.46,
+            "velocityMps": 733.2
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 118.6,
+            "horizontalPenetrationMm": 11.9,
+            "impactAngleDeg": 5.8,
+            "flightTimeSec": 13.56,
+            "velocityMps": 660.4
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 102.6,
+            "horizontalPenetrationMm": 17.7,
+            "impactAngleDeg": 10,
+            "flightTimeSec": 21.29,
+            "velocityMps": 594.8
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 88.8,
+            "horizontalPenetrationMm": 23.3,
+            "impactAngleDeg": 15.2,
+            "flightTimeSec": 29.63,
+            "velocityMps": 535.8
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 76.9,
+            "horizontalPenetrationMm": 28.1,
+            "impactAngleDeg": 21.4,
+            "flightTimeSec": 38.56,
+            "velocityMps": 482.6
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 66.6,
+            "horizontalPenetrationMm": 31.7,
+            "impactAngleDeg": 28.5,
+            "flightTimeSec": 48.05,
+            "velocityMps": 434.7
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            10
+          ],
+          "stern": [
+            10
+          ]
+        },
+        "deck": {
+          "values": [
+            10
+          ]
+        },
+        "side": {
+          "values": [
+            10
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            10
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PVSD016_Cervantes": {
+      "name": "PVSD016_Cervantes",
+      "aliases": [
+        "PVSD016_Cervantes",
+        "PVSD016",
+        "4278072656"
+      ],
+      "mainGunCaliberMm": 120,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA067_120MM_QFMIX_AP_G",
+        "caliberMm": 120,
+        "caliberM": 0.12,
+        "massKg": 22.25,
+        "muzzleVelocityMps": 850,
+        "krupp": 1946,
+        "airDrag": 0.2399,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 10,
+        "hasCap": True,
+        "detonatorThresholdMm": 32,
+        "detonatorSec": 0.03,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 176.5,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 850
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 154.6,
+            "horizontalPenetrationMm": 6,
+            "impactAngleDeg": 2.2,
+            "flightTimeSec": 6.16,
+            "velocityMps": 772.2
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 135.4,
+            "horizontalPenetrationMm": 12.2,
+            "impactAngleDeg": 5.1,
+            "flightTimeSec": 12.89,
+            "velocityMps": 701.6
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 118.6,
+            "horizontalPenetrationMm": 18.2,
+            "impactAngleDeg": 8.8,
+            "flightTimeSec": 20.17,
+            "velocityMps": 637.4
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 103.9,
+            "horizontalPenetrationMm": 24,
+            "impactAngleDeg": 13.3,
+            "flightTimeSec": 27.99,
+            "velocityMps": 579.1
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 91,
+            "horizontalPenetrationMm": 29.2,
+            "impactAngleDeg": 18.7,
+            "flightTimeSec": 36.34,
+            "velocityMps": 526.1
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 79.7,
+            "horizontalPenetrationMm": 33.5,
+            "impactAngleDeg": 24.9,
+            "flightTimeSec": 45.18,
+            "velocityMps": 477.9
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            16
+          ],
+          "stern": [
+            13,
+            16
+          ]
+        },
+        "deck": {
+          "values": [
+            16
+          ]
+        },
+        "side": {
+          "values": [
+            16
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            16
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PVSD017_Marcilio_Dias": {
+      "name": "PVSD017_Marcilio_Dias",
+      "aliases": [
+        "PVSD017_Marcilio_Dias",
+        "PVSD017",
+        "4277024080"
+      ],
+      "mainGunCaliberMm": 127,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA064_127MM_AP_MARCILIO_DIAS",
+        "caliberMm": 127,
+        "caliberM": 0.127,
+        "massKg": 25.82,
+        "muzzleVelocityMps": 792,
+        "krupp": 2315,
+        "airDrag": 0.2387,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 10,
+        "hasCap": True,
+        "detonatorThresholdMm": 32,
+        "detonatorSec": 0.03,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 198.6,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 792
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 174.1,
+            "horizontalPenetrationMm": 7.8,
+            "impactAngleDeg": 2.6,
+            "flightTimeSec": 6.61,
+            "velocityMps": 719.9
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 152.6,
+            "horizontalPenetrationMm": 15.7,
+            "impactAngleDeg": 5.9,
+            "flightTimeSec": 13.83,
+            "velocityMps": 654.3
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 133.8,
+            "horizontalPenetrationMm": 23.5,
+            "impactAngleDeg": 10.1,
+            "flightTimeSec": 21.63,
+            "velocityMps": 594.7
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 117.2,
+            "horizontalPenetrationMm": 30.8,
+            "impactAngleDeg": 15.2,
+            "flightTimeSec": 30.02,
+            "velocityMps": 540.6
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 102.8,
+            "horizontalPenetrationMm": 37.2,
+            "impactAngleDeg": 21.2,
+            "flightTimeSec": 38.96,
+            "velocityMps": 491.4
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 90.1,
+            "horizontalPenetrationMm": 42.3,
+            "impactAngleDeg": 28,
+            "flightTimeSec": 48.44,
+            "velocityMps": 446.6
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            16
+          ],
+          "stern": [
+            16
+          ]
+        },
+        "deck": {
+          "values": [
+            16
+          ]
+        },
+        "side": {
+          "values": [
+            16
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            16
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PVSD018_Cuauhtemoc": {
+      "name": "PVSD018_Cuauhtemoc",
+      "aliases": [
+        "PVSD018_Cuauhtemoc",
+        "PVSD018",
+        "4275975504"
+      ],
+      "mainGunCaliberMm": 127,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA057_127MM_AP_CUAHTEMOC",
+        "caliberMm": 127,
+        "caliberM": 0.127,
+        "massKg": 25.82,
+        "muzzleVelocityMps": 792,
+        "krupp": 2315,
+        "airDrag": 0.2387,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 10,
+        "hasCap": True,
+        "detonatorThresholdMm": 32,
+        "detonatorSec": 0.03,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 198.6,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 792
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 174.1,
+            "horizontalPenetrationMm": 7.8,
+            "impactAngleDeg": 2.6,
+            "flightTimeSec": 6.61,
+            "velocityMps": 719.9
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 152.6,
+            "horizontalPenetrationMm": 15.7,
+            "impactAngleDeg": 5.9,
+            "flightTimeSec": 13.83,
+            "velocityMps": 654.3
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 133.8,
+            "horizontalPenetrationMm": 23.5,
+            "impactAngleDeg": 10.1,
+            "flightTimeSec": 21.63,
+            "velocityMps": 594.7
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 117.2,
+            "horizontalPenetrationMm": 30.8,
+            "impactAngleDeg": 15.2,
+            "flightTimeSec": 30.02,
+            "velocityMps": 540.6
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 102.8,
+            "horizontalPenetrationMm": 37.2,
+            "impactAngleDeg": 21.2,
+            "flightTimeSec": 38.96,
+            "velocityMps": 491.4
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 90.1,
+            "horizontalPenetrationMm": 42.3,
+            "impactAngleDeg": 28,
+            "flightTimeSec": 48.44,
+            "velocityMps": 446.6
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            19
+          ],
+          "stern": [
+            19,
+            20
+          ]
+        },
+        "deck": {
+          "values": [
+            19
+          ]
+        },
+        "side": {
+          "values": [
+            19
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            19
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
+        }
+      }
+    },
+    "PVSD019_Nueva_Esparta": {
+      "name": "PVSD019_Nueva_Esparta",
+      "aliases": [
+        "PVSD019_Nueva_Esparta",
+        "PVSD019",
+        "4274926928"
+      ],
+      "mainGunCaliberMm": 113,
+      "mainGunHePenMm": None,
+      "mainGunSapPenMm": None,
+      "mainGunAp": {
+        "shellName": "PVPA061_113MM_AP",
+        "caliberMm": 113,
+        "caliberM": 0.113,
+        "massKg": 23.1,
+        "muzzleVelocityMps": 746,
+        "krupp": 2282,
+        "airDrag": 0.2191,
+        "ricochetAtDeg": 60,
+        "alwaysRicochetAtDeg": 67.5,
+        "normalizationDeg": 10,
+        "hasCap": True,
+        "detonatorThresholdMm": 32,
+        "detonatorSec": 0.03,
+        "table": [
+          {
+            "rangeKm": 0,
+            "verticalPenetrationMm": 189.1,
+            "horizontalPenetrationMm": 0,
+            "impactAngleDeg": 0,
+            "flightTimeSec": 0,
+            "velocityMps": 746
+          },
+          {
+            "rangeKm": 5,
+            "verticalPenetrationMm": 167.6,
+            "horizontalPenetrationMm": 8.4,
+            "impactAngleDeg": 2.9,
+            "flightTimeSec": 7,
+            "velocityMps": 683.4
+          },
+          {
+            "rangeKm": 10,
+            "verticalPenetrationMm": 148.5,
+            "horizontalPenetrationMm": 16.8,
+            "impactAngleDeg": 6.5,
+            "flightTimeSec": 14.58,
+            "velocityMps": 626.1
+          },
+          {
+            "rangeKm": 15,
+            "verticalPenetrationMm": 131.6,
+            "horizontalPenetrationMm": 25.1,
+            "impactAngleDeg": 11,
+            "flightTimeSec": 22.74,
+            "velocityMps": 573.5
+          },
+          {
+            "rangeKm": 20,
+            "verticalPenetrationMm": 116.6,
+            "horizontalPenetrationMm": 32.8,
+            "impactAngleDeg": 16.4,
+            "flightTimeSec": 31.46,
+            "velocityMps": 525.4
+          },
+          {
+            "rangeKm": 25,
+            "verticalPenetrationMm": 103.3,
+            "horizontalPenetrationMm": 39.6,
+            "impactAngleDeg": 22.5,
+            "flightTimeSec": 40.74,
+            "velocityMps": 481.3
+          },
+          {
+            "rangeKm": 30,
+            "verticalPenetrationMm": 91.5,
+            "horizontalPenetrationMm": 44.9,
+            "impactAngleDeg": 29.3,
+            "flightTimeSec": 50.55,
+            "velocityMps": 440.9
+          }
+        ]
+      },
+      "armor": {
+        "bowStern": {
+          "bow": [
+            19
+          ],
+          "stern": [
+            19
+          ]
+        },
+        "deck": {
+          "values": [
+            19
+          ]
+        },
+        "side": {
+          "values": [
+            19
+          ]
+        },
+        "mainBelt": {
+          "values": [
+            19
+          ],
+          "inclinationDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          },
+          "headingAngleDeg": {
+            "min": 0,
+            "max": 0,
+            "estimated": True
+          }
+        },
+        "extendedBowSternBelt": {
+          "present": False,
+          "values": [],
+          "bow": [],
+          "stern": []
         }
       }
     },
