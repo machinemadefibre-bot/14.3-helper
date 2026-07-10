@@ -276,17 +276,17 @@ function Get-GitChangedPaths {
     return @($paths)
 }
 
-function Assert-CleanMain {
+function Assert-CleanAutomationBranch {
     $branchResult = Get-GitOutput @("branch", "--show-current")
     if ($branchResult.ExitCode -ne 0) { throw "GIT_BRANCH_FAILED: $($branchResult.Text)" }
     $branch = ($branchResult.Lines | Select-Object -First 1).Trim()
-    if ($branch -ne "main") {
-        throw "GIT_BRANCH_BLOCKED: unattended update requires main, current branch is '$branch'."
+    if ($branch -ne "develop") {
+        throw "GIT_BRANCH_BLOCKED: unattended update requires develop, current branch is '$branch'."
     }
 
     $dirty = @(Get-GitChangedPaths)
     if ($dirty.Count -gt 0) {
-        throw "GIT_DIRTY_BLOCKED: main has uncommitted paths: $($dirty -join ', ')"
+        throw "GIT_DIRTY_BLOCKED: develop has uncommitted paths: $($dirty -join ', ')"
     }
 }
 
@@ -601,7 +601,7 @@ try {
         exit 0
     }
 
-    Assert-CleanMain
+    Assert-CleanAutomationBranch
     $generatedPaths = @(Get-GeneratedSourcePaths)
     $rollbackSnapshot = New-RollbackSnapshot $generatedPaths
 

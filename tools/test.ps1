@@ -402,6 +402,7 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-FullTestAndBuild' -Description "Unattended full test and build path"
     Assert-PathExists $steamAutomationPath
     Assert-TextContains -Path $steamAutomationPath -Needle 'appmanifest_552990.acf' -Description "Steam WoWS manifest default"
+    Assert-TextContains -Path $steamAutomationPath -Needle 'unattended update requires develop' -Description "Automation branch guard"
     Assert-TextContains -Path $steamAutomationPath -Needle 'READY_TO_PUBLISH' -Description "Publication-ready state"
     Assert-TextContains -Path $steamAutomationPath -Needle 'Get-GeneratedSourcePaths' -Description "Generated source allowlist"
     Assert-TextContains -Path $steamAutomationPath -Needle 'MarkPublishFailed' -Description "Publication failure state"

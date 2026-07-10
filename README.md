@@ -156,7 +156,7 @@ powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -
 
 ### Steam 版本自动检查
 
-`tools\check-steam-wows-update.ps1` 用于无人值守检查 Steam 安装状态、更新装甲数据库、运行完整测试并打包。它只在干净的 `main` 上修改并本地提交允许的生成文件，不会推送。
+`tools\check-steam-wows-update.ps1` 用于无人值守检查 Steam 安装状态、更新装甲数据库、运行完整测试并打包。它只在干净的 `develop` 上修改并本地提交允许的生成文件，不会推送。
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode SelfTest

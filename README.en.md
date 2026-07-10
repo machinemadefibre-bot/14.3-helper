@@ -156,7 +156,7 @@ The lower-level report script is `tools\update-armor-db.ps1`. Without `-Apply`, 
 
 ### Automatic Steam Version Check
 
-`tools\check-steam-wows-update.ps1` performs unattended Steam installation checks, armor database updates, full tests, and packaging. It only changes and locally commits allowlisted generated files on a clean `main`; it never pushes.
+`tools\check-steam-wows-update.ps1` performs unattended Steam installation checks, armor database updates, full tests, and packaging. It only changes and locally commits allowlisted generated files on a clean `develop`; it never pushes.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode SelfTest
