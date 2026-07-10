@@ -154,6 +154,18 @@ powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -
 
 The lower-level report script is `tools\update-armor-db.ps1`. Without `-Apply`, it only writes a report. With `-Apply`, it replaces the database. `-ExtractGameParams` extracts fresh data from game files and can use a lot of memory, so reserve it for game-version refreshes.
 
+### Automatic Steam Version Check
+
+`tools\check-steam-wows-update.ps1` performs unattended Steam installation checks, armor database updates, full tests, and packaging. It only changes and locally commits allowlisted generated files on a clean `main`; it never pushes.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode SelfTest
+powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode DryRun
+powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode CheckAndBuild
+```
+
+Run state is stored in the Git-ignored `build\automation\wows-release-state.json`. After an Aslain attempt, Codex uses `MarkPublished` or `MarkPublishFailed` so a later run does not create duplicate replies.
+
 ## Accuracy Notice
 
 AP penetration uses unpacked AP shell parameters and an empirical formula to generate an approximate penetration table for fast in-battle checks. It is not an official pixel-perfect replay of the game ballistics system.

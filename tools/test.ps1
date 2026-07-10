@@ -368,10 +368,9 @@ function Test-ProjectInvariants {
         throw "Rule-panel text columns exceed the available content width."
     }
 
-    $expectedZipName = "14.3-helper_v${constantVersion}_Aslain-patch$targetGameVersion.zip"
     foreach ($readmeRelativePath in @("README.md", "README.en.md")) {
         $readmePath = Join-Path $ProjectRoot $readmeRelativePath
-        Assert-TextContains -Path $readmePath -Needle $expectedZipName -Description "$readmeRelativePath expected package name"
+        $null = Assert-TextMatches -Path $readmePath -Pattern '14\.3-helper_v[0-9.]+_Aslain-patch[0-9.]+\.zip' -Description "$readmeRelativePath package-name example"
         Assert-TextContains -Path $readmePath -Needle 'elementName="OA_APOvermatchAssistant"' -Description "$readmeRelativePath battle_elements troubleshooting note"
     }
 }
@@ -380,6 +379,7 @@ function Test-ToolingInvariants {
     $generatorPath = Join-Path $ProjectRoot "tools\generate-armor-db.ps1"
     $updatePath = Join-Path $ProjectRoot "tools\update-armor-db.ps1"
     $updateAndBuildPath = Join-Path $ProjectRoot "tools\update-armor-db-and-build.ps1"
+    $steamAutomationPath = Join-Path $ProjectRoot "tools\check-steam-wows-update.ps1"
     $manualEditorPath = Join-Path $ProjectRoot "tools\manual-edit-armor-db.mjs"
     $heelAnalyzerPath = Join-Path $ProjectRoot "tools\analyze-replay-heel.mjs"
 
@@ -398,6 +398,13 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-ManualEditor' -Description "Manual editor launcher"
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-MainBeltExtraction' -Description "Main belt extraction launcher"
     Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-UnboundArmorDbGeneration' -Description "Unbound database sync after updates"
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'AUTOMATION_DIFF_UNSAFE' -Description "Unattended diff safety guard"
+    Assert-TextContains -Path $updateAndBuildPath -Needle 'Invoke-FullTestAndBuild' -Description "Unattended full test and build path"
+    Assert-PathExists $steamAutomationPath
+    Assert-TextContains -Path $steamAutomationPath -Needle 'appmanifest_552990.acf' -Description "Steam WoWS manifest default"
+    Assert-TextContains -Path $steamAutomationPath -Needle 'READY_TO_PUBLISH' -Description "Publication-ready state"
+    Assert-TextContains -Path $steamAutomationPath -Needle 'Get-GeneratedSourcePaths' -Description "Generated source allowlist"
+    Assert-TextContains -Path $steamAutomationPath -Needle 'MarkPublishFailed' -Description "Publication failure state"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\build.ps1") -Needle 'generate-unbound-armor-db.mjs' -Description "Build syncs Unbound armor database"
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
@@ -436,6 +443,12 @@ try {
         throw "Node.js was not found. Install Node.js or keep .tools\node\node.exe for AP penetration diagnostics."
     }
     Invoke-Checked -FilePath $nodeExe -Arguments @((Join-Path $ProjectRoot "tools\diagnose-ap-penetration.mjs"), "--self-test")
+    Invoke-Checked -FilePath "powershell" -Arguments @(
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", (Join-Path $ProjectRoot "tools\check-steam-wows-update.ps1"),
+        "-Mode", "SelfTest"
+    )
 
     if (-not $SkipPython) {
         $pythonArgs = @(Find-Python)

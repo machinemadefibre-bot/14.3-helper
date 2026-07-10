@@ -154,6 +154,18 @@ powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -
 
 底层报告脚本是 `tools\update-armor-db.ps1`。不加 `-Apply` 时只生成报告；加 `-Apply` 才会覆盖数据库。`-ExtractGameParams` 会从游戏文件重新提取数据，内存占用较高，建议只在同步新游戏版本时使用。
 
+### Steam 版本自动检查
+
+`tools\check-steam-wows-update.ps1` 用于无人值守检查 Steam 安装状态、更新装甲数据库、运行完整测试并打包。它只在干净的 `main` 上修改并本地提交允许的生成文件，不会推送。
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode SelfTest
+powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode DryRun
+powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode CheckAndBuild
+```
+
+运行状态保存在忽略 Git 的 `build\automation\wows-release-state.json`。发布成功或失败后，Codex 分别使用 `MarkPublished` 或 `MarkPublishFailed` 更新状态，防止重复回复。
+
 ## 准确性说明
 
 AP 穿深使用解包 AP 弹参数和经验公式生成的近似穿深表，用于游戏内快速判断，不是官方逐像素弹道系统复刻。

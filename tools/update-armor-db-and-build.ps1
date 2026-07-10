@@ -7,12 +7,20 @@ param(
     [string]$ShipKeyFilter = "",
     [string]$GeometryDir = "",
     [string]$PatchVersion = "",
+    [string]$TargetGameVersion = "",
+    [string]$ExpectedGameBuild = "",
+    [string]$Python = "",
     [int]$MaxShips = 0,
     [int]$MaxChangedShips = 0,
     [int]$MaxChangedFields = 0,
+    [double]$MaxShipCountDeltaPercent = 10,
+    [double]$MaxRemovedPercent = 5,
+    [double]$MaxDiffPercent = 25,
     [switch]$NoExtractGameParams,
     [switch]$SkipGeometryRefine,
     [switch]$AllowUnrefinedDatabase,
+    [switch]$AutoApply,
+    [switch]$FullTest,
     [switch]$NoPause,
     [switch]$SelfTest,
     [ValidateSet("", "menu", "update", "edit", "mainbelt")]
@@ -94,6 +102,27 @@ function Get-ModVersionNamePart {
 
 function Get-TargetGameVersion {
     return Get-ConstantValue "TARGET_GAME_VERSION"
+}
+
+function Set-TargetGameVersion {
+    param([string]$Version)
+    if (-not $Version) { return }
+
+    $constantsPath = Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\overmatch_constants.py"
+    if (-not (Test-Path -LiteralPath $constantsPath)) {
+        throw "Constants file not found: $constantsPath"
+    }
+
+    $text = Get-Content -LiteralPath $constantsPath -Raw -Encoding UTF8
+    $pattern = "(?m)^\s*TARGET_GAME_VERSION\s*=.*$"
+    if ($text -notmatch $pattern) {
+        throw "TARGET_GAME_VERSION was not found in $constantsPath"
+    }
+
+    $updated = [regex]::Replace($text, $pattern, "TARGET_GAME_VERSION = '$Version'", 1)
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($constantsPath, $updated, $utf8NoBom)
+    Write-Host ("Target game version: {0}" -f $Version)
 }
 
 function Get-LatestDiffFile {
@@ -178,6 +207,43 @@ function Show-Diff {
     Write-Host "================================================" -ForegroundColor Cyan
 }
 
+function Assert-AutomationDiffSafe {
+    param($Diff)
+    if (-not $AutoApply) { return }
+
+    $oldBuild = [string]$Diff.meta.oldBuild
+    $newBuild = [string]$Diff.meta.newBuild
+    if ($ExpectedGameBuild -and $newBuild -ne $ExpectedGameBuild) {
+        throw "AUTOMATION_DIFF_UNSAFE: candidate build $newBuild does not match installed build $ExpectedGameBuild"
+    }
+
+    $oldCount = [double]$Diff.meta.oldShipCount
+    $newCount = [double]$Diff.meta.newShipCount
+    if ($oldCount -le 0 -or $newCount -le 0) {
+        throw "AUTOMATION_DIFF_UNSAFE: invalid ship counts old=$oldCount new=$newCount"
+    }
+
+    $addedCount = (As-Array $Diff.added).Count
+    $removedCount = (As-Array $Diff.removed).Count
+    $changedCount = (As-Array $Diff.changed).Count
+    $shipDeltaPercent = ([math]::Abs($newCount - $oldCount) / $oldCount) * 100
+    $removedPercent = ($removedCount / $oldCount) * 100
+    $diffPercent = (($addedCount + $removedCount + $changedCount) / $oldCount) * 100
+
+    if ($shipDeltaPercent -gt $MaxShipCountDeltaPercent) {
+        throw ("AUTOMATION_DIFF_UNSAFE: ship-count delta {0:N2}% exceeds {1:N2}%" -f $shipDeltaPercent, $MaxShipCountDeltaPercent)
+    }
+    if ($removedPercent -gt $MaxRemovedPercent) {
+        throw ("AUTOMATION_DIFF_UNSAFE: removed ships {0:N2}% exceeds {1:N2}%" -f $removedPercent, $MaxRemovedPercent)
+    }
+    if ($diffPercent -gt $MaxDiffPercent) {
+        throw ("AUTOMATION_DIFF_UNSAFE: total diff {0:N2}% exceeds {1:N2}%" -f $diffPercent, $MaxDiffPercent)
+    }
+
+    Write-Host ("Automation safety: build {0}->{1}, ship delta {2:N2}%, removed {3:N2}%, total diff {4:N2}%" -f `
+        $oldBuild, $newBuild, $shipDeltaPercent, $removedPercent, $diffPercent)
+}
+
 function Read-Confirmation {
     param([string]$Prompt)
     while ($true) {
@@ -257,6 +323,56 @@ function Get-UsableNode {
     }
 
     return ""
+}
+
+function Get-UsablePython {
+    $candidatePaths = @()
+    if ($Python) { $candidatePaths += $Python }
+    $candidatePaths += @(
+        (Join-Path $ProjectRoot ".tools\python\python.exe"),
+        (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe")
+    )
+    $candidatePaths += @(Get-Command python -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+
+    foreach ($candidatePath in ($candidatePaths | Where-Object { $_ } | Select-Object -Unique)) {
+        if (-not (Test-Path -LiteralPath $candidatePath)) { continue }
+        try {
+            & $candidatePath --version *> $null
+            if ($LASTEXITCODE -eq 0) { return (Resolve-Path -LiteralPath $candidatePath).Path }
+        } catch {
+            continue
+        }
+    }
+
+    return ""
+}
+
+function Invoke-FullTestAndBuild {
+    param([string]$TestScript)
+
+    $pythonPath = Get-UsablePython
+    if (-not $pythonPath) {
+        throw "Python is required for unattended full tests. Keep the Codex runtime available or pass -Python."
+    }
+
+    Write-Host ""
+    Write-Host ("Running full tests with {0}..." -f $pythonPath)
+    Invoke-Checked "powershell" @(
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", $TestScript,
+        "-Python", $pythonPath,
+        "-Build"
+    )
+
+    $packagePatchVersion = ConvertTo-SafeNamePart (Get-TargetGameVersion)
+    $modVersionNamePart = ConvertTo-SafeNamePart (Get-ModVersionNamePart)
+    $packageNamePrefix = if ($modVersionNamePart) { "14.3-helper_$modVersionNamePart" } else { "14.3-helper" }
+    $zipPath = Join-Path (Join-Path $ProjectRoot "dist") "${packageNamePrefix}_Aslain-patch$packagePatchVersion.zip"
+    if (-not (Test-Path -LiteralPath $zipPath)) {
+        throw "Full tests completed without the expected package: $zipPath"
+    }
+    return $zipPath
 }
 
 function Read-ToolMode {
@@ -441,10 +557,11 @@ try {
     $updateScript = Join-Path $PSScriptRoot "update-armor-db.ps1"
     $manualEditorScript = Join-Path $PSScriptRoot "manual-edit-armor-db.mjs"
     $testScript = Join-Path $PSScriptRoot "test-rule.ps1"
+    $fullTestScript = Join-Path $PSScriptRoot "test.ps1"
     $buildScript = Join-Path $PSScriptRoot "build.ps1"
     $updateDir = Join-Path $ProjectRoot "build\armor-update"
 
-    foreach ($required in @($updateScript, $testScript, $buildScript)) {
+    foreach ($required in @($updateScript, $testScript, $fullTestScript, $buildScript)) {
         if (-not (Test-Path -LiteralPath $required)) { throw "Required script not found: $required" }
     }
 
@@ -454,6 +571,7 @@ try {
         Write-Host ("GameDir: {0}" -f $GameDir)
         Write-Host ("Update script: {0}" -f $updateScript)
         Write-Host ("Manual editor: {0}" -f $manualEditorScript)
+        Write-Host ("Auto apply: {0}" -f $AutoApply)
         return
     }
 
@@ -476,6 +594,12 @@ try {
     if ($selectedMode -eq "mainbelt") {
         Invoke-MainBeltExtraction $testScript $buildScript
         return
+    }
+
+    if ($AutoApply) {
+        if (-not $ExpectedGameBuild) { throw "-ExpectedGameBuild is required with -AutoApply." }
+        if (-not $TargetGameVersion) { throw "-TargetGameVersion is required with -AutoApply." }
+        if (-not $PatchVersion) { throw "-PatchVersion is required with -AutoApply." }
     }
 
     Write-Host "Generating candidate armor database..."
@@ -505,13 +629,19 @@ try {
     if ($null -eq $diff) { throw "Unable to read diff JSON: $diffPath" }
 
     Show-Diff $diff $diffPath
+    Assert-AutomationDiffSafe $diff
 
     $addedCount = (As-Array $diff.added).Count
     $removedCount = (As-Array $diff.removed).Count
     $changedCount = (As-Array $diff.changed).Count
     $hasChanges = ($addedCount + $removedCount + $changedCount) -gt 0
+    $buildChanged = ([string]$diff.meta.oldBuild) -ne ([string]$diff.meta.newBuild)
+    $shouldApplyCandidate = $hasChanges -or $buildChanged
 
-    if ($hasChanges) {
+    if ($AutoApply) {
+        $confirmed = $true
+        Write-Host "AutoApply accepted the validated candidate."
+    } elseif ($hasChanges -or $buildChanged) {
         $confirmed = Read-Confirmation "Apply this database update and build patch package?"
     } else {
         $confirmed = Read-Confirmation "No database changes found. Build patch package anyway?"
@@ -522,18 +652,27 @@ try {
         return
     }
 
-    if ($hasChanges) {
+    if ($shouldApplyCandidate) {
         Apply-CandidateDatabase ([string]$diff.meta.candidatePath)
         Invoke-UnboundArmorDbGeneration
     } else {
         Write-Host "Keeping current database."
     }
 
-    Write-Host ""
-    Write-Host "Running rule tests..."
-    Invoke-Checked "powershell" @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $testScript)
+    if ($TargetGameVersion) {
+        Set-TargetGameVersion $TargetGameVersion
+    }
 
-    Invoke-BuildPackage ([string]$diff.meta.newBuild) $buildScript
+    if ($AutoApply -or $FullTest) {
+        $zipPath = Invoke-FullTestAndBuild $fullTestScript
+        Write-Host ""
+        Write-Host ("Done: {0}" -f $zipPath) -ForegroundColor Green
+    } else {
+        Write-Host ""
+        Write-Host "Running rule tests..."
+        Invoke-Checked "powershell" @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $testScript)
+        Invoke-BuildPackage ([string]$diff.meta.newBuild) $buildScript
+    }
 } catch {
     $exitCode = 1
     Write-Host ""
