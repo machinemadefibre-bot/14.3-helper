@@ -357,13 +357,14 @@ function Invoke-FullTestAndBuild {
 
     Write-Host ""
     Write-Host ("Running full tests with {0}..." -f $pythonPath)
-    Invoke-Checked "powershell" @(
+    $testOutput = @(Invoke-Checked "powershell" @(
         "-NoProfile",
         "-ExecutionPolicy", "Bypass",
         "-File", $TestScript,
         "-Python", $pythonPath,
         "-Build"
-    )
+    ))
+    foreach ($line in $testOutput) { Write-Host $line }
 
     $packagePatchVersion = ConvertTo-SafeNamePart (Get-TargetGameVersion)
     $modVersionNamePart = ConvertTo-SafeNamePart (Get-ModVersionNamePart)

@@ -250,8 +250,14 @@ function Get-PackagePath {
 
 function Get-GitOutput {
     param([string[]]$Arguments)
-    $output = @(& git @Arguments 2>&1)
-    $exitCode = $LASTEXITCODE
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = "Continue"
+        $output = @(& git @Arguments 2>&1)
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
     return [pscustomobject]@{ ExitCode = $exitCode; Lines = $output; Text = ($output -join [Environment]::NewLine) }
 }
 
@@ -322,6 +328,13 @@ function Restore-RollbackSnapshot {
             Copy-Item -LiteralPath $entry.BackupPath -Destination $entry.SourcePath -Force
         } elseif (Test-Path -LiteralPath $entry.SourcePath) {
             Remove-Item -LiteralPath $entry.SourcePath -Force
+        }
+    }
+    $relativePaths = @($Snapshot.Entries | ForEach-Object { $_.RelativePath })
+    if ($relativePaths.Count -gt 0) {
+        $unstageResult = Get-GitOutput (@("restore", "--staged", "--") + $relativePaths)
+        if ($unstageResult.ExitCode -ne 0) {
+            throw "Unable to unstage generated files during rollback: $($unstageResult.Text)"
         }
     }
     if (Test-Path -LiteralPath $Snapshot.Root) {
