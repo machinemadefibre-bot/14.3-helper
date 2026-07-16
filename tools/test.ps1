@@ -499,8 +499,6 @@ try {
     & (Join-Path $ProjectRoot "tools\test-rule.ps1")
 
     if ($Build) {
-        & (Join-Path $ProjectRoot "tools\build.ps1")
-
         $constantsText = Get-Content -LiteralPath (Join-Path $ProjectRoot "src\res_mods\PnFMods\APOvermatchAssistant\overmatch_constants.py") -Raw -Encoding UTF8
         if ($constantsText -notmatch "MOD_VERSION\s*=\s*'([^']+)'" -or -not $Matches[1]) {
             throw "Unable to determine MOD_VERSION for expected package name."
@@ -509,7 +507,10 @@ try {
         if ($constantsText -notmatch "TARGET_GAME_VERSION\s*=\s*'([^']+)'" -or -not $Matches[1]) {
             throw "Unable to determine TARGET_GAME_VERSION for expected package name."
         }
-        $safePatchVersion = ([string]$Matches[1]).Trim() -replace '[^A-Za-z0-9._-]+', '_'
+        $targetGameVersion = [string]$Matches[1]
+        & (Join-Path $ProjectRoot "tools\build.ps1") -PatchVersion $targetGameVersion
+
+        $safePatchVersion = $targetGameVersion.Trim() -replace '[^A-Za-z0-9._-]+', '_'
         $safeModVersion = ([string]$modVersionNamePart).Trim() -replace '[^A-Za-z0-9._-]+', '_'
         $zip = Join-Path $ProjectRoot "dist\14.3-helper_${safeModVersion}_Aslain-patch$safePatchVersion.zip"
         if (-not (Test-Path $zip)) {
