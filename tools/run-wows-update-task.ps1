@@ -179,7 +179,7 @@ function Invoke-CodexNotification {
     $lastMessage = Join-Path $LogDirectory "codex-notification.$stamp.txt"
     $prompt = New-NotificationPrompt $Outcome $CheckLog $ReleaseStatePath $CopiedPackagePath
 
-    $output = @(& $resolvedCodex exec --sandbox read-only --cd $ProjectRoot --json --output-last-message $lastMessage $prompt 2>&1)
+    $output = @($prompt | & $resolvedCodex exec --sandbox read-only --cd $ProjectRoot --json --output-last-message $lastMessage - 2>&1)
     $exitCode = $LASTEXITCODE
     Write-LogLines $codexLog $output
 
