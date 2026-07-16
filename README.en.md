@@ -158,13 +158,17 @@ The lower-level report script is `tools\update-armor-db.ps1`. Without `-Apply`, 
 
 `tools\check-steam-wows-update.ps1` performs unattended Steam installation checks, armor database updates, full tests, and packaging. It only changes and locally commits allowlisted generated files on a clean `develop`; it never pushes.
 
+The daily run does not use Codex Scheduled. `tools\install-wows-update-task.ps1` creates an isolated `develop` worktree and registers a Windows task that runs every day at 08:00 local time. `NO_UPDATE` and incomplete Steam downloads stay silent. Only a ready package, a build failure, or another actionable condition causes `tools\run-wows-update-task.ps1` to create one persistent Codex task for a mobile notification. Codex only reports the result: it does not browse, upload, or post. The zip is copied to the main checkout's `dist` for manual publication.
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode SelfTest
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode DryRun
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode CheckAndBuild
+powershell -ExecutionPolicy Bypass -File .\tools\run-wows-update-task.ps1 -Mode SelfTest
+powershell -ExecutionPolicy Bypass -File .\tools\install-wows-update-task.ps1 -Mode Install
 ```
 
-Run state is stored in the Git-ignored `build\automation\wows-release-state.json`. After an Aslain attempt, Codex uses `MarkPublished` or `MarkPublishFailed` so a later run does not create duplicate replies.
+Run state is stored in the isolated worktree's Git-ignored `build\automation\wows-release-state.json`, with task logs in the adjacent `scheduled-logs` directory. Identical results notify only once. After publishing, provide the exact comment URL before manually running `MarkPublished`; the automation never guesses a URL or submits third-party content.
 
 ## Accuracy Notice
 

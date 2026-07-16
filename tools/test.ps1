@@ -19,7 +19,12 @@ function Find-Python {
         return @($bundledPython)
     }
 
-    $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+    $codexPython = Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+    if (Test-Path -LiteralPath $codexPython) {
+        return @($codexPython)
+    }
+
+    try { $pythonCommand = Get-Command python -ErrorAction SilentlyContinue } catch { $pythonCommand = $null }
     if ($pythonCommand) {
         return @($pythonCommand.Source)
     }
@@ -33,7 +38,7 @@ function Find-Node {
         return $bundledNode
     }
 
-    $nodeCommand = Get-Command node -ErrorAction SilentlyContinue
+    try { $nodeCommand = Get-Command node -ErrorAction SilentlyContinue } catch { $nodeCommand = $null }
     if ($nodeCommand) {
         return $nodeCommand.Source
     }
@@ -380,6 +385,8 @@ function Test-ToolingInvariants {
     $updatePath = Join-Path $ProjectRoot "tools\update-armor-db.ps1"
     $updateAndBuildPath = Join-Path $ProjectRoot "tools\update-armor-db-and-build.ps1"
     $steamAutomationPath = Join-Path $ProjectRoot "tools\check-steam-wows-update.ps1"
+    $standaloneRunnerPath = Join-Path $ProjectRoot "tools\run-wows-update-task.ps1"
+    $taskInstallerPath = Join-Path $ProjectRoot "tools\install-wows-update-task.ps1"
     $manualEditorPath = Join-Path $ProjectRoot "tools\manual-edit-armor-db.mjs"
     $heelAnalyzerPath = Join-Path $ProjectRoot "tools\analyze-replay-heel.mjs"
 
@@ -406,6 +413,14 @@ function Test-ToolingInvariants {
     Assert-TextContains -Path $steamAutomationPath -Needle 'READY_TO_PUBLISH' -Description "Publication-ready state"
     Assert-TextContains -Path $steamAutomationPath -Needle 'Get-GeneratedSourcePaths' -Description "Generated source allowlist"
     Assert-TextContains -Path $steamAutomationPath -Needle 'MarkPublishFailed' -Description "Publication failure state"
+    Assert-PathExists $standaloneRunnerPath
+    Assert-TextContains -Path $standaloneRunnerPath -Needle 'Test-ShouldNotify' -Description "Standalone notification gating"
+    Assert-TextContains -Path $standaloneRunnerPath -Needle 'NO_UPDATE' -Description "Standalone no-update silence"
+    Assert-TextContains -Path $standaloneRunnerPath -Needle 'exec --sandbox read-only' -Description "Event-driven Codex wake"
+    Assert-TextContains -Path $standaloneRunnerPath -Needle 'Do not call tools' -Description "Notification-only no-post boundary"
+    Assert-PathExists $taskInstallerPath
+    Assert-TextContains -Path $taskInstallerPath -Needle 'New-ScheduledTaskTrigger -Daily' -Description "Windows daily task trigger"
+    Assert-TextContains -Path $taskInstallerPath -Needle 'develop-worktree' -Description "Isolated develop worktree"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\build.ps1") -Needle 'generate-unbound-armor-db.mjs' -Description "Build syncs Unbound armor database"
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
@@ -448,6 +463,18 @@ try {
         "-NoProfile",
         "-ExecutionPolicy", "Bypass",
         "-File", (Join-Path $ProjectRoot "tools\check-steam-wows-update.ps1"),
+        "-Mode", "SelfTest"
+    )
+    Invoke-Checked -FilePath "powershell" -Arguments @(
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", (Join-Path $ProjectRoot "tools\run-wows-update-task.ps1"),
+        "-Mode", "SelfTest"
+    )
+    Invoke-Checked -FilePath "powershell" -Arguments @(
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", (Join-Path $ProjectRoot "tools\install-wows-update-task.ps1"),
         "-Mode", "SelfTest"
     )
 

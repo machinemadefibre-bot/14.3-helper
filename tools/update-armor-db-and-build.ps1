@@ -310,7 +310,11 @@ function Get-UsableNode {
         (Join-Path $ProjectRoot ".tools\node\node.exe"),
         (Join-Path $ProjectRoot "tools\node\node.exe")
     )
-    $candidatePaths += @(Get-Command node -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+    try {
+        $candidatePaths += @(Get-Command node -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+    } catch {
+        # Windows app-execution aliases can be present but inaccessible to unattended tasks.
+    }
 
     foreach ($candidatePath in ($candidatePaths | Where-Object { $_ } | Select-Object -Unique)) {
         if (-not (Test-Path -LiteralPath $candidatePath)) { continue }
@@ -332,7 +336,11 @@ function Get-UsablePython {
         (Join-Path $ProjectRoot ".tools\python\python.exe"),
         (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe")
     )
-    $candidatePaths += @(Get-Command python -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+    try {
+        $candidatePaths += @(Get-Command python -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
+    } catch {
+        # Prefer the explicit or Codex runtime candidate when an app alias is inaccessible.
+    }
 
     foreach ($candidatePath in ($candidatePaths | Where-Object { $_ } | Select-Object -Unique)) {
         if (-not (Test-Path -LiteralPath $candidatePath)) { continue }

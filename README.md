@@ -158,13 +158,17 @@ powershell -ExecutionPolicy Bypass -File .\tools\update-armor-db-and-build.ps1 -
 
 `tools\check-steam-wows-update.ps1` 用于无人值守检查 Steam 安装状态、更新装甲数据库、运行完整测试并打包。它只在干净的 `develop` 上修改并本地提交允许的生成文件，不会推送。
 
+日常运行不依赖 Codex 的 Scheduled。`tools\install-wows-update-task.ps1` 会建立独立的 `develop` worktree，并注册每天本地时间 08:00 运行的 Windows 计划任务。`NO_UPDATE` 和 Steam 尚未完成下载时完全静默；只有新包已就绪、构建失败或需要人工处理时，`tools\run-wows-update-task.ps1` 才会创建一次持久化 Codex 任务用于手机通知。Codex 只报告结果，不浏览、不上传、也不发帖；zip 会复制到主仓库的 `dist`，由你手动发布。
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode SelfTest
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode DryRun
 powershell -ExecutionPolicy Bypass -File .\tools\check-steam-wows-update.ps1 -Mode CheckAndBuild
+powershell -ExecutionPolicy Bypass -File .\tools\run-wows-update-task.ps1 -Mode SelfTest
+powershell -ExecutionPolicy Bypass -File .\tools\install-wows-update-task.ps1 -Mode Install
 ```
 
-运行状态保存在忽略 Git 的 `build\automation\wows-release-state.json`。发布成功或失败后，Codex 分别使用 `MarkPublished` 或 `MarkPublishFailed` 更新状态，防止重复回复。
+运行状态保存在独立 worktree 内忽略 Git 的 `build\automation\wows-release-state.json`；计划任务日志在相邻的 `scheduled-logs`。相同结果只通知一次。发布后，如需标记状态，请提供准确的评论 URL，再手动运行 `MarkPublished`，脚本不会猜测或提交第三方内容。
 
 ## 准确性说明
 
