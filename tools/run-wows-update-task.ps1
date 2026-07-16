@@ -231,8 +231,14 @@ function Invoke-CheckAndBuild {
         "-GameDir", $GameDir,
         "-SteamManifest", $SteamManifest
     )
-    $output = @(& powershell.exe @arguments 2>&1)
-    $exitCode = $LASTEXITCODE
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = "Continue"
+        $output = @(& powershell.exe @arguments 2>&1)
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
     Write-LogLines $logPath $output
     $outcome = ConvertFrom-LastJsonLine $output
     if ($null -eq $outcome) {
