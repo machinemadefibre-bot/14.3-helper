@@ -44,6 +44,19 @@ function Get-TaskSummary {
     }
 }
 
+function Add-SharedDirectoryJunction {
+    param([string]$RelativePath)
+
+    $target = Join-Path $SourceRepoRoot $RelativePath
+    $link = Join-Path $AutomationWorktree $RelativePath
+    if (-not (Test-Path -LiteralPath $target -PathType Container) -or (Test-Path -LiteralPath $link)) { return }
+    $parent = Split-Path -Parent $link
+    if (-not (Test-Path -LiteralPath $parent)) {
+        New-Item -ItemType Directory -Force -Path $parent | Out-Null
+    }
+    New-Item -ItemType Junction -Path $link -Target $target | Out-Null
+}
+
 function Assert-DevelopWorktree {
     if (-not (Test-Path -LiteralPath (Join-Path $AutomationWorktree ".git"))) {
         $sourceBranch = ((Invoke-Git @("branch", "--show-current")) | Select-Object -First 1).Trim()
@@ -67,10 +80,13 @@ function Assert-DevelopWorktree {
         throw "RUNNER_MISSING: $runner"
     }
 
-    $sourceTools = Join-Path $SourceRepoRoot ".tools"
-    $worktreeTools = Join-Path $AutomationWorktree ".tools"
-    if ((Test-Path -LiteralPath $sourceTools) -and -not (Test-Path -LiteralPath $worktreeTools)) {
-        New-Item -ItemType Junction -Path $worktreeTools -Target $sourceTools | Out-Null
+    foreach ($sharedDirectory in @(
+        ".tools",
+        "tools\wowsunpack-git",
+        "build\gameparams",
+        "build\scratch\ship_geometry_flat"
+    )) {
+        Add-SharedDirectoryJunction $sharedDirectory
     }
 }
 

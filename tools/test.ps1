@@ -421,6 +421,8 @@ function Test-ToolingInvariants {
     Assert-PathExists $taskInstallerPath
     Assert-TextContains -Path $taskInstallerPath -Needle 'New-ScheduledTaskTrigger -Daily' -Description "Windows daily task trigger"
     Assert-TextContains -Path $taskInstallerPath -Needle 'develop-worktree' -Description "Isolated develop worktree"
+    Assert-TextContains -Path $taskInstallerPath -Needle 'tools\wowsunpack-git' -Description "Shared WoWS unpacker for automation worktree"
+    Assert-TextContains -Path $taskInstallerPath -Needle 'build\scratch\ship_geometry_flat' -Description "Shared geometry cache for automation worktree"
     Assert-TextContains -Path (Join-Path $ProjectRoot "tools\build.ps1") -Needle 'generate-unbound-armor-db.mjs' -Description "Build syncs Unbound armor database"
     Assert-TextContains -Path $manualEditorPath -Needle 'Database updated. JSON and Python database are in sync.' -Description "Manual editor JSON/Python sync"
     Assert-TextContains -Path $manualEditorPath -Needle 'values in mm, separated by /' -Description "Manual editor slash-separated value prompt"
