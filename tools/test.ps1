@@ -121,8 +121,8 @@ function Test-ProjectInvariants {
     if ($constantVersion -ne "0.5.1") {
         throw "MOD_VERSION must be 0.5.1 for the UI display-risk repair release, actual=$constantVersion."
     }
-    if ($targetGameVersion -ne "15.4") {
-        throw "TARGET_GAME_VERSION must remain 15.4, actual=$targetGameVersion."
+    if ($targetGameVersion -ne "15.8") {
+        throw "TARGET_GAME_VERSION must remain 15.8, actual=$targetGameVersion."
     }
 
     [xml]$installerXml = Get-Content -LiteralPath $installerPath -Raw

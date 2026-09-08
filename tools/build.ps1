@@ -149,6 +149,18 @@ try {
 
     Copy-Item -LiteralPath (Join-Path $src "res_mods") -Destination $build -Recurse
 
+    $legacyTtaroPaths = @(
+        (Join-Path $build "res_mods\PnFMods\ModsInstaller_4_3_1\mods\TTaroModConfig.xml"),
+        (Join-Path $build "res_mods\gui\unbound2\PnFMods\TTaroModConfig.unbound"),
+        (Join-Path $build "res_mods\gui\unbound2\PnFMods\TTaroModConfigConstants.unbound"),
+        (Join-Path $build "res_mods\gui\unbound2\PnFMods\TTaroModConfigTranslations.unbound")
+    )
+    foreach ($legacyTtaroPath in $legacyTtaroPaths) {
+        if (Test-Path -LiteralPath $legacyTtaroPath) {
+            Remove-Item -LiteralPath $legacyTtaroPath -Force
+        }
+    }
+
     Get-ChildItem -Path $build -Recurse -Force |
         Where-Object { $_.PSIsContainer -and $_.Name -eq "__pycache__" } |
         Remove-Item -Recurse -Force

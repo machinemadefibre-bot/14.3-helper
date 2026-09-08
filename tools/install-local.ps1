@@ -1,6 +1,7 @@
 param(
     [string]$GameDir = "S:\SteamLibrary\steamapps\common\World of Warships",
-    [string]$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path
+    [string]$ProjectRoot = (Resolve-Path "$PSScriptRoot\..").Path,
+    [string]$BuildVersion = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -10,12 +11,24 @@ if (-not (Test-Path $GameDir)) {
 }
 
 $binDir = Join-Path $GameDir "bin"
-$latest = Get-ChildItem -Directory -LiteralPath $binDir |
-    Where-Object { $_.Name -match '^\d+$' } |
-    Sort-Object { [int64]$_.Name } -Descending |
-    Select-Object -First 1
+$numericBuilds = Get-ChildItem -Directory -LiteralPath $binDir |
+    Where-Object { $_.Name -match '^\d+$' }
+
+if ($BuildVersion) {
+    if ($BuildVersion -notmatch '^\d+$') {
+        throw "BuildVersion must be numeric: $BuildVersion"
+    }
+    $latest = $numericBuilds | Where-Object { $_.Name -eq $BuildVersion } | Select-Object -First 1
+} else {
+    $latest = $numericBuilds |
+        Sort-Object { [int64]$_.Name } -Descending |
+        Select-Object -First 1
+}
 
 if (-not $latest) {
+    if ($BuildVersion) {
+        throw "Requested build directory not found under ${binDir}: $BuildVersion"
+    }
     throw "No numeric build directory found under $binDir"
 }
 
@@ -28,7 +41,25 @@ if (-not (Test-Path $target)) {
 }
 
 Copy-Item -LiteralPath (Join-Path $source "PnFMods") -Destination $target -Recurse -Force
-Copy-Item -LiteralPath (Join-Path $source "gui") -Destination $target -Recurse -Force
+$guiTarget = Join-Path $target "gui"
+$unboundTarget = Join-Path $guiTarget "unbound2"
+$pnfUnboundTarget = Join-Path $unboundTarget "PnFMods"
+$modsUnboundTarget = Join-Path $unboundTarget "mods"
+New-Item -ItemType Directory -Force -Path $pnfUnboundTarget,$modsUnboundTarget | Out-Null
+Copy-Item -LiteralPath (Join-Path $source "gui\unbound2\PnFMods\APOvermatchAssistant.unbound") -Destination $pnfUnboundTarget -Force
+Copy-Item -LiteralPath (Join-Path $source "gui\unbound2\mods\draggable.unbound") -Destination $modsUnboundTarget -Force
+
+$legacyTtaroPaths = @(
+    (Join-Path $target "PnFMods\ModsInstaller_4_3_1\mods\TTaroModConfig.xml"),
+    (Join-Path $pnfUnboundTarget "TTaroModConfig.unbound"),
+    (Join-Path $pnfUnboundTarget "TTaroModConfigConstants.unbound"),
+    (Join-Path $pnfUnboundTarget "TTaroModConfigTranslations.unbound")
+)
+foreach ($legacyTtaroPath in $legacyTtaroPaths) {
+    if (Test-Path -LiteralPath $legacyTtaroPath) {
+        Remove-Item -LiteralPath $legacyTtaroPath -Force
+    }
+}
 Copy-Item -LiteralPath (Join-Path $source "PnFModsLoader.py") -Destination $target -Force
 
 if (Test-Path -LiteralPath $battleElementsPath) {
@@ -36,6 +67,28 @@ if (Test-Path -LiteralPath $battleElementsPath) {
     $elementList = $battleElements.'battle_elements.xml'.elementList
     if ($null -eq $elementList) {
         throw "elementList was not found in $battleElementsPath"
+    }
+
+    $legacyTtaroElements = @($elementList.element |
+        Where-Object { $_.name -eq "unbound2TTaroModConfig" -or $_.elementName -eq "TTaroModConfig" })
+    if ($legacyTtaroElements.Count -gt 0) {
+        $legacyBackupPath = $battleElementsPath + ".before-remove-TTaro-" + (Get-Date -Format "yyyyMMddHHmmss") + ".bak"
+        Copy-Item -LiteralPath $battleElementsPath -Destination $legacyBackupPath -Force
+        foreach ($legacyTtaroElement in $legacyTtaroElements) {
+            [void]$elementList.RemoveChild($legacyTtaroElement)
+        }
+
+        $legacySettings = New-Object System.Xml.XmlWriterSettings
+        $legacySettings.Indent = $true
+        $legacySettings.Encoding = New-Object System.Text.UTF8Encoding($false)
+        $legacyWriter = [System.Xml.XmlWriter]::Create($battleElementsPath, $legacySettings)
+        try {
+            $battleElements.Save($legacyWriter)
+        } finally {
+            $legacyWriter.Close()
+        }
+        Write-Host "Removed legacy TTaro battle UI entries: $battleElementsPath"
+        Write-Host "Backup: $legacyBackupPath"
     }
 
     $existing = $elementList.element |
